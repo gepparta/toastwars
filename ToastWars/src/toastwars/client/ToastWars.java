@@ -28,6 +28,10 @@ public class ToastWars implements EntryPoint {
 	private Window		loginWindow;
 	private TabPanel	mainPanel;
 
+	// Login
+	private TextField	userName;
+	private TextField	userPass;
+
 	// Ansicht des Spielleiters
 	private Panel		configPanel;
 	private Panel		gamePanel;
@@ -55,8 +59,8 @@ public class ToastWars implements EntryPoint {
 		FormPanel loginPanel = new FormPanel();
 		loginPanel.setPaddings(10);
 
-		TextField userName = new TextField("Benutzer");
-		TextField userPass = new TextField("Kennwort");
+		userName = new TextField("Benutzer");
+		userPass = new TextField("Kennwort");
 		userPass.setPassword(true);
 
 		loginPanel.add(userName);
@@ -66,10 +70,15 @@ public class ToastWars implements EntryPoint {
 				new ButtonListenerAdapter() {
 					public void onClick(Button button, EventObject e) {
 						// User und Passwort checken
-						userType = GRUPPE;
+						Controller controller = new Controller();
+						String user = controller.login(userName.getText(),
+								userPass.getText());
 
-						loginWindow.close();
-						createUI();
+						if (user != null) {
+							loginWindow.close();
+							createUI();
+						} else
+							MessageBox.alert("Anmeldung fehlgeschlagen!");
 					}
 				}));
 
