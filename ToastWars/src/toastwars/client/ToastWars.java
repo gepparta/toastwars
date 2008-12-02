@@ -1,5 +1,9 @@
 package toastwars.client;
 
+import toastwars.server.datamodel.user.Group;
+import toastwars.server.datamodel.user.Master;
+import toastwars.server.datamodel.user.IUser;
+
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.gwtext.client.core.EventObject;
@@ -27,10 +31,12 @@ public class ToastWars implements EntryPoint {
 
 	private Window		loginWindow;
 	private TabPanel	mainPanel;
+	private ToastWars	toastWars;
 
 	// Login
 	private TextField	userName;
 	private TextField	userPass;
+	private IUser		user;
 
 	// Ansicht des Spielleiters
 	private Panel		configPanel;
@@ -44,11 +50,13 @@ public class ToastWars implements EntryPoint {
 	private Button		btnEnd;
 
 	// Benutzer-Parameter
-	private static int	SPIELLEITER	= 1;
-	private static int	GRUPPE		= 2;
+	public static int	SPIELLEITER	= 1;
+	public static int	GRUPPE		= 2;
 	private int			userType;
 
 	public void onModuleLoad() {
+		toastWars = this;
+
 		loginWindow = new Window("Anmeldung");
 		loginWindow.setSize(300, 150);
 		loginWindow.setClosable(false);
@@ -71,14 +79,8 @@ public class ToastWars implements EntryPoint {
 					public void onClick(Button button, EventObject e) {
 						// User und Passwort checken
 						Controller controller = new Controller();
-						String user = controller.login(userName.getText(),
-								userPass.getText());
-
-						if (user != null) {
-							loginWindow.close();
-							createUI();
-						} else
-							MessageBox.alert("Anmeldung fehlgeschlagen!");
+						controller.login(userName.getText(),
+								userPass.getText(), toastWars);
 					}
 				}));
 
@@ -86,6 +88,19 @@ public class ToastWars implements EntryPoint {
 		loginWindow.show();
 
 		RootPanel.get().add(loginWindow);
+	}
+
+	public void login(IUser user) {
+		if (user != null) {
+			this.user = user;
+			if (user instanceof Master)
+				userType = SPIELLEITER;
+			else if (user instanceof Group)
+				userType = GRUPPE;
+			loginWindow.close();
+			createUI();
+		} else
+			MessageBox.alert("Anmeldung fehlgeschlagen!");
 	}
 
 	private void createUI() {
@@ -121,7 +136,7 @@ public class ToastWars implements EntryPoint {
 		footerPanel.setSize(802, 22);
 		footerPanel.setPaddings(5);
 
-		Label text = new Label("Angemeldet als: " + userType);
+		Label text = new Label("Angemeldet als: " + user.getUsername());
 		text
 				.setStyle("color:#15428b;font:bold 11px tahoma,arial,verdana,sans-serif");
 
@@ -139,7 +154,7 @@ public class ToastWars implements EntryPoint {
 		Panel welcome = new Panel("Willkommen");
 		welcome.setPaddings(5);
 		welcome.setStyle("text-align:center");
-		Label text = new Label("Willkommen bei ToastWars " + userType);
+		Label text = new Label("Willkommen bei ToastWars " + user.getUsername());
 		text
 				.setStyle("color:#15428b;font:bold 20px tahoma,arial,verdana,sans-serif");
 		welcome.add(text);

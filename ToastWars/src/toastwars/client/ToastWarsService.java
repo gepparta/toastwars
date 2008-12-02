@@ -1,5 +1,7 @@
 package toastwars.client;
 
+import toastwars.server.datamodel.user.IUser;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
@@ -20,6 +22,6 @@ public interface ToastWarsService extends RemoteService {
 		}
 	}
 
-	public String login(String name, String pwd);
+	public IUser login(String name, String pwd);
 
 }
