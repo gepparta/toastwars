@@ -1,16 +1,26 @@
 package toastwars.client;
 
-import com.google.gwt.core.client.GWT;
+import toastwars.server.datamodel.user.IUser;
+
+import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public class Controller {
 
-	public String login(String name, String pwd) {
+	private ToastWars	toastWars;
 
-		String returnValue = null;
+	public void login(String name, String pwd, ToastWars tw) {
+		toastWars = tw;
+		ToastWarsServiceAsync service = ToastWarsService.Util.getInstance();
 
-		ToastWarsService service = GWT.create(ToastWarsService.class);
-		returnValue = service.login(name, pwd);
+		AsyncCallback<IUser> callback = new AsyncCallback<IUser>() {
+			public void onFailure(Throwable caught) {
+			}
 
-		return returnValue;
+			public void onSuccess(IUser result) {
+				toastWars.login(result);
+			}
+		};
+
+		service.login(name, pwd, callback);
 	}
 }
