@@ -1,9 +1,11 @@
 package toastwars.server.datamodel.user;
 
+import toastwars.server.datamodel.core.Game;
+
 public class Master implements IUser {
 	private String	username;
 	private String	password;
-
+	private Game    game;
 	public Master() {
 	}
 
@@ -30,5 +32,25 @@ public class Master implements IUser {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+	
+	public void startGame(int UserAmount)
+	{
+		game = Game.getInstance();
+	}
+	public Game getCurrentGame()
+	{
+		return game;
+	}
+	public void endGame()
+	{
+	}
+	
+	public void simulate()
+	{
+		//Game.simulate()
+		//...
+		//loop über User
+			//User.setStatus(Started)
 	}
 }
