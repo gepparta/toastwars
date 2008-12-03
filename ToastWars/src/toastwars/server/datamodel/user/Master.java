@@ -6,12 +6,20 @@ public class Master implements IUser {
 	private String	username;
 	private String	password;
 	private Game    game;
-	public Master() {
-	}
-
-	public Master(String username, String password) {
+	
+	// Eine (versteckte) Klassenvariable vom Typ der eigenen Klasse
+	private static Master masterInstance;
+	
+	private Master(String username, String password) {
 		this.username = username;
 		this.password = password;
+	}
+	//Diese Methode sorgt dafür, dass nur ein Master erzeugt werden kann
+	public static Master getInstance(String username, String password)
+	{
+		if(Master.masterInstance == null)
+			Master.masterInstance = new Master(username,password);
+		return Master.masterInstance; 
 	}
 
 	public String getPassword() {
