@@ -15,7 +15,7 @@ public class MasterTest  extends TestCase
 	@Before
 	public void setUp() throws Exception
 	{
-		master = new Master("ADMIN","ADMIN");
+		master = Master.getInstance("ADMIN","ADMIN");
 	}
 
 	@After

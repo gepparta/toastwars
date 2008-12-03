@@ -5,7 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import toastwars.server.datamodel.user.Group;
-import toastwars.server.datamodel.user.Master;
 import junit.framework.TestCase;
 
 
