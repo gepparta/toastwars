@@ -18,7 +18,7 @@ public class Test_Toaster extends TestCase {
 	
 @Before
 	  protected void setUp() throws Exception {
-			type1 = Type.type1;
+			type1 = Type.TYPE1;
 			T1 = new Toaster(15.37,3,7,17,type1);
 		  }
 
@@ -80,12 +80,12 @@ public void testSetRound(){
 @Test
 public void testGetType(){
 	assertNotNull(T1.getType());
-	assertSame(T1.getType(), Type.type1);
+	assertSame(T1.getType(), Type.TYPE1);
 }
 @Test
 public void testSetType(){
-	assertNotSame(T1.getType(),Type.type3);
-	T1.setType(Type.type3);
-	assertSame(T1.getType(),Type.type3);
+	assertNotSame(T1.getType(),Type.TYPE3);
+	T1.setType(Type.TYPE3);
+	assertSame(T1.getType(),Type.TYPE3);
 }
 }
