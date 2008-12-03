@@ -14,7 +14,7 @@ public class Test_Type extends TestCase {
 	 
 	@Before
 	public void setUp() throws Exception {
-		T1 = Type.type1;
+		T1 = Type.TYPE1;
 	}
 
 	@After
@@ -32,15 +32,15 @@ public class Test_Type extends TestCase {
 	
 	@Test
 	public void testConstructor(){
-		assertEquals("type1",Type.type1.name());
-		assertEquals("type2",Type.type2.name());
-		assertEquals("type3",Type.type3.name());
-		assertEquals("Der 1. Typ",Type.type1.getDescription());
-		assertEquals("Der 2. Typ",Type.type2.getDescription());
-		assertEquals("Der 3. Typ",Type.type3.getDescription());
-		assertEquals(0,Type.type1.ordinal());
-		assertEquals(1,Type.type2.ordinal());
-		assertEquals(2,Type.type3.ordinal());
+		assertEquals("type1",Type.TYPE1.name());
+		assertEquals("type2",Type.TYPE2.name());
+		assertEquals("type3",Type.TYPE3.name());
+		assertEquals("Der 1. Typ",Type.TYPE1.getDescription());
+		assertEquals("Der 2. Typ",Type.TYPE2.getDescription());
+		assertEquals("Der 3. Typ",Type.TYPE3.getDescription());
+		assertEquals(0,Type.TYPE1.ordinal());
+		assertEquals(1,Type.TYPE2.ordinal());
+		assertEquals(2,Type.TYPE3.ordinal());
 		
 	}
 
