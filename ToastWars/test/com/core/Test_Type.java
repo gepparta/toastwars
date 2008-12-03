@@ -32,9 +32,9 @@ public class Test_Type extends TestCase {
 	
 	@Test
 	public void testConstructor(){
-		assertEquals("type1",Type.TYPE1.name());
-		assertEquals("type2",Type.TYPE2.name());
-		assertEquals("type3",Type.TYPE3.name());
+		assertEquals("TYPE1",Type.TYPE1.name());
+		assertEquals("TYPE2",Type.TYPE2.name());
+		assertEquals("TYPE3",Type.TYPE3.name());
 		assertEquals("Der 1. Typ",Type.TYPE1.getDescription());
 		assertEquals("Der 2. Typ",Type.TYPE2.getDescription());
 		assertEquals("Der 3. Typ",Type.TYPE3.getDescription());
