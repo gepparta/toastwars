@@ -1,11 +1,12 @@
 package toastwars.server.datamodel.core;
 
-
 import java.util.ArrayList;
 
-public class Company {
+import com.google.gwt.user.client.rpc.IsSerializable;
 
-	private String description;
+public class Company implements IsSerializable {
+
+	private String	description;
 
 	public String getDescription() {
 		return description;
@@ -16,7 +17,7 @@ public class Company {
 		this.description = description;
 	}
 
-	private double turnover;
+	private double	turnover;
 
 	public double getTurnover() {
 		return turnover;
@@ -26,7 +27,7 @@ public class Company {
 		this.turnover = turnover;
 	}
 
-	private double marketShare;
+	private double	marketShare;
 
 	public double getMarketShare() {
 		return marketShare;
@@ -37,7 +38,7 @@ public class Company {
 		this.marketShare = marketShare;
 	}
 
-	private double asset;
+	private double	asset;
 
 	public double getAsset() {
 		return asset;
@@ -47,7 +48,8 @@ public class Company {
 		this.asset = asset;
 	}
 
-	private ArrayList<Toaster> toasterList;
+	// @gwt.typeArgs <toastwars.server.datamodel.core.Toaster>
+	private ArrayList<Toaster>	toasterList;
 
 	public ArrayList<Toaster> getToasterList() {
 		return toasterList;
@@ -59,6 +61,9 @@ public class Company {
 
 	// ////////////KONSTRUKTOR////////////////////
 
+	public Company() {
+	}
+
 	public Company(String description, double turnover, double marketShare,
 			double asset, ArrayList<Toaster> toasterList) {
 		this.description = description;
@@ -68,18 +73,13 @@ public class Company {
 		this.toasterList = toasterList;
 
 	}
-	
-	
-	
-/*
-		
-	public void changePrice(Toaster toaster, double price){
-		
-		
-		price = price/10;
-		Toaster T = toasterList.get(toasterList.indexOf(toaster));
-		T.setPrice(price);
 
-	}
-	*/
+	/*
+	 * 
+	 * public void changePrice(Toaster toaster, double price){
+	 * 
+	 * 
+	 * price = price/10; Toaster T =
+	 * toasterList.get(toasterList.indexOf(toaster)); T.setPrice(price); }
+	 */
 }

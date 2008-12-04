@@ -7,6 +7,8 @@ import toastwars.server.datamodel.user.IUser;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.gwtext.client.core.EventObject;
+import com.gwtext.client.core.Margins;
+import com.gwtext.client.core.RegionPosition;
 import com.gwtext.client.data.Node;
 import com.gwtext.client.widgets.Button;
 import com.gwtext.client.widgets.Component;
@@ -21,6 +23,8 @@ import com.gwtext.client.widgets.form.Label;
 import com.gwtext.client.widgets.form.NumberField;
 import com.gwtext.client.widgets.form.TextField;
 import com.gwtext.client.widgets.form.event.FieldListenerAdapter;
+import com.gwtext.client.widgets.layout.BorderLayout;
+import com.gwtext.client.widgets.layout.BorderLayoutData;
 import com.gwtext.client.widgets.layout.HorizontalLayout;
 import com.gwtext.client.widgets.layout.VerticalLayout;
 import com.gwtext.client.widgets.tree.TreeNode;
@@ -68,7 +72,9 @@ public class ToastWars implements EntryPoint {
 		loginPanel.setPaddings(10);
 
 		userName = new TextField("Benutzer");
+		userName.setValue("gruppe");
 		userPass = new TextField("Kennwort");
+		userPass.setValue("master");
 		userPass.setPassword(true);
 
 		loginPanel.add(userName);
@@ -297,8 +303,12 @@ public class ToastWars implements EntryPoint {
 	private Component createDecissionPanel() {
 		decissionPanel = new Panel("Entscheidungen");
 		decissionPanel.setPaddings(5);
+		decissionPanel.setLayout(new BorderLayout());
 
+		// Formular
 		FormPanel form = new FormPanel();
+		form.setWidth(500);
+		form.setBorder(false);
 		form.setPaddings(5);
 		form.setLabelWidth(200);
 
@@ -325,7 +335,20 @@ public class ToastWars implements EntryPoint {
 				});
 		form.addButton(btnEnd);
 
-		decissionPanel.add(form);
+		// Slider
+		Panel sliderPanel = new Panel();
+		sliderPanel.setBorder(false);
+
+		Slider slider = new Slider();
+		sliderPanel.add(slider);
+
+		BorderLayoutData center = new BorderLayoutData(RegionPosition.CENTER);
+		center.setMinWidth(300);
+		center.setMargins(new Margins(0, 0, 0, 0));
+
+		decissionPanel.add(form, center);
+		decissionPanel.add(sliderPanel, new BorderLayoutData(
+				RegionPosition.EAST));
 
 		return decissionPanel;
 	}
