@@ -5,9 +5,12 @@ import toastwars.server.datamodel.core.Company;
 public class Group implements IUser {
 	private String	password;
 	private String	username;
-	private Company company;
-	private boolean isOnline;
-	private Status 	status;
+	private Company	company;
+	private boolean	isOnline;
+	private Status	status;
+
+	public Group() {
+	}
 
 	public Group(String username, String password) {
 		this.username = username;
@@ -33,43 +36,37 @@ public class Group implements IUser {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	
-	public Company getCompany()
-	{
+
+	public Company getCompany() {
 		return company;
 	}
 
-	public void setCompany(Company company)
-	{
-		if(this.company != null)
+	public void setCompany(Company company) {
+		if (this.company != null)
 			this.company = company;
 	}
 
-	public boolean isOnline()
-	{
+	public boolean isOnline() {
 		return isOnline;
 	}
 
-	public void setOnline(boolean isOnline)
-	{
+	public void setOnline(boolean isOnline) {
 		this.isOnline = isOnline;
 	}
-	
-	public Status getStatus()
-	{
+
+	public Status getStatus() {
 		return status;
 	}
 
-	public void setStatus(Status status)
-	{
+	public void setStatus(Status status) {
 		this.status = status;
 	}
-	public void save()
-	{
+
+	public void save() {
 		this.setStatus(Status.EDITED);
 	}
-	public void completeRound()
-	{
+
+	public void completeRound() {
 		this.setStatus(Status.COMPLITED);
 	}
 }

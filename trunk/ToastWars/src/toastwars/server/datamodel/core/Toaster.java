@@ -1,8 +1,10 @@
 package toastwars.server.datamodel.core;
 
-public class Toaster {
+import com.google.gwt.user.client.rpc.IsSerializable;
 
-	private Double price;
+public class Toaster implements IsSerializable {
+
+	private Double	price;
 
 	public Double getPrice() {
 		return price;
@@ -12,7 +14,7 @@ public class Toaster {
 		this.price = price;
 	}
 
-	private Integer marketing;
+	private Integer	marketing;
 
 	public Integer getMarketing() {
 		return marketing;
@@ -22,7 +24,7 @@ public class Toaster {
 		this.marketing = marketing;
 	}
 
-	private Integer research;
+	private Integer	research;
 
 	public Integer getResearch() {
 		return research;
@@ -32,9 +34,7 @@ public class Toaster {
 		this.research = research;
 	}
 
-
-
-	private Type type;
+	private Type	type;
 
 	public Type getType() {
 		return type;
@@ -46,8 +46,10 @@ public class Toaster {
 
 	// //////////////////Konstruktor//////////////////////////
 
-	public Toaster(Double price, Integer marketing, Integer research,
-			 Type type) {
+	public Toaster() {
+	}
+
+	public Toaster(Double price, Integer marketing, Integer research, Type type) {
 
 		this.price = price;
 		this.marketing = marketing;
@@ -55,9 +57,9 @@ public class Toaster {
 		this.type = type;
 
 	}
-	
-	public double calculateIndex(double random){
-		return research*(1/price)*marketing*random;
+
+	public double calculateIndex(double random) {
+		return research * (1 / price) * marketing * random;
 	}
 
 }

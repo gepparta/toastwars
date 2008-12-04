@@ -1,20 +1,16 @@
 package toastwars.server.datamodel.user;
 
-public class UserFactory
-{
-	public IUser createUser(String className, String username, String password)
-	{
+public class UserFactory {
+	public static IUser createUser(String className, String username,
+			String password) {
 		IUser obj = null;
-		try
-		{
+		try {
 			if (className.equals("Master"))
 				obj = Master.getInstance(username, password);
-			else if(className.equals("Group")) 
-			{
+			else if (className.equals("Group")) {
 				obj = new Group(username, password);
 			}
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
 			System.out.println(e);
 		}
 		return obj;

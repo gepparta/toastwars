@@ -1,9 +1,11 @@
 package toastwars.server.datamodel.core;
 
-public enum Type {
-	TYPE1("Der 1. Typ"),TYPE2("Der 2. Typ"),TYPE3("Der 3. Typ");
+import com.google.gwt.user.client.rpc.IsSerializable;
 
-	private String description;
+public enum Type implements IsSerializable {
+	TYPE1("Der 1. Typ"), TYPE2("Der 2. Typ"), TYPE3("Der 3. Typ");
+
+	private String	description;
 
 	Type(String description) {
 		this.description = description;
