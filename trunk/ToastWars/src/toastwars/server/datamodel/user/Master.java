@@ -44,7 +44,7 @@ public class Master implements IUser {
 	
 	public void startGame(int UserAmount)
 	{
-		game = Game.getInstance();
+//		game = Game.getInstance();
 	}
 	public Game getCurrentGame()
 	{
