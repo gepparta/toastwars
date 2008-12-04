@@ -34,13 +34,6 @@ public class Toaster {
 
 	private Integer round;
 
-	public Integer getRound() {
-		return round;
-	}
-
-	public void setRound(Integer round) {
-		this.round = round;
-	}
 
 	private Type type;
 
@@ -55,14 +48,17 @@ public class Toaster {
 	// //////////////////Konstruktor//////////////////////////
 
 	public Toaster(Double price, Integer marketing, Integer research,
-			Integer round, Type type) {
+			 Type type) {
 
 		this.price = price;
 		this.marketing = marketing;
 		this.research = research;
-		this.round = round;
 		this.type = type;
 
+	}
+	
+	public double calculateIndex(double random){
+		return research*(1/price)*marketing*random;
 	}
 
 }
