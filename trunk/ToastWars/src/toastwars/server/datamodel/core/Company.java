@@ -1,5 +1,8 @@
 package toastwars.server.datamodel.core;
 
+
+import java.util.ArrayList;
+
 public class Company {
 
 	private String description;
@@ -43,19 +46,40 @@ public class Company {
 	public void setAsset(double asset) {
 		this.asset = asset;
 	}
-	
-	
-	
-	//////////////KONSTRUKTOR////////////////////
-	
-	public Company (String description, double turnover, double marketShare, double asset){
+
+	private ArrayList<Toaster> toasterList;
+
+	public ArrayList<Toaster> getToasterList() {
+		return toasterList;
+	}
+
+	public void setToasterList(ArrayList<Toaster> toasterList) {
+		this.toasterList = toasterList;
+	}
+
+	// ////////////KONSTRUKTOR////////////////////
+
+	public Company(String description, double turnover, double marketShare,
+			double asset, ArrayList<Toaster> toasterList) {
 		this.description = description;
 		this.turnover = turnover;
 		this.marketShare = marketShare;
 		this.asset = asset;
-		
-	}
+		this.toasterList = toasterList;
 
+	}
 	
 	
+	
+/*
+		
+	public void changePrice(Toaster toaster, double price){
+		
+		
+		price = price/10;
+		Toaster T = toasterList.get(toasterList.indexOf(toaster));
+		T.setPrice(price);
+
+	}
+	*/
 }
