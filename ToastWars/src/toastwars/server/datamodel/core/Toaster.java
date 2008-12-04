@@ -32,7 +32,6 @@ public class Toaster {
 		this.research = research;
 	}
 
-	private Integer round;
 
 
 	private Type type;
