@@ -8,7 +8,7 @@ public class AllUserTests extends TestCase
 {
 	public static Test suite()
 	{
-		TestSuite suite = new TestSuite();
+		TestSuite suite = new TestSuite("Alle User Tests");
 		suite.addTestSuite(GroupTest.class);
 		suite.addTestSuite(MasterTest.class);
 		suite.addTestSuite(UserFactoryTest.class);
