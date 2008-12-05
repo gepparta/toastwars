@@ -1,3 +1,4 @@
+package com;
 import com.user.AllUserTests;
 
 import junit.framework.Test;
