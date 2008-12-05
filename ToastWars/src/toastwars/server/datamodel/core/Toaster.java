@@ -1,6 +1,8 @@
 package toastwars.server.datamodel.core;
 
-public class Toaster {
+import com.google.gwt.user.client.rpc.IsSerializable;
+
+public class Toaster implements IsSerializable {
 
 	private double price;
 	private double marketing;
