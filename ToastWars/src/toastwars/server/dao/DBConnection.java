@@ -5,39 +5,40 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class DBConnection {
-	public static void main(String[] args) {
-		DBConnection con = new DBConnection();
-		Connection currentDB = con.connectToDB();
-		Statement stmt = con.getStatement(currentDB);
-		DAOUser user = new DAOUser();
-		user.createUser("user1", "user1", "001", stmt);
-		user.deleteUsers(stmt);
-	}
+public class DBConnection{
+	
+	private Connection con;
+//	public static void main(String[] args) {
+//		DBConnection con = new DBConnection();
+//		Connection currentDB = con.connectToDB();
+//		Statement stmt = con.getStatement(currentDB);
+//		DAOUser user = new DAOUser();
+//		user.createUser("user1", "user1", "001", stmt);
+//		user.deleteUsers(stmt);
+//	}
 
 	public DBConnection() {
 
 	}
 
-	public Connection connectToDB() {
+	public void connectToDB() {
 		try {
 			Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
-			Connection con = DriverManager
+			 this.con = DriverManager
 					.getConnection(
 							"jdbc:odbc:Driver={Microsoft Access Driver (*.mdb)};DBQ=D:/ToastWars.mdb",
 							"", "");
 			System.out.println("connection succesful");
-			return con;
 		} catch (Exception e) {
-			return null;
+			System.out.println(e.getLocalizedMessage());
 		}
 
 	}
 
-	public void closeConnectionToDB(Connection con) {
+	public void closeConnectionToDB() {
 		try {
-			if (con.isClosed() == false)
-				con.close();
+			if (!(this.con.isClosed()))
+				this.con.close();
 			System.out.println("Database closed");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -45,10 +46,10 @@ public class DBConnection {
 		}
 	}
 
-	public Statement getStatement(Connection con) {
+	public Statement getStatement() {
 		try {
-			Statement stmt = con.createStatement();
-			System.out.println(stmt.toString());
+			Statement stmt = this.con.createStatement();
+//			System.out.println(stmt.toString());
 			return stmt;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
