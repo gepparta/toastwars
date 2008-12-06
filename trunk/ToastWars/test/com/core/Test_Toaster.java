@@ -4,7 +4,6 @@ import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
 import toastwars.server.datamodel.core.Game;
 import toastwars.server.datamodel.core.Toaster;
 import toastwars.server.datamodel.core.Type;
@@ -14,7 +13,8 @@ import toastwars.server.datamodel.user.UserFactory;
 public class Test_Toaster extends TestCase {
 
 	private Toaster T1;
-	private Game game;
+	private Type myType;
+	private Master master;
 
 	@Before
 	protected void setUp() throws Exception {
@@ -23,9 +23,11 @@ public class Test_Toaster extends TestCase {
 		// Formel geändert: 6.49+((Math.pow(this.marketing/(10000-8),3)+Math.pow(this.marketing/(10000-8),2)+Math.pow(this.marketing/(10000-8),1))/80)		
 		// damit man mit einer 1000 € Invetstition nicht unter +1 fällt
 		//research = 1 => 8155 €
-		//random   = 1.02 (variable in Game.class)				
-		T1 = new Toaster(8, 1000, 8155, 1.00, 2.37, 11.53, 9.58, 2.58, 500, Type.TYPE1);
-		Game.getInstance(2);
+		//random   = 1.02 (variable in Game.class)
+		master = (Master)UserFactory.createUser("Master", "ADMIN","ADMIN");
+		master.startGame(2);
+		myType = Type.TYPE1;
+		T1 = new Toaster(8, 1000, 8155, 1.00, 2.37, 11.53, 9.58, 2.58, 500, myType);
 	}
 
 	@After
@@ -47,7 +49,7 @@ public class Test_Toaster extends TestCase {
 	public void testCalculateIndex()
 	{
 		assertNotNull(Game.getInstance());
-		game.setRandom(1.02);
+		master.getCurrentGame().setRandom(1.02);
 		T1.calculateIndex();
 	//laut PPT von Bülow muss 1,28 rauskommen		
 		assertEquals(1.28, T1.getIndex());
