@@ -5,6 +5,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import toastwars.server.datamodel.core.Game;
 import toastwars.server.datamodel.core.Toaster;
 import toastwars.server.datamodel.core.Type;
 import toastwars.server.datamodel.user.Master;
@@ -13,20 +14,18 @@ import toastwars.server.datamodel.user.UserFactory;
 public class Test_Toaster extends TestCase {
 
 	private Toaster T1;
-	private Master master;
+	private Game game;
 
 	@Before
 	protected void setUp() throws Exception {
-		//research = 1 => 8155 €
-		//price    = 8		
-		//random   = 1.02 (variable in Game.class)		
+		//price    = 8	
 		//marketing = 1	=> 1000€	!!! 
 		// Formel geändert: 6.49+((Math.pow(this.marketing/(10000-8),3)+Math.pow(this.marketing/(10000-8),2)+Math.pow(this.marketing/(10000-8),1))/80)		
 		// damit man mit einer 1000 € Invetstition nicht unter +1 fällt
+		//research = 1 => 8155 €
+		//random   = 1.02 (variable in Game.class)				
 		T1 = new Toaster(8, 1000, 8155, 1.00, 2.37, 11.53, 9.58, 2.58, 500, Type.TYPE1);
-		UserFactory.createUser("Master", "ADMIN","ADMIN");
-//		T1 = new Toaster(10, 1000, 8155, 1.00, 2.37, 11.53, 9.58, 2.58, 500,
-//				Type.TYPE1);
+		Game.getInstance(2);
 	}
 
 	@After
@@ -47,7 +46,8 @@ public class Test_Toaster extends TestCase {
 	@Test
 	public void testCalculateIndex()
 	{
-		Master.getInstance().getCurrentGame().setRandom(1.02);
+		assertNotNull(Game.getInstance());
+		game.setRandom(1.02);
 		T1.calculateIndex();
 	//laut PPT von Bülow muss 1,28 rauskommen		
 		assertEquals(1.28, T1.getIndex());
@@ -183,12 +183,12 @@ public class Test_Toaster extends TestCase {
 		assertEquals(T1.getType(), Type.TYPE3);
 	}
 
-	@Test
-	public void testCalculateAndSetIndex() {
-		double random = 0.95 + (Math.random() * 0.1);
-		double ergebnis = (1 / T1.getPrice()) * T1.getResearch()
-				* T1.getMarketing() * random;
-		assertEquals(T1.calculateAndSetIndex(random), ergebnis);
-
-	}
+//	@Test
+//	public void testCalculateAndSetIndex() {
+//		double random = 0.95 + (Math.random() * 0.1);
+//		double ergebnis = (1 / T1.getPrice()) * T1.getResearch()
+//				* T1.getMarketing() * random;
+//		assertEquals(T1.calculateAndSetIndex(random), ergebnis);
+//
+//	}
 }
