@@ -145,56 +145,56 @@ public class Test_Company extends TestCase {
 		assertEquals(A2, C1.getToasterList());
 	}
 
-	@Test
-	public void testCalculateAndSetMarketShare() {
-		assertEquals(C1.calculateAndSetMarketShare(10000, 20000, 0, 2.00), 5000);
-		assertEquals(C1.getMarketShare(), 5000);
-		// Wenn dieser Test gut geht, wird es nicht nochmal für alle getestet.
-		// Es geht nur darum zu Testen, dass die set Funktion vorhanden ist.
-		assertEquals(C1.getToasterList().get(0).getMarketShare(), 5000);
-		// wenn toasterattribut auch gesetzt wird :
-		// C1.getToasterList().get(0).getMarketShare();
-
-		assertEquals(C2.calculateAndSetMarketShare(10000, 20000, 20000, 4.00),
-				7500);
-
-		assertEquals(C2.getMarketShare(), 7500);
-		// C2.getToasterList().get(0).getMarketShare());
-	}
-
-	@Test
-	public void testCalculatAndSetTurnover(){
-		C1.getToasterList().get(0).setMarketShare(5000);
-		assertEquals(C1.calculateAndSetTurnover(), 5000.00);
-		assertEquals(C1.getTurnover(), 5000.00);
-		
-		assertEquals(C1.getToasterList().get(0).getTurnover(), 5000.00);
-
-		C2.getToasterList().get(0).setMarketShare(5000);
-		C2.getToasterList().get(1).setMarketShare(2500);
-		assertEquals(C2.calculateAndSetTurnover(),7500.00);
-
-		assertEquals(C2.getTurnover(), 7500.00);
-	}
-	
-	@Test
-	public void testCalculateAndSetCost(){
-		C1.getToasterList().get(0).setMarketShare(5000);
-		assertEquals(C1.calculateAndSetCost(5000.00,2.00,0.00,0.00,0.00,0.00), 15000.00);
-		assertEquals(C1.getCost(), 15000.00);
-		
-		assertEquals(C1.getToasterList().get(0).getCost(), 15000.00);
-
-		C2.getToasterList().get(0).setMarketShare(5000);
-		C2.getToasterList().get(1).setMarketShare(2500);
-		assertEquals(C2.calculateAndSetCost(5000.00,2.00,5000.00,2.00,0.00,0.00),25000.00);
-
-		assertEquals(C2.getCost(), 25000.00);
-	}
-
-	@Test
-	public void testCalculateAndSetProfit(){
-		double buffer = C1.getTurnover() - C1.getCost();
-		C1.calculateAndSetProfit();
-	}
+//	@Test
+//	public void testCalculateAndSetMarketShare() {
+//		assertEquals(C1.calculateAndSetMarketShare(10000, 20000, 0, 2.00), 5000);
+//		assertEquals(C1.getMarketShare(), 5000);
+//		// Wenn dieser Test gut geht, wird es nicht nochmal für alle getestet.
+//		// Es geht nur darum zu Testen, dass die set Funktion vorhanden ist.
+//		assertEquals(C1.getToasterList().get(0).getMarketShare(), 5000);
+//		// wenn toasterattribut auch gesetzt wird :
+//		// C1.getToasterList().get(0).getMarketShare();
+//
+//		assertEquals(C2.calculateAndSetMarketShare(10000, 20000, 20000, 4.00),
+//				7500);
+//
+//		assertEquals(C2.getMarketShare(), 7500);
+//		// C2.getToasterList().get(0).getMarketShare());
+//	}
+//
+//	@Test
+//	public void testCalculatAndSetTurnover(){
+//		C1.getToasterList().get(0).setMarketShare(5000);
+//		assertEquals(C1.calculateAndSetTurnover(), 5000.00);
+//		assertEquals(C1.getTurnover(), 5000.00);
+//		
+//		assertEquals(C1.getToasterList().get(0).getTurnover(), 5000.00);
+//
+//		C2.getToasterList().get(0).setMarketShare(5000);
+//		C2.getToasterList().get(1).setMarketShare(2500);
+//		assertEquals(C2.calculateAndSetTurnover(),7500.00);
+//
+//		assertEquals(C2.getTurnover(), 7500.00);
+//	}
+//	
+//	@Test
+//	public void testCalculateAndSetCost(){
+//		C1.getToasterList().get(0).setMarketShare(5000);
+//		assertEquals(C1.calculateAndSetCost(5000.00,2.00,0.00,0.00,0.00,0.00), 15000.00);
+//		assertEquals(C1.getCost(), 15000.00);
+//		
+//		assertEquals(C1.getToasterList().get(0).getCost(), 15000.00);
+//
+//		C2.getToasterList().get(0).setMarketShare(5000);
+//		C2.getToasterList().get(1).setMarketShare(2500);
+//		assertEquals(C2.calculateAndSetCost(5000.00,2.00,5000.00,2.00,0.00,0.00),25000.00);
+//
+//		assertEquals(C2.getCost(), 25000.00);
+//	}
+//
+//	@Test
+//	public void testCalculateAndSetProfit(){
+//		double buffer = C1.getTurnover() - C1.getCost();
+//		C1.calculateAndSetProfit();
+//	}
 }
