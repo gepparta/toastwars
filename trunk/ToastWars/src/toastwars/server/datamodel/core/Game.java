@@ -6,29 +6,44 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class Game implements IsSerializable
 {
-
 	private int userAmount;
+
 	// @gwt.typeArgs <toastwars.server.datamodel.core.Company>
 	private ArrayList<Company> companyList;
-	private int currentRound;
-//	random ist nötig um den Zufall zu realisieren
-//	und sollte eigentlich mit Math.random pro Runde (siehe setCurrentRound()) errechnet werden
-//	zum testen gibt es aber auch Set und Set methoden dafür!!!
-	private double random;
-	
-	
-	public Game()
-	{
-	}
 
-	public Game(int userAmount)
+	private int currentRound;
+
+	// random ist nötig um den Zufall zu realisieren
+	// und sollte eigentlich mit Math.random pro Runde (siehe setCurrentRound())
+	// errechnet werden
+	// zum testen gibt es aber auch Set und Set methoden dafür!!!
+	private double random;
+
+	// Eine (versteckte) Klassenvariable vom Typ der eigenen Klasse
+	private static Game instance;
+
+// *************************Constructor*****************************************************
+	private Game(int userAmount)
 	{
 		this.userAmount = userAmount;
 		this.currentRound = 1;
-//		this.companyList = createInitialData(userAmount, 1.00, 1, 1, 1.00, 1,
-//				1, 1.00, 1, 1, "Comp", 1.00, 1.00, 1.00);
+		// this.companyList = createInitialData(userAmount, 1.00, 1, 1, 1.00, 1,
+		// 1, 1.00, 1, 1, "Comp", 1.00, 1.00, 1.00);
 	}
-	
+
+// **********************Methods************************************************************
+	public static Game getInstance(int userAmount)
+	{
+		if (instance == null)
+			instance = new Game(userAmount);
+		return instance;
+	}
+
+	public static Game getInstance()
+	{
+		return instance;
+	}
+
 	public double getRandom()
 	{
 		return random;
@@ -49,24 +64,34 @@ public class Game implements IsSerializable
 		this.userAmount = userAmount;
 	}
 
-
-
 	public int getCurrentRound()
 	{
 		return currentRound;
 	}
 
-	public void setCurrentRound(int currentRound)
+	// @ by Alex
+	public void setCurrentRound(int currentRound) throws Exception
 	{
-		this.currentRound = currentRound;
-		this.random = Math.random();
+		if (currentRound <= this.currentRound)
+		{
+			throw new Exception(
+					"Invalid Input. Current ruond is bigger than the requested");
+		} else
+		{
+			this.currentRound = currentRound;
+			this.random = Math.random();
+		}
 	}
-
-
 
 	public ArrayList<Company> getCompanyList()
 	{
 		return companyList;
+	}
+
+	// @ by Alex
+	public void addCompany(Company com)
+	{
+		this.companyList.add(com);
 	}
 
 	public void setCompanyList(ArrayList<Company> companyList)
@@ -74,41 +99,42 @@ public class Game implements IsSerializable
 		this.companyList = companyList;
 
 	}
-//	private ArrayList<Company> createInitialData(int userAmount,
-//			double initialPrice1, int initialMarketing1, int initialResearch1,
-//			double initialPrice2, int initialMarketing2, int initialResearch2,
-//			double initialPrice3, int initialMarketing3, int initialResearch3,
-//			String initialDescription, double initialTurnover,
-//			double initialMarketShare, double initialAsset)
-//	{
-//		Type Typ1 = Type.TYPE1;
-//		Type Typ2 = Type.TYPE2;
-//		Type Typ3 = Type.TYPE3;
-//
-//		Toaster Toaster1 = new Toaster(initialPrice1, initialMarketing1,
-//				initialResearch1, Typ1);
-//		Toaster Toaster2 = new Toaster(initialPrice2, initialMarketing2,
-//				initialResearch2, Typ2);
-//		Toaster Toaster3 = new Toaster(initialPrice3, initialMarketing3,
-//				initialResearch3, Typ3);
-//
-//		ArrayList<Toaster> toasterList = new ArrayList<Toaster>();
-//		toasterList.add(Toaster1);
-//		toasterList.add(Toaster2);
-//		toasterList.add(Toaster3);
-//
-//		ArrayList<Company> companyList = new ArrayList<Company>();
-//
-//		for (int i = 1; i == userAmount; i++)
-//		{
-//
-//			companyList.add(new Company(initialDescription, initialTurnover,
-//					initialMarketShare, initialAsset, toasterList));
-//
-//		}
-//
-//		return companyList;
-//	}
+
+	// private ArrayList<Company> createInitialData(int userAmount,
+	// double initialPrice1, int initialMarketing1, int initialResearch1,
+	// double initialPrice2, int initialMarketing2, int initialResearch2,
+	// double initialPrice3, int initialMarketing3, int initialResearch3,
+	// String initialDescription, double initialTurnover,
+	// double initialMarketShare, double initialAsset)
+	// {
+	// Type Typ1 = Type.TYPE1;
+	// Type Typ2 = Type.TYPE2;
+	// Type Typ3 = Type.TYPE3;
+	//
+	// Toaster Toaster1 = new Toaster(initialPrice1, initialMarketing1,
+	// initialResearch1, Typ1);
+	// Toaster Toaster2 = new Toaster(initialPrice2, initialMarketing2,
+	// initialResearch2, Typ2);
+	// Toaster Toaster3 = new Toaster(initialPrice3, initialMarketing3,
+	// initialResearch3, Typ3);
+	//
+	// ArrayList<Toaster> toasterList = new ArrayList<Toaster>();
+	// toasterList.add(Toaster1);
+	// toasterList.add(Toaster2);
+	// toasterList.add(Toaster3);
+	//
+	// ArrayList<Company> companyList = new ArrayList<Company>();
+	//
+	// for (int i = 1; i == userAmount; i++)
+	// {
+	//
+	// companyList.add(new Company(initialDescription, initialTurnover,
+	// initialMarketShare, initialAsset, toasterList));
+	//
+	// }
+	//
+	// return companyList;
+	// }
 
 	// public void simulate(int marketVolume, int fixedCost, int variableCost) {
 	// int companySize = companyList.size();
@@ -157,18 +183,19 @@ public class Game implements IsSerializable
 	// companyList.get(i).setAsset(asset[i]);
 	// }
 	// }
-	public void changePrice(Company company, Toaster toaster, double price)
-	{
+	// public void changePrice(Company company, Toaster toaster, double price)
+	// {
+	//
+	// price = price / 10;
+	// company.getToasterList().get(company.getToasterList().indexOf(toaster))
+	// .setPrice(price);
+	//
+	// }
 
-		price = price / 10;
-		company.getToasterList().get(company.getToasterList().indexOf(toaster))
-				.setPrice(price);
-
-	}
-//	@by Alex 
+	// @by Alex
 	public void simulate()
 	{
-		for(int i=0;i==companyList.size();i++)
+		for (int i = 0; i == companyList.size(); i++)
 		{
 			companyList.get(i).calculateIndex();
 		}
