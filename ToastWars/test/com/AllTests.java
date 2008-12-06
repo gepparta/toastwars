@@ -1,4 +1,5 @@
 package com;
+import com.core.AllCoreTests;
 import com.user.AllUserTests;
 
 import junit.framework.Test;
@@ -11,7 +12,7 @@ public class AllTests extends TestCase
 	{
 		TestSuite suite = new TestSuite("Alle Tests");
 		suite.addTest(AllUserTests.suite());
-		//TODO: addTestSuite(UserTest.class) and CoreTest.class
+		suite.addTest(AllCoreTests.suite());
 		return suite;
 	}
 }

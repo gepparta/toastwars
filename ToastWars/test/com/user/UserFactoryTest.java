@@ -34,9 +34,9 @@ public class UserFactoryTest extends TestCase
 		assertSame(master1,master2);
 		Group group = (Group) factory.createUser("Group", "Group1","Group1");
 		assertNotSame(master1, group);
-		System.out.println(master1.isMaster());
-		System.out.println(master2.isMaster());
-		System.out.println(group.isMaster());
+//		System.out.println(master1.isMaster());
+//		System.out.println(master2.isMaster());
+//		System.out.println(group.isMaster());
 	}
 
 }

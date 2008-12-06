@@ -7,19 +7,24 @@ import org.junit.Test;
 
 import toastwars.server.datamodel.core.Toaster;
 import toastwars.server.datamodel.core.Type;
+import toastwars.server.datamodel.user.Master;
+import toastwars.server.datamodel.user.UserFactory;
 
 public class Test_Toaster extends TestCase {
 
 	private Toaster T1;
+	private Master master;
 
 	@Before
 	protected void setUp() throws Exception {
 		//research = 1 => 8155 €
 		//price    = 8		
 		//random   = 1.02 (variable in Game.class)		
-		//marketing = 1	=> 200€	!!! 
-		// Formel geändert: 1+((Math.pow(this.marketing/(10000-8),3)+Math.pow(this.marketing/(10000-8),2)+Math.pow(this.marketing/(10000-8),1))/80)		
-		T1 = new Toaster(10, 1000, 8155, 1.00, 2.37, 11.53, 9.58, 2.58, 500, Type.TYPE1);
+		//marketing = 1	=> 1000€	!!! 
+		// Formel geändert: 6.49+((Math.pow(this.marketing/(10000-8),3)+Math.pow(this.marketing/(10000-8),2)+Math.pow(this.marketing/(10000-8),1))/80)		
+		// damit man mit einer 1000 € Invetstition nicht unter +1 fällt
+		T1 = new Toaster(8, 1000, 8155, 1.00, 2.37, 11.53, 9.58, 2.58, 500, Type.TYPE1);
+		UserFactory.createUser("Master", "ADMIN","ADMIN");
 //		T1 = new Toaster(10, 1000, 8155, 1.00, 2.37, 11.53, 9.58, 2.58, 500,
 //				Type.TYPE1);
 	}
@@ -28,11 +33,30 @@ public class Test_Toaster extends TestCase {
 	protected void tearDown() throws Exception {
 		T1 = null;
 	}
+	
+	@Test
+	public void testCalculateResearch()
+	{
+		assertEquals(1.0,T1.calculateResearch());
+	}
+	@Test
+	public void testCalculateMarketing()
+	{
+		assertEquals(1.0,T1.calculateMarketing());
+	}
+	@Test
+	public void testCalculateIndex()
+	{
+		Master.getInstance().getCurrentGame().setRandom(1.02);
+		T1.calculateIndex();
+	//laut PPT von Bülow muss 1,28 rauskommen		
+		assertEquals(1.28, T1.getIndex());
+	}
 
 	@Test
 	public void testGetPrice() {
 		assertNotNull(T1.getPrice());
-		assertEquals(T1.getPrice(), 10.0);
+		assertEquals(T1.getPrice(), 8.0);
 	}
 
 	@Test
@@ -166,15 +190,5 @@ public class Test_Toaster extends TestCase {
 				* T1.getMarketing() * random;
 		assertEquals(T1.calculateAndSetIndex(random), ergebnis);
 
-	}
-	@Test
-	public void testCalculateResearch()
-	{
-		System.out.println(T1.calculateResearch());
-	}
-	@Test
-	public void testCalculateMarketing()
-	{
-		System.out.println(T1.calculateMarketing());
 	}
 }
