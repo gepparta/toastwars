@@ -11,6 +11,34 @@ public class Game implements IsSerializable
 	// @gwt.typeArgs <toastwars.server.datamodel.core.Company>
 	private ArrayList<Company> companyList;
 	private int currentRound;
+//	random ist nötig um den Zufall zu realisieren
+//	und sollte eigentlich mit Math.random pro Runde (siehe setCurrentRound()) errechnet werden
+//	zum testen gibt es aber auch Set und Set methoden dafür!!!
+	private double random;
+	
+	
+	public Game()
+	{
+	}
+
+	public Game(int userAmount)
+	{
+		this.userAmount = userAmount;
+		this.currentRound = 1;
+//		this.companyList = createInitialData(userAmount, 1.00, 1, 1, 1.00, 1,
+//				1, 1.00, 1, 1, "Comp", 1.00, 1.00, 1.00);
+	}
+	
+	public double getRandom()
+	{
+		return random;
+	}
+
+	public void setRandom(double random)
+	{
+		this.random = random;
+	}
+
 	public int getUserAmount()
 	{
 		return userAmount;
@@ -31,6 +59,7 @@ public class Game implements IsSerializable
 	public void setCurrentRound(int currentRound)
 	{
 		this.currentRound = currentRound;
+		this.random = Math.random();
 	}
 
 
@@ -45,19 +74,6 @@ public class Game implements IsSerializable
 		this.companyList = companyList;
 
 	}
-
-	public Game()
-	{
-	}
-
-	public Game(int userAmount)
-	{
-		this.userAmount = userAmount;
-		this.currentRound = 1;
-//		this.companyList = createInitialData(userAmount, 1.00, 1, 1, 1.00, 1,
-//				1, 1.00, 1, 1, "Comp", 1.00, 1.00, 1.00);
-	}
-
 //	private ArrayList<Company> createInitialData(int userAmount,
 //			double initialPrice1, int initialMarketing1, int initialResearch1,
 //			double initialPrice2, int initialMarketing2, int initialResearch2,

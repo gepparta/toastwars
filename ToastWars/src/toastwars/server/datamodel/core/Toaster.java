@@ -1,5 +1,8 @@
 package toastwars.server.datamodel.core;
 
+import toastwars.server.datamodel.user.Master;
+import toastwars.server.datamodel.user.UserFactory;
+
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class Toaster implements IsSerializable
@@ -155,23 +158,25 @@ public class Toaster implements IsSerializable
 		this.setIndex(index);
 		return index;
 	}
-
+//	@by Alex 
 	// TODO: Wie Random setzen?
 	public void calculateIndex()
 	{
 		double marketingIndex = calculateMarketing();
 		double researchIndex = calculateResearch();
-		double random = 1.0;
-		double i = researchIndex * (1 / price) * marketingIndex * random;
+		double random = Master.getInstance().getCurrentGame().getRandom();
+		double i = researchIndex * (1 / (price/10)) * marketingIndex * random;
+//		runden auf zwei Stellen hinter dem Komma
+//		setIndex(Math.round(i * 100) / 100);
 		setIndex(i);
 	}
-
+//	@by Alex 
 	public double calculateResearch()
 	{
 		double d = Math.log(this.research / 3000);
 		return Math.round(d * 100) / 100;
 	}
-
+//	@by Alex 
 	public double calculateMarketing()
 	{
 		double d = 6.49 + ((Math.pow(this.marketing / 10000 - 8, 3)
