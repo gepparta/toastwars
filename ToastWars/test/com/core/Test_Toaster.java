@@ -11,25 +11,28 @@ import toastwars.server.datamodel.core.Type;
 public class Test_Toaster extends TestCase {
 
 	private Toaster T1;
-	private Type type;
 
 	@Before
 	protected void setUp() throws Exception {
-		type = Type.TYPE1;
-		T1 = new Toaster(15.37, 3.00, 7.00, 1.00, 2.37, 11.53, 9.58, 2.58, 500,
-				type);
+		//research = 1 => 8155 €
+		//price    = 8		
+		//random   = 1.02 (variable in Game.class)		
+		//marketing = 1	=> 200€	!!! 
+		// Formel geändert: 1+((Math.pow(this.marketing/(10000-8),3)+Math.pow(this.marketing/(10000-8),2)+Math.pow(this.marketing/(10000-8),1))/80)		
+		T1 = new Toaster(10, 1000, 8155, 1.00, 2.37, 11.53, 9.58, 2.58, 500, Type.TYPE1);
+//		T1 = new Toaster(10, 1000, 8155, 1.00, 2.37, 11.53, 9.58, 2.58, 500,
+//				Type.TYPE1);
 	}
 
 	@After
 	protected void tearDown() throws Exception {
-		type = null;
 		T1 = null;
 	}
 
 	@Test
 	public void testGetPrice() {
 		assertNotNull(T1.getPrice());
-		assertEquals(T1.getPrice(), 15.37);
+		assertEquals(T1.getPrice(), 10.0);
 	}
 
 	@Test
@@ -42,7 +45,7 @@ public class Test_Toaster extends TestCase {
 	@Test
 	public void testGetMarketing() {
 		assertNotNull(T1.getMarketing());
-		assertEquals(T1.getMarketing(), 3.00);
+		assertEquals(T1.getMarketing(), 1000.0);
 	}
 
 	@Test
@@ -55,14 +58,14 @@ public class Test_Toaster extends TestCase {
 	@Test
 	public void testGetResearch() {
 		assertNotNull(T1.getResearch());
-		assertEquals(T1.getResearch(), 7.00);
+		assertEquals(T1.getResearch(), 8155.0);
 	}
 
 	@Test
 	public void testSetResearch() {
-		assertNotSame(T1.getResearch(), 3.00);
-		T1.setResearch(3.00);
-		assertEquals(T1.getResearch(), 3.00);
+		assertNotSame(T1.getResearch(), 1000.0);
+		T1.setResearch(1000);
+		assertEquals(T1.getResearch(), 1000.0);
 	}
 
 	@Test
@@ -163,5 +166,15 @@ public class Test_Toaster extends TestCase {
 				* T1.getMarketing() * random;
 		assertEquals(T1.calculateAndSetIndex(random), ergebnis);
 
+	}
+	@Test
+	public void testCalculateResearch()
+	{
+		System.out.println(T1.calculateResearch());
+	}
+	@Test
+	public void testCalculateMarketing()
+	{
+		System.out.println(T1.calculateMarketing());
 	}
 }
