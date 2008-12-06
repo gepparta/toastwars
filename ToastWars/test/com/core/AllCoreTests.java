@@ -8,7 +8,7 @@ public class AllCoreTests extends TestCase
 {
 	public static Test suite()
 	{
-		TestSuite suite = new TestSuite("Alle User Tests");
+		TestSuite suite = new TestSuite("Alle Core Tests");
 		suite.addTestSuite(Test_Company.class);
 		suite.addTestSuite(Test_Game.class);
 		suite.addTestSuite(Test_Toaster.class);
