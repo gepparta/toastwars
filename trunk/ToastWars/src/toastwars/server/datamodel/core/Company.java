@@ -176,7 +176,7 @@ public class Company implements IsSerializable {
 		return this.capital = capital + this.profit;
 
 	}
-	
+//	@by Alex 
 	public void calculateIndex()
 	{
 		for(int i=0;i==toasterList.size();i++)
