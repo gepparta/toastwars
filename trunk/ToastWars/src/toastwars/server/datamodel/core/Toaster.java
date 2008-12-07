@@ -16,7 +16,6 @@ public class Toaster implements IsSerializable
 	private double research;
 	private double index;
 	private double turnover;
-	private double capital;
 	private double cost;
 	private double profit;
 	private int marketShare;
@@ -30,7 +29,7 @@ public class Toaster implements IsSerializable
 	}
 
 	public Toaster(double price, double marketing, double research,
-			double index, double turnover, double capital, double cost,
+			double index, double turnover,  double cost,
 			double profit, int marketShare, Type type)
 	{
 
@@ -39,7 +38,6 @@ public class Toaster implements IsSerializable
 		this.research = research;
 		this.index = index;
 		this.turnover = turnover;
-		this.capital = capital;
 		this.cost = cost;
 		this.profit = profit;
 		this.marketShare = marketShare;
@@ -99,15 +97,7 @@ public class Toaster implements IsSerializable
 		this.turnover = turnover;
 	}
 
-	public double getCapital()
-	{
-		return capital;
-	}
-
-	public void setCapital(double capital)
-	{
-		this.capital = capital;
-	}
+	
 
 	public double getCost()
 	{
@@ -163,17 +153,10 @@ public class Toaster implements IsSerializable
 	{
 		double marketingIndex = calculateMarketing();
 		double researchIndex = calculateResearch();
-		double random = Master.getInstance().getCurrentGame().getRandom();
+		double random = this.type.getRandom();
 		double i = researchIndex * (1 / (price / 10)) * marketingIndex * random;
 		// runden auf zwei Stellen hinter dem Komma
 		setIndex(NumberUtil.roundDouble(i));
-	}
-
-	// @by Alex
-	public double calculateResearch()
-	{
-		double d = Math.log(this.research / 3000);
-		return Math.round(d * 100) / 100;
 	}
 
 	// @by Alex
@@ -182,7 +165,18 @@ public class Toaster implements IsSerializable
 		double d = 6.49 + ((Math.pow(this.marketing / 10000 - 8, 3)
 				+ Math.pow(this.marketing / 10000 - 8, 2) + Math.pow(
 				this.marketing / 10000 - 8, 1)) / 80);
-		return Math.round(d * 100) / 100;
+		return NumberUtil.roundDouble(d);
 	}
+	
+	
+	
+	// @by Alex
+	public double calculateResearch()
+	{
+		double d = Math.log(this.research / 3000);
+		return NumberUtil.roundDouble(d);
+	}
+
+
 
 }
