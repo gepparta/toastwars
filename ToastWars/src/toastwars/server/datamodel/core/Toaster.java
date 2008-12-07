@@ -162,7 +162,7 @@ public class Toaster implements IsSerializable
 	// @by Alex
 	public double calculateMarketing()
 	{
-		double d = 6.49 + ((Math.pow(this.marketing / 10000 - 8, 3)
+		double d = 6.48 + ((Math.pow(this.marketing / 10000 - 8, 3)
 				+ Math.pow(this.marketing / 10000 - 8, 2) + Math.pow(
 				this.marketing / 10000 - 8, 1)) / 80);
 		return NumberUtil.roundDouble(d);
