@@ -58,6 +58,23 @@ public class Toaster implements IsSerializable
 
 	// /////////////////GETTER & SETTER ///////////////////////////////////
 
+	
+	public static int getNextToasterID() {
+		return nextToasterID;
+	}
+
+	public static void setNextToasterID(int nextToasterID) {
+		Toaster.nextToasterID = nextToasterID;
+	}
+
+	public int getToasterID() {
+		return toasterID;
+	}
+
+	public void setToasterID(int toasterID) {
+		this.toasterID = toasterID;
+	}
+	
 	public double getPrice()
 	{
 		return price;
@@ -187,6 +204,8 @@ public class Toaster implements IsSerializable
 		double d = Math.log(this.research / 3000);
 		return NumberUtil.roundDouble(d);
 	}
+
+
 
 
 
