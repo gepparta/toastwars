@@ -107,13 +107,30 @@ public class Game implements IsSerializable
 	}
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/*/
 	public double[] calculateIndexSums(){
 		 double [] IndexSums = new double [3];
 		 
-		 for (int i=0 ; i <=this.getCompanyList().get(0).getToasterList().size(); i++){
+		 for (int i=0 ; i <=this.getCompanyList().get(0).getToasterList().size()-1; i++){
 		 
 			 
-			 for (int k= 0; k <= this.getCompanyList().size(); k++){
+			 for (int k= 0; k <= this.getCompanyList().size()-1; k++){
 				 
 				 IndexSums[i]= IndexSums[i] + this.getCompanyList().get(k).getToasterList().get(i).getIndex();
 				 
@@ -126,7 +143,7 @@ public class Game implements IsSerializable
 	}
 	
 	
-	
+	*/
 	
 	
 	
