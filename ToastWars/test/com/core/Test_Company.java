@@ -31,7 +31,7 @@ public class Test_Company extends TestCase {
 		myType3 = Type.TYPE3;
 		T1 = new Toaster(8, 1000, 8155, 1.00, 2.37,  9.58, 2.58, 500, myType1);
 		T2 = new Toaster(8, 1000, 8155, 1.00, 2.37,  9.58, 2.58, 500, myType2);
-		T3 = new Toaster(8, 1000, 8155, 1.00, 2.37,  9.58, 2.58, 500, myType3);
+		T3 = new Toaster(8, 1000, 8155, 2.00, 2.37,  9.58, 2.58, 500, myType3);
 		A1 = new ArrayList<Toaster>();
 		A1.add(T1);
 		A2 = new ArrayList<Toaster>();
@@ -179,7 +179,23 @@ public class Test_Company extends TestCase {
 		
 	}
 	
-	
+	@Test
+	public void testCalculateMarketShare(){
+		double[] d = new double[3];
+		d[0]=5;
+		d[1]=10;
+		
+		assertNotSame(2000, C1.getToasterList().get(0).getMarketShare());
+		C1.calculateMarketShares(d);
+		assertEquals(2000, C1.getToasterList().get(0).getMarketShare());
+		
+		C1 = new Company("Test1", 1.05, 1.07, 2.10, 2.13, 50, A2);
+		assertNotSame(2000, C1.getToasterList().get(0).getMarketShare());
+		assertNotSame(2000, C1.getToasterList().get(1).getMarketShare());
+		C1.calculateMarketShares(d);
+		assertEquals(4000, C1.getToasterList().get(0).getMarketShare());
+		assertEquals(6000, C1.getToasterList().get(1).getMarketShare());
+	}
 	
 //	@Test
 //	public void testCalculateAndSetMarketShare() {
