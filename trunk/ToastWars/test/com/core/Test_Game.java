@@ -33,18 +33,15 @@ public class Test_Game extends TestCase
 		game = null;
 		meineToaster = null;
 	}
-/* MUSS ÜBERPRÜFT WEDEN.... Was hat das Random Zeugs hier verloren?
+ 
 	@Test
 	public void testSetCurrentRound()
 	{
-		double d = game.getRandom();
-		assertNotNull(d);
+
 		assertEquals(1, game.getCurrentRound());
 		try
 		{
 			game.setCurrentRound(2);
-			assertEquals(2, game.getCurrentRound());
-			assertNotSame(d, game.getRandom());
 			game.setCurrentRound(1);
 			fail("Runde darf nicht eine niedrigere Nummer kriegen!");
 		} catch (Exception e)
@@ -53,7 +50,7 @@ public class Test_Game extends TestCase
 		}
 	}
 	
-	*/
+
 	@Test
 	public void testSimulate()
 	{
@@ -64,7 +61,6 @@ public class Test_Game extends TestCase
 		game.addCompany(com);
 		meinToaster.getType().setRandom(1.02); //wie in ppt angegeben
 		game.simulate();
-		assertNotSame(1.00,meinToaster.getIndex()); //@Alex warum, das brauchen wir 
 		assertEquals(1.28, meinToaster.getIndex()); //1.28 wird erwartet
 	}
 	
