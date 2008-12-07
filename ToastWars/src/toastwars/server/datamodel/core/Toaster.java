@@ -1,6 +1,11 @@
 package toastwars.server.datamodel.core;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 import toastwars.server.datamodel.user.Master;
+import util.NumberUtil;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class Toaster implements IsSerializable
@@ -18,6 +23,11 @@ public class Toaster implements IsSerializable
 	private Type type;
 
 	// //////////////////Konstruktor//////////////////////////
+
+	public Toaster()
+	{
+
+	}
 
 	public Toaster(double price, double marketing, double research,
 			double index, double turnover, double capital, double cost,
@@ -141,15 +151,14 @@ public class Toaster implements IsSerializable
 
 	// ////////////METHODS ////////////////
 
-//	public double calculateAndSetIndex(double random)
-//	{
-//		double index = research * (1 / price) * marketing * random;
-//		this.setIndex(index);
-//		return index;
-//	}
+	// public double calculateAndSetIndex(double random)
+	// {
+	// double index = research * (1 / price) * marketing * random;
+	// this.setIndex(index);
+	// return index;
+	// }
 
 	// @by Alex
-	// TODO: Wie Random setzen?
 	public void calculateIndex()
 	{
 		double marketingIndex = calculateMarketing();
@@ -157,8 +166,7 @@ public class Toaster implements IsSerializable
 		double random = Master.getInstance().getCurrentGame().getRandom();
 		double i = researchIndex * (1 / (price / 10)) * marketingIndex * random;
 		// runden auf zwei Stellen hinter dem Komma
-		// setIndex(Math.round(i * 100) / 100);
-		setIndex(i);
+		setIndex(NumberUtil.roundDouble(i));
 	}
 
 	// @by Alex

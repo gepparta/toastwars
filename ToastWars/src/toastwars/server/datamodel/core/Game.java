@@ -1,6 +1,7 @@
 package toastwars.server.datamodel.core;
 
 import java.util.ArrayList;
+import util.NumberUtil;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
@@ -9,7 +10,7 @@ public class Game implements IsSerializable
 	private int userAmount;
 
 	// @gwt.typeArgs <toastwars.server.datamodel.core.Company>
-	private ArrayList<Company> companyList;
+	private ArrayList<Company> companyList = new ArrayList<Company>();
 
 	private int currentRound;
 
@@ -26,7 +27,13 @@ public class Game implements IsSerializable
 	private Game(int userAmount)
 	{
 		this.userAmount = userAmount;
-		this.currentRound = 1;
+		try
+		{
+			this.setCurrentRound(1);
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 		// this.companyList = createInitialData(userAmount, 1.00, 1, 1, 1.00, 1,
 		// 1, 1.00, 1, 1, "Comp", 1.00, 1.00, 1.00);
 	}
@@ -79,7 +86,7 @@ public class Game implements IsSerializable
 		} else
 		{
 			this.currentRound = currentRound;
-			this.random = Math.random();
+			this.random = NumberUtil.roundDouble(Math.random());
 		}
 	}
 
@@ -195,7 +202,7 @@ public class Game implements IsSerializable
 	// @by Alex
 	public void simulate()
 	{
-		for (int i = 0; i == companyList.size(); i++)
+		for (int i = 0; i < companyList.size(); i++)
 		{
 			companyList.get(i).calculateIndex();
 		}
