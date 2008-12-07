@@ -13,7 +13,7 @@ public class Company implements IsSerializable {
 	private double capital;
 	private int marketShare;
 	// @gwt.typeArgs <toastwars.server.datamodel.core.Toaster>
-	private ArrayList<Toaster> toasterList;
+	private ArrayList<Toaster> toasterList = new ArrayList<Toaster>();
 
 	// ////////////KONSTRUKTOR////////////////////
 	public Company(String description, double turnover, double cost,
@@ -179,7 +179,7 @@ public class Company implements IsSerializable {
 //	@by Alex 
 	public void calculateIndex()
 	{
-		for(int i=0;i==toasterList.size();i++)
+		for(int i=0;i<toasterList.size();i++)
 		{
 			toasterList.get(i).calculateIndex();
 		}
