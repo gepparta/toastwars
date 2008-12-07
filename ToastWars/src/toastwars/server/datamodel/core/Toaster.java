@@ -169,12 +169,7 @@ public class Toaster implements IsSerializable
 
 	// ////////////METHODS ////////////////
 
-	// public double calculateAndSetIndex(double random)
-	// {
-	// double index = research * (1 / price) * marketing * random;
-	// this.setIndex(index);
-	// return index;
-	// }
+
 
 	// @by Alex
 	public void calculateIndex()

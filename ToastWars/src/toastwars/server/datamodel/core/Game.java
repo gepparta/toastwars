@@ -14,17 +14,12 @@ public class Game implements IsSerializable
 
 	private int currentRound;
 
-	// random ist nötig um den Zufall zu realisieren
-	// und sollte eigentlich mit Math.random pro Runde (siehe setCurrentRound())
-	// errechnet werden
-	// zum testen gibt es aber auch Set und Set methoden dafür!!!
-	private double random;
 
 	// Eine (versteckte) Klassenvariable vom Typ der eigenen Klasse
 	private static Game instance;
 
 // *************************Constructor*****************************************************
-	private Game(int userAmount)
+	public Game(int userAmount) //zum testen auf public gesetzt
 	{
 		this.userAmount = userAmount;
 		try
@@ -51,15 +46,8 @@ public class Game implements IsSerializable
 		return instance;
 	}
 
-	public double getRandom()
-	{
-		return random;
-	}
 
-	public void setRandom(double random)
-	{
-		this.random = random;
-	}
+
 
 	public int getUserAmount()
 	{
@@ -86,7 +74,7 @@ public class Game implements IsSerializable
 		} else
 		{
 			this.currentRound = currentRound;
-			this.random = NumberUtil.roundDouble(Math.random());
+			
 		}
 	}
 
@@ -107,6 +95,47 @@ public class Game implements IsSerializable
 
 	}
 
+	
+	// @by Alex
+	public void simulate()
+	{
+		for (int i = 0; i < companyList.size(); i++)
+		{
+			companyList.get(i).calculateIndex();
+		}
+		
+	}
+	
+	
+	public double[] calculateIndexSums(){
+		 double [] IndexSums = new double [3];
+		 
+		 for (int i=0 ; i <=this.getCompanyList().get(0).getToasterList().size(); i++){
+		 
+			 
+			 for (int k= 0; k <= this.getCompanyList().size(); k++){
+				 
+				 IndexSums[i]= IndexSums[i] + this.getCompanyList().get(k).getToasterList().get(i).getIndex();
+				 
+			 }
+			 
+			 
+		 }
+		 return IndexSums;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	// private ArrayList<Company> createInitialData(int userAmount,
 	// double initialPrice1, int initialMarketing1, int initialResearch1,
 	// double initialPrice2, int initialMarketing2, int initialResearch2,
@@ -199,14 +228,7 @@ public class Game implements IsSerializable
 	//
 	// }
 
-	// @by Alex
-	public void simulate()
-	{
-		for (int i = 0; i < companyList.size(); i++)
-		{
-			companyList.get(i).calculateIndex();
-		}
-	}
+
 
 	// public static void main(String[] args) {
 	//
