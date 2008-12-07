@@ -166,7 +166,12 @@ public class Test_Company extends TestCase {
 		
 		C1 = new Company("Test1", 1.05, 1.07, 2.10, 2.13, 50, A2);
 		
+		
+		assertNotSame(C1.getToasterList().get(0).getIndex(),1.28);
+		assertNotSame(C1.getToasterList().get(1).getIndex(),1.28);
+		
 		C1.calculateIndex();
+		
 		assertEquals(C1.getToasterList().size(), 2);
 		assertEquals(C1.getToasterList().get(0).getIndex(),1.28);
 		assertEquals(C1.getToasterList().get(1).getIndex(),1.28);
