@@ -200,7 +200,11 @@ public class Toaster implements IsSerializable
 		return NumberUtil.roundDouble(d);
 	}
 
-
+	public void calculateMarketShare(double IndexSum){
+		
+		this.setMarketShare((int) Math.round(this.type.getMarketVolume()/IndexSum * this.index));
+		
+	}
 
 
 
