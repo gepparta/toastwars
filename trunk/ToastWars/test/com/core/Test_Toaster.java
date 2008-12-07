@@ -176,12 +176,11 @@ public class Test_Toaster extends TestCase {
 		assertEquals(T1.getType(), Type.TYPE3);
 	}
 
-//	@Test
-//	public void testCalculateAndSetIndex() {
-//		double random = 0.95 + (Math.random() * 0.1);
-//		double ergebnis = (1 / T1.getPrice()) * T1.getResearch()
-//				* T1.getMarketing() * random;
-//		assertEquals(T1.calculateAndSetIndex(random), ergebnis);
-//
-//	}
+	@Test
+	public void testCalculateMarketShares(){
+		
+		assertNotSame(2000,T1.getMarketShare());
+		T1.calculateMarketShare(5.00);
+		assertEquals(2000, T1.getMarketShare());
+	}
 }

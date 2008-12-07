@@ -14,9 +14,15 @@ import toastwars.server.datamodel.user.UserFactory;
 
 public class Test_Game extends TestCase
 {
-	Master master;
-	Game game;
-	ArrayList<Toaster> meineToaster;
+	private Master master;
+	private Game game;
+	private ArrayList<Toaster> meineToaster;
+	private Type myType1;
+	private Toaster t1;
+	private ArrayList<Toaster> toasterList;
+	private Company c1;
+	private ArrayList <Company> companyList; 
+	
 	@Before
 	protected void setUp() throws Exception
 	{
@@ -24,6 +30,16 @@ public class Test_Game extends TestCase
 		master.startGame(2);
 		game = master.getCurrentGame();
 		meineToaster = new ArrayList<Toaster>();
+
+/* um später mal das get/set CompanyList zu testen
+		myType1 = Type.TYPE1;
+		t1 = new Toaster(8, 1000, 8155, 1.00, 2.37,  9.58, 2.58, 500, myType1);
+		toasterList = new ArrayList<Toaster>();
+		toasterList.add(t1);
+		c1 = new Company("Test1", 1.05, 1.07, 2.10, 2.13, 50, toasterList);
+		companyList=new ArrayList<Company>();
+		companyList.add(c1);
+*/
 	}
 
 	@After
@@ -34,6 +50,14 @@ public class Test_Game extends TestCase
 		meineToaster = null;
 	}
  
+	@Test
+	public void testGetCurrentRound(){
+		assertNotNull(game.getCurrentRound());
+		assertEquals(1, game.getCurrentRound());
+		
+	}
+	
+	
 	@Test
 	public void testSetCurrentRound()
 	{
@@ -50,7 +74,27 @@ public class Test_Game extends TestCase
 		}
 	}
 	
+	@Test
+	public void testGetUserAmount(){
+		assertNotNull(game.getUserAmount());
+		assertEquals(2, game.getUserAmount());
+	}
+	@Test
+	public void testSetUserAmount() {
+		assertNotSame(game.getUserAmount(),5);
+		game.setUserAmount(5);
+		assertEquals(game.getUserAmount(), 5);
+	}
+	@Test
+	public void testGetCompanyList(){
 
+	}
+	@Test
+	public void testSetCompanyList() {
+
+	}	
+	
+	
 	@Test
 	public void testSimulate()
 	{
@@ -66,28 +110,7 @@ public class Test_Game extends TestCase
 	
 	@Test
 	public void testCalculateIndexSums(){
-		Type myType1 = Type.TYPE1;
-		Type myType2 = Type.TYPE2;
 
-		Toaster T1 = new Toaster(8, 1000, 8155, 1.00, 2.37,  9.58, 2.58, 500, myType1);
-		Toaster T2 = new Toaster(8, 1000, 8155, 1.00, 2.37,  9.58, 2.58, 500, myType2);
-		
-		ArrayList<Toaster> A1 = new ArrayList<Toaster>();
-		A1.add(T1);
-		A1.add(T2);
-		
-		Company C1 = new Company("Test1", 1.05, 1.07, 2.10, 2.13, 50, A1);
-		ArrayList<Company> CL1 = new ArrayList<Company>();
-		CL1.add(C1);
-		Game G1 = new Game(1);
-		G1.setCompanyList(CL1);
-		double [] d = new double[3];
-		d[0]=2;
-		d[1]=0;
-		d[2]=0;
-		
-		
-		assertEquals(G1.calculateIndexSums(),d);
 		
 	}
 }
