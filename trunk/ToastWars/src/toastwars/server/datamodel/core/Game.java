@@ -1,7 +1,7 @@
 package toastwars.server.datamodel.core;
 
 import java.util.ArrayList;
-import util.NumberUtil;
+
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
@@ -99,11 +99,33 @@ public class Game implements IsSerializable
 	// @by Alex
 	public void simulate()
 	{
+		double[] indexSums = new double[3];
+		
 		for (int i = 0; i < companyList.size(); i++)
 		{
 			companyList.get(i).calculateIndex();
 		}
 		
+		indexSums= calculateIndexSums();
+		
+		for (int i = 0; i < companyList.size(); i++)
+		{
+			companyList.get(i).calculateMarketShares(indexSums);
+		}
+		
+	}
+	
+	public double[] calculateIndexSums(){
+		double[] d = new double[3];
+			return d;	
+		}
+	
+
+		
+		
+
+	
+	
 	}
 	
 	
@@ -258,4 +280,4 @@ public class Game implements IsSerializable
 	// G1.simulate(100000, 1000, 3);
 	// System.out.println(G1.getCompanyList().get(0).getTurnover());
 	// }
-}
+
