@@ -1,7 +1,6 @@
 package com.core;
 
 import java.util.ArrayList;
-import static org.easymock.EasyMock.*;
 import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;
