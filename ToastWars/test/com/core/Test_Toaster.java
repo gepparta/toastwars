@@ -52,11 +52,9 @@ public class Test_Toaster extends TestCase {
 	{
 		assertNotNull(Game.getInstance());
 		Type.TYPE1.setRandom(1.02);
-		T1.getType().getRandom();
 		T1.calculateIndex();
 	//laut PPT von Bülow muss 1,28 rauskommen		
 		assertEquals(1.28, T1.getIndex());
-		Type.TYPE1.setRandom(1.05);
 	}
 
 	@Test
