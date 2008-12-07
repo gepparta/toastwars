@@ -205,6 +205,13 @@ public class Toaster implements IsSerializable
 		this.setMarketShare((int) Math.round(this.type.getMarketVolume()/IndexSum * this.index));
 		
 	}
+	
+	public void calculateTurnover(){
+		
+		this.setTurnover(this.getMarketShare() * this.getPrice());
+	}
+	
+
 
 
 

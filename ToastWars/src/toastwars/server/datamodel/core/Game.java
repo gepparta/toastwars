@@ -104,6 +104,7 @@ public class Game implements IsSerializable
 		for (int i = 0; i < companyList.size(); i++)
 		{
 			companyList.get(i).calculateMarketShares(indexSums);
+			companyList.get(i).calculateTurnover();
 		}
 	}
 
