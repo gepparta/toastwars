@@ -157,8 +157,11 @@ public class Test_Company extends TestCase {
 		Type.TYPE2.setRandom(1.02);
 		Type.TYPE3.setRandom(1.02);
 		
-		C1.calculateIndex();
 		assertEquals(C1.getToasterList().size(), 1);
+		assertNotSame(C1.getToasterList().get(0).getIndex(),1.28);
+		
+		C1.calculateIndex();
+	
 		assertEquals(C1.getToasterList().get(0).getIndex(),1.28);
 		
 		C1 = new Company("Test1", 1.05, 1.07, 2.10, 2.13, 50, A2);
