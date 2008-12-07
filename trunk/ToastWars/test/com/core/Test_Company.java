@@ -13,41 +13,46 @@ import toastwars.server.datamodel.core.Type;
 
 public class Test_Company extends TestCase {
 
-	private Type Typ;
+	private Type myType1;
+	private Type myType2;
+	private Type myType3;
 	private Toaster T1;
 	private Toaster T2;
 	private Toaster T3;
 	private ArrayList<Toaster> A1;
 	private ArrayList<Toaster> A2;
 	private Company C1;
-	private Company C2;
+
 
 	@Before
 	public void setUp() throws Exception {
-		Typ = Type.TYPE1;
-		T1 = new Toaster(1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1,
-				Type.TYPE1);
-		T2 = new Toaster(1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1,
-				Type.TYPE2);
-		T3 = new Toaster(1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1,
-				Type.TYPE3);
+		myType1 = Type.TYPE1;
+		myType2 = Type.TYPE2;
+		myType3 = Type.TYPE3;
+		T1 = new Toaster(8, 1000, 8155, 1.00, 2.37,  9.58, 2.58, 500, myType1);
+		T2 = new Toaster(8, 1000, 8155, 1.00, 2.37,  9.58, 2.58, 500, myType2);
+		T3 = new Toaster(8, 1000, 8155, 1.00, 2.37,  9.58, 2.58, 500, myType3);
 		A1 = new ArrayList<Toaster>();
 		A1.add(T1);
 		A2 = new ArrayList<Toaster>();
 		A2.add(T2);
 		A2.add(T3);
 		C1 = new Company("Test1", 1.05, 1.07, 2.10, 2.13, 50, A1);
-		C2 = new Company("Test2", 1.00, 1.00, 1.00, 1.00, 1000, A2);
+
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		Typ = null;
+		myType1 =null;
+		myType2 =null;
+		myType3 =null;
 		T1 = null;
+		T2 = null;
+		T3 = null;
 		A1 = null;
 		A2 = null;
 		C1 = null;
-		C2 = null;
+
 	}
 
 	@Test
@@ -145,6 +150,29 @@ public class Test_Company extends TestCase {
 		assertEquals(A2, C1.getToasterList());
 	}
 
+	
+	@Test
+	public void testCalaculateIndex(){
+		Type.TYPE1.setRandom(1.02);
+		Type.TYPE2.setRandom(1.02);
+		Type.TYPE3.setRandom(1.02);
+		
+		C1.calculateIndex();
+		assertEquals(C1.getToasterList().size(), 1);
+		assertEquals(C1.getToasterList().get(0).getIndex(),1.28);
+		
+		C1 = new Company("Test1", 1.05, 1.07, 2.10, 2.13, 50, A2);
+		
+		C1.calculateIndex();
+		assertEquals(C1.getToasterList().size(), 2);
+		assertEquals(C1.getToasterList().get(0).getIndex(),1.28);
+		assertEquals(C1.getToasterList().get(1).getIndex(),1.28);
+
+		
+	}
+	
+	
+	
 //	@Test
 //	public void testCalculateAndSetMarketShare() {
 //		assertEquals(C1.calculateAndSetMarketShare(10000, 20000, 0, 2.00), 5000);
