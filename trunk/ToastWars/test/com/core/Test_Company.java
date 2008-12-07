@@ -16,12 +16,13 @@ public class Test_Company extends TestCase {
 	private Type myType1;
 	private Type myType2;
 	private Type myType3;
-	private Toaster T1;
-	private Toaster T2;
-	private Toaster T3;
-	private ArrayList<Toaster> A1;
-	private ArrayList<Toaster> A2;
-	private Company C1;
+	private Toaster t1;
+	private Toaster t2;
+	private Toaster t3;
+	private ArrayList<Toaster> a1;
+	private ArrayList<Toaster> a2;
+	private Company c1;
+	private Company c2;
 
 
 	@Before
@@ -29,15 +30,16 @@ public class Test_Company extends TestCase {
 		myType1 = Type.TYPE1;
 		myType2 = Type.TYPE2;
 		myType3 = Type.TYPE3;
-		T1 = new Toaster(8, 1000, 8155, 1.00, 2.37,  9.58, 2.58, 500, myType1);
-		T2 = new Toaster(8, 1000, 8155, 1.00, 2.37,  9.58, 2.58, 500, myType2);
-		T3 = new Toaster(8, 1000, 8155, 2.00, 2.37,  9.58, 2.58, 500, myType3);
-		A1 = new ArrayList<Toaster>();
-		A1.add(T1);
-		A2 = new ArrayList<Toaster>();
-		A2.add(T2);
-		A2.add(T3);
-		C1 = new Company("Test1", 1.05, 1.07, 2.10, 2.13, 50, A1);
+		t1 = new Toaster(8, 1000, 8155, 1.00, 2.37,  9.58, 2.58, 500, myType1);
+		t2 = new Toaster(8, 1000, 8155, 1.00, 2.37,  9.58, 2.58, 500, myType2);
+		t3 = new Toaster(8, 1000, 8155, 2.00, 2.37,  9.58, 2.58, 500, myType3);
+		a1 = new ArrayList<Toaster>();
+		a1.add(t1);
+		a2 = new ArrayList<Toaster>();
+		a2.add(t2);
+		a2.add(t3);
+		c1 = new Company("Test1", 1.05, 1.07, 2.10, 2.13, 50, a1);
+		c2 = new Company("Test1", 1.05, 1.07, 2.10, 2.13, 50, a2);
 
 	}
 
@@ -46,19 +48,20 @@ public class Test_Company extends TestCase {
 		myType1 =null;
 		myType2 =null;
 		myType3 =null;
-		T1 = null;
-		T2 = null;
-		T3 = null;
-		A1 = null;
-		A2 = null;
-		C1 = null;
+		t1 = null;
+		t2 = null;
+		t3 = null;
+		a1 = null;
+		a2 = null;
+		c1 = null;
+		c2=null;
 
 	}
 
 	@Test
 	public void testGetDescription() {
 
-		String t = C1.getDescription();
+		String t = c1.getDescription();
 		assertNotNull(t);
 		assertEquals(t, "Test1");
 	}
@@ -66,88 +69,88 @@ public class Test_Company extends TestCase {
 	@Test
 	public void testSetDescription() {
 
-		assertNotSame(C1.getDescription(), "hallo");
-		C1.setDescription("hallo");
-		assertEquals("hallo", C1.getDescription());
+		assertNotSame(c1.getDescription(), "hallo");
+		c1.setDescription("hallo");
+		assertEquals("hallo", c1.getDescription());
 	}
 
 	@Test
 	public void testGetTurnover() {
-		assertNotNull(C1.getTurnover());
-		assertEquals(C1.getTurnover(), 1.05);
+		assertNotNull(c1.getTurnover());
+		assertEquals(c1.getTurnover(), 1.05);
 	}
 
 	@Test
 	public void testSetTurnover() {
-		assertNotSame(C1.getTurnover(), 9.09);
-		C1.setTurnover(9.09);
-		assertEquals(C1.getTurnover(), 9.09);
+		assertNotSame(c1.getTurnover(), 9.09);
+		c1.setTurnover(9.09);
+		assertEquals(c1.getTurnover(), 9.09);
 	}
 
 	@Test
 	public void testGetCost() {
-		assertNotNull(C1.getCost());
-		assertEquals(C1.getCost(), 1.07);
+		assertNotNull(c1.getCost());
+		assertEquals(c1.getCost(), 1.07);
 	}
 
 	@Test
 	public void testSetCost() {
-		assertNotSame(C1.getCost(), 1.67);
-		C1.setCost(1.67);
-		assertEquals(C1.getCost(), 1.67);
+		assertNotSame(c1.getCost(), 1.67);
+		c1.setCost(1.67);
+		assertEquals(c1.getCost(), 1.67);
 
 	}
 
 	@Test
 	public void testGetProfit() {
-		assertNotNull(C1.getProfit());
-		assertEquals(C1.getProfit(), 2.10);
+		assertNotNull(c1.getProfit());
+		assertEquals(c1.getProfit(), 2.10);
 	}
 
 	@Test
 	public void testSetProfit() {
-		assertNotSame(C1.getProfit(), 2.33);
-		C1.setProfit(2.33);
-		assertEquals(C1.getProfit(), 2.33);
+		assertNotSame(c1.getProfit(), 2.33);
+		c1.setProfit(2.33);
+		assertEquals(c1.getProfit(), 2.33);
 	}
 
 	@Test
 	public void testGetCapital() {
-		assertNotNull(C1.getCapital());
-		assertEquals(C1.getCapital(), 2.13);
+		assertNotNull(c1.getCapital());
+		assertEquals(c1.getCapital(), 2.13);
 	}
 
 	@Test
 	public void testSetCapital() {
-		assertNotSame(C1.getCapital(), 2.09);
-		C1.setCapital(2.09);
-		assertEquals(C1.getCapital(), 2.09);
+		assertNotSame(c1.getCapital(), 2.09);
+		c1.setCapital(2.09);
+		assertEquals(c1.getCapital(), 2.09);
 	}
 
 	@Test
 	public void testgetMarketShare() {
-		assertNotNull(C1.getMarketShare());
-		assertEquals(C1.getMarketShare(), 50);
+		assertNotNull(c1.getMarketShare());
+		assertEquals(c1.getMarketShare(), 50);
 	}
 
 	@Test
 	public void testSetMarketShare() {
-		assertNotSame(C1.getMarketShare(), 9);
-		C1.setMarketShare(9);
-		assertEquals(C1.getMarketShare(), 9);
+		assertNotSame(c1.getMarketShare(), 9);
+		c1.setMarketShare(9);
+		assertEquals(c1.getMarketShare(), 9);
 	}
 
 	@Test
 	public void testGetToasterList() {
-		assertNotNull(C1.getToasterList());
-		assertEquals(A1, C1.getToasterList());
+		assertNotNull(c1.getToasterList());
+		assertEquals(a1, c1.getToasterList());
 	}
 
 	@Test
 	public void testSetToasterList() {
-		assertNotSame(A2, C1.getToasterList());
-		C1.setToasterList(A2);
-		assertEquals(A2, C1.getToasterList());
+		assertNotSame(a2, c1.getToasterList());
+		c1.setToasterList(a2);
+		assertEquals(a2, c1.getToasterList());
 	}
 
 	
@@ -157,24 +160,24 @@ public class Test_Company extends TestCase {
 		Type.TYPE2.setRandom(1.02);
 		Type.TYPE3.setRandom(1.02);
 		
-		assertEquals(C1.getToasterList().size(), 1);
-		assertNotSame(C1.getToasterList().get(0).getIndex(),1.28);
+		assertEquals(c1.getToasterList().size(), 1);
+		assertNotSame(c1.getToasterList().get(0).getIndex(),1.28);
 		
-		C1.calculateIndex();
+		c1.calculateIndex();
 	
-		assertEquals(C1.getToasterList().get(0).getIndex(),1.28);
-		
-		C1 = new Company("Test1", 1.05, 1.07, 2.10, 2.13, 50, A2);
+		assertEquals(c1.getToasterList().get(0).getIndex(),1.28);
 		
 		
-		assertNotSame(C1.getToasterList().get(0).getIndex(),1.28);
-		assertNotSame(C1.getToasterList().get(1).getIndex(),1.28);
+
 		
-		C1.calculateIndex();
+		assertNotSame(c2.getToasterList().get(0).getIndex(),1.28);
+		assertNotSame(c2.getToasterList().get(1).getIndex(),1.28);
 		
-		assertEquals(C1.getToasterList().size(), 2);
-		assertEquals(C1.getToasterList().get(0).getIndex(),1.28);
-		assertEquals(C1.getToasterList().get(1).getIndex(),1.28);
+		c2.calculateIndex();
+		
+		assertEquals(c2.getToasterList().size(), 2);
+		assertEquals(c2.getToasterList().get(0).getIndex(),1.28);
+		assertEquals(c2.getToasterList().get(1).getIndex(),1.28);
 
 		
 	}
@@ -185,16 +188,32 @@ public class Test_Company extends TestCase {
 		d[0]=5;
 		d[1]=10;
 		
-		assertNotSame(2000, C1.getToasterList().get(0).getMarketShare());
-		C1.calculateMarketShares(d);
-		assertEquals(2000, C1.getToasterList().get(0).getMarketShare());
+		assertNotSame(2000, c1.getToasterList().get(0).getMarketShare());
+		c1.calculateMarketShares(d);
+		assertEquals(2000, c1.getToasterList().get(0).getMarketShare());
 		
-		C1 = new Company("Test1", 1.05, 1.07, 2.10, 2.13, 50, A2);
-		assertNotSame(2000, C1.getToasterList().get(0).getMarketShare());
-		assertNotSame(2000, C1.getToasterList().get(1).getMarketShare());
-		C1.calculateMarketShares(d);
-		assertEquals(4000, C1.getToasterList().get(0).getMarketShare());
-		assertEquals(6000, C1.getToasterList().get(1).getMarketShare());
+		
+		assertNotSame(2000, c2.getToasterList().get(0).getMarketShare());
+		assertNotSame(2000, c2.getToasterList().get(1).getMarketShare());
+		c2.calculateMarketShares(d);
+		assertEquals(4000, c2.getToasterList().get(0).getMarketShare());
+		assertEquals(6000, c2.getToasterList().get(1).getMarketShare());
+	}
+	
+	
+	@Test
+	public void testCalculateTurnover(){
+		
+		assertNotSame(4000.00, c1.getToasterList().get(0).getTurnover());
+		c1.calculateTurnover();
+		assertEquals(4000.00, c1.getToasterList().get(0).getTurnover());
+		
+		
+		assertNotSame(4000.00, c2.getToasterList().get(0).getTurnover());
+		assertNotSame(4000.00, c2.getToasterList().get(1).getTurnover());
+		c2.calculateTurnover();
+		assertEquals(4000.00, c2.getToasterList().get(0).getTurnover());
+		assertEquals(4000.00, c2.getToasterList().get(1).getTurnover());
 	}
 	
 //	@Test
