@@ -27,7 +27,7 @@ public class Test_Toaster extends TestCase {
 		master = (Master)UserFactory.createUser("Master", "ADMIN","ADMIN");
 		master.startGame(2);
 		myType = Type.TYPE1;
-		T1 = new Toaster(8, 1000, 8155, 1.00, 2.37, 11.53, 9.58, 2.58, 500, myType);
+		T1 = new Toaster(8, 1000, 8155, 1.00, 2.37,  9.58, 2.58, 500, myType);
 	}
 
 	@After
@@ -122,18 +122,7 @@ public class Test_Toaster extends TestCase {
 		assertEquals(T1.getTurnover(), 6.17);
 	}
 
-	@Test
-	public void testGetCapital() {
-		assertNotNull(T1.getCapital());
-		assertEquals(T1.getCapital(), 11.53);
-	}
 
-	@Test
-	public void testSetCapital() {
-		assertNotSame(T1.getCapital(), 12.3);
-		T1.setCapital(12.3);
-		assertEquals(T1.getCapital(), 12.3);
-	}
 
 	@Test
 	public void testGetCost() {
