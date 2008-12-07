@@ -1,16 +1,14 @@
 package toastwars.server.datamodel.core;
 
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.util.Locale;
-import toastwars.server.datamodel.user.Master;
+
 import util.NumberUtil;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class Toaster implements IsSerializable
 {
 
+	private static int nextToasterID = 0;
+	private int toasterID;
 	private double price;
 	private double marketing;
 	private double research;
@@ -23,9 +21,20 @@ public class Toaster implements IsSerializable
 
 	// //////////////////Konstruktor//////////////////////////
 
-	public Toaster()
+	public Toaster(int toasterID, double price, double marketing, double research,
+			double index, double turnover,  double cost,
+			double profit, int marketShare, Type type)
 	{
-
+		this.toasterID = toasterID;
+		this.price = price;
+		this.marketing = marketing;
+		this.research = research;
+		this.index = index;
+		this.turnover = turnover;
+		this.cost = cost;
+		this.profit = profit;
+		this.marketShare = marketShare;
+		this.type = type;
 	}
 
 	public Toaster(double price, double marketing, double research,
@@ -33,6 +42,8 @@ public class Toaster implements IsSerializable
 			double profit, int marketShare, Type type)
 	{
 
+		this.toasterID = nextToasterID;
+		nextToasterID ++;
 		this.price = price;
 		this.marketing = marketing;
 		this.research = research;
