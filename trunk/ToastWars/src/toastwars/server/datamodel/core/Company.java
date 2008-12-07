@@ -87,6 +87,24 @@ public class Company implements IsSerializable {
 	}
 
 	// //// METHODS ///////
+	
+//	@by Alex 
+	public void calculateIndex()
+	{
+		for(int i=0;i<toasterList.size();i++)
+		{
+			toasterList.get(i).calculateIndex();
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 //	public int calculateAndSetMarketShare(int marketvolume1, int marketvolume2,
 //			int marketvolume3, double sumIndex) {
@@ -176,13 +194,7 @@ public class Company implements IsSerializable {
 //		return this.capital = capital + this.profit;
 //
 //	}
-//	@by Alex 
-	public void calculateIndex()
-	{
-		for(int i=0;i<toasterList.size();i++)
-		{
-			toasterList.get(i).calculateIndex();
-		}
-	}
+
+
 
 }
