@@ -10,16 +10,24 @@ import toastwars.server.datamodel.core.Type;
 public class Test_Type extends TestCase {
 
 	private Type T1;
+	private Type T2;
+	private Type T3;
 
 	@Before
 	public void setUp() throws Exception {
 		T1 = Type.TYPE1;
+		T2 = Type.TYPE2;
+		T3 = Type.TYPE3;
+
 	}
 
 	@After
 	public void tearDown() throws Exception {
 
 		T1 = null;
+		T2 = null;
+		T3 = null;
+
 	}
 
 	@Test
@@ -30,17 +38,64 @@ public class Test_Type extends TestCase {
 	}
 
 	@Test
-	public void testConstructor() {
-		assertEquals("TYPE1", Type.TYPE1.name());
-		assertEquals("TYPE2", Type.TYPE2.name());
-		assertEquals("TYPE3", Type.TYPE3.name());
-		assertEquals("Der 1. Typ", Type.TYPE1.getDescription());
-		assertEquals("Der 2. Typ", Type.TYPE2.getDescription());
-		assertEquals("Der 3. Typ", Type.TYPE3.getDescription());
-		assertEquals(0, Type.TYPE1.ordinal());
-		assertEquals(1, Type.TYPE2.ordinal());
-		assertEquals(2, Type.TYPE3.ordinal());
+	public void testGetRandom() {
+		assertNotNull(T1.getRandom());
+		assertEquals(0.05, T1.getRandom());
 
+	}
+
+	@Test
+	public void testGetMarketVolume() {
+		assertNotNull(T1.getMarketVolume());
+		assertEquals(10000, T1.getMarketVolume());
+
+	}
+
+	@Test
+	public void testConstructor() {
+		
+		assertEquals("TYPE1", T1.name());
+		assertEquals("TYPE2", T2.name());
+		assertEquals("TYPE3", T3.name());
+		
+		assertEquals(0, T1.ordinal());
+		assertEquals(1, T2.ordinal());
+		assertEquals(2, T3.ordinal());
+		
+		assertEquals("Der 1. Typ", T1.getDescription());
+		assertEquals("Der 2. Typ", T2.getDescription());
+		assertEquals("Der 3. Typ", T3.getDescription());
+		
+		assertEquals(0.05, T1.getRandom());
+		assertEquals(0.07, T2.getRandom());
+		assertEquals(0.1, T3.getRandom());
+		
+		assertEquals(10000, T1.getMarketVolume());
+		assertEquals(20000, T2.getMarketVolume());
+		assertEquals(30000, T3.getMarketVolume());
+
+	}
+
+	@Test
+	public void testSetDescription() {
+		assertNotSame(T1.getDescription(), "Test");
+		T1.setDescription("Test");
+		assertEquals(T1.getDescription(), "Test");
+
+	}
+
+	@Test
+	public void testSetRandom() {
+		assertNotSame(T1.getRandom(), 0.08);
+		T1.setRandom(0.08);
+		assertEquals(T1.getRandom(), 0.08);
+	}
+
+	@Test
+	public void testSetMarketVolume() {
+		assertNotSame(T1.getMarketVolume(), 15000);
+		T1.setMarketVolume(15000);
+		assertEquals(T1.getMarketVolume(), 15000);
 	}
 
 }
