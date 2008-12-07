@@ -33,6 +33,8 @@ public class Test_Toaster extends TestCase {
 	@After
 	protected void tearDown() throws Exception {
 		T1 = null;
+		master = null;
+		myType = null;
 	}
 	
 	@Test
