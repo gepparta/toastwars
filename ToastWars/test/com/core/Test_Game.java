@@ -29,9 +29,11 @@ public class Test_Game extends TestCase
 	@After
 	protected void tearDown() throws Exception
 	{
+		master = null;
 		game = null;
+		meineToaster = null;
 	}
-
+/* MUSS ÜBERPRÜFT WEDEN.... Was hat das Random Zeugs hier verloren?
 	@Test
 	public void testSetCurrentRound()
 	{
@@ -50,17 +52,46 @@ public class Test_Game extends TestCase
 			System.out.println(e.getLocalizedMessage());
 		}
 	}
+	
+	*/
 	@Test
 	public void testSimulate()
 	{
 		Type myType = Type.TYPE1;
-		Toaster meinToaster = new Toaster(8, 1000, 8155, 1.00, 2.37, 11.53, 9.58, 2.58, 500, myType);
+		Toaster meinToaster = new Toaster(8, 1000, 8155, 1.00, 2.37, 9.58, 2.58, 500, myType);
 		meineToaster.add(meinToaster);
 		Company com = new Company("Meine erste",500,100,400,800,20,meineToaster);
 		game.addCompany(com);
-		game.setRandom(1.02); //wie in ppt angegeben
+		meinToaster.getType().setRandom(1.02); //wie in ppt angegeben
 		game.simulate();
-		assertNotSame(1.00,meinToaster.getIndex());
+		assertNotSame(1.00,meinToaster.getIndex()); //@Alex warum, das brauchen wir 
 		assertEquals(1.28, meinToaster.getIndex()); //1.28 wird erwartet
+	}
+	
+	@Test
+	public void testCalculateIndexSums(){
+		Type myType1 = Type.TYPE1;
+		Type myType2 = Type.TYPE2;
+
+		Toaster T1 = new Toaster(8, 1000, 8155, 1.00, 2.37,  9.58, 2.58, 500, myType1);
+		Toaster T2 = new Toaster(8, 1000, 8155, 1.00, 2.37,  9.58, 2.58, 500, myType2);
+		
+		ArrayList<Toaster> A1 = new ArrayList<Toaster>();
+		A1.add(T1);
+		A1.add(T2);
+		
+		Company C1 = new Company("Test1", 1.05, 1.07, 2.10, 2.13, 50, A1);
+		ArrayList<Company> CL1 = new ArrayList<Company>();
+		CL1.add(C1);
+		Game G1 = new Game(1);
+		G1.setCompanyList(CL1);
+		double [] d = new double[3];
+		d[0]=2;
+		d[1]=0;
+		d[2]=0;
+		
+		
+		assertEquals(G1.calculateIndexSums(),d);
+		
 	}
 }

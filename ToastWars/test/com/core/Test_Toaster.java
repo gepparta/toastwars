@@ -1,5 +1,5 @@
 package com.core;
-//Hey Alex
+
 import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;
