@@ -100,11 +100,19 @@ public class Company implements IsSerializable {
 		for (int i = 0; i < this.toasterList.size(); i++) {
 
 			toasterList.get(i).calculateMarketShare(indexSums[i]);
-			this.marketShare = this.marketShare
-					+ toasterList.get(i).getMarketShare();
+			this.marketShare = this.marketShare + toasterList.get(i).getMarketShare();
 		}
 	}
+		
+	public void calculateTurnover(){
+		this.turnover = 0;
+		for (int i = 0; i < this.toasterList.size(); i++) {
 
+			toasterList.get(i).calculateTurnover();
+			this.turnover = this.turnover+ toasterList.get(i).getTurnover();
+	}
+	}
+ 
 	
 	
 	
