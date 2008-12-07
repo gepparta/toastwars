@@ -14,6 +14,12 @@ import toastwars.server.datamodel.user.UserFactory;
 
 public class Test_Game extends TestCase
 {
+	Master master;
+	Game game;
+	ArrayList<Toaster> meineToaster;
+	Toaster meinToaster;
+	Company com;
+
 	private Master master;
 	private Game game;
 	private ArrayList<Toaster> meineToaster;
@@ -30,6 +36,11 @@ public class Test_Game extends TestCase
 		master.startGame(2);
 		game = master.getCurrentGame();
 		meineToaster = new ArrayList<Toaster>();
+		Type myType = Type.TYPE1;
+		meinToaster = new Toaster(8, 1000, 8155, 1.00, 2.37, 9.58, 2.58, 500,
+				myType);
+		meineToaster.add(meinToaster);
+		com = new Company("Meine erste", 500, 100, 400, 800, 20, meineToaster);
 
 /* um später mal das get/set CompanyList zu testen
 		myType1 = Type.TYPE1;
@@ -48,8 +59,9 @@ public class Test_Game extends TestCase
 		master = null;
 		game = null;
 		meineToaster = null;
+		meinToaster = null;
 	}
- 
+
 	@Test
 	public void testGetCurrentRound(){
 		assertNotNull(game.getCurrentRound());
@@ -92,25 +104,34 @@ public class Test_Game extends TestCase
 	@Test
 	public void testSetCompanyList() {
 
-	}	
-	
-	
 	@Test
 	public void testSimulate()
 	{
-		Type myType = Type.TYPE1;
-		Toaster meinToaster = new Toaster(8, 1000, 8155, 1.00, 2.37, 9.58, 2.58, 500, myType);
-		meineToaster.add(meinToaster);
-		Company com = new Company("Meine erste",500,100,400,800,20,meineToaster);
 		game.addCompany(com);
-		meinToaster.getType().setRandom(1.02); //wie in ppt angegeben
+		meinToaster.getType().setRandom(1.02); // wie in ppt angegeben
 		game.simulate();
-		assertEquals(1.28, meinToaster.getIndex()); //1.28 wird erwartet
+		assertEquals(1.28, meinToaster.getIndex()); // 1.28 wird erwartet
 	}
-	
-	@Test
-	public void testCalculateIndexSums(){
 
-		
+	@Test
+	public void testCalculateIndexSums()
+	{
+		Type myType1 = Type.TYPE1;
+		Type myType2 = Type.TYPE2;
+		// Index Werte der beiden Toaster wie in ppt für Runde 1 angegeben
+		Toaster toaster1 = new Toaster(8, 1000, 8155, 1.28, 2.37, 9.58, 2.58,
+				500, myType1);
+		Toaster toaster2 = new Toaster(8, 1000, 8155, 2.57, 2.37, 9.58, 2.58,
+				500, myType1);
+
+		ArrayList<Toaster> toasterList1 = new ArrayList<Toaster>();
+		toasterList1.add(toaster1);
+		toasterList1.add(toaster2);
+		game.getCompanyList().get(0).setToasterList(toasterList1);
+
+		double[] indexSums = game.calculateIndexSums();
+		assertEquals(indexSums[0], 3.85);
+		assertEquals(indexSums[1], 0.0);
+		assertEquals(indexSums[2], 0.0);
 	}
 }
