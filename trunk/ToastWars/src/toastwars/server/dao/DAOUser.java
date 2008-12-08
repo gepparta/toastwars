@@ -73,7 +73,7 @@ public class DAOUser {
 					Group group = (Group)UserFactory.createUser("Group",row.get(0), row.get(1));
 					Company comp = new Company();
 					group.setCompany(comp);
-					Status stat = new Status(row.get(3));
+					Status stat = Status.valueOf(row.get(3));
 					group.setStatus(stat);
 					userList.add(group);
 					
