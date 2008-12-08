@@ -51,7 +51,6 @@ public class DAOUser {
 			e.printStackTrace();
 		}
 	}
-
 	public ArrayList getAllUsers() {
 
 		if (userList.isEmpty()) {
@@ -71,13 +70,13 @@ public class DAOUser {
 						row.add(rst.getString(i));
 					}
 					// System.out.println(row.toString());
-
 					Group group = (Group)UserFactory.createUser("Group",row.get(0), row.get(1));
 					Company comp = new Company();
 					group.setCompany(comp);
 					Status stat = new Status(row.get(3));
 					group.setStatus(stat);
 					userList.add(group);
+					
 				}
 				System.out.println(userList.toString());
 				rst.close();
@@ -106,5 +105,9 @@ public class DAOUser {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	public static void main(String[] args) {
+		DAOUser user = new DAOUser();
+		user.changeStatus("test","neuerStatus");
 	}
 }
