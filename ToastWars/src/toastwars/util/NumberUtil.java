@@ -1,4 +1,4 @@
-package util;
+package toastwars.util;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
