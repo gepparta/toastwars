@@ -50,6 +50,20 @@ public class Test_Type extends TestCase {
 		assertEquals(10000, T1.getMarketVolume());
 
 	}
+	
+	@Test
+	public void testGetFixCost() {
+		assertNotNull(T1.getFixCost());
+		assertEquals(5000.00, T1.getFixCost());
+
+	}
+	
+	@Test
+	public void testGetVariableCost() {
+		assertNotNull(T1.getVariableCost());
+		assertEquals(10.00, T1.getVariableCost());
+
+	}
 
 	@Test
 	public void testConstructor() {
@@ -73,6 +87,14 @@ public class Test_Type extends TestCase {
 		assertEquals(10000, T1.getMarketVolume());
 		assertEquals(20000, T2.getMarketVolume());
 		assertEquals(30000, T3.getMarketVolume());
+		
+		assertEquals(5000.00, T1.getFixCost());
+		assertEquals(5000.00, T2.getFixCost());
+		assertEquals(5000.00, T3.getFixCost());
+		
+		assertEquals(10.00, T1.getVariableCost());
+		assertEquals(10.00, T2.getVariableCost());
+		assertEquals(10, T3.getVariableCost());
 
 	}
 
@@ -96,6 +118,20 @@ public class Test_Type extends TestCase {
 		assertNotSame(T1.getMarketVolume(), 15000);
 		T1.setMarketVolume(15000);
 		assertEquals(T1.getMarketVolume(), 15000);
+	}
+	
+	@Test
+	public void testSetFixCost() {
+		assertNotSame(T1.getFixCost(), 12000.00);
+		T1.setFixCost(12000.00);
+		assertEquals(T1.getFixCost(), 12000.00);
+	}
+	
+	@Test
+	public void testSetVariableCost() {
+		assertNotSame(T1.getVariableCost(), 12.00);
+		T1.setVariableCost(12.00);
+		assertEquals(T1.getVariableCost(), 12.00);
 	}
 
 }
