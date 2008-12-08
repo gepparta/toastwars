@@ -16,7 +16,7 @@ public class Game implements IsSerializable {
 	private static Game instance;
 
 	// *************************Constructor*****************************************************
-	public Game(int userAmount) // zum testen auf public gesetzt
+	private Game(int userAmount) // zum testen auf public gesetzt
 	{
 		this.userAmount = userAmount;
 		try {
@@ -116,8 +116,13 @@ public class Game implements IsSerializable {
 
 		return indexSums;
 	}
+	public void changePrice(Company company, Toaster toaster, double price) {
 
-	private ArrayList<Company> createInitialData(int userAmount,
+		company.getToasterList().get(company.getToasterList().indexOf(toaster))
+				.setPrice(price);
+
+	}
+/*	private ArrayList<Company> createInitialData(int userAmount,
 			double initialPrice1, int initialMarketing1, int initialResearch1,
 			double initialPrice2, int initialMarketing2, int initialResearch2,
 			double initialPrice3, int initialMarketing3, int initialResearch3,
@@ -154,12 +159,7 @@ public class Game implements IsSerializable {
 
 		return companyList;
 	}
+*/
 
-	public void changePrice(Company company, Toaster toaster, double price) {
-
-		company.getToasterList().get(company.getToasterList().indexOf(toaster))
-				.setPrice(price);
-
-	}
 
 }
