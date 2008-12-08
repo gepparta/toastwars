@@ -2,71 +2,87 @@ package toastwars.server.datamodel.user;
 
 import toastwars.server.datamodel.core.Company;
 
-public class Group implements IUser {
-	private String	password;
-	private String	username;
-	private Company	company;
-	private boolean	isOnline;
-	private Status	status;
+public class Group implements IUser
+{
+	private String password;
+	private String username;
+	private Company company;
+	private boolean isOnline;
+	private Status status;
 
-	public Group() {
+	public Group()
+	{
 	}
 
-	public Group(String username, String password) {
+	protected Group(String username, String password)
+	{
 		this.username = username;
 		this.password = password;
 	}
 
-	public String getPassword() {
+	public String getPassword()
+	{
 		return password;
 	}
 
-	public String getUsername() {
+	public String getUsername()
+	{
 		return username;
 	}
 
-	public boolean isMaster() {
+	public boolean isMaster()
+	{
 		return false;
 	}
 
-	public void setPassword(String password) {
+	public void setPassword(String password)
+	{
 		this.password = password;
 	}
 
-	public void setUsername(String username) {
+	public void setUsername(String username)
+	{
 		this.username = username;
 	}
 
-	public Company getCompany() {
+	public Company getCompany()
+	{
 		return company;
 	}
 
-	public void setCompany(Company company) {
+	public void setCompany(Company company)
+	{
 		if (this.company != null)
 			this.company = company;
 	}
 
-	public boolean isOnline() {
+	public boolean isOnline()
+	{
 		return isOnline;
 	}
 
-	public void setOnline(boolean isOnline) {
+	public void setOnline(boolean isOnline)
+	{
 		this.isOnline = isOnline;
 	}
 
-	public Status getStatus() {
+	public Status getStatus()
+	{
 		return status;
 	}
 
-	public void setStatus(Status status) {
+	public void setStatus(Status status)
+	{
 		this.status = status;
 	}
 
-	public void save() {
+	public void save()
+	{
 		this.setStatus(Status.EDITED);
 	}
 
-	public void completeRound() {
-		this.setStatus(Status.COMPLITED);
+	public void completeRound()
+	{
+		this.setStatus(Status.COMPLETED);
 	}
 }
