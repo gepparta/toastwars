@@ -105,6 +105,9 @@ public class Game implements IsSerializable
 		{
 			companyList.get(i).calculateMarketShares(indexSums);
 			companyList.get(i).calculateTurnover();
+			companyList.get(i).calculateCost();
+			companyList.get(i).calculateProfit();
+			companyList.get(i).calculateCapital();
 		}
 	}
 
