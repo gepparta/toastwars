@@ -94,7 +94,7 @@ public class Test_Type extends TestCase {
 		
 		assertEquals(10.00, T1.getVariableCost());
 		assertEquals(10.00, T2.getVariableCost());
-		assertEquals(10, T3.getVariableCost());
+		assertEquals(10.00, T3.getVariableCost());
 
 	}
 
@@ -125,6 +125,7 @@ public class Test_Type extends TestCase {
 		assertNotSame(T1.getFixCost(), 12000.00);
 		T1.setFixCost(12000.00);
 		assertEquals(T1.getFixCost(), 12000.00);
+
 	}
 	
 	@Test
