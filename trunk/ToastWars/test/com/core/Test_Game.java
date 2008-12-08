@@ -14,9 +14,7 @@ import toastwars.server.datamodel.user.UserFactory;
 
 public class Test_Game extends TestCase
 {
-	Master master;
-	Game game;
-	ArrayList<Toaster> meineToaster;
+
 	Toaster meinToaster;
 	Company com;
 
@@ -102,7 +100,7 @@ public class Test_Game extends TestCase
 
 	}
 	@Test
-	public void testSetCompanyList() {
+	public void testSetCompanyList() {}
 
 	@Test
 	public void testSimulate()
