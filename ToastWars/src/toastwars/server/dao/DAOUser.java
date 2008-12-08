@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import toastwars.server.datamodel.core.Company;
 import toastwars.server.datamodel.user.Group;
 import toastwars.server.datamodel.user.Status;
+import toastwars.server.datamodel.user.UserFactory;
 
 public class DAOUser {
 
@@ -71,7 +72,7 @@ public class DAOUser {
 					}
 					// System.out.println(row.toString());
 
-					Group group = new Group(row.get(0), row.get(1));
+					Group group = (Group)UserFactory.createUser("Group",row.get(0), row.get(1));
 					Company comp = new Company();
 					group.setCompany(comp);
 					Status stat = new Status(row.get(3));
