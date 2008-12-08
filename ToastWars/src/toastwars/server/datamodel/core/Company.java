@@ -100,37 +100,47 @@ public class Company implements IsSerializable {
 		for (int i = 0; i < this.toasterList.size(); i++) {
 
 			toasterList.get(i).calculateMarketShare(indexSums[i]);
-			this.marketShare = this.marketShare + toasterList.get(i).getMarketShare();
+			this.marketShare = this.marketShare
+					+ toasterList.get(i).getMarketShare();
 		}
 	}
-		
-	public void calculateTurnover(){
+
+	public void calculateTurnover() {
 		this.turnover = 0;
 		for (int i = 0; i < this.toasterList.size(); i++) {
 
 			toasterList.get(i).calculateTurnover();
-			this.turnover = this.turnover+ toasterList.get(i).getTurnover();
+			this.turnover = this.turnover + toasterList.get(i).getTurnover();
+		}
+	}
+
+	public void calculateCost() {
+		this.cost = 0;
+		for (int i = 0; i < this.toasterList.size(); i++) {
+
+			toasterList.get(i).calculateCost();
+			this.cost = this.cost + toasterList.get(i).getCost();
+
+		}
+	}	
+	public void calculateProfit(){
+		this.profit = 0;
+		for (int i = 0; i < this.toasterList.size(); i++) {
+
+			toasterList.get(i).calculateProfit();
+			this.profit = this.profit + toasterList.get(i).getProfit();
+
+		}
+		
+	}
+	
+	public void calculateCapital(){
+	
+			this.capital = this.capital + this.profit;
+
 	}
 	}
- 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	// public int calculateAndSetMarketShare(int marketvolume1, int
 	// marketvolume2,
 	// int marketvolume3, double sumIndex) {
@@ -221,4 +231,4 @@ public class Company implements IsSerializable {
 	//
 	// }
 
-}
+
