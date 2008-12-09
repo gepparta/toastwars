@@ -15,9 +15,8 @@ import toastwars.server.datamodel.user.UserFactory;
 public class Test_Game extends TestCase
 {
 
-	Toaster meinToaster;
-	Company com;
-
+	private Toaster meinToaster;
+	private Company com;
 	private Master master;
 	private Game game;
 	private ArrayList<Toaster> meineToaster;
