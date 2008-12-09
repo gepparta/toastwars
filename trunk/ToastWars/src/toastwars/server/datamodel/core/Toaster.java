@@ -1,7 +1,7 @@
 package toastwars.server.datamodel.core;
 
 
-import util.NumberUtil;
+import toastwars.util.NumberUtil;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class Toaster implements IsSerializable
