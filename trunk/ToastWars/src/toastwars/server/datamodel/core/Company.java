@@ -110,6 +110,15 @@ public class Company implements IsSerializable
 			toasterList.get(i).calculateIndex();
 		}
 	}
+	
+	// @by Alex extra for testing
+	public void calculateIndexWithOutRandom()
+	{
+		for (int i = 0; i < toasterList.size(); i++)
+		{
+			toasterList.get(i).calculateIndexWithOutRandom();
+		}
+	}
 
 	public void calculateMarketShares(double[] indexSums)
 	{
