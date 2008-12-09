@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import toastwars.server.datamodel.user.Group;
+import toastwars.server.datamodel.user.UserFactory;
 import junit.framework.TestCase;
 
 
@@ -14,7 +15,7 @@ public class GroupTest extends TestCase
 	@Before
 	public void setUp() throws Exception
 	{
-		group = new Group("GROUP1","GROUP1");
+		group = (Group)UserFactory.createUser("Group","GROUP1","GROUP1");
 	}
 
 	@After
