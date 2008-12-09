@@ -1,6 +1,5 @@
 package toastwars.server.datamodel.core;
 
-
 import toastwars.util.NumberUtil;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
@@ -21,9 +20,8 @@ public class Toaster implements IsSerializable
 
 	// //////////////////Konstruktor//////////////////////////
 
-	public Toaster(int toasterID, double price, double marketing, double research,
-			double index, double turnover,  double cost,
-			double profit, int marketShare, Type type)
+	public Toaster(int toasterID, double price, double marketing, double research, double index,
+			double turnover, double cost, double profit, int marketShare, Type type)
 	{
 		this.toasterID = toasterID;
 		this.price = price;
@@ -37,13 +35,12 @@ public class Toaster implements IsSerializable
 		this.type = type;
 	}
 
-	public Toaster(double price, double marketing, double research,
-			double index, double turnover,  double cost,
-			double profit, int marketShare, Type type)
+	public Toaster(double price, double marketing, double research, double index, double turnover,
+			double cost, double profit, int marketShare, Type type)
 	{
 
 		this.toasterID = nextToasterID;
-		nextToasterID ++;
+		nextToasterID++;
 		this.price = price;
 		this.marketing = marketing;
 		this.research = research;
@@ -58,23 +55,26 @@ public class Toaster implements IsSerializable
 
 	// /////////////////GETTER & SETTER ///////////////////////////////////
 
-	
-	public static int getNextToasterID() {
+	public static int getNextToasterID()
+	{
 		return nextToasterID;
 	}
 
-	public static void setNextToasterID(int nextToasterID) {
+	public static void setNextToasterID(int nextToasterID)
+	{
 		Toaster.nextToasterID = nextToasterID;
 	}
 
-	public int getToasterID() {
+	public int getToasterID()
+	{
 		return toasterID;
 	}
 
-	public void setToasterID(int toasterID) {
+	public void setToasterID(int toasterID)
+	{
 		this.toasterID = toasterID;
 	}
-	
+
 	public double getPrice()
 	{
 		return price;
@@ -125,8 +125,6 @@ public class Toaster implements IsSerializable
 		this.turnover = turnover;
 	}
 
-	
-
 	public double getCost()
 	{
 		return cost;
@@ -169,15 +167,20 @@ public class Toaster implements IsSerializable
 
 	// ////////////METHODS ////////////////
 
-
-
 	// @by Alex
+	// Das Random für den jeweiligen ToasterTyp mit den verschiedenen
+	// Abweichungen:
+	// Type1 : 5% --> wird im Enum Konstruktor definiert
+	// Type2 : 8%
+	// Type3 : 10%
+	// z.b. NumberUtil.roundDouble(Math.random() * (1.05 - 0.95)) + 0.95;
 	public void calculateIndex()
 	{
 		double marketingIndex = calculateMarketing();
 		double researchIndex = calculateResearch();
-		double random = this.type.getRandom();
-		double i = researchIndex * (1 / (price / 10)) * marketingIndex * random;
+		double random = this.getType().getRandom();
+		double i = researchIndex * (1 / (price / 10)) * marketingIndex
+				* NumberUtil.roundDouble(Math.random() * (random * 2)) + (1 - random);
 		// runden auf zwei Stellen hinter dem Komma
 		setIndex(NumberUtil.roundDouble(i));
 	}
@@ -186,13 +189,10 @@ public class Toaster implements IsSerializable
 	public double calculateMarketing()
 	{
 		double d = 6.48 + ((Math.pow(this.marketing / 10000 - 8, 3)
-				+ Math.pow(this.marketing / 10000 - 8, 2) + Math.pow(
-				this.marketing / 10000 - 8, 1)) / 80);
+				+ Math.pow(this.marketing / 10000 - 8, 2) + Math.pow(this.marketing / 10000 - 8, 1)) / 80);
 		return NumberUtil.roundDouble(d);
 	}
-	
-	
-	
+
 	// @by Alex
 	public double calculateResearch()
 	{
@@ -200,26 +200,29 @@ public class Toaster implements IsSerializable
 		return NumberUtil.roundDouble(d);
 	}
 
-	public void calculateMarketShare(double IndexSum){
-		
-		this.setMarketShare((int) Math.round(this.type.getMarketVolume()/IndexSum * this.index));
-		
+	public void calculateMarketShare(double IndexSum)
+	{
+
+		this.setMarketShare((int) Math.round(this.type.getMarketVolume() / IndexSum * this.index));
+
 	}
-	
-	public void calculateTurnover(){
-		
+
+	public void calculateTurnover()
+	{
+
 		this.setTurnover(this.getMarketShare() * this.getPrice());
 	}
-	
-	public void calculateCost(){
-		this.setCost((this.getMarketShare()*this.type.getVariableCost()) + this.type.getFixCost());
+
+	public void calculateCost()
+	{
+		this
+				.setCost((this.getMarketShare() * this.type.getVariableCost())
+						+ this.type.getFixCost());
 	}
-	
-	public void calculateProfit(){
-		this.setProfit(this.getTurnover()-this.getCost());
+
+	public void calculateProfit()
+	{
+		this.setProfit(this.getTurnover() - this.getCost());
 	}
-
-
-
 
 }
