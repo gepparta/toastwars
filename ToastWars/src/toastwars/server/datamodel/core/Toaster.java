@@ -184,6 +184,16 @@ public class Toaster implements IsSerializable
 		// runden auf zwei Stellen hinter dem Komma
 		setIndex(NumberUtil.roundDouble(i));
 	}
+	// @by Alex extra for testing
+	public void calculateIndexWithOutRandom()
+	{
+		double marketingIndex = calculateMarketing();
+		double researchIndex = calculateResearch();
+		double random = this.getType().getRandom();
+		double i = researchIndex * (1 / (price / 10)) * marketingIndex * random;
+		// runden auf zwei Stellen hinter dem Komma
+		setIndex(NumberUtil.roundDouble(i));
+	}
 
 	// @by Alex
 	public double calculateMarketing()
