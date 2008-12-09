@@ -12,6 +12,7 @@ public class AllUserTests extends TestCase
 		suite.addTestSuite(GroupTest.class);
 		suite.addTestSuite(MasterTest.class);
 		suite.addTestSuite(UserFactoryTest.class);
+		suite.addTestSuite(StatusTest.class);
 		return suite;
 	}
 }
