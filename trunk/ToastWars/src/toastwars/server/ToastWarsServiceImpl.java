@@ -3,7 +3,6 @@ package toastwars.server;
 import javax.servlet.ServletException;
 
 import toastwars.client.ToastWarsService;
-import toastwars.server.datamodel.user.Group;
 import toastwars.server.datamodel.user.Master;
 import toastwars.server.datamodel.user.IUser;
 import toastwars.server.datamodel.user.UserFactory;
@@ -30,7 +29,7 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements
 				&& pwd.equals(master.getPassword()))
 			user = master;
 		else if (name.equals("gruppe"))
-			user = new Group(name, pwd);
+			user = UserFactory.createUser("Group", name, pwd);
 
 		return user;
 	}
