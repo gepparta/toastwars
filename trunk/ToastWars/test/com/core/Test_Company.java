@@ -177,14 +177,14 @@ public class Test_Company extends TestCase
 		assertEquals(company1.getToasterList().size(), 1);
 		assertNotSame(company1.getToasterList().get(0).getIndex(), 1.28);
 
-		company1.calculateIndex();
+		company1.calculateIndexWithOutRandom();
 
 		assertEquals(company1.getToasterList().get(0).getIndex(), 1.28);
 
 		assertNotSame(company2.getToasterList().get(0).getIndex(), 1.28);
 		assertNotSame(company2.getToasterList().get(1).getIndex(), 1.28);
 
-		company2.calculateIndex();
+		company2.calculateIndexWithOutRandom();
 
 		assertEquals(company2.getToasterList().size(), 2);
 		assertEquals(company2.getToasterList().get(0).getIndex(), 1.28);
