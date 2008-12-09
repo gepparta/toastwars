@@ -5,16 +5,19 @@ import org.junit.Before;
 import org.junit.Test;
 
 import toastwars.server.datamodel.user.Group;
+import toastwars.server.datamodel.user.Master;
 import toastwars.server.datamodel.user.UserFactory;
 import junit.framework.TestCase;
 
 
 public class GroupTest extends TestCase
 {
+	Master master;
 	Group group;
 	@Before
 	public void setUp() throws Exception
 	{
+		master = (Master)UserFactory.createUser("Master","ADMIN","ADMIN");
 		group = (Group)UserFactory.createUser("Group","GROUP1","GROUP1");
 	}
 
