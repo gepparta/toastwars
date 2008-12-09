@@ -4,7 +4,7 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 
 public enum Type implements IsSerializable {
 	TYPE1("Der 1. Typ", 10000,0.05,5000.00,10.00), 
-	TYPE2("Der 2. Typ", 20000,0.07,5000.00,10.00), 
+	TYPE2("Der 2. Typ", 20000,0.08,5000.00,10.00), 
 	TYPE3("Der 3. Typ",30000,0.1,5000.00,10.00);
 
 	private String description;
