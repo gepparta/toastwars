@@ -6,6 +6,8 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 public class Company implements IsSerializable
 {
 
+	private static int nextCompanyID = 0;
+	private int companyID;
 	private String description;
 	private double turnover;
 	private double cost;
@@ -16,9 +18,26 @@ public class Company implements IsSerializable
 	private ArrayList<Toaster> toasterList = new ArrayList<Toaster>();
 
 	// ////////////KONSTRUKTOR////////////////////
+
+	public Company(int companyID, String description, double turnover, double cost, double profit,
+			double capital, int marketShare, ArrayList<Toaster> toasterList)
+	{
+		this.companyID = companyID;
+		this.description = description;
+		this.turnover = turnover;
+		this.cost = cost;
+		this.profit = profit;
+		this.capital = capital;
+		this.marketShare = marketShare;
+		this.toasterList = toasterList;
+
+	}
+
 	public Company(String description, double turnover, double cost, double profit, double capital,
 			int marketShare, ArrayList<Toaster> toasterList)
 	{
+		this.companyID = nextCompanyID;
+		nextCompanyID++;
 		this.description = description;
 		this.turnover = turnover;
 		this.cost = cost;
@@ -30,6 +49,26 @@ public class Company implements IsSerializable
 	}
 
 	// //GETTER & SETTER ///////////
+	public static int getNextCompanyID()
+	{
+		return nextCompanyID;
+	}
+
+	public static void setNextCompanyID(int nextCompanyID)
+	{
+		Company.nextCompanyID = nextCompanyID;
+	}
+
+	public int getCompanyID()
+	{
+		return companyID;
+	}
+
+	public void setCompanyID(int companyID)
+	{
+		this.companyID = companyID;
+	}
+
 	public String getDescription()
 	{
 		return description;
@@ -110,7 +149,7 @@ public class Company implements IsSerializable
 			toasterList.get(i).calculateIndex();
 		}
 	}
-	
+
 	// @by Alex extra for testing
 	public void calculateIndexWithOutRandom()
 	{
