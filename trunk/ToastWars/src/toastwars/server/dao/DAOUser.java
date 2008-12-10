@@ -15,7 +15,7 @@ public class DAOUser {
 
 	private ArrayList<Group> userList = new ArrayList<Group>();
 
-	public void createUser(String name, String password, Integer CompanyID) {
+	public void saveUser(String name, String password, Integer CompanyID) {
 		DBConnection con = new DBConnection();
 		con.connectToDB();
 		Statement stmt = con.getStatement();
@@ -40,7 +40,7 @@ public class DAOUser {
 		DBConnection con = new DBConnection();
 		con.connectToDB();
 		Statement stmt = con.getStatement();
-		String sql = "DELETE FROM User WHERE ID <> 1;";
+		String sql = "DELETE * FROM User;";
 		try {
 			stmt.execute(sql);
 			stmt.close();
@@ -108,6 +108,7 @@ public class DAOUser {
 	}
 	public static void main(String[] args) {
 		DAOUser user = new DAOUser();
-		user.changeStatus("test","neuerStatus");
+		//user.changeStatus("test","neuerStatus");
+		user.deleteUsers();
 	}
 }
