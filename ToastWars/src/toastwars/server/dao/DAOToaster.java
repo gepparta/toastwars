@@ -14,7 +14,7 @@ import toastwars.server.datamodel.user.UserFactory;
 
 public class DAOToaster{
 	ArrayList<Toaster> toasterList = new ArrayList<Toaster>();
-	public ArrayList getAllUsers() {
+	public ArrayList getAllToaster() {
 
 		if (toasterList.isEmpty()) {
 			try {
@@ -32,27 +32,29 @@ public class DAOToaster{
 					for (int i = 1; i <= columns; i++) {
 						row.add(rst.getObject(i));
 					}
-					// System.out.println(row.toString());
-					Toaster toaster = new Toaster(rst.getInt(0),rst.getDouble(1),rst.getDouble(2),rst.getDouble(3),rst.getDouble(4),rst.getDouble(5),rst.getDouble(6),rst.getDouble(7),rst.getInt(8),Type.valueof(rst.getString(9)));
-					Company comp = new Company();
-					group.setCompany(comp);
-					Status stat = Status.valueOf(row.get(3));
-					group.setStatus(stat);
-					userList.add(group);
+					System.out.println(row.toString());
+					Toaster toaster = new Toaster(rst.getInt(1),rst.getDouble(3),rst.getDouble(4),rst.getDouble(5),rst.getDouble(6),rst.getDouble(7),rst.getDouble(8),rst.getDouble(9),rst.getInt(10),Type.valueOf(rst.getString(11)));
+					System.out.println("test");
+					toasterList.add(toaster);
 					
 				}
-				System.out.println(userList.toString());
+				System.out.println(toasterList.toString());
 				rst.close();
 				stmt.close();
 				con.closeConnectionToDB();
-				return userList;
+				return toasterList;
 			} catch (Exception e) {
 				e.printStackTrace();
 				return null;
 			}
 		} else {
-			return userList;
+			return toasterList;
 		}
+	}
+	public static void main(String[] args) {
+		DAOToaster toaster = new DAOToaster();
+		//user.changeStatus("test","neuerStatus");
+		toaster.getAllToaster();
 	}
 	
 }
