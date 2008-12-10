@@ -1,16 +1,28 @@
 package toastwars.server.datamodel.user;
 
-public class UserFactory {
+public class UserFactory
+{
+	private static boolean masterCreated = false;
+
 	public static IUser createUser(String className, String username,
-			String password) {
+			String password)
+	{
 		IUser obj = null;
-		try {
+		try
+		{
 			if (className.equals("Master"))
+			{
 				obj = Master.getInstance(username, password);
-			else if (className.equals("Group")) {
-				obj = new Group(username, password);
+				masterCreated = true;
+			} else if (className.equals("Group"))
+			{
+				if (masterCreated == true)
+					obj = new Group(username, password);
+				else
+					throw new Exception("No master exist");
 			}
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 			System.out.println(e);
 		}
 		return obj;
