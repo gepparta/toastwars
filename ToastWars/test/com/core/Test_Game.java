@@ -106,7 +106,7 @@ public class Test_Game extends TestCase
 	{
 		game.addCompany(com);
 		meinToaster.getType().setRandom(1.02); // wie in ppt angegeben
-		game.simulate();
+		game.simulateWithOutRandom();
 		assertEquals(1.28, meinToaster.getIndex()); // 1.28 wird erwartet
 	}
 
