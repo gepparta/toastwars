@@ -93,6 +93,25 @@ public class Game implements IsSerializable {
 			companyList.get(i).calculateCapital();
 		}
 	}
+	
+	// @by Alex extra for testing
+	public void simulateWithOutRandom() {
+		double[] indexSums = new double[3];
+
+		for (int i = 0; i < companyList.size(); i++) {
+			companyList.get(i).calculateIndexWithOutRandom();
+		}
+
+		indexSums = calculateIndexSums();
+
+		for (int i = 0; i < companyList.size(); i++) {
+			companyList.get(i).calculateMarketShares(indexSums);
+			companyList.get(i).calculateTurnover();
+			companyList.get(i).calculateCost();
+			companyList.get(i).calculateProfit();
+			companyList.get(i).calculateCapital();
+		}
+	}
 
 	// @by Alex
 	public double[] calculateIndexSums() {
