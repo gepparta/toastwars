@@ -20,8 +20,9 @@ public class Toaster implements IsSerializable
 
 	// //////////////////Konstruktor//////////////////////////
 
-	public Toaster(int toasterID, double price, double marketing, double research, double index,
-			double turnover, double cost, double profit, int marketShare, Type type)
+	public Toaster(int toasterID, double price, double marketing,
+			double research, double index, double turnover, double cost,
+			double profit, int marketShare, Type type)
 	{
 		this.toasterID = toasterID;
 		this.price = price;
@@ -35,8 +36,9 @@ public class Toaster implements IsSerializable
 		this.type = type;
 	}
 
-	public Toaster(double price, double marketing, double research, double index, double turnover,
-			double cost, double profit, int marketShare, Type type)
+	public Toaster(double price, double marketing, double research,
+			double index, double turnover, double cost, double profit,
+			int marketShare, Type type)
 	{
 
 		this.toasterID = nextToasterID;
@@ -168,7 +170,7 @@ public class Toaster implements IsSerializable
 	// ////////////METHODS ////////////////
 
 	// @by Alex
-	// Das Random für den jeweiligen ToasterTyp mit den verschiedenen
+	// Das Random fï¿½r den jeweiligen ToasterTyp mit den verschiedenen
 	// Abweichungen:
 	// Type1 : 5% --> wird im Enum Konstruktor definiert
 	// Type2 : 8%
@@ -179,11 +181,13 @@ public class Toaster implements IsSerializable
 		double marketingIndex = calculateMarketing();
 		double researchIndex = calculateResearch();
 		double random = this.getType().getRandom();
-		double i = researchIndex * (1 / (price / 10)) * marketingIndex
-				* NumberUtil.roundDouble(Math.random() * (random * 2)) + (1 - random);
+		double i = researchIndex * marketingIndex
+				  *	(1 / Math.pow((price / 10), 2.5));			
+//				  * NumberUtil.roundDouble(Math.random() * (random * 2))+ (1 - random);
 		// runden auf zwei Stellen hinter dem Komma
 		setIndex(NumberUtil.roundDouble(i));
 	}
+
 	// @by Alex extra for testing
 	public void calculateIndexWithOutRandom()
 	{
@@ -198,22 +202,28 @@ public class Toaster implements IsSerializable
 	// @by Alex
 	public double calculateMarketing()
 	{
-		double d = 6.48 + ((Math.pow(this.marketing / 10000 - 8, 3)
-				+ Math.pow(this.marketing / 10000 - 8, 2) + Math.pow(this.marketing / 10000 - 8, 1)) / 80);
+//		4.67 ==> Startwert 10.000â‚¬ damit Index =1
+		double d = 4.7625 + ((Math.pow(this.marketing / 10000 - 8, 3)
+				         +  Math.pow(this.marketing / 10000 - 8, 2) 
+				         +  Math.pow(this.marketing / 10000 - 8, 1))/80);
+		System.out.println("Marketing: " + d);
 		return NumberUtil.roundDouble(d);
 	}
 
 	// @by Alex
 	public double calculateResearch()
 	{
-		double d = Math.log(this.research / 3000);
+		double d = Math.log(this.research / 3000)
+				* (this.research / (Math.pow(this.research, 1.04)));
+		System.out.println("Research: " + NumberUtil.roundDouble(d));
 		return NumberUtil.roundDouble(d);
 	}
 
 	public void calculateMarketShare(double IndexSum)
 	{
 
-		this.setMarketShare((int) Math.round(this.type.getMarketVolume() / IndexSum * this.index));
+		this.setMarketShare((int) Math.round(this.type.getMarketVolume()
+				/ IndexSum * this.index));
 
 	}
 
@@ -225,9 +235,9 @@ public class Toaster implements IsSerializable
 
 	public void calculateCost()
 	{
-		this
-				.setCost((this.getMarketShare() * this.type.getVariableCost())
-						+ this.type.getFixCost());
+		this.setCost((this.getMarketShare() * this.type.getVariableCost())
+					+ (this.type.getFixCostPerMachine() 
+					* NumberUtil.roundDoubleUp((double) this.getMarketShare(),this.type.getCapacity())/this.type.getCapacity()));
 	}
 
 	public void calculateProfit()
