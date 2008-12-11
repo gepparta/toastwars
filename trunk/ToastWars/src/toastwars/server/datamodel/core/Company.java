@@ -6,7 +6,7 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 public class Company implements IsSerializable
 {
 
-	private static int nextCompanyID = 0;
+	private static int nextCompanyID = 1;
 	private int companyID;
 	private String description;
 	private double turnover;
