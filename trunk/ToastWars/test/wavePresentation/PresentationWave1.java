@@ -1,13 +1,11 @@
 package wavePresentation;
 
 import java.util.ArrayList;
-
 import junit.framework.TestCase;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
+import com.gwtext.client.widgets.layout.AccordionLayout;
 import toastwars.server.datamodel.core.Company;
 import toastwars.server.datamodel.core.Game;
 import toastwars.server.datamodel.core.Toaster;
@@ -15,6 +13,7 @@ import toastwars.server.datamodel.core.Type;
 import toastwars.server.datamodel.user.Group;
 import toastwars.server.datamodel.user.Master;
 import toastwars.server.datamodel.user.UserFactory;
+import toastwars.util.NumberUtil;
 
 public class PresentationWave1 extends TestCase
 {
@@ -67,64 +66,65 @@ public class PresentationWave1 extends TestCase
 	{
 		System.out.println("Start der " + Game.getInstance().getCurrentRound() + ". Runde");
 		System.out.println();
-		System.out.println("Daten f√ºr Unternehmen 1: ");
-		System.out.println("Company ID: " + group1.getCompany().getCompanyID());
-		System.out.println("Marketshare: " + group1.getCompany().getMarketShare());
-		System.out.println("Turnover: " + group1.getCompany().getTurnover());
-		System.out.println("Cost: " + group1.getCompany().getCost());
-		System.out.println("Profit: " + group1.getCompany().getProfit());
-		System.out.println("Capital: " + group1.getCompany().getCapital());
-		System.out.println();
-
-		System.out.println("Daten f√ºr Unternehmen 2: ");
-		System.out.println("Company ID: " + group2.getCompany().getCompanyID());
-		System.out.println("Marketshare: " + group2.getCompany().getMarketShare());
-		System.out.println("Turnover: " + group2.getCompany().getTurnover());
-		System.out.println("Cost: " + group2.getCompany().getCost());
-		System.out.println("Profit: " + group2.getCompany().getProfit());
-		System.out.println("Capital: " + group2.getCompany().getCapital());
-		System.out.println();
-
-		System.out.println("Preis√§nderung:");
-		System.out.println("Alter Preis des Toasters von Unternehmen 1: "
-				+ group1.getCompany().getToasterList().get(0).getPrice());
+		int companyID;
+		int marketshare;
+		double turnover;
+		double cost;
+		double profit;
+		double capital;
+		
+		printData();
+		
+		double alterPreis = group1.getCompany().getToasterList().get(0).getPrice();
+//		int alterMarktanteil = marketshare;
+		System.out.println("Preis‰nderung:");
+		System.out.print("Unternehmen 1 => von: " + group1.getCompany().getToasterList().get(0).getPrice() + " Ä");
 		group1.getCompany().getToasterList().get(0).setPrice(7.00);
-		System.out.println("Neuer Preis des Toasters von Unternehmen 1: "
-				+ group1.getCompany().getToasterList().get(0).getPrice());
-		System.out.println("Alter Preis des Toasters von Unternehmen 2: "
-				+ group2.getCompany().getToasterList().get(0).getPrice());
+		System.out.println(" auf: " + group1.getCompany().getToasterList().get(0).getPrice() + " Ä");
+		double neuerPreis = group1.getCompany().getToasterList().get(0).getPrice();
+		assertNotSame(alterPreis, neuerPreis);
+
+		System.out.print("Unternehmen 2 => von: " + group2.getCompany().getToasterList().get(0).getPrice() + " Ä");
 		group2.getCompany().getToasterList().get(0).setPrice(5.00);
-		System.out.println("Neuer Preis des Toasters von Unternehmen 2: "
-				+ group2.getCompany().getToasterList().get(0).getPrice());
+		System.out.println(" auf: " + group2.getCompany().getToasterList().get(0).getPrice() + " Ä");
 		System.out.println();
 
 		System.out.println("Start der Simulation");
 		master.simulate();
 		System.out.println("Ende der Simulation");
+		System.out.println();
 
-		
 		System.out.println("Ende der " + Game.getInstance().getCurrentRound() + ". Runde");
 		System.out.println();
-		System.out.println("Daten f√ºr Unternehmen 1: ");
-		System.out.println("Company ID: " + group1.getCompany().getCompanyID());
-		System.out.println("Index: "+ group1.getCompany().getToasterList().get(0).getIndex());
-		System.out.println("Marketshare: " + group1.getCompany().getMarketShare());
-		System.out.println("Turnover: " + group1.getCompany().getTurnover());
-		System.out.println("Cost: " + group1.getCompany().getCost());
-		System.out.println("Profit: " + group1.getCompany().getProfit());
-		System.out.println("Capital: " + group1.getCompany().getCapital());
-		System.out.println();
-
-		System.out.println("Daten f√ºr Unternehmen 2: ");
-		System.out.println("Company ID: " + group2.getCompany().getCompanyID());
-		System.out.println("Index: "+ group2.getCompany().getToasterList().get(0).getIndex());
-		System.out.println("Marketshare: " + group2.getCompany().getMarketShare());
-		System.out.println("Turnover: " + group2.getCompany().getTurnover());
-		System.out.println("Cost: " + group2.getCompany().getCost());
-		System.out.println("Profit: " + group2.getCompany().getProfit());
-		System.out.println("Capital: " + group2.getCompany().getCapital());
-		System.out.println();
-
+		
+		printData();
 	}
 
+	private void printData()
+	{
+		System.out.println("Daten der Unternehmen: ");
+		System.out.println("--------------------------------------------------------------------------------------------------------------------------------");
+		System.out.printf("%10s | %15s |%16s | %15s |%16s |%16s | %15s |\n", "Unternehmens-ID", "Marktanteil (Stk.)", "Marktanteil (%)", "Umsatz", "Kosten", "Gewinn", "Kapital");
+		int companyID;
+		System.out.println("--------------------------------------------------------------------------------------------------------------------------------");
+		int marketshare;
+		double turnover;
+		double cost;
+		double profit;
+		double capital;
+		double marketsharePercent;
+		for (int i = 0; i < Group.getGroupList().size(); i++)
+		{
+			companyID = Group.getGroupList().get(i).getCompany().getCompanyID();
+			marketshare = Group.getGroupList().get(i).getCompany().getMarketShare();
+			marketsharePercent = marketshare / (double)Type.TYPE1.getMarketVolume() * 100;
+			turnover = Group.getGroupList().get(i).getCompany().getTurnover();
+			cost = Group.getGroupList().get(i).getCompany().getCost();
+			profit = Group.getGroupList().get(i).getCompany().getProfit();
+			capital = Group.getGroupList().get(i).getCompany().getCapital();
+			System.out.printf("%1$,15d | %2$,18d | %3$,13.2f %% | %4$,13.2f Ä | %5$,13.2f Ä | %6$,13.2f Ä | %7$,13.2f Ä | \n", companyID, marketshare, marketsharePercent, turnover, cost, profit, capital);
+		}
+		System.out.println("--------------------------------------------------------------------------------------------------------------------------------");
+		System.out.println();
+	}
 }
