@@ -1,5 +1,7 @@
 package toastwars.client;
 
+import toastwars.client.sliders.SliderBar;
+import toastwars.client.sliders.SliderBar.LabelFormatter;
 import toastwars.server.datamodel.user.Group;
 import toastwars.server.datamodel.user.Master;
 import toastwars.server.datamodel.user.IUser;
@@ -7,8 +9,6 @@ import toastwars.server.datamodel.user.IUser;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.gwtext.client.core.EventObject;
-import com.gwtext.client.core.Margins;
-import com.gwtext.client.core.RegionPosition;
 import com.gwtext.client.data.Node;
 import com.gwtext.client.widgets.Button;
 import com.gwtext.client.widgets.Component;
@@ -23,13 +23,18 @@ import com.gwtext.client.widgets.form.Label;
 import com.gwtext.client.widgets.form.NumberField;
 import com.gwtext.client.widgets.form.TextField;
 import com.gwtext.client.widgets.form.event.FieldListenerAdapter;
-import com.gwtext.client.widgets.layout.BorderLayout;
-import com.gwtext.client.widgets.layout.BorderLayoutData;
 import com.gwtext.client.widgets.layout.HorizontalLayout;
 import com.gwtext.client.widgets.layout.VerticalLayout;
 import com.gwtext.client.widgets.tree.TreeNode;
 import com.gwtext.client.widgets.tree.TreePanel;
 import com.gwtext.client.widgets.tree.event.TreeNodeListenerAdapter;
+import com.rednels.ofcgwt.client.ChartWidget;
+import com.rednels.ofcgwt.client.model.ChartData;
+import com.rednels.ofcgwt.client.model.axis.XAxis;
+import com.rednels.ofcgwt.client.model.axis.YAxis;
+import com.rednels.ofcgwt.client.model.elements.BarChart;
+import com.rednels.ofcgwt.client.model.elements.PieChart;
+import com.rednels.ofcgwt.client.model.elements.BarChart.BarStyle;
 
 public class ToastWars implements EntryPoint {
 
@@ -50,6 +55,9 @@ public class ToastWars implements EntryPoint {
 	private Panel		infoPanel;
 	private Panel		decissionPanel;
 	private Panel		reportPanel;
+	private NumberField	price;
+	private NumberField	research;
+	private NumberField	marketing;
 	private Button		btnSave;
 	private Button		btnEnd;
 
@@ -293,30 +301,31 @@ public class ToastWars implements EntryPoint {
 		return treePanelNavigation;
 	}
 
-	private Component createReportPanel() {
-		reportPanel = new Panel("Analyse-Bericht");
-		reportPanel.add(new Label("Analyse-Bericht"));
-
-		return reportPanel;
-	}
-
 	private Component createDecissionPanel() {
 		decissionPanel = new Panel("Entscheidungen");
 		decissionPanel.setPaddings(5);
-		decissionPanel.setLayout(new BorderLayout());
+		decissionPanel.setSize(580, 290);
+
+		Panel horizontalPanel = new Panel();
+		horizontalPanel.setLayout(new HorizontalLayout(0));
+		horizontalPanel.setPaddings(0);
 
 		// Formular
 		FormPanel form = new FormPanel();
-		form.setWidth(500);
-		form.setBorder(false);
-		form.setPaddings(5);
-		form.setLabelWidth(200);
+		form.setWidth(250);
+		// form.setBorder(false);
+		form.setPaddings(30, 15, 0, 0);
+		form.setLabelWidth(160);
 
-		form.add(createNumberField("Preis in &euro;", "Preis", 55, 15, 300,
-				true));
-		form.add(createNumberField("Werbung", "Werbung", 55, 1, 100000, false));
-		form.add(createNumberField("Forschung und Entwicklung", "FE", 55, 1,
-				100000, false));
+		price = createNumberField("Preis in &euro;", "Preis", 55, 15, 300, true);
+		marketing = createNumberField("Werbung", "Werbung", 55, 1, 100000,
+				false);
+		research = createNumberField("Forschung und Entwicklung", "FE", 55, 1,
+				100000, false);
+
+		form.add(price);
+		form.add(marketing);
+		form.add(research);
 
 		btnSave = new Button("Speichern", new ButtonListenerAdapter() {
 			public void onClick(Button button, EventObject e) {
@@ -337,18 +346,41 @@ public class ToastWars implements EntryPoint {
 
 		// Slider
 		Panel sliderPanel = new Panel();
-		sliderPanel.setBorder(false);
+		sliderPanel.setSize(320, 200);
+		sliderPanel.setMargins(0, 0, 0, 0);
+		// sliderPanel.setLayout(new VerticalLayout(0));
+		// sliderPanel.setBorder(false);
 
-		Slider slider = new Slider();
+		SliderBar slider = new SliderBar(0, 60);
+		slider.setHeight("55");
+		slider.setStepSize(1);
+		slider.setCurrentValue(15);
+		slider.setNumTicks(12);
+		slider.setNumLabels(4);
+		slider.setLabelFormatter(new LabelFormatter() {
+			public String formatLabel(SliderBar slider, double value) {
+				return (int) value + "";
+			}
+		});
+
+		SliderBar slider2 = new SliderBar(0, 100000);
+		slider2.setStepSize(10000);
+		slider2.setCurrentValue(0);
+		slider2.setNumTicks(10);
+		slider2.setNumLabels(5);
+		slider2.setLabelFormatter(new LabelFormatter() {
+			public String formatLabel(SliderBar slider, double value) {
+				return (int) value / 1000 + "k";
+			}
+		});
+
 		sliderPanel.add(slider);
+		sliderPanel.add(slider2);
 
-		BorderLayoutData center = new BorderLayoutData(RegionPosition.CENTER);
-		center.setMinWidth(300);
-		center.setMargins(new Margins(0, 0, 0, 0));
+		horizontalPanel.add(form);
+		horizontalPanel.add(sliderPanel);
 
-		decissionPanel.add(form, center);
-		decissionPanel.add(sliderPanel, new BorderLayoutData(
-				RegionPosition.EAST));
+		decissionPanel.add(horizontalPanel);
 
 		return decissionPanel;
 	}
@@ -356,6 +388,7 @@ public class ToastWars implements EntryPoint {
 	private NumberField createNumberField(String text, String name, int width,
 			int value, int maxvalue, boolean decimal) {
 		NumberField numField = new NumberField(text, name, width, value);
+		numField.setLabelStyle("height:50");
 		numField.setAllowNegative(false);
 		numField.setMaxValue(maxvalue);
 		numField.setMaxText("Der maximale Wert f&uuml;r dieses Feld ist: "
@@ -377,8 +410,11 @@ public class ToastWars implements EntryPoint {
 
 			public void onValid(Field field) {
 				super.onValid(field);
-				btnSave.enable();
-				btnEnd.enable();
+				if (price.isValid() && research.isValid()
+						&& marketing.isValid()) {
+					btnSave.enable();
+					btnEnd.enable();
+				}
 			}
 		});
 
@@ -409,5 +445,69 @@ public class ToastWars implements EntryPoint {
 		configPanel.add(new Label("Konfigurations Panel"));
 
 		return configPanel;
+	}
+
+	private Component createReportPanel() {
+		reportPanel = new Panel("Analyse-Bericht");
+
+		Panel horizPanel = new Panel();
+		horizPanel.setLayout(new HorizontalLayout(2));
+		horizPanel.setSize(600, 300);
+		horizPanel.add(createPieChart());
+		horizPanel.add(createBarChart());
+
+		reportPanel.add(horizPanel);
+
+		return reportPanel;
+	}
+
+	private ChartWidget createPieChart() {
+		ChartWidget chart = new ChartWidget();
+		ChartData cd = new ChartData("Sales by Region",
+				"font-size: 14px; font-family: Verdana; text-align: center;");
+		cd.setBackgroundColour("#ffffff");
+		PieChart pie = new PieChart();
+		pie.setAlpha(0.3f);
+		pie.setNoLabels(false);
+		pie.setTooltip("#label#<br>#val# Toaster<br>#percent#");
+		pie.setAnimate(false);
+		pie.setGradientFill(true);
+		pie.setColours("#ff0000", "#00ff00", "#0000ff", "#ff9900");
+		pie.addSlices(new PieChart.Slice(1000, "Gruppe 1"));
+		pie.addSlices(new PieChart.Slice(2000, "Gruppe 2"));
+		pie.addSlices(new PieChart.Slice(6000, "Gruppe 3"));
+		pie.addSlices(new PieChart.Slice(1000, "Gruppe 4"));
+		cd.addElements(pie);
+		chart.setSize("300", "300");
+		chart.setJsonData(cd.toString());
+		return chart;
+	}
+
+	private ChartWidget createBarChart() {
+		ChartWidget chart = new ChartWidget();
+		ChartData cd = new ChartData("Kapital nach Runde 1",
+				"font-size: 14px; font-family: Verdana; text-align: center;");
+		cd.setBackgroundColour("#ffffff");
+
+		XAxis xa = new XAxis();
+		xa.setLabels("Gruppe 1", "Gruppe 2", "Gruppe 3", "Gruppe 4");
+		xa.setMax(3);
+		cd.setXAxis(xa);
+
+		YAxis ya = new YAxis();
+		ya.setSteps(40000);
+		ya.setMax(200000);
+		cd.setYAxis(ya);
+
+		BarChart bchart = new BarChart(BarStyle.GLASS);
+		bchart.setColour("#00aa00");
+		bchart.setTooltip("#val# &#8364;");
+		bchart.addValues(40000, 60000, 30000, 150000);
+		cd.addElements(bchart);
+
+		chart.setSize("300", "250");
+		chart.setJsonData(cd.toString());
+
+		return chart;
 	}
 }
