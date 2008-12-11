@@ -6,6 +6,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import com.gwtext.client.widgets.layout.AccordionLayout;
+
+import sun.font.Type1Font;
 import toastwars.server.datamodel.core.Company;
 import toastwars.server.datamodel.core.Game;
 import toastwars.server.datamodel.core.Toaster;
@@ -58,20 +60,255 @@ public class PresentationWave1 extends TestCase
 		toasterList2 = null;
 		company1 = null;
 		company2 = null;
-
-	}
+		group1 = null;
+		group2 = null;
+		master = null;
+		
+		}
 
 	@Test
 	public void testChangePriceAndSimulate()
 	{
+		//Type 1 Old
+		 String TypeOldDescription1 = "Der 1. Typ";
+		 int TypeOldmarketVolume1 = 10000;
+		 double TypeOldrandom1 = 0.05;
+		 double TypeOldfixCostPerMachine1 = 1000.00;
+		 double TypeOldVariableCost1 = 3.00;
+		 int TypeOldCapacity1 = 4000;
+		 
+
+			
+			//Type 2 Old
+		 String TypeOldDescription2 = "Der 1. Typ";;
+		 int TypeOldmarketVolume2 = 10000;
+		 double TypeOldrandom2 = 0.05;
+		 double TypeOldfixCostPerMachine2 = 1000.00;
+		 double TypeOldVariableCost2 = 3.00;
+		 int TypeOldCapacity2 = 4000;
+		 
+		 // Toaster 1  Old
+		 
+			int OldToasterNextToasterID1;
+			int OldToasterToasterID1 = 1;
+			double OldToasterPrice1  = 10;
+			double OldToasterMarketing1 = 10000.00;
+			double OldToasterResearch1 = 12923.00;
+			double OldToasterIndex1 = 1.00;
+			double OldToasterTurnover1 = 50000.00;
+			double OldToasterCost1 = 30000.00;
+			double OldToasterProfit1 = 20000.00;
+			int OldToasterMarketShare1 = 5000;
+			Type OldToasterType1 = Type.TYPE1;
+			
+			
+		
+			 // Toaster 2  Old
+			 
+			int OldToasterNextToasterID2;
+			int OldToasterToasterID2 = 2;
+			double OldToasterPrice2 = 10;
+			double OldToasterMarketing2= 10000.00;
+			double OldToasterResearch2= 12923.00;
+			double OldToasterIndex2= 1.00;
+			double OldToasterTurnover2= 50000.00;
+			double OldToasterCost2 = 30000.00;
+			double OldToasterProfit2= 20000.00;
+			int OldToasterMarketShare2= 5000;
+			Type OldToasterType2= Type.TYPE1;
+			
+
+			
+			//Company 1 Old
+			int OldCompanyNextCompanyID1 = 1;
+			int OldCompanyCompanyID1 = 1;
+			String OldCompanyDescription1= "Unternehmen des ersten Spielers";
+			double OldCompanyTurnover1=50000.00;
+			double OldCompanyCost1= 30000.00;
+			double OldCompanyProfit1=20000.00;
+			double OldCompanyCapital1 = 100000.00;
+			int OldCompanyMarketShare1 = 5000;
+
+
+			
+			//Company 2 Old
+			int OldCompanyNextCompanyID2 = 2;
+			int OldCompanyCompanyID2 = 2;
+			String OldCompanyDescription2= "Unternehmen des zweiten Spielers";
+			double OldCompanyTurnover2 = 50000.00;
+			double OldCompanyCost2 = 30000.00;
+			double OldCompanyProfit2 = 20000.00;
+			double OldCompanyCapital2= 100000.00;
+			int OldCompanyMarketShare2 = 5000;
+
+			
+			//Game Old
+			int oldGameCurrentRound = 1;
+			int oldGameUserAmount = 2;
+			
+////////////////////////////////////////////////////////////////////////////////////			
+			
+			//Type 1 New
+			 String TypeNewDescription1 = "Der 1. Typ";
+			 int TypeNewmarketVolume1 = 10000;
+			 double TypeNewrandom1 = 0.05;
+			 double TypeNewfixCostPerMachine1 = 1000.00;
+			 double TypeNewVariableCost1 = 3.00;
+			 int TypeNewCapacity1 = 4000;
+			 
+
+				
+				//Type 2 New
+			 String TypeNewDescription2 = "Der 1. Typ";;
+			 int TypeNewmarketVolume2 = 10000;
+			 double TypeNewrandom2 = 0.05;
+			 double TypeNewfixCostPerMachine2 = 1000.00;
+			 double TypeNewVariableCost2 = 3.00;
+			 int TypeNewCapacity2 = 4000;
+			 
+			 // Toaster 1  New
+			 
+				int NewToasterNextToasterID1;
+				int NewToasterToasterID1 = 1;
+				double NewToasterPrice1  = 7;
+				double NewToasterMarketing1 = 10000.00;
+				double NewToasterResearch1 = 12923.00;
+				double NewToasterIndex1 = 2.44;
+				double NewToasterTurnover1 = 57701.00;
+				double NewToasterCost1 = 27729.00;
+				double NewToasterProfit1 = 29972.00;
+				int NewToasterMarketShare1 = 8243;
+				Type NewToasterType1 = Type.TYPE1;
+				
+				
+			
+				 // Toaster 2  New
+				 
+				int NewToasterNextToasterID2;
+				int NewToasterToasterID2 = 2;
+				double NewToasterPrice2 = 13;
+				double NewToasterMarketing2= 10000.00;
+				double NewToasterResearch2= 12923.00;
+				double NewToasterIndex2= 0.52;
+				double NewToasterTurnover2= 22841.00;
+				double NewToasterCost2 = 6271.00;
+				double NewToasterProfit2= 16570.00;
+				int NewToasterMarketShare2= 1757;
+				Type NewToasterType2= Type.TYPE1;
+				
+
+				
+				//Company 1 New
+				int NewCompanyNextCompanyID1 = 1;
+				int NewCompanyCompanyID1 = 1;
+				String NewCompanyDescription1= "Unternehmen des ersten Spielers";
+				double NewCompanyTurnover1=57701.00;
+				double NewCompanyCost1= 27729.00;
+				double NewCompanyProfit1=29972.00;
+				double NewCompanyCapital1 = 129972.00;
+				int NewCompanyMarketShare1 = 8243;
+
+
+				
+				//Company 2 New
+				int NewCompanyNextCompanyID2 = 2;
+				int NewCompanyCompanyID2 = 2;
+				String NewCompanyDescription2= "Unternehmen des zweiten Spielers";
+				double NewCompanyTurnover2 = 22841.00;
+				double NewCompanyCost2 = 6271.00;
+				double NewCompanyProfit2 = 16570.00;
+				double NewCompanyCapital2= 116570.00;
+				int NewCompanyMarketShare2 = 1757;
+
+				
+				//Game New
+				int NewGameCurrentRound = 1;
+				int NewGameUserAmount = 2;
+		
 		System.out.println("Start der " + Game.getInstance().getCurrentRound() + ". Runde");
 		System.out.println();
-		int companyID;
-		int marketshare;
-		double turnover;
-		double cost;
-		double profit;
-		double capital;
+		//int companyID;
+		//int marketshare;
+		//double turnover;
+		//double cost;
+		//double profit;
+		//double capital;
+		
+		
+		//Type 1 Old
+		 assertEquals(TypeOldDescription1, Type.TYPE1.getDescription());
+		 assertEquals(TypeOldmarketVolume1, Type.TYPE1.getMarketVolume());
+		 assertEquals(TypeOldrandom1, Type.TYPE1.getRandom());
+		  assertEquals(TypeOldfixCostPerMachine1, Type.TYPE1.getFixCostPerMachine());
+		 assertEquals(TypeOldVariableCost1, Type.TYPE1.getVariableCost());
+		 assertEquals(TypeOldCapacity1, Type.TYPE1.getCapacity());
+		 
+		 
+			//Type 2 Old
+		 assertEquals(TypeOldDescription2, Type.TYPE1.getDescription());
+		 assertEquals(TypeOldmarketVolume2, Type.TYPE1.getMarketVolume());
+		 assertEquals(TypeOldrandom2, Type.TYPE1.getRandom());
+		  assertEquals(TypeOldfixCostPerMachine2, Type.TYPE1.getFixCostPerMachine());
+		 assertEquals(TypeOldVariableCost2, Type.TYPE1.getVariableCost());
+		 assertEquals(TypeOldCapacity2, Type.TYPE1.getCapacity());
+		 
+		 // Toaster 1  Old
+		 
+		 //brauchen wir noch funktion für assertEquals(OldToasterNextToasterID1, toaster1.;
+		 assertEquals(OldToasterToasterID1, toaster1.getToasterID());
+		 assertEquals(OldToasterPrice1, toaster1.getPrice());
+		 assertEquals(OldToasterMarketing1, toaster1.getMarketing());
+		 assertEquals(OldToasterResearch1, toaster1.getResearch());
+		 assertEquals(OldToasterIndex1, toaster1.getIndex());
+		 assertEquals(OldToasterTurnover1, toaster1.getTurnover());
+		 assertEquals(OldToasterCost1, toaster1.getCost());
+		 assertEquals(OldToasterProfit1, toaster1.getProfit());
+		 assertEquals(OldToasterMarketShare1, toaster1.getMarketShare());
+		 assertEquals(OldToasterType1, toaster1.getType());
+			
+			 // Toaster 2  Old
+			 
+		 //brauchen wir noch funktion für assertEquals(OldToasterNextToasterID2, toaster2.;
+		 assertEquals(OldToasterToasterID2, toaster2.getToasterID());
+		 assertEquals(OldToasterPrice2, toaster2.getPrice());
+		 assertEquals(OldToasterMarketing2, toaster2.getMarketing());
+		 assertEquals(OldToasterResearch2, toaster2.getResearch());
+		 assertEquals(OldToasterIndex2, toaster2.getIndex());
+		 assertEquals(OldToasterTurnover2, toaster2.getTurnover());
+		 assertEquals(OldToasterCost2, toaster2.getCost());
+		 assertEquals(OldToasterProfit2, toaster2.getProfit());
+		 assertEquals(OldToasterMarketShare2, toaster2.getMarketShare());
+		 assertEquals(OldToasterType2, toaster2.getType());
+			
+	
+			
+			//Company 1 Old
+		 //brauchen wir noch Methode für assertEquals(OldCompanyNextCompanyID1, .company1.;
+		 assertEquals(OldCompanyCompanyID1, company1.getCompanyID());
+		 assertEquals(OldCompanyDescription1, company1.getDescription());
+		 assertEquals(OldCompanyTurnover1, company1.getTurnover());
+		 assertEquals(OldCompanyCost1, company1.getCost());
+		 assertEquals(OldCompanyProfit1, company1.getProfit());
+		 assertEquals(OldCompanyCapital1, company1.getCapital());
+		 assertEquals(OldCompanyMarketShare1, company1.getMarketShare());
+
+			
+			//Company 2 Old
+		 //brauchen wir noch Methode für assertEquals(OldCompanyNextCompanyID2, .company2.;
+		 assertEquals(OldCompanyCompanyID2, company2.getCompanyID());
+		 assertEquals(OldCompanyDescription2, company2.getDescription());
+		 assertEquals(OldCompanyTurnover2, company2.getTurnover());
+		 assertEquals(OldCompanyCost2, company2.getCost());
+		 assertEquals(OldCompanyProfit2, company2.getProfit());
+		 assertEquals(OldCompanyCapital2, company2.getCapital());
+		 assertEquals(OldCompanyMarketShare2, company2.getMarketShare());
+
+			
+			//Game Old
+		 //Diese wird bei diesem Test nicht initialisiert, weil Add Company verwendet wird!!!!
+		 //assertEquals(oldGameCurrentRound, game.getCurrentRound());
+		 //assertEquals(oldGameUserAmount,game.getUserAmount());
+		
 		
 		printData();
 		
@@ -84,12 +321,90 @@ public class PresentationWave1 extends TestCase
 		assertNotSame(alterPreis, neuerPreis);
 
 		System.out.print("Unternehmen 2 => von: " + group2.getCompany().getToasterList().get(0).getPrice() + " €");
-		group2.getCompany().getToasterList().get(0).setPrice(5.00);
+		group2.getCompany().getToasterList().get(0).setPrice(13.00);
 		System.out.println(" auf: " + group2.getCompany().getToasterList().get(0).getPrice() + " €");
 		System.out.println();
 
 		System.out.println("Start der Simulation");
 		master.simulate();
+		
+		//Type 1 New
+		 assertEquals(TypeNewDescription1, Type.TYPE1.getDescription());
+		 assertEquals(TypeNewmarketVolume1, Type.TYPE1.getMarketVolume());
+		 assertEquals(TypeNewrandom1, Type.TYPE1.getRandom());
+		  assertEquals(TypeNewfixCostPerMachine1, Type.TYPE1.getFixCostPerMachine());
+		 assertEquals(TypeNewVariableCost1, Type.TYPE1.getVariableCost());
+		 assertEquals(TypeNewCapacity1, Type.TYPE1.getCapacity());
+		 
+		 
+			//Type 2 New
+		 assertEquals(TypeNewDescription2, Type.TYPE1.getDescription());
+		 assertEquals(TypeNewmarketVolume2, Type.TYPE1.getMarketVolume());
+		 assertEquals(TypeNewrandom2, Type.TYPE1.getRandom());
+		  assertEquals(TypeNewfixCostPerMachine2, Type.TYPE1.getFixCostPerMachine());
+		 assertEquals(TypeNewVariableCost2, Type.TYPE1.getVariableCost());
+		 assertEquals(TypeNewCapacity2, Type.TYPE1.getCapacity());
+		 
+		 // Toaster 1  New
+		 
+		 //brauchen wir noch funktion für assertEquals(NewToasterNextToasterID1, toaster1.;
+		 assertEquals(NewToasterToasterID1, toaster1.getToasterID());
+		 assertEquals(NewToasterPrice1, toaster1.getPrice());
+		 assertEquals(NewToasterMarketing1, toaster1.getMarketing());
+		 assertEquals(NewToasterResearch1, toaster1.getResearch());
+		 assertEquals(NewToasterIndex1, toaster1.getIndex());
+		 assertEquals(NewToasterTurnover1, toaster1.getTurnover());
+		 assertEquals(NewToasterCost1, toaster1.getCost());
+		 assertEquals(NewToasterProfit1, toaster1.getProfit());
+		 assertEquals(NewToasterMarketShare1, toaster1.getMarketShare());
+		 assertEquals(NewToasterType1, toaster1.getType());
+			
+			 // Toaster 2  New
+			 
+		 //brauchen wir noch funktion für assertEquals(NewToasterNextToasterID2, toaster2.;
+		 assertEquals(NewToasterToasterID2, toaster2.getToasterID());
+		 assertEquals(NewToasterPrice2, toaster2.getPrice());
+		 assertEquals(NewToasterMarketing2, toaster2.getMarketing());
+		 assertEquals(NewToasterResearch2, toaster2.getResearch());
+		 assertEquals(NewToasterIndex2, toaster2.getIndex());
+		 assertEquals(NewToasterTurnover2, toaster2.getTurnover());
+		 assertEquals(NewToasterCost2, toaster2.getCost());
+		 assertEquals(NewToasterProfit2, toaster2.getProfit());
+		 assertEquals(NewToasterMarketShare2, toaster2.getMarketShare());
+		 assertEquals(NewToasterType2, toaster2.getType());
+			
+	
+			
+			//Company 1 New
+		 //brauchen wir noch Methode für assertEquals(NewCompanyNextCompanyID1, .company1.;
+		 assertEquals(NewCompanyCompanyID1, company1.getCompanyID());
+		 assertEquals(NewCompanyDescription1, company1.getDescription());
+		 assertEquals(NewCompanyTurnover1, company1.getTurnover());
+		 assertEquals(NewCompanyCost1, company1.getCost());
+		 assertEquals(NewCompanyProfit1, company1.getProfit());
+		 assertEquals(NewCompanyCapital1, company1.getCapital());
+		 assertEquals(NewCompanyMarketShare1, company1.getMarketShare());
+
+			
+			//Company 2 New
+		 //brauchen wir noch Methode für assertEquals(NewCompanyNextCompanyID2, .company2.;
+		 assertEquals(NewCompanyCompanyID2, company2.getCompanyID());
+		 assertEquals(NewCompanyDescription2, company2.getDescription());
+		 assertEquals(NewCompanyTurnover2, company2.getTurnover());
+		 assertEquals(NewCompanyCost2, company2.getCost());
+		 assertEquals(NewCompanyProfit2, company2.getProfit());
+		 assertEquals(NewCompanyCapital2, company2.getCapital());
+		 assertEquals(NewCompanyMarketShare2, company2.getMarketShare());
+
+			
+			//Game New
+		 //Diese wird bei diesem Test nicht initialisiert, weil Add Company verwendet wird!!!!
+		 //assertEquals(NewGameCurrentRound, game.getCurrentRound());
+		 //assertEquals(NewGameUserAmount,game.getUserAmount());
+		 
+		 
+		
+		
 		System.out.println("Ende der Simulation");
 		System.out.println();
 
