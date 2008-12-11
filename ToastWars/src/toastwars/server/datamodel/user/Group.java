@@ -52,7 +52,7 @@ public class Group implements IUser
 
 	public void setCompany(Company company)
 	{
-		if (this.company != null)
+		if (this.company == null)
 			this.company = company;
 	}
 
