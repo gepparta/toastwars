@@ -7,6 +7,7 @@ public class Company implements IsSerializable
 {
 
 	private static int nextCompanyID = 1;
+
 	private int companyID;
 	private String description;
 	private double turnover;
@@ -17,7 +18,6 @@ public class Company implements IsSerializable
 	// @gwt.typeArgs <toastwars.server.datamodel.core.Toaster>
 	private ArrayList<Toaster> toasterList = new ArrayList<Toaster>();
 
-	// ////////////KONSTRUKTOR////////////////////
 
 	public Company() {
 	}
@@ -51,7 +51,6 @@ public class Company implements IsSerializable
 
 	}
 
-	// //GETTER & SETTER ///////////
 	public static int getNextCompanyID()
 	{
 		return nextCompanyID;
@@ -62,87 +61,24 @@ public class Company implements IsSerializable
 		Company.nextCompanyID = nextCompanyID;
 	}
 
-	public int getCompanyID()
+	public void calculateCapital()
 	{
-		return companyID;
+
+		this.capital = this.capital + this.profit;
+
 	}
 
-	public void setCompanyID(int companyID)
+	public void calculateCost()
 	{
-		this.companyID = companyID;
-	}
+		this.cost = 0;
+		for (int i = 0; i < this.toasterList.size(); i++)
+		{
 
-	public String getDescription()
-	{
-		return description;
-	}
+			toasterList.get(i).calculateCost();
+			this.cost = this.cost + toasterList.get(i).getCost();
 
-	public void setDescription(String description)
-	{
-		this.description = description;
+		}
 	}
-
-	public double getTurnover()
-	{
-		return turnover;
-	}
-
-	public void setTurnover(double turnover)
-	{
-		this.turnover = turnover;
-	}
-
-	public double getCost()
-	{
-		return cost;
-	}
-
-	public void setCost(double cost)
-	{
-		this.cost = cost;
-	}
-
-	public double getProfit()
-	{
-		return profit;
-	}
-
-	public void setProfit(double profit)
-	{
-		this.profit = profit;
-	}
-
-	public double getCapital()
-	{
-		return capital;
-	}
-
-	public void setCapital(double capital)
-	{
-		this.capital = capital;
-	}
-
-	public int getMarketShare()
-	{
-		return marketShare;
-	}
-
-	public void setMarketShare(int marketShare)
-	{
-		this.marketShare = marketShare;
-	}
-
-	public ArrayList<Toaster> getToasterList()
-	{
-		return toasterList;
-	}
-
-	public void setToasterList(ArrayList<Toaster> toasterList)
-	{
-		this.toasterList = toasterList;
-	}
-
-	// //// METHODS ///////
 
 	// @by Alex
 	public void calculateIndex()
@@ -173,29 +109,6 @@ public class Company implements IsSerializable
 		}
 	}
 
-	public void calculateTurnover()
-	{
-		this.turnover = 0;
-		for (int i = 0; i < this.toasterList.size(); i++)
-		{
-
-			toasterList.get(i).calculateTurnover();
-			this.turnover = this.turnover + toasterList.get(i).getTurnover();
-		}
-	}
-
-	public void calculateCost()
-	{
-		this.cost = 0;
-		for (int i = 0; i < this.toasterList.size(); i++)
-		{
-
-			toasterList.get(i).calculateCost();
-			this.cost = this.cost + toasterList.get(i).getCost();
-
-		}
-	}
-
 	public void calculateProfit()
 	{
 		this.profit = 0;
@@ -209,11 +122,97 @@ public class Company implements IsSerializable
 
 	}
 
-	public void calculateCapital()
+	public void calculateTurnover()
 	{
+		this.turnover = 0;
+		for (int i = 0; i < this.toasterList.size(); i++)
+		{
 
-		this.capital = this.capital + this.profit;
+			toasterList.get(i).calculateTurnover();
+			this.turnover = this.turnover + toasterList.get(i).getTurnover();
+		}
+	}
 
+	public double getCapital()
+	{
+		return capital;
+	}
+
+	public int getCompanyID()
+	{
+		return companyID;
+	}
+
+	public double getCost()
+	{
+		return cost;
+	}
+
+	public String getDescription()
+	{
+		return description;
+	}
+
+	public int getMarketShare()
+	{
+		return marketShare;
+	}
+
+	public double getProfit()
+	{
+		return profit;
+	}
+
+	public ArrayList<Toaster> getToasterList()
+	{
+		return toasterList;
+	}
+
+	public double getTurnover()
+	{
+		return turnover;
+	}
+
+	public void setCapital(double capital)
+	{
+		this.capital = capital;
+	}
+
+	// //// METHODS ///////
+
+	public void setCompanyID(int companyID)
+	{
+		this.companyID = companyID;
+	}
+
+	public void setCost(double cost)
+	{
+		this.cost = cost;
+	}
+
+	public void setDescription(String description)
+	{
+		this.description = description;
+	}
+
+	public void setMarketShare(int marketShare)
+	{
+		this.marketShare = marketShare;
+	}
+
+	public void setProfit(double profit)
+	{
+		this.profit = profit;
+	}
+
+	public void setToasterList(ArrayList<Toaster> toasterList)
+	{
+		this.toasterList = toasterList;
+	}
+
+	public void setTurnover(double turnover)
+	{
+		this.turnover = turnover;
 	}
 }
 
