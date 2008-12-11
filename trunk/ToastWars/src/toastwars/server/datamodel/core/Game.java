@@ -16,6 +16,9 @@ public class Game implements IsSerializable {
 	private static Game instance;
 
 	// *************************Constructor*****************************************************
+	public Game() {
+	}
+	
 	private Game(int userAmount) // zum testen auf public gesetzt
 	{
 		this.userAmount = userAmount;

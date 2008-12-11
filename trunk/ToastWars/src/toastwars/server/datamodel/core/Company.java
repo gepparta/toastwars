@@ -19,6 +19,9 @@ public class Company implements IsSerializable
 
 	// ////////////KONSTRUKTOR////////////////////
 
+	public Company() {
+	}
+	
 	public Company(int companyID, String description, double turnover, double cost, double profit,
 			double capital, int marketShare, ArrayList<Toaster> toasterList)
 	{
