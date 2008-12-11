@@ -76,7 +76,6 @@ public class PresentationWave1 extends TestCase
 		printData();
 		
 		double alterPreis = group1.getCompany().getToasterList().get(0).getPrice();
-//		int alterMarktanteil = marketshare;
 		System.out.println("Preisänderung:");
 		System.out.print("Unternehmen 1 => von: " + group1.getCompany().getToasterList().get(0).getPrice() + " €");
 		group1.getCompany().getToasterList().get(0).setPrice(7.00);
