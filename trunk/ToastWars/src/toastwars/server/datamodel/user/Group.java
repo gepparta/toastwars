@@ -1,9 +1,12 @@
 package toastwars.server.datamodel.user;
 
+import java.util.ArrayList;
 import toastwars.server.datamodel.core.Company;
+import toastwars.server.datamodel.core.Toaster;
 
 public class Group implements IUser
 {
+	private static ArrayList<Group> groupList = new ArrayList<Group>();
 	private String password;
 	private String username;
 	private Company company;
@@ -18,11 +21,37 @@ public class Group implements IUser
 	{
 		this.username = username;
 		this.password = password;
+		groupList.add(this);
+	}
+
+	public static ArrayList<Group> getGroupList()
+	{
+		return groupList;
+	}
+
+	public static void setGroupList(ArrayList<Group> groupList)
+	{
+		Group.groupList = groupList;
+	}
+
+	public void completeRound()
+	{
+		this.setStatus(Status.COMPLETED);
+	}
+
+	public Company getCompany()
+	{
+		return company;
 	}
 
 	public String getPassword()
 	{
 		return password;
+	}
+
+	public Status getStatus()
+	{
+		return status;
 	}
 
 	public String getUsername()
@@ -35,19 +64,14 @@ public class Group implements IUser
 		return false;
 	}
 
-	public void setPassword(String password)
+	public boolean isOnline()
 	{
-		this.password = password;
+		return isOnline;
 	}
 
-	public void setUsername(String username)
+	public void save()
 	{
-		this.username = username;
-	}
-
-	public Company getCompany()
-	{
-		return company;
+		this.setStatus(Status.EDITED);
 	}
 
 	public void setCompany(Company company)
@@ -56,19 +80,14 @@ public class Group implements IUser
 			this.company = company;
 	}
 
-	public boolean isOnline()
-	{
-		return isOnline;
-	}
-
 	public void setOnline(boolean isOnline)
 	{
 		this.isOnline = isOnline;
 	}
 
-	public Status getStatus()
+	public void setPassword(String password)
 	{
-		return status;
+		this.password = password;
 	}
 
 	public void setStatus(Status status)
@@ -76,13 +95,8 @@ public class Group implements IUser
 		this.status = status;
 	}
 
-	public void save()
+	public void setUsername(String username)
 	{
-		this.setStatus(Status.EDITED);
-	}
-
-	public void completeRound()
-	{
-		this.setStatus(Status.COMPLETED);
+		this.username = username;
 	}
 }
