@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import com.gwtext.client.widgets.layout.AccordionLayout;
 
-import sun.font.Type1Font;
+
 import toastwars.server.datamodel.core.Company;
 import toastwars.server.datamodel.core.Game;
 import toastwars.server.datamodel.core.Toaster;
@@ -89,7 +89,7 @@ public class PresentationWave1 extends TestCase
 		 
 		 // Toaster 1  Old
 		 
-			int OldToasterNextToasterID1;
+
 			int OldToasterToasterID1 = 1;
 			double OldToasterPrice1  = 10;
 			double OldToasterMarketing1 = 10000.00;
@@ -105,7 +105,7 @@ public class PresentationWave1 extends TestCase
 		
 			 // Toaster 2  Old
 			 
-			int OldToasterNextToasterID2;
+
 			int OldToasterToasterID2 = 2;
 			double OldToasterPrice2 = 10;
 			double OldToasterMarketing2= 10000.00;
@@ -120,7 +120,7 @@ public class PresentationWave1 extends TestCase
 
 			
 			//Company 1 Old
-			int OldCompanyNextCompanyID1 = 1;
+
 			int OldCompanyCompanyID1 = 1;
 			String OldCompanyDescription1= "Unternehmen des ersten Spielers";
 			double OldCompanyTurnover1=50000.00;
@@ -132,7 +132,7 @@ public class PresentationWave1 extends TestCase
 
 			
 			//Company 2 Old
-			int OldCompanyNextCompanyID2 = 2;
+
 			int OldCompanyCompanyID2 = 2;
 			String OldCompanyDescription2= "Unternehmen des zweiten Spielers";
 			double OldCompanyTurnover2 = 50000.00;
@@ -168,7 +168,7 @@ public class PresentationWave1 extends TestCase
 			 
 			 // Toaster 1  New
 			 
-				int NewToasterNextToasterID1;
+
 				int NewToasterToasterID1 = 1;
 				double NewToasterPrice1  = 7;
 				double NewToasterMarketing1 = 10000.00;
@@ -184,7 +184,7 @@ public class PresentationWave1 extends TestCase
 			
 				 // Toaster 2  New
 				 
-				int NewToasterNextToasterID2;
+
 				int NewToasterToasterID2 = 2;
 				double NewToasterPrice2 = 13;
 				double NewToasterMarketing2= 10000.00;
@@ -199,7 +199,7 @@ public class PresentationWave1 extends TestCase
 
 				
 				//Company 1 New
-				int NewCompanyNextCompanyID1 = 1;
+
 				int NewCompanyCompanyID1 = 1;
 				String NewCompanyDescription1= "Unternehmen des ersten Spielers";
 				double NewCompanyTurnover1=57701.00;
@@ -211,7 +211,7 @@ public class PresentationWave1 extends TestCase
 
 				
 				//Company 2 New
-				int NewCompanyNextCompanyID2 = 2;
+
 				int NewCompanyCompanyID2 = 2;
 				String NewCompanyDescription2= "Unternehmen des zweiten Spielers";
 				double NewCompanyTurnover2 = 22841.00;
@@ -227,12 +227,7 @@ public class PresentationWave1 extends TestCase
 		
 		System.out.println("Start der " + Game.getInstance().getCurrentRound() + ". Runde");
 		System.out.println();
-		//int companyID;
-		//int marketshare;
-		//double turnover;
-		//double cost;
-		//double profit;
-		//double capital;
+
 		
 		
 		//Type 1 Old
@@ -254,7 +249,7 @@ public class PresentationWave1 extends TestCase
 		 
 		 // Toaster 1  Old
 		 
-		 //brauchen wir noch funktion für assertEquals(OldToasterNextToasterID1, toaster1.;
+		
 		 assertEquals(OldToasterToasterID1, toaster1.getToasterID());
 		 assertEquals(OldToasterPrice1, toaster1.getPrice());
 		 assertEquals(OldToasterMarketing1, toaster1.getMarketing());
@@ -268,7 +263,7 @@ public class PresentationWave1 extends TestCase
 			
 			 // Toaster 2  Old
 			 
-		 //brauchen wir noch funktion für assertEquals(OldToasterNextToasterID2, toaster2.;
+		 
 		 assertEquals(OldToasterToasterID2, toaster2.getToasterID());
 		 assertEquals(OldToasterPrice2, toaster2.getPrice());
 		 assertEquals(OldToasterMarketing2, toaster2.getMarketing());
@@ -283,7 +278,7 @@ public class PresentationWave1 extends TestCase
 	
 			
 			//Company 1 Old
-		 //brauchen wir noch Methode für assertEquals(OldCompanyNextCompanyID1, .company1.;
+		 
 		 assertEquals(OldCompanyCompanyID1, company1.getCompanyID());
 		 assertEquals(OldCompanyDescription1, company1.getDescription());
 		 assertEquals(OldCompanyTurnover1, company1.getTurnover());
@@ -294,7 +289,7 @@ public class PresentationWave1 extends TestCase
 
 			
 			//Company 2 Old
-		 //brauchen wir noch Methode für assertEquals(OldCompanyNextCompanyID2, .company2.;
+		 
 		 assertEquals(OldCompanyCompanyID2, company2.getCompanyID());
 		 assertEquals(OldCompanyDescription2, company2.getDescription());
 		 assertEquals(OldCompanyTurnover2, company2.getTurnover());
@@ -305,7 +300,7 @@ public class PresentationWave1 extends TestCase
 
 			
 			//Game Old
-		 //Diese wird bei diesem Test nicht initialisiert, weil Add Company verwendet wird!!!!
+		 
 		 //assertEquals(oldGameCurrentRound, game.getCurrentRound());
 		 //assertEquals(oldGameUserAmount,game.getUserAmount());
 		
@@ -347,7 +342,7 @@ public class PresentationWave1 extends TestCase
 		 
 		 // Toaster 1  New
 		 
-		 //brauchen wir noch funktion für assertEquals(NewToasterNextToasterID1, toaster1.;
+		 
 		 assertEquals(NewToasterToasterID1, toaster1.getToasterID());
 		 assertEquals(NewToasterPrice1, toaster1.getPrice());
 		 assertEquals(NewToasterMarketing1, toaster1.getMarketing());
@@ -361,7 +356,7 @@ public class PresentationWave1 extends TestCase
 			
 			 // Toaster 2  New
 			 
-		 //brauchen wir noch funktion für assertEquals(NewToasterNextToasterID2, toaster2.;
+		 
 		 assertEquals(NewToasterToasterID2, toaster2.getToasterID());
 		 assertEquals(NewToasterPrice2, toaster2.getPrice());
 		 assertEquals(NewToasterMarketing2, toaster2.getMarketing());
@@ -376,7 +371,7 @@ public class PresentationWave1 extends TestCase
 	
 			
 			//Company 1 New
-		 //brauchen wir noch Methode für assertEquals(NewCompanyNextCompanyID1, .company1.;
+		 
 		 assertEquals(NewCompanyCompanyID1, company1.getCompanyID());
 		 assertEquals(NewCompanyDescription1, company1.getDescription());
 		 assertEquals(NewCompanyTurnover1, company1.getTurnover());
@@ -387,7 +382,7 @@ public class PresentationWave1 extends TestCase
 
 			
 			//Company 2 New
-		 //brauchen wir noch Methode für assertEquals(NewCompanyNextCompanyID2, .company2.;
+		 
 		 assertEquals(NewCompanyCompanyID2, company2.getCompanyID());
 		 assertEquals(NewCompanyDescription2, company2.getDescription());
 		 assertEquals(NewCompanyTurnover2, company2.getTurnover());
@@ -398,7 +393,7 @@ public class PresentationWave1 extends TestCase
 
 			
 			//Game New
-		 //Diese wird bei diesem Test nicht initialisiert, weil Add Company verwendet wird!!!!
+		 
 		 //assertEquals(NewGameCurrentRound, game.getCurrentRound());
 		 //assertEquals(NewGameUserAmount,game.getUserAmount());
 		 
