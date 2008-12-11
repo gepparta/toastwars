@@ -1,10 +1,13 @@
 package wavePresentation;
 
 import java.util.ArrayList;
+
 import junit.framework.TestCase;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
 import toastwars.server.datamodel.core.Company;
 import toastwars.server.datamodel.core.Game;
 import toastwars.server.datamodel.core.Toaster;
@@ -29,16 +32,14 @@ public class PresentationWave1 extends TestCase
 	@Before
 	public void setUp() throws Exception
 	{
-		toaster1 = new Toaster(10, 1000, 8155, 1.00, 10000, 5000, 2.58, 500, Type.TYPE1);
-		toaster2 = new Toaster(10, 1000, 8155, 1.00, 10000, 5000, 2.58, 500, Type.TYPE1);
+		toaster1 = new Toaster(10, 10000.00, 12923.00, 1.00, 50000.00, 30000.00, 20000.00, 5000, Type.TYPE1);
+		toaster2 = new Toaster(10, 10000.00, 12923.00, 1.00, 50000.00, 30000.00, 20000.00, 5000, Type.TYPE1);
 		toasterList1 = new ArrayList<Toaster>();
 		toasterList2 = new ArrayList<Toaster>();
 		toasterList1.add(toaster1);
 		toasterList2.add(toaster2);
-		company1 = new Company("Unternehmen des ersten Spielers", 10000.00, 10000.00, 10000.00,
-				100000.00, 50, toasterList1);
-		company2 = new Company("Unternehmen des zweiten Spielers", 10000.00, 10000.00, 10000.00,
-				100000.00, 50, toasterList2);
+		company1 = new Company("Unternehmen des ersten Spielers", 50000.00, 30000.00, 20000.00, 100000.00, 5000, toasterList1);
+		company2 = new Company("Unternehmen des zweiten Spielers", 50000.00, 30000.00, 20000.00, 100000.00, 5000, toasterList2);
 		master = (Master) UserFactory.createUser("Master", "ADMIN", "ADMIN");
 		group1 = (Group) UserFactory.createUser("Group", "GROUP1", "GROUP1");
 		group2 = (Group) UserFactory.createUser("Group", "GROUP2", "GROUP2");
@@ -66,33 +67,33 @@ public class PresentationWave1 extends TestCase
 	{
 		System.out.println("Start der " + Game.getInstance().getCurrentRound() + ". Runde");
 		System.out.println();
-		System.out.println("Daten für Unternehmen 1: ");
+		System.out.println("Daten fÃ¼r Unternehmen 1: ");
 		System.out.println("Company ID: " + group1.getCompany().getCompanyID());
+		System.out.println("Marketshare: " + group1.getCompany().getMarketShare());
 		System.out.println("Turnover: " + group1.getCompany().getTurnover());
 		System.out.println("Cost: " + group1.getCompany().getCost());
 		System.out.println("Profit: " + group1.getCompany().getProfit());
 		System.out.println("Capital: " + group1.getCompany().getCapital());
-		System.out.println("Marketshare: " + group1.getCompany().getMarketShare());
 		System.out.println();
 
-		System.out.println("Daten für Unternehmen 2: ");
+		System.out.println("Daten fÃ¼r Unternehmen 2: ");
 		System.out.println("Company ID: " + group2.getCompany().getCompanyID());
+		System.out.println("Marketshare: " + group2.getCompany().getMarketShare());
 		System.out.println("Turnover: " + group2.getCompany().getTurnover());
 		System.out.println("Cost: " + group2.getCompany().getCost());
 		System.out.println("Profit: " + group2.getCompany().getProfit());
 		System.out.println("Capital: " + group2.getCompany().getCapital());
-		System.out.println("Marketshare: " + group2.getCompany().getMarketShare());
 		System.out.println();
 
-		System.out.println("Preisänderung:");
+		System.out.println("PreisÃ¤nderung:");
 		System.out.println("Alter Preis des Toasters von Unternehmen 1: "
 				+ group1.getCompany().getToasterList().get(0).getPrice());
-		group1.getCompany().getToasterList().get(0).setPrice(11.00);
+		group1.getCompany().getToasterList().get(0).setPrice(7.00);
 		System.out.println("Neuer Preis des Toasters von Unternehmen 1: "
 				+ group1.getCompany().getToasterList().get(0).getPrice());
 		System.out.println("Alter Preis des Toasters von Unternehmen 2: "
 				+ group2.getCompany().getToasterList().get(0).getPrice());
-		group2.getCompany().getToasterList().get(0).setPrice(15.00);
+		group2.getCompany().getToasterList().get(0).setPrice(5.00);
 		System.out.println("Neuer Preis des Toasters von Unternehmen 2: "
 				+ group2.getCompany().getToasterList().get(0).getPrice());
 		System.out.println();
@@ -104,24 +105,24 @@ public class PresentationWave1 extends TestCase
 		
 		System.out.println("Ende der " + Game.getInstance().getCurrentRound() + ". Runde");
 		System.out.println();
-		System.out.println("Daten für Unternehmen 1: ");
+		System.out.println("Daten fÃ¼r Unternehmen 1: ");
 		System.out.println("Company ID: " + group1.getCompany().getCompanyID());
+		System.out.println("Index: "+ group1.getCompany().getToasterList().get(0).getIndex());
+		System.out.println("Marketshare: " + group1.getCompany().getMarketShare());
 		System.out.println("Turnover: " + group1.getCompany().getTurnover());
 		System.out.println("Cost: " + group1.getCompany().getCost());
 		System.out.println("Profit: " + group1.getCompany().getProfit());
 		System.out.println("Capital: " + group1.getCompany().getCapital());
-		System.out.println("Marketshare: " + group1.getCompany().getMarketShare());
-		System.out.println("Index: "+ group1.getCompany().getToasterList().get(0).getIndex());
 		System.out.println();
 
-		System.out.println("Daten für Unternehmen 2: ");
+		System.out.println("Daten fÃ¼r Unternehmen 2: ");
 		System.out.println("Company ID: " + group2.getCompany().getCompanyID());
+		System.out.println("Index: "+ group2.getCompany().getToasterList().get(0).getIndex());
+		System.out.println("Marketshare: " + group2.getCompany().getMarketShare());
 		System.out.println("Turnover: " + group2.getCompany().getTurnover());
 		System.out.println("Cost: " + group2.getCompany().getCost());
 		System.out.println("Profit: " + group2.getCompany().getProfit());
 		System.out.println("Capital: " + group2.getCompany().getCapital());
-		System.out.println("Marketshare: " + group2.getCompany().getMarketShare());
-		System.out.println("Index: "+ group2.getCompany().getToasterList().get(0).getIndex());
 		System.out.println();
 
 	}
