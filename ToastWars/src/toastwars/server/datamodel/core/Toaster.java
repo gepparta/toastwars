@@ -94,7 +94,9 @@ public class Toaster implements IsSerializable
 		double marketingIndex = calculateMarketing();
 		double researchIndex = calculateResearch();
 		double random = this.getType().getRandom();
-		double i = researchIndex * (1 / (price / 10)) * marketingIndex * random;
+		double i = researchIndex * marketingIndex
+				  *	(1 / Math.pow((price / 10), 2.5));			
+//				  * NumberUtil.roundDouble(Math.random() * (random * 2))+ (1 - random);
 		// runden auf zwei Stellen hinter dem Komma
 		setIndex(NumberUtil.roundDouble(i));
 	}
