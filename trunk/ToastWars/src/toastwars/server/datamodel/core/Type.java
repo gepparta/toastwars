@@ -26,9 +26,41 @@ public enum Type implements IsSerializable {
 		this.capacity = capacity;
 	}
 	
+	public int getCapacity()
+	{
+		return capacity;
+	}
+
+	public String getDescription() {
+		return this.description;
+	}
+
 	public double getFixCostPerMachine()
 	{
 		return fixCostPerMachine;
+	}
+
+	public int getMarketVolume() {
+		return marketVolume;
+	}
+
+	public double getRandom() {
+		return random;
+	}
+
+	public double getVariableCost() {
+		return variableCost;
+	}
+
+
+
+	public void setCapacity(int capacity)
+	{
+		this.capacity = capacity;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public void setFixCostPerMachine(double fixCostPerMachine)
@@ -36,48 +68,16 @@ public enum Type implements IsSerializable {
 		this.fixCostPerMachine = fixCostPerMachine;
 	}
 
-	public int getCapacity()
-	{
-		return capacity;
-	}
-
-	public void setCapacity(int capacity)
-	{
-		this.capacity = capacity;
-	}
-
-	public double getVariableCost() {
-		return variableCost;
-	}
-
-	public void setVariableCost(double variableCost) {
-		this.variableCost = variableCost;
-	}
-
-
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public String getDescription() {
-		return this.description;
-	}
-
-	public int getMarketVolume() {
-		return marketVolume;
-	}
-
 	public void setMarketVolume(int marketVolume) {
 		this.marketVolume = marketVolume;
 	}
 
-	public double getRandom() {
-		return random;
-	}
-
 	public void setRandom(double random) {
 		this.random = random;
+	}
+
+	public void setVariableCost(double variableCost) {
+		this.variableCost = variableCost;
 	}
 
 }
