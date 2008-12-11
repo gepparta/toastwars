@@ -23,7 +23,7 @@ public class Master implements IUser
 		this.password = password;
 	}
 
-	// Diese Methode sorgt dafür, dass nur ein Master erzeugt werden kann
+	// Diese Methode sorgt dafï¿½r, dass nur ein Master erzeugt werden kann
 	public static Master getInstance(String username, String password)
 	{
 		if (Master.masterInstance == null)
@@ -77,10 +77,7 @@ public class Master implements IUser
 
 	public void simulate()
 	{
-		// Game.simulate()
-		// ...
-		// loop über User
-		// User.setStatus(Started)
+		Game.getInstance().simulate();
 	}
 
 	public void createInitialData(int userAmount)

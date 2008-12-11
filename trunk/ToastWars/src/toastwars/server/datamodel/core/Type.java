@@ -3,31 +3,47 @@ package toastwars.server.datamodel.core;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 public enum Type implements IsSerializable {
-	TYPE1("Der 1. Typ", 10000,0.05,5000.00,10.00), 
-	TYPE2("Der 2. Typ", 20000,0.08,5000.00,10.00), 
-	TYPE3("Der 3. Typ",30000,0.1,5000.00,10.00);
+	TYPE1("Der 1. Typ", 10000,0.05,1000.00,3.00,4000), 
+	TYPE2("Der 2. Typ", 20000,0.08,5000.00,15.00,1500), 
+	TYPE3("Der 3. Typ",30000,0.1,7500.00,60.00,500);
 
 	private String description;
 	private int marketVolume;
 	private double random;
-	private double fixCost;
+	private double fixCostPerMachine;
 	private double variableCost;
+	private int capacity;
 
 	
-	Type(String description, int marketVolume, double random, double fixCost, double variableCost) {
+
+
+	Type(String description, int marketVolume, double random, double fixCost, double variableCost, int capacity) {
 		this.description = description;
 		this.marketVolume = marketVolume;
 		this.random = random;
-		this.fixCost = fixCost;
+		this.fixCostPerMachine = fixCost;
 		this.variableCost = variableCost;
+		this.capacity = capacity;
 	}
 	
-	public double getFixCost() {
-		return fixCost;
+	public double getFixCostPerMachine()
+	{
+		return fixCostPerMachine;
 	}
 
-	public void setFixCost(double fixCost) {
-		this.fixCost = fixCost;
+	public void setFixCostPerMachine(double fixCostPerMachine)
+	{
+		this.fixCostPerMachine = fixCostPerMachine;
+	}
+
+	public int getCapacity()
+	{
+		return capacity;
+	}
+
+	public void setCapacity(int capacity)
+	{
+		this.capacity = capacity;
 	}
 
 	public double getVariableCost() {
