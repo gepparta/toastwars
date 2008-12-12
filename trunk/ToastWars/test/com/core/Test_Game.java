@@ -24,30 +24,29 @@ public class Test_Game extends TestCase
 	private Toaster t1;
 	private ArrayList<Toaster> toasterList;
 	private Company c1;
-	private ArrayList <Company> companyList; 
-	
+	private ArrayList<Company> companyList;
+
 	@Before
 	protected void setUp() throws Exception
 	{
-		master = (Master) UserFactory.createUser("Master","ADMIN","ADMIN");
+		master = (Master) UserFactory.createUser("Master", "ADMIN", "ADMIN");
 		master.startGame(2);
 		game = master.getCurrentGame();
 		meineToaster = new ArrayList<Toaster>();
 		Type myType = Type.TYPE1;
-		meinToaster = new Toaster(8, 1000, 8155, 1.00, 2.37, 9.58, 2.58, 500,
-				myType);
+		meinToaster = new Toaster(10, 10000.00, 12923.00, 1.00, 50000.00, 30000.00, 20000.00, 5000, Type.TYPE1);
+
 		meineToaster.add(meinToaster);
 		com = new Company("Meine erste", 500, 100, 400, 800, 20, meineToaster);
 
-/* um später mal das get/set CompanyList zu testen
-		myType1 = Type.TYPE1;
-		t1 = new Toaster(8, 1000, 8155, 1.00, 2.37,  9.58, 2.58, 500, myType1);
-		toasterList = new ArrayList<Toaster>();
-		toasterList.add(t1);
-		c1 = new Company("Test1", 1.05, 1.07, 2.10, 2.13, 50, toasterList);
-		companyList=new ArrayList<Company>();
-		companyList.add(c1);
-*/
+		/*
+		 * um später mal das get/set CompanyList zu testen myType1 = Type.TYPE1;
+		 * t1 = new Toaster(8, 1000, 8155, 1.00, 2.37, 9.58, 2.58, 500,
+		 * myType1); toasterList = new ArrayList<Toaster>();
+		 * toasterList.add(t1); c1 = new Company("Test1", 1.05, 1.07, 2.10,
+		 * 2.13, 50, toasterList); companyList=new ArrayList<Company>();
+		 * companyList.add(c1);
+		 */
 	}
 
 	@After
@@ -60,13 +59,13 @@ public class Test_Game extends TestCase
 	}
 
 	@Test
-	public void testGetCurrentRound(){
+	public void testGetCurrentRound()
+	{
 		assertNotNull(game.getCurrentRound());
 		assertEquals(1, game.getCurrentRound());
-		
+
 	}
-	
-	
+
 	@Test
 	public void testSetCurrentRound()
 	{
@@ -82,32 +81,39 @@ public class Test_Game extends TestCase
 			System.out.println(e.getLocalizedMessage());
 		}
 	}
-	
+
 	@Test
-	public void testGetUserAmount(){
+	public void testGetUserAmount()
+	{
 		assertNotNull(game.getUserAmount());
 		assertEquals(2, game.getUserAmount());
 	}
+
 	@Test
-	public void testSetUserAmount() {
-		assertNotSame(game.getUserAmount(),5);
+	public void testSetUserAmount()
+	{
+		assertNotSame(game.getUserAmount(), 5);
 		game.setUserAmount(5);
 		assertEquals(game.getUserAmount(), 5);
 	}
+
 	@Test
-	public void testGetCompanyList(){
+	public void testGetCompanyList()
+	{
 
 	}
+
 	@Test
-	public void testSetCompanyList() {}
+	public void testSetCompanyList()
+	{
+	}
 
 	@Test
 	public void testSimulate()
 	{
 		game.addCompany(com);
-		meinToaster.getType().setRandom(1.02); // wie in ppt angegeben
 		game.simulateWithOutRandom();
-		assertEquals(1.28, meinToaster.getIndex()); // 1.28 wird erwartet
+		assertEquals(1.0, meinToaster.getIndex());
 	}
 
 	@Test
@@ -116,10 +122,8 @@ public class Test_Game extends TestCase
 		Type myType1 = Type.TYPE1;
 		Type myType2 = Type.TYPE2;
 		// Index Werte der beiden Toaster wie in ppt für Runde 1 angegeben
-		Toaster toaster1 = new Toaster(8, 1000, 8155, 1.28, 2.37, 9.58, 2.58,
-				500, myType1);
-		Toaster toaster2 = new Toaster(8, 1000, 8155, 2.57, 2.37, 9.58, 2.58,
-				500, myType1);
+		Toaster toaster1 = new Toaster(8, 1000, 8155, 1.28, 2.37, 9.58, 2.58, 500, myType1);
+		Toaster toaster2 = new Toaster(8, 1000, 8155, 2.57, 2.37, 9.58, 2.58, 500, myType1);
 
 		ArrayList<Toaster> toasterList1 = new ArrayList<Toaster>();
 		toasterList1.add(toaster1);

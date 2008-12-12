@@ -11,10 +11,6 @@ import toastwars.server.datamodel.core.Type;
 
 public class Test_Company extends TestCase
 {
-
-	private Type myType1;
-	private Type myType2;
-	private Type myType3;
 	private Toaster toaster1;
 	private Toaster toaster2;
 	private Toaster toaster3;
@@ -26,12 +22,9 @@ public class Test_Company extends TestCase
 	@Before
 	public void setUp() throws Exception
 	{
-		myType1 = Type.TYPE1;
-		myType2 = Type.TYPE2;
-		myType3 = Type.TYPE3;
-		toaster1 = new Toaster(8, 1000, 8155, 1.00, 10000, 5000, 2.58, 500, myType1);
-		toaster2 = new Toaster(8, 1000, 8155, 1.00, 10000, 5000, 2.58, 500, myType2);
-		toaster3 = new Toaster(8, 1000, 8155, 2.00, 10000, 5000, 2.58, 500, myType3);
+		toaster1 = new Toaster(10, 10000.00, 12923.00, 0.00, 50000.00, 30000.00, 20000.00, 5000, Type.TYPE1);
+		toaster2 = new Toaster(10, 10000.00, 12923.00, 0.00, 50000.00, 30000.00, 20000.00, 5000, Type.TYPE2);
+		toaster3 = new Toaster(10, 10000.00, 12923.00, 0.00, 50000.00, 30000.00, 20000.00, 5000, Type.TYPE3);
 		toasterList1 = new ArrayList<Toaster>();
 		toasterList1.add(toaster1);
 		toasterList2 = new ArrayList<Toaster>();
@@ -39,15 +32,11 @@ public class Test_Company extends TestCase
 		toasterList2.add(toaster3);
 		company1 = new Company("Test1", 1.05, 1.07, 2.10, 10000.00, 50, toasterList1);
 		company2 = new Company("Test1", 1.05, 1.07, 2.10, 20000.00, 50, toasterList2);
-
 	}
 
 	@After
 	public void tearDown() throws Exception
 	{
-		myType1 = null;
-		myType2 = null;
-		myType3 = null;
 		toaster1 = null;
 		toaster2 = null;
 		toaster3 = null;
@@ -170,16 +159,12 @@ public class Test_Company extends TestCase
 	@Test
 	public void testCalaculateIndex()
 	{
-		Type.TYPE1.setRandom(1.02);
-		Type.TYPE2.setRandom(1.02);
-		Type.TYPE3.setRandom(1.02);
-
 		assertEquals(company1.getToasterList().size(), 1);
-		assertNotSame(company1.getToasterList().get(0).getIndex(), 1.28);
+		assertNotSame(company1.getToasterList().get(0).getIndex(), 1.0);
 
 		company1.calculateIndexWithOutRandom();
 
-		assertEquals(company1.getToasterList().get(0).getIndex(), 1.28);
+		assertEquals(company1.getToasterList().get(0).getIndex(), 1.0);
 
 		assertNotSame(company2.getToasterList().get(0).getIndex(), 1.28);
 		assertNotSame(company2.getToasterList().get(1).getIndex(), 1.28);
@@ -187,14 +172,18 @@ public class Test_Company extends TestCase
 		company2.calculateIndexWithOutRandom();
 
 		assertEquals(company2.getToasterList().size(), 2);
-		assertEquals(company2.getToasterList().get(0).getIndex(), 1.28);
-		assertEquals(company2.getToasterList().get(1).getIndex(), 1.28);
+		assertEquals(company2.getToasterList().get(0).getIndex(), 1.0);
+		assertEquals(company2.getToasterList().get(1).getIndex(), 1.0);
 
 	}
 
 	@Test
 	public void testCalculateMarketShare()
 	{
+		company1.getToasterList().get(0).setIndex(1.0);
+		company2.getToasterList().get(0).setIndex(1.0);
+		company2.getToasterList().get(1).setIndex(2.0);
+		
 		double[] d = new double[3];
 		d[0] = 5;
 		d[1] = 10;
@@ -216,50 +205,50 @@ public class Test_Company extends TestCase
 	public void testCalculateTurnover()
 	{
 
-		assertNotSame(4000.00, company1.getToasterList().get(0).getTurnover());
+		assertNotSame(50000.00, company1.getToasterList().get(0).getTurnover());
 		company1.calculateTurnover();
-		assertEquals(4000.00, company1.getToasterList().get(0).getTurnover());
+		assertEquals(50000.00, company1.getToasterList().get(0).getTurnover());
 
-		assertNotSame(4000.00, company2.getToasterList().get(0).getTurnover());
-		assertNotSame(4000.00, company2.getToasterList().get(1).getTurnover());
+		assertNotSame(50000.00, company2.getToasterList().get(0).getTurnover());
+		assertNotSame(50000.00, company2.getToasterList().get(1).getTurnover());
 		company2.calculateTurnover();
-		assertEquals(4000.00, company2.getToasterList().get(0).getTurnover());
-		assertEquals(4000.00, company2.getToasterList().get(1).getTurnover());
+		assertEquals(50000.00, company2.getToasterList().get(0).getTurnover());
+		assertEquals(50000.00, company2.getToasterList().get(1).getTurnover());
 
-		assertEquals(8000.00, company2.getTurnover());
+		assertEquals(100000.00, company2.getTurnover());
 	}
 
 	public void testCalculateCost()
 	{
 
-		assertNotSame(10000.00, company1.getToasterList().get(0).getCost());
+		assertNotSame(17000.00, company1.getToasterList().get(0).getCost());
 		company1.calculateCost();
-		assertEquals(10000.00, company1.getToasterList().get(0).getCost());
+		assertEquals(17000.00, company1.getToasterList().get(0).getCost());
 
-		Type.TYPE3.setFixCost(15000.00);
-		assertNotSame(10000.00, company2.getToasterList().get(0).getCost());
-		assertNotSame(20000.00, company2.getToasterList().get(1).getCost());
+		Type.TYPE3.setFixCostPerMachine(15000.00);
+		assertNotSame(95000.00, company2.getToasterList().get(0).getCost());
+		assertNotSame(450000.00, company2.getToasterList().get(1).getCost());
 		company2.calculateCost();
-		assertEquals(10000.00, company2.getToasterList().get(0).getCost());
-		assertEquals(20000.00, company2.getToasterList().get(1).getCost());
+		assertEquals(95000.00, company2.getToasterList().get(0).getCost());
+		assertEquals(450000.00, company2.getToasterList().get(1).getCost());
 
-		assertEquals(30000.00, company2.getCost());
+		assertEquals(545000.00, company2.getCost());
 	}
 
 	public void testCalculateProfit()
 	{
 
-		assertNotSame(5000.00, company1.getToasterList().get(0).getProfit());
+		assertNotSame(20000.00, company1.getToasterList().get(0).getProfit());
 		company1.calculateProfit();
-		assertEquals(5000.00, company1.getToasterList().get(0).getProfit());
+		assertEquals(20000.00, company1.getToasterList().get(0).getProfit());
 
-		assertNotSame(5000.00, company2.getToasterList().get(0).getProfit());
-		assertNotSame(5000.00, company2.getToasterList().get(1).getProfit());
+		assertNotSame(20000.00, company2.getToasterList().get(0).getProfit());
+		assertNotSame(20000.00, company2.getToasterList().get(1).getProfit());
 		company2.calculateProfit();
-		assertEquals(5000.00, company2.getToasterList().get(0).getProfit());
-		assertEquals(5000.00, company2.getToasterList().get(1).getProfit());
+		assertEquals(20000.00, company2.getToasterList().get(0).getProfit());
+		assertEquals(20000.00, company2.getToasterList().get(1).getProfit());
 
-		assertEquals(10000.00, company2.getProfit());
+		assertEquals(40000.00, company2.getProfit());
 	}
 
 	public void testCalculateCapital()
