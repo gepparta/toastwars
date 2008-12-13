@@ -101,7 +101,8 @@ public ArrayList getActualToasterFromCompany(int companyID) {
 
 		try {
 			// Abfrage definieren
-			int currentRound = Game.getInstance().getCurrentRound() -1;
+			int currentRound = 1;
+				//Game.getInstance().getCurrentRound() -1;
 			String query = "SELECT * FROM Toaster WHERE companyID = "+ companyID + " AND Round = "+ currentRound +";";
 			DBConnection con = new DBConnection();
 			con.connectToDB();
@@ -115,7 +116,7 @@ public ArrayList getActualToasterFromCompany(int companyID) {
 				toasterList.add(toaster);
 				}
 
-			System.out.println(toasterList.toString());
+//			System.out.println(toasterList.toString());
 			rst.close();
 			stmt.close();
 			con.closeConnectionToDB();
@@ -126,9 +127,8 @@ public ArrayList getActualToasterFromCompany(int companyID) {
 		}
 
 }
-public static void main(String[] args) {
-	DAOToaster toaster = new DAOToaster();
-	toaster.getToasterFromCompany(1);
-	toaster.getAllToaster();
-}
+//public static void main(String[] args) {
+//	DAOToaster toaster = new DAOToaster();
+//	toaster.getToasterFromCompany(1);
+//}
 }
