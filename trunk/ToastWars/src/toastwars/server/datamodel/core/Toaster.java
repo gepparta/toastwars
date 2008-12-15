@@ -17,6 +17,10 @@ public class Toaster implements IsSerializable
 	private double profit;
 	private int marketShare;
 	private Type type;
+	
+	public Toaster() {
+	}
+	
 	public Toaster(double price, double marketing, double research,
 			double index, double turnover, double cost, double profit,
 			int marketShare, Type type)
