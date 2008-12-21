@@ -6,7 +6,7 @@ import toastwars.server.datamodel.core.Toaster;
 
 public class Group implements IUser
 {
-	private static ArrayList<Group> groupList = new ArrayList<Group>();
+//	private static ArrayList<Group> groupList = new ArrayList<Group>();
 	private String password;
 	private String username;
 	private Company company;
@@ -21,17 +21,6 @@ public class Group implements IUser
 	{
 		this.username = username;
 		this.password = password;
-		groupList.add(this);
-	}
-
-	public static ArrayList<Group> getGroupList()
-	{
-		return groupList;
-	}
-
-	public static void setGroupList(ArrayList<Group> groupList)
-	{
-		Group.groupList = groupList;
 	}
 
 	public void completeRound()
