@@ -214,9 +214,29 @@ public class Toaster implements IsSerializable
 		this.marketShare = marketShare;
 	}
 
-	public void setPrice(double price)
+	public void setPrice(double price) throws Exception
 	{
-		this.price = price;
+		if(this.type == Type.TYPE1)
+		{
+			if(price<=20 && price>=5)
+				this.price = price;
+			else
+				throw new Exception("Ungültiger Preis");
+		}
+		if(this.type == Type.TYPE2)
+		{
+			if(price<=60 && price>=30)
+				this.price = price;
+			else
+				throw new Exception("Ungültiger Preis");
+		}
+		if(this.type == Type.TYPE3)
+		{
+			if(price<=200 && price>=130)
+				this.price = price;
+			else
+				throw new Exception("Ungültiger Preis");
+		}
 	}
 
 	public void setProfit(double profit)
