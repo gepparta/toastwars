@@ -1,10 +1,13 @@
 package wavePresentation;
 
 import java.util.ArrayList;
+
 import junit.framework.TestCase;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
 import toastwars.server.datamodel.core.Company;
 import toastwars.server.datamodel.core.Game;
 import toastwars.server.datamodel.core.Toaster;
@@ -63,7 +66,7 @@ public class PresentationWave1 extends TestCase
 		}
 
 	@Test
-	public void testChangePriceAndSimulate()
+	public void testChangePriceAndSimulate() throws Exception
 	{
 		//Type 1 Old
 		 String TypeOldDescription1 = "Der 1. Typ";
