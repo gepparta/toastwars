@@ -108,7 +108,7 @@ public class Toaster implements IsSerializable
 	// @by Alex
 	public double calculateMarketing()
 	{
-//		4.67 ==> Startwert 10.000â‚¬ damit Index =1
+//		4.67 ==> Startwert 10.000€ damit Index =1
 		double d = 4.7625 + ((Math.pow(this.marketing / 10000 - 8, 3)
 				         +  Math.pow(this.marketing / 10000 - 8, 2) 
 				         +  Math.pow(this.marketing / 10000 - 8, 1))/80);
