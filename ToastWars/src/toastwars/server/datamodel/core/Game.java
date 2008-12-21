@@ -1,8 +1,11 @@
 package toastwars.server.datamodel.core;
 
-import com.google.gwt.user.client.rpc.IsSerializable;
 import java.util.ArrayList;
+
+import toastwars.server.datamodel.user.Group;
 import toastwars.util.NumberUtil;
+
+import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class Game implements IsSerializable
 {
@@ -11,8 +14,9 @@ public class Game implements IsSerializable
 
 	private int userAmount;
 
-	// @gwt.typeArgs <toastwars.server.datamodel.core.Company>
-	private ArrayList<Company> companyList = new ArrayList<Company>();
+//	private ArrayList<Company> companyList = new ArrayList<Company>();
+	// @gwt.typeArgs <toastwars.server.datamodel.user.Group>
+	private static ArrayList<Group> groupList = new ArrayList<Group>();
 
 	private int currentRound;
 
@@ -48,26 +52,27 @@ public class Game implements IsSerializable
 		return instance;
 	}
 
-	// @ by Alex
-	public void addCompany(Company com)
-	{
-		this.companyList.add(com);
-	}
+//	// @ by Alex
+//	public void addCompany(Company com)
+//	{
+//		this.companyList.add(com);
+//	}
 
 	// @by Alex
 	public double[] calculateIndexSums()
 	{
 		double[] indexSums = new double[3];
-		for (int i = 0; i < companyList.size(); i++)
+		for (int i = 0; i < groupList.size(); i++)
 		{
-			for (int a = 0; a < companyList.get(i).getToasterList().size(); a++)
+			Company com = groupList.get(i).getCompany();
+			for (int a = 0; a < com.getToasterList().size(); a++)
 			{
-				if (companyList.get(i).getToasterList().get(a).getType() == Type.TYPE1)
-					indexSums[0] += companyList.get(i).getToasterList().get(a).getIndex();
-				if (companyList.get(i).getToasterList().get(a).getType() == Type.TYPE2)
-					indexSums[1] += companyList.get(i).getToasterList().get(a).getIndex();
-				if (companyList.get(i).getToasterList().get(a).getType() == Type.TYPE3)
-					indexSums[2] += companyList.get(i).getToasterList().get(a).getIndex();
+				if (com.getToasterList().get(a).getType() == Type.TYPE1)
+					indexSums[0] += com.getToasterList().get(a).getIndex();
+				if (com.getToasterList().get(a).getType() == Type.TYPE2)
+					indexSums[1] += com.getToasterList().get(a).getIndex();
+				if (com.getToasterList().get(a).getType() == Type.TYPE3)
+					indexSums[2] += com.getToasterList().get(a).getIndex();
 			}
 		}
 		// runden auf zwei Stellen
@@ -105,11 +110,6 @@ public class Game implements IsSerializable
 	 * return companyList; }
 	 */
 
-	public ArrayList<Company> getCompanyList()
-	{
-		return companyList;
-	}
-
 	public int getCurrentRound()
 	{
 		return currentRound;
@@ -120,10 +120,14 @@ public class Game implements IsSerializable
 		return userAmount;
 	}
 
-	public void setCompanyList(ArrayList<Company> companyList)
+	public static ArrayList<Group> getGroupList()
 	{
-		this.companyList = companyList;
+		return groupList;
+	}
 
+	public static void setGroupList(ArrayList<Group> groupList)
+	{
+		Game.groupList = groupList;
 	}
 
 	// @ by Alex
@@ -148,20 +152,19 @@ public class Game implements IsSerializable
 	{
 		double[] indexSums = new double[3];
 
-		for (int i = 0; i < companyList.size(); i++)
+		for (int a = 0; a < groupList.size(); a++)
 		{
-			companyList.get(i).calculateIndex();
+			groupList.get(a).getCompany().calculateIndex();
 		}
-
 		indexSums = calculateIndexSums();
 
-		for (int i = 0; i < companyList.size(); i++)
+		for (int a = 0; a < groupList.size(); a++)
 		{
-			companyList.get(i).calculateMarketShares(indexSums);
-			companyList.get(i).calculateTurnover();
-			companyList.get(i).calculateCost();
-			companyList.get(i).calculateProfit();
-			companyList.get(i).calculateCapital();
+			groupList.get(a).getCompany().calculateMarketShares(indexSums);
+			groupList.get(a).getCompany().calculateTurnover();
+			groupList.get(a).getCompany().calculateCost();
+			groupList.get(a).getCompany().calculateProfit();
+			groupList.get(a).getCompany().calculateCapital();
 		}
 	}
 
@@ -170,26 +173,27 @@ public class Game implements IsSerializable
 	{
 		double[] indexSums = new double[3];
 
-		for (int i = 0; i < companyList.size(); i++)
+		for (int a = 0; a < groupList.size(); a++)
 		{
-			companyList.get(i).calculateIndexWithOutRandom();
+			groupList.get(a).getCompany().calculateIndexWithOutRandom();
 		}
 
 		indexSums = calculateIndexSums();
 
-		for (int i = 0; i < companyList.size(); i++)
+		for (int a = 0; a < groupList.size(); a++)
 		{
-			companyList.get(i).calculateMarketShares(indexSums);
-			companyList.get(i).calculateTurnover();
-			companyList.get(i).calculateCost();
-			companyList.get(i).calculateProfit();
-			companyList.get(i).calculateCapital();
+			groupList.get(a).getCompany().calculateMarketShares(indexSums);
+			groupList.get(a).getCompany().calculateTurnover();
+			groupList.get(a).getCompany().calculateCost();
+			groupList.get(a).getCompany().calculateProfit();
+			groupList.get(a).getCompany().calculateCapital();
 		}
 	}
 
 	public boolean isGameStarted()
 	{
-//		ruft eine DAO Methode auf die auf die Game Tabelle zugreift 
+
+//		ruft eine DAO Methode (isGameStarted()) auf die auf die Game Tabelle zugreift 
 //		und schaut ob etwas drin ist
 //		fals Tabelle leer -> game noch nicht gestartet somit return false
 		return false;
