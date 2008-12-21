@@ -77,7 +77,7 @@ public class Game implements IsSerializable
 		return indexSums;
 	}
 
-	public void changePrice(Company company, Toaster toaster, double price)
+	public void changePrice(Company company, Toaster toaster, double price) throws Exception
 	{
 
 		company.getToasterList().get(company.getToasterList().indexOf(toaster)).setPrice(price);
