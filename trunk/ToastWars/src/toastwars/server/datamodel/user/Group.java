@@ -1,8 +1,6 @@
 package toastwars.server.datamodel.user;
 
-import java.util.ArrayList;
 import toastwars.server.datamodel.core.Company;
-import toastwars.server.datamodel.core.Toaster;
 
 public class Group implements IUser
 {
