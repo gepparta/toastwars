@@ -4,8 +4,7 @@ public class UserFactory
 {
 	private static boolean masterCreated = false;
 
-	public static IUser createUser(String className, String username,
-			String password)
+	public static IUser createUser(String className, String username, String password)
 	{
 		IUser obj = null;
 		try
