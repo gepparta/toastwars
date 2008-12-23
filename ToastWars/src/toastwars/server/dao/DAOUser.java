@@ -5,7 +5,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
+import toastwars.server.datamodel.core.Toaster;
 import toastwars.server.datamodel.core.Company;
 import toastwars.server.datamodel.user.Group;
 import toastwars.server.datamodel.user.Status;
@@ -51,45 +51,33 @@ public class DAOUser {
 			e.printStackTrace();
 		}
 	}
-	public ArrayList getAllUsers() {
-
-		if (userList.isEmpty()) {
+	public ArrayList<Group> getAllUsers(DBConnection con) {
 			try {
+				userList.clear();
 				// Abfrage definieren
 				String query = "SELECT * FROM User;";
-				DBConnection con = new DBConnection();
-				con.connectToDB();
 				Statement stmt = con.getStatement();
 				ResultSet rst = stmt.executeQuery(query);
-				ResultSetMetaData md = rst.getMetaData();
-				int columns = md.getColumnCount();
+				DAOCompany test = new DAOCompany();
+				ArrayList<Company> companyList = test.getAllCurrentCompanies(con);
+				Integer size =companyList.size();
 				// Zeileninhalt ermitteln
+				Integer counter= 0;
 				while (rst.next()) {
-					ArrayList<String> row = new ArrayList(columns);
-					for (int i = 1; i <= columns; i++) {
-						row.add(rst.getString(i));
-					}
-					// System.out.println(row.toString());
-					Group group = (Group)UserFactory.createUser("Group",row.get(0), row.get(1));
-					Company comp = new Company();
-					group.setCompany(comp);
-					Status stat = Status.valueOf(row.get(3));
+					Group group = (Group)UserFactory.createUser("Group",rst.getString(1), rst.getString(2));
+					group.setCompany(companyList.get(size-1));
+					Status stat = Status.valueOf(rst.getString(4));
 					group.setStatus(stat);
 					userList.add(group);
-					
+					size--;
 				}
-				System.out.println(userList.toString());
 				rst.close();
 				stmt.close();
-				con.closeConnectionToDB();
 				return userList;
 			} catch (Exception e) {
 				e.printStackTrace();
 				return null;
 			}
-		} else {
-			return userList;
-		}
 	}
 	public void changeStatus(String username, String status){
 		DBConnection con = new DBConnection();
@@ -109,6 +97,6 @@ public class DAOUser {
 	public static void main(String[] args) {
 		DAOUser user = new DAOUser();
 		//user.changeStatus("test","neuerStatus");
-		user.deleteUsers();
+
 	}
 }
