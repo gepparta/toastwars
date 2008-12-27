@@ -9,7 +9,7 @@ public class Company implements IsSerializable
 	private static int nextCompanyID = 1;
 
 	private int companyID;
-	private String description;
+
 	private double turnover;
 	private double cost;
 	private double profit;
@@ -22,11 +22,11 @@ public class Company implements IsSerializable
 	public Company() {
 	}
 	
-	public Company(int companyID, String description, double turnover, double cost, double profit,
+	public Company(int companyID,  double turnover, double cost, double profit,
 			double capital, int marketShare, ArrayList<Toaster> toasterList)
 	{
 		this.companyID = companyID;
-		this.description = description;
+
 		this.turnover = turnover;
 		this.cost = cost;
 		this.profit = profit;
@@ -36,12 +36,12 @@ public class Company implements IsSerializable
 
 	}
 
-	public Company(String description, double turnover, double cost, double profit, double capital,
+	public Company( double turnover, double cost, double profit, double capital,
 			int marketShare, ArrayList<Toaster> toasterList)
 	{
 		this.companyID = nextCompanyID;
 		nextCompanyID++;
-		this.description = description;
+
 		this.turnover = turnover;
 		this.cost = cost;
 		this.profit = profit;
@@ -148,10 +148,7 @@ public class Company implements IsSerializable
 		return cost;
 	}
 
-	public String getDescription()
-	{
-		return description;
-	}
+
 
 	public int getMarketShare()
 	{
@@ -190,10 +187,7 @@ public class Company implements IsSerializable
 		this.cost = cost;
 	}
 
-	public void setDescription(String description)
-	{
-		this.description = description;
-	}
+
 
 	public void setMarketShare(int marketShare)
 	{
