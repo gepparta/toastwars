@@ -37,7 +37,7 @@ public class Test_Game extends TestCase
 		meinToaster = new Toaster(10, 10000.00, 12923.00, 1.00, 50000.00, 30000.00, 20000.00, 5000, Type.TYPE1);
 
 		meineToaster.add(meinToaster);
-		com = new Company("Meine erste", 500, 100, 400, 800, 20, meineToaster);
+		com = new Company( 500, 100, 400, 800, 20, meineToaster);
 
 		/*
 		 * um später mal das get/set CompanyList zu testen myType1 = Type.TYPE1;

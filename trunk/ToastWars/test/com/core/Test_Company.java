@@ -30,8 +30,8 @@ public class Test_Company extends TestCase
 		toasterList2 = new ArrayList<Toaster>();
 		toasterList2.add(toaster2);
 		toasterList2.add(toaster3);
-		company1 = new Company("Test1", 1.05, 1.07, 2.10, 10000.00, 50, toasterList1);
-		company2 = new Company("Test1", 1.05, 1.07, 2.10, 20000.00, 50, toasterList2);
+		company1 = new Company( 1.05, 1.07, 2.10, 10000.00, 50, toasterList1);
+		company2 = new Company( 1.05, 1.07, 2.10, 20000.00, 50, toasterList2);
 	}
 
 	@After
@@ -47,23 +47,7 @@ public class Test_Company extends TestCase
 
 	}
 
-	@Test
-	public void testGetDescription()
-	{
 
-		String t = company1.getDescription();
-		assertNotNull(t);
-		assertEquals(t, "Test1");
-	}
-
-	@Test
-	public void testSetDescription()
-	{
-
-		assertNotSame(company1.getDescription(), "hallo");
-		company1.setDescription("hallo");
-		assertEquals("hallo", company1.getDescription());
-	}
 
 	@Test
 	public void testGetTurnover()
