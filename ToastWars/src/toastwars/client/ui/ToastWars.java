@@ -1,36 +1,20 @@
 package toastwars.client.ui;
 
 import toastwars.client.Controller;
-import toastwars.client.sliders.SliderBar;
-import toastwars.client.sliders.SliderBar.LabelFormatter;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.gwtext.client.core.EventObject;
 import com.gwtext.client.data.Node;
-import com.gwtext.client.widgets.Button;
 import com.gwtext.client.widgets.Component;
-import com.gwtext.client.widgets.MessageBox;
 import com.gwtext.client.widgets.Panel;
 import com.gwtext.client.widgets.TabPanel;
-import com.gwtext.client.widgets.event.ButtonListenerAdapter;
-import com.gwtext.client.widgets.form.Field;
-import com.gwtext.client.widgets.form.FormPanel;
 import com.gwtext.client.widgets.form.Label;
-import com.gwtext.client.widgets.form.NumberField;
-import com.gwtext.client.widgets.form.event.FieldListenerAdapter;
 import com.gwtext.client.widgets.layout.HorizontalLayout;
 import com.gwtext.client.widgets.layout.VerticalLayout;
 import com.gwtext.client.widgets.tree.TreeNode;
 import com.gwtext.client.widgets.tree.TreePanel;
 import com.gwtext.client.widgets.tree.event.TreeNodeListenerAdapter;
-import com.rednels.ofcgwt.client.ChartWidget;
-import com.rednels.ofcgwt.client.model.ChartData;
-import com.rednels.ofcgwt.client.model.axis.XAxis;
-import com.rednels.ofcgwt.client.model.axis.YAxis;
-import com.rednels.ofcgwt.client.model.elements.BarChart;
-import com.rednels.ofcgwt.client.model.elements.PieChart;
-import com.rednels.ofcgwt.client.model.elements.BarChart.BarStyle;
 
 public class ToastWars implements EntryPoint {
 
@@ -43,8 +27,6 @@ public class ToastWars implements EntryPoint {
 
 	// Ansicht der Gruppen
 	private Panel		infoPanel;
-	private Panel		decissionPanel;
-	private Panel		reportPanel;
 
 	public void onModuleLoad() {
 
@@ -135,10 +117,7 @@ public class ToastWars implements EntryPoint {
 				public void onClick(Node node, EventObject e) {
 					super.onClick(node, e);
 
-					if (configPanel == null || gamePanel == null) {
-						mainPanel.add(createConfigPanel());
-						mainPanel.add(createGamePanel());
-					}
+					createInitialContentMaster();
 
 					mainPanel.hideTabStripItem(0);
 					mainPanel.hideTabStripItem(2);
@@ -152,10 +131,7 @@ public class ToastWars implements EntryPoint {
 				public void onClick(Node node, EventObject e) {
 					super.onClick(node, e);
 
-					if (configPanel == null || gamePanel == null) {
-						mainPanel.add(createConfigPanel());
-						mainPanel.add(createGamePanel());
-					}
+					createInitialContentMaster();
 
 					mainPanel.hideTabStripItem(0);
 					mainPanel.hideTabStripItem(1);
@@ -177,12 +153,7 @@ public class ToastWars implements EntryPoint {
 				public void onClick(Node node, EventObject e) {
 					super.onClick(node, e);
 
-					if (infoPanel == null || decissionPanel == null
-							|| reportPanel == null) {
-						mainPanel.add(createInfoPanel());
-						mainPanel.add(DecissionPanel.getInstance());
-						mainPanel.add(createReportPanel());
-					}
+					createInitialContentGroup();
 
 					mainPanel.hideTabStripItem(0);
 					mainPanel.hideTabStripItem(2);
@@ -196,12 +167,7 @@ public class ToastWars implements EntryPoint {
 				public void onClick(Node node, EventObject e) {
 					super.onClick(node, e);
 
-					if (infoPanel == null || decissionPanel == null
-							|| reportPanel == null) {
-						mainPanel.add(createInfoPanel());
-						mainPanel.add(DecissionPanel.getInstance());
-						mainPanel.add(createReportPanel());
-					}
+					createInitialContentGroup();
 
 					mainPanel.hideTabStripItem(0);
 					mainPanel.hideTabStripItem(1);
@@ -215,12 +181,7 @@ public class ToastWars implements EntryPoint {
 				public void onClick(Node node, EventObject e) {
 					super.onClick(node, e);
 
-					if (infoPanel == null || decissionPanel == null
-							|| reportPanel == null) {
-						mainPanel.add(createInfoPanel());
-						mainPanel.add(DecissionPanel.getInstance());
-						mainPanel.add(createReportPanel());
-					}
+					createInitialContentGroup();
 
 					mainPanel.hideTabStripItem(0);
 					mainPanel.hideTabStripItem(1);
@@ -267,68 +228,18 @@ public class ToastWars implements EntryPoint {
 		return configPanel;
 	}
 
-	private Component createReportPanel() {
-		reportPanel = new Panel("Analyse-Bericht");
-
-		Panel horizPanel = new Panel();
-		horizPanel.setLayout(new HorizontalLayout(2));
-		horizPanel.setSize(600, 300);
-		horizPanel.add(createPieChart());
-		horizPanel.add(createBarChart());
-
-		reportPanel.add(horizPanel);
-
-		return reportPanel;
+	private void createInitialContentMaster() {
+		if (mainPanel.getItems().length < 2) {
+			mainPanel.add(createConfigPanel());
+			mainPanel.add(createGamePanel());
+		}
 	}
 
-	private ChartWidget createPieChart() {
-		ChartWidget chart = new ChartWidget();
-		chart.setStyleName("background-color:transparent");
-		ChartData cd = new ChartData("Sales by Region",
-				"font-size: 14px; font-family: Verdana; text-align: center;");
-		cd.setBackgroundColour("transparent");
-		PieChart pie = new PieChart();
-		pie.setAlpha(0.7f);
-		pie.setNoLabels(false);
-		pie.setTooltip("#label#<br>#val# Toaster<br>#percent#");
-		pie.setAnimate(false);
-		pie.setGradientFill(true);
-		pie.setColours("#ff0000", "#00ff00", "#0000ff", "#ff9900");
-		pie.addSlices(new PieChart.Slice(1000, "Gruppe 1"));
-		pie.addSlices(new PieChart.Slice(2000, "Gruppe 2"));
-		pie.addSlices(new PieChart.Slice(6000, "Gruppe 3"));
-		pie.addSlices(new PieChart.Slice(1000, "Gruppe 4"));
-		cd.addElements(pie);
-		chart.setSize("300", "300");
-		chart.setJsonData(cd.toString());
-		return chart;
-	}
-
-	private ChartWidget createBarChart() {
-		ChartWidget chart = new ChartWidget();
-		ChartData cd = new ChartData("Kapital nach Runde 1",
-				"font-size: 14px; font-family: Verdana; text-align: center;");
-		cd.setBackgroundColour("#ffffff");
-
-		XAxis xa = new XAxis();
-		xa.setLabels("Gruppe 1", "Gruppe 2", "Gruppe 3", "Gruppe 4");
-		xa.setMax(3);
-		cd.setXAxis(xa);
-
-		YAxis ya = new YAxis();
-		ya.setSteps(40000);
-		ya.setMax(200000);
-		cd.setYAxis(ya);
-
-		BarChart bchart = new BarChart(BarStyle.GLASS);
-		bchart.setColour("#00aa00");
-		bchart.setTooltip("#val# &#8364;");
-		bchart.addValues(40000, 60000, 30000, 150000);
-		cd.addElements(bchart);
-
-		chart.setSize("300", "250");
-		chart.setJsonData(cd.toString());
-
-		return chart;
+	private void createInitialContentGroup() {
+		if (mainPanel.getItems().length < 2) {
+			mainPanel.add(createInfoPanel());
+			mainPanel.add(DecissionPanel.getInstance());
+			mainPanel.add(ReportPanel.getInstance());
+		}
 	}
 }

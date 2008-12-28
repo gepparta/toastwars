@@ -43,7 +43,7 @@ public class Controller {
 		service.login(name, pwd, callback);
 	}
 
-	public void save() {
+	public void save() throws Exception {
 		ToastWarsServiceAsync service = ToastWarsService.Util.getInstance();
 
 		AsyncCallback callback = new AsyncCallback() {
