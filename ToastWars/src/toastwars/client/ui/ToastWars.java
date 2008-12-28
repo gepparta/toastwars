@@ -1,10 +1,8 @@
-package toastwars.client;
+package toastwars.client.ui;
 
+import toastwars.client.Controller;
 import toastwars.client.sliders.SliderBar;
 import toastwars.client.sliders.SliderBar.LabelFormatter;
-import toastwars.server.datamodel.user.Group;
-import toastwars.server.datamodel.user.Master;
-import toastwars.server.datamodel.user.IUser;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -15,13 +13,11 @@ import com.gwtext.client.widgets.Component;
 import com.gwtext.client.widgets.MessageBox;
 import com.gwtext.client.widgets.Panel;
 import com.gwtext.client.widgets.TabPanel;
-import com.gwtext.client.widgets.Window;
 import com.gwtext.client.widgets.event.ButtonListenerAdapter;
 import com.gwtext.client.widgets.form.Field;
 import com.gwtext.client.widgets.form.FormPanel;
 import com.gwtext.client.widgets.form.Label;
 import com.gwtext.client.widgets.form.NumberField;
-import com.gwtext.client.widgets.form.TextField;
 import com.gwtext.client.widgets.form.event.FieldListenerAdapter;
 import com.gwtext.client.widgets.layout.HorizontalLayout;
 import com.gwtext.client.widgets.layout.VerticalLayout;
@@ -38,14 +34,8 @@ import com.rednels.ofcgwt.client.model.elements.BarChart.BarStyle;
 
 public class ToastWars implements EntryPoint {
 
-	private Window		loginWindow;
+	private Controller	controller;
 	private TabPanel	mainPanel;
-	private ToastWars	toastWars;
-
-	// Login
-	private TextField	userName;
-	private TextField	userPass;
-	private IUser		user;
 
 	// Ansicht des Spielleiters
 	private Panel		configPanel;
@@ -55,71 +45,21 @@ public class ToastWars implements EntryPoint {
 	private Panel		infoPanel;
 	private Panel		decissionPanel;
 	private Panel		reportPanel;
-	private NumberField	price;
-	private NumberField	research;
-	private NumberField	marketing;
-	private Button		btnSave;
-	private Button		btnEnd;
-
-	// Benutzer-Parameter
-	public static int	SPIELLEITER	= 1;
-	public static int	GRUPPE		= 2;
-	private int			userType;
 
 	public void onModuleLoad() {
-		toastWars = this;
 
-		loginWindow = new Window("Anmeldung");
-		loginWindow.setSize(300, 150);
-		loginWindow.setClosable(false);
-		loginWindow.setDraggable(false);
-		loginWindow.setModal(true);
-		loginWindow.setResizable(false);
+		controller = Controller.getInstance();
 
-		FormPanel loginPanel = new FormPanel();
-		loginPanel.setPaddings(10);
-
-		userName = new TextField("Benutzer");
-		userName.setValue("gruppe");
-		userPass = new TextField("Kennwort");
-		userPass.setValue("master");
-		userPass.setPassword(true);
-
-		loginPanel.add(userName);
-		loginPanel.add(userPass);
-
-		loginPanel.addButton(new Button("Anmelden",
-				new ButtonListenerAdapter() {
-					public void onClick(Button button, EventObject e) {
-						// User und Passwort checken
-						Controller controller = new Controller();
-						controller.login(userName.getText(),
-								userPass.getText(), toastWars);
-					}
-				}));
-
-		loginWindow.add(loginPanel);
-		loginWindow.show();
+		LoginWindow loginWindow = new LoginWindow(this);
 
 		RootPanel.get().add(loginWindow);
 	}
 
-	public void login(IUser user) {
-		if (user != null) {
-			this.user = user;
-			if (user instanceof Master)
-				userType = SPIELLEITER;
-			else if (user instanceof Group)
-				userType = GRUPPE;
-			loginWindow.close();
-			createUI();
-		} else
-			MessageBox.alert("Anmeldung fehlgeschlagen!");
-	}
-
-	private void createUI() {
+	public void createUI() {
 		Panel panel = new Panel();
 		panel.setBorder(false);
+		panel.setPaddings(1);
+		panel.setStyle("background: url(images/starfield_JPG.jpg);");
 
 		TreePanel navigationPanel = createNavigationPanel();
 		mainPanel = createMainPanel();
@@ -150,9 +90,9 @@ public class ToastWars implements EntryPoint {
 		footerPanel.setSize(802, 22);
 		footerPanel.setPaddings(5);
 
-		Label text = new Label("Angemeldet als: " + user.getUsername());
-		text
-				.setStyle("color:#15428b;font:bold 11px tahoma,arial,verdana,sans-serif");
+		Label text = new Label("Angemeldet als: "
+				+ controller.getUser().getUsername());
+		text.setStyle("font:bold 11px tahoma,arial,verdana,sans-serif");
 
 		footerPanel.add(text);
 
@@ -163,14 +103,15 @@ public class ToastWars implements EntryPoint {
 
 		TabPanel mainPanel = new TabPanel();
 		mainPanel.setSize(600, 400);
+		mainPanel.setBorder(true);
 
 		// Willkommen Panel
 		Panel welcome = new Panel("Willkommen");
 		welcome.setPaddings(5);
 		welcome.setStyle("text-align:center");
-		Label text = new Label("Willkommen bei ToastWars " + user.getUsername());
-		text
-				.setStyle("color:#15428b;font:bold 20px tahoma,arial,verdana,sans-serif");
+		Label text = new Label("Willkommen bei ToastWars "
+				+ controller.getUser().getUsername());
+		text.setStyle("font:bold 20px tahoma,arial,verdana,sans-serif");
 		welcome.add(text);
 
 		mainPanel.add(welcome);
@@ -187,7 +128,7 @@ public class ToastWars implements EntryPoint {
 
 		TreeNode root = new TreeNode("menu");
 
-		if (userType == SPIELLEITER) {
+		if (controller.getUserType() == Controller.SPIELLEITER) {
 
 			TreeNode config = new TreeNode("Konfiguration");
 			config.addListener(new TreeNodeListenerAdapter() {
@@ -226,9 +167,9 @@ public class ToastWars implements EntryPoint {
 			root.appendChild(config);
 			root.appendChild(game);
 
-		} else if (userType == GRUPPE) {
+		} else if (controller.getUserType() == Controller.GRUPPE) {
 
-			TreeNode info = new TreeNode("Information");
+			TreeNode info = new TreeNode("Anleitung");
 			TreeNode decissions = new TreeNode("Entscheidungen");
 			TreeNode report = new TreeNode("Analyse-Bericht");
 
@@ -239,7 +180,7 @@ public class ToastWars implements EntryPoint {
 					if (infoPanel == null || decissionPanel == null
 							|| reportPanel == null) {
 						mainPanel.add(createInfoPanel());
-						mainPanel.add(createDecissionPanel());
+						mainPanel.add(DecissionPanel.getInstance());
 						mainPanel.add(createReportPanel());
 					}
 
@@ -258,7 +199,7 @@ public class ToastWars implements EntryPoint {
 					if (infoPanel == null || decissionPanel == null
 							|| reportPanel == null) {
 						mainPanel.add(createInfoPanel());
-						mainPanel.add(createDecissionPanel());
+						mainPanel.add(DecissionPanel.getInstance());
 						mainPanel.add(createReportPanel());
 					}
 
@@ -277,7 +218,7 @@ public class ToastWars implements EntryPoint {
 					if (infoPanel == null || decissionPanel == null
 							|| reportPanel == null) {
 						mainPanel.add(createInfoPanel());
-						mainPanel.add(createDecissionPanel());
+						mainPanel.add(DecissionPanel.getInstance());
 						mainPanel.add(createReportPanel());
 					}
 
@@ -301,133 +242,12 @@ public class ToastWars implements EntryPoint {
 		return treePanelNavigation;
 	}
 
-	private Component createDecissionPanel() {
-		decissionPanel = new Panel("Entscheidungen");
-		decissionPanel.setPaddings(5);
-		decissionPanel.setSize(580, 290);
-
-		Panel horizontalPanel = new Panel();
-		horizontalPanel.setLayout(new HorizontalLayout(0));
-		horizontalPanel.setPaddings(0);
-
-		// Formular
-		FormPanel form = new FormPanel();
-		form.setWidth(250);
-		// form.setBorder(false);
-		form.setPaddings(30, 15, 0, 0);
-		form.setLabelWidth(160);
-
-		price = createNumberField("Preis in &euro;", "Preis", 55, 15, 300, true);
-		marketing = createNumberField("Werbung", "Werbung", 55, 1, 100000,
-				false);
-		research = createNumberField("Forschung und Entwicklung", "FE", 55, 1,
-				100000, false);
-
-		form.add(price);
-		form.add(marketing);
-		form.add(research);
-
-		btnSave = new Button("Speichern", new ButtonListenerAdapter() {
-			public void onClick(Button button, EventObject e) {
-				super.onClick(button, e);
-				MessageBox.alert("Daten speichern");
-			}
-		});
-		form.addButton(btnSave);
-
-		btnEnd = new Button("Runde abschlie&szlig;en",
-				new ButtonListenerAdapter() {
-					public void onClick(Button button, EventObject e) {
-						super.onClick(button, e);
-						MessageBox.alert("Runde abschlie&szlig;en");
-					}
-				});
-		form.addButton(btnEnd);
-
-		// Slider
-		Panel sliderPanel = new Panel();
-		sliderPanel.setSize(320, 200);
-		sliderPanel.setMargins(0, 0, 0, 0);
-		// sliderPanel.setLayout(new VerticalLayout(0));
-		// sliderPanel.setBorder(false);
-
-		SliderBar slider = new SliderBar(0, 60);
-		slider.setHeight("55");
-		slider.setStepSize(1);
-		slider.setCurrentValue(15);
-		slider.setNumTicks(12);
-		slider.setNumLabels(4);
-		slider.setLabelFormatter(new LabelFormatter() {
-			public String formatLabel(SliderBar slider, double value) {
-				return (int) value + "";
-			}
-		});
-
-		SliderBar slider2 = new SliderBar(0, 100000);
-		slider2.setStepSize(10000);
-		slider2.setCurrentValue(0);
-		slider2.setNumTicks(10);
-		slider2.setNumLabels(5);
-		slider2.setLabelFormatter(new LabelFormatter() {
-			public String formatLabel(SliderBar slider, double value) {
-				return (int) value / 1000 + "k";
-			}
-		});
-
-		sliderPanel.add(slider);
-		sliderPanel.add(slider2);
-
-		horizontalPanel.add(form);
-		horizontalPanel.add(sliderPanel);
-
-		decissionPanel.add(horizontalPanel);
-
-		return decissionPanel;
-	}
-
-	private NumberField createNumberField(String text, String name, int width,
-			int value, int maxvalue, boolean decimal) {
-		NumberField numField = new NumberField(text, name, width, value);
-		numField.setLabelStyle("height:50");
-		numField.setAllowNegative(false);
-		numField.setMaxValue(maxvalue);
-		numField.setMaxText("Der maximale Wert f&uuml;r dieses Feld ist: "
-				+ maxvalue);
-		numField.setNanText("Ung&uuml;ltige Zahl");
-
-		numField.setDecimalPrecision(2);
-		numField.setDecimalSeparator(",");
-		numField.setAllowDecimals(decimal);
-
-		numField.setStyle("text-align:right");
-
-		numField.addListener(new FieldListenerAdapter() {
-			public void onInvalid(Field field, String msg) {
-				super.onInvalid(field, msg);
-				btnSave.disable();
-				btnEnd.disable();
-			}
-
-			public void onValid(Field field) {
-				super.onValid(field);
-				if (price.isValid() && research.isValid()
-						&& marketing.isValid()) {
-					btnSave.enable();
-					btnEnd.enable();
-				}
-			}
-		});
-
-		return numField;
-	}
-
 	private Component createInfoPanel() {
 		infoPanel = new Panel("Information");
 		infoPanel.setPaddings(5);
 
 		Label text = new Label("Informationen zum Unternehmen");
-		text
-				.setStyle("color:#15428b;font:bold 11px tahoma,arial,verdana,sans-serif");
+		text.setStyle("font:bold 11px tahoma,arial,verdana,sans-serif");
 		infoPanel.add(text);
 
 		return infoPanel;
@@ -463,11 +283,12 @@ public class ToastWars implements EntryPoint {
 
 	private ChartWidget createPieChart() {
 		ChartWidget chart = new ChartWidget();
+		chart.setStyleName("background-color:transparent");
 		ChartData cd = new ChartData("Sales by Region",
 				"font-size: 14px; font-family: Verdana; text-align: center;");
-		cd.setBackgroundColour("#ffffff");
+		cd.setBackgroundColour("transparent");
 		PieChart pie = new PieChart();
-		pie.setAlpha(0.3f);
+		pie.setAlpha(0.7f);
 		pie.setNoLabels(false);
 		pie.setTooltip("#label#<br>#val# Toaster<br>#percent#");
 		pie.setAnimate(false);

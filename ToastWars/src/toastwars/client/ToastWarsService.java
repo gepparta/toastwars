@@ -1,5 +1,6 @@
 package toastwars.client;
 
+import toastwars.server.datamodel.user.Group;
 import toastwars.server.datamodel.user.IUser;
 
 import com.google.gwt.core.client.GWT;
@@ -24,4 +25,5 @@ public interface ToastWarsService extends RemoteService {
 
 	public IUser login(String name, String pwd);
 
+	public void save(Group group);
 }
