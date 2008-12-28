@@ -1,8 +1,8 @@
 package toastwars.client.ui;
 
 import toastwars.client.Controller;
-import toastwars.client.sliders.SliderBar;
-import toastwars.client.sliders.SliderBar.LabelFormatter;
+import toastwars.client.slider.SliderBar;
+import toastwars.client.slider.SliderBar.LabelFormatter;
 
 import com.gwtext.client.core.EventObject;
 import com.gwtext.client.widgets.Button;
@@ -53,8 +53,12 @@ public class DecissionPanel extends Panel {
 		btnSave = new Button("Speichern", new ButtonListenerAdapter() {
 			public void onClick(Button button, EventObject e) {
 				super.onClick(button, e);
-				Controller.getInstance().save();
-				MessageBox.alert("Daten speichern");
+				try {
+					Controller.getInstance().save();
+				} catch (Exception e1) {
+					MessageBox.alert("Speichern fehlgeschlagen!");
+				}
+				MessageBox.alert("Daten gespeichert!");
 			}
 		});
 		form.addButton(btnSave);
@@ -68,6 +72,13 @@ public class DecissionPanel extends Panel {
 				});
 		form.addButton(btnEnd);
 
+		horizontalPanel.add(form);
+		horizontalPanel.add(createSliderPanel());
+
+		add(horizontalPanel);
+	}
+
+	private Panel createSliderPanel() {
 		// Slider
 		Panel sliderPanel = new Panel();
 		sliderPanel.setSize(320, 200);
@@ -95,17 +106,15 @@ public class DecissionPanel extends Panel {
 		slider2.setNumLabels(5);
 		slider2.setLabelFormatter(new LabelFormatter() {
 			public String formatLabel(SliderBar slider, double value) {
+				if (value == 0)
+					return 0 + "";
 				return (int) value / 1000 + "k";
 			}
 		});
 
 		sliderPanel.add(slider);
 		sliderPanel.add(slider2);
-
-		horizontalPanel.add(form);
-		horizontalPanel.add(sliderPanel);
-
-		add(horizontalPanel);
+		return sliderPanel;
 	}
 
 	public static DecissionPanel getInstance() {
