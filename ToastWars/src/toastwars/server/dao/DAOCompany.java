@@ -23,8 +23,8 @@ public class DAOCompany {
 				while (rst.next()) {
 					DAOToaster toaster = new DAOToaster();
 					int companyID = rst.getInt(2);
-					Company company = new Company(companyID, rst.getString(3),rst.getDouble(4),
-							rst.getDouble(5), rst.getDouble(6), rst.getDouble(7), rst.getInt(8),
+					Company company = new Company(companyID,rst.getDouble(3),
+							rst.getDouble(4), rst.getDouble(5), rst.getDouble(6), rst.getInt(7),
 							toaster.getActualToasterFromCompany(companyID, con));
 					companyList.add(company);
 					}

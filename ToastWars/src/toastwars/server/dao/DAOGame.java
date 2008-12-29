@@ -96,7 +96,27 @@ public class DAOGame {
 			e.printStackTrace();
 		}
 	}
+	public void resetGame() {
+		try {
+			DBConnection con = new DBConnection();
+			con.connectToDB();
+			Statement stmt = con.getStatement();
+			String query = "DELETE * FROM Game;";
+			stmt.execute(query);
+			query = "DELETE * FROM User;";
+			stmt.execute(query);
+			query = "DELETE * FROM Company;";
+			stmt.execute(query);
+			query = "DELETE * FROM Toaster;";
+			stmt.execute(query);
+			stmt.close();
+			con.closeConnectionToDB();
 
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	public static void main(String[] args) {
 		DAOGame user = new DAOGame();
 		// ArrayList<Group> userList = user.getAllUsers();
