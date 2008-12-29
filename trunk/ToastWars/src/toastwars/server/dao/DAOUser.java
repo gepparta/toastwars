@@ -65,11 +65,11 @@ public class DAOUser {
 				Integer counter= 0;
 				while (rst.next()) {
 					Group group = (Group)UserFactory.createUser("Group",rst.getString(1), rst.getString(2));
-					group.setCompany(companyList.get(size-1));
+					group.setCompany(companyList.get(counter));
 					Status stat = Status.valueOf(rst.getString(4));
 					group.setStatus(stat);
 					userList.add(group);
-					size--;
+					counter++;
 				}
 				rst.close();
 				stmt.close();

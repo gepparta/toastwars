@@ -99,7 +99,7 @@ public class DAOToaster {
 		try {
 			toasterList.clear();
 			// Abfrage definieren
-			int currentRound = 1;
+			int currentRound = 0;
 			// Game.getInstance().getCurrentRound() -1;
 			String query = "SELECT * FROM Toaster WHERE companyID = "
 					+ companyID + " AND Round = " + currentRound + ";";

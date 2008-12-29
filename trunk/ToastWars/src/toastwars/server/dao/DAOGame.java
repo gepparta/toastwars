@@ -80,7 +80,7 @@ public class DAOGame {
 			stmt.execute(query);
 			for (int i = 1; i <= userAmount; i++) {
 				query = "INSERT INTO User VALUES ('user" + i + "','password"
-						+ i + "'," + i + ",'CREATED');";
+						+ i + "'," + i + ",'STARTED');";
 				stmt.execute(query);
 				query = "INSERT INTO Company VALUES (0," + i + ",1000,1000,1000,1000,1000);";
 				stmt.execute(query);
@@ -119,26 +119,27 @@ public class DAOGame {
 	}
 	public static void main(String[] args) {
 		DAOGame user = new DAOGame();
-		// ArrayList<Group> userList = user.getAllUsers();
-		// Group test= userList.get(0);
-		// System.out.println(test.getUsername());
-		// Company test1=test.getCompany();
-		// System.out.println(test1.getCompanyID());
-		// ArrayList<Toaster> test6 = test1.getToasterList();
-		// System.out.println(test6.get(0).getToasterID());
-		// System.out.println(test6.get(1).getToasterID());
-		//
-		//		
-		// Group test2=userList.get(1);
-		// System.out.println(test2.getUsername());
-		// Company test3=test2.getCompany();
-		// System.out.println(test3.getCompanyID());
-		// ArrayList<Toaster> test7 = test3.getToasterList();
-		// System.out.println(test7.get(0).getToasterID());
-		// System.out.println(test7.get(1).getToasterID());
-		// System.out.println(user.getCurrentRound());
-		// System.out.println(user.getUserAmount());
 		user.resetGame();
-		user.createInitialData(4);
+		user.createInitialData(4); 
+		ArrayList<Group> userList = user.getAllUsers();
+		 Group test= userList.get(0);
+		 System.out.println(test.getUsername());
+		 Company test1=test.getCompany();
+		 System.out.println(test1.getCompanyID());
+		 ArrayList<Toaster> test6 = test1.getToasterList();
+		 System.out.println(test6.get(0).getToasterID());
+
+		
+				
+		 Group test2=userList.get(1);
+		 System.out.println(test2.getUsername());
+		 Company test3=test2.getCompany();
+		 System.out.println(test3.getCompanyID());
+		 ArrayList<Toaster> test7 = test3.getToasterList();
+		 System.out.println(test7.get(0).getToasterID());
+
+		 System.out.println(user.getCurrentRound());
+		 System.out.println(user.getUserAmount());
+
 	}
 }
