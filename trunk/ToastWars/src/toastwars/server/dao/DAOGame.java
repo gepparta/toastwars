@@ -82,7 +82,7 @@ public class DAOGame {
 				query = "INSERT INTO User VALUES ('user" + i + "','password"
 						+ i + "'," + i + ",'CREATED');";
 				stmt.execute(query);
-				query = "INSERT INTO Company VALUES (0," + i + ",'test',1000,1000,1000,1000,1000);";
+				query = "INSERT INTO Company VALUES (0," + i + ",1000,1000,1000,1000,1000);";
 				stmt.execute(query);
 				query = "INSERT INTO Toaster VALUES (0," + i + "," + i + ",1000,1000,1000," +
 						"1000,1000,1000,1000,1000,'TYPE1');";
@@ -138,6 +138,7 @@ public class DAOGame {
 		// System.out.println(test7.get(1).getToasterID());
 		// System.out.println(user.getCurrentRound());
 		// System.out.println(user.getUserAmount());
+		user.resetGame();
 		user.createInitialData(4);
 	}
 }
