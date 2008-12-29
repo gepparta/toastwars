@@ -14,7 +14,7 @@ public class DAOCompany {
 			try {
 				companyList.clear();
 				// Abfrage definieren
-				int currentRound = 1;
+				int currentRound = 0;
 //					Game.getInstance().getCurrentRound() -1;
 				String query = "SELECT * FROM Company WHERE Round = "+ currentRound +";";
 				Statement stmt = con.getStatement();
