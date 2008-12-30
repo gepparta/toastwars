@@ -3,22 +3,19 @@ package toastwars.server.datamodel.core;
 import java.util.ArrayList;
 
 import toastwars.server.datamodel.user.Group;
+import toastwars.server.datamodel.user.UserFactory;
 import toastwars.util.NumberUtil;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class Game implements IsSerializable
 {
-	// Eine (versteckte) Klassenvariable vom Typ der eigenen Klasse
 	private static Game instance;
-
 	private int userAmount;
-
-//	private ArrayList<Company> companyList = new ArrayList<Company>();
+	private int currentRound;
+	//private ArrayList<Company> companyList = new ArrayList<Company>();
 	// @gwt.typeArgs <toastwars.server.datamodel.user.Group>
 	private static ArrayList<Group> groupList = new ArrayList<Group>();
-
-	private int currentRound;
 
 	// *************************Constructor*****************************************************
 	public Game()
@@ -35,30 +32,32 @@ public class Game implements IsSerializable
 		{
 			e.printStackTrace();
 		}
-		// this.companyList = createInitialData(userAmount, 1.00, 1, 1, 1.00, 1,
-		// 1, 1.00, 1, 1, "Comp", 1.00, 1.00, 1.00);
 	}
 
+	// **********************Methods************************************************************
 	public static Game getInstance()
 	{
 		return instance;
 	}
 
-	// **********************Methods************************************************************
 	public static Game getInstance(int userAmount)
 	{
 		if (instance == null)
+		{
 			instance = new Game(userAmount);
+			for(int a = 1; a < userAmount+1; a++)
+				groupList.add((Group)UserFactory.createUser("Group", "group"+a, "group"+a));
+		}
 		return instance;
 	}
 
-//	// @ by Alex
-//	public void addCompany(Company com)
-//	{
-//		this.companyList.add(com);
-//	}
+	// by Alex
+	public void addGroup(Group gr)
+	{
+		this.groupList.add(gr);
+	}
 
-	// @by Alex
+	// by Alex
 	public double[] calculateIndexSums()
 	{
 		double[] indexSums = new double[3];
@@ -197,6 +196,12 @@ public class Game implements IsSerializable
 //		und schaut ob etwas drin ist
 //		fals Tabelle leer -> game noch nicht gestartet somit return false
 		return false;
+	}
+
+	public String toString()
+	{
+		String s = "Game Eigenschaften: \n user amount: \t \t" + this.getUserAmount() + "\n current round: \t" + this.getCurrentRound();
+		return s;
 	}
 
 }
