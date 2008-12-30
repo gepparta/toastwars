@@ -12,7 +12,6 @@ import toastwars.server.datamodel.core.Company;
 import toastwars.server.datamodel.core.Game;
 import toastwars.server.datamodel.core.Toaster;
 import toastwars.server.datamodel.core.Type;
-import toastwars.server.datamodel.user.Group;
 import toastwars.server.datamodel.user.Master;
 import toastwars.server.datamodel.user.UserFactory;
 
@@ -23,7 +22,6 @@ public class Test_Game extends TestCase
 	private Master master;
 	private Game game;
 	private ArrayList<Toaster> meineToaster;
-	private Group group1;
 
 	@Before
 	protected void setUp() throws Exception
@@ -34,7 +32,7 @@ public class Test_Game extends TestCase
 		meineToaster = new ArrayList<Toaster>();
 		meinToaster = new Toaster(10, 10000.00, 12923.00, 1.00, 50000.00, 30000.00, 20000.00, 5000, Type.TYPE1);
 		meineToaster.add(meinToaster);
-		com = new Company("Meine erste", 500, 100, 400, 800, 20, meineToaster);
+		com = new Company(500, 100, 400, 800, 20, meineToaster);
 		game.getGroupList().get(0).setCompany(com);
 	}
 
