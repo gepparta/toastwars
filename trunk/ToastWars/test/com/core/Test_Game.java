@@ -1,52 +1,41 @@
 package com.core;
 
 import java.util.ArrayList;
+
 import junit.framework.TestCase;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
 import toastwars.server.datamodel.core.Company;
 import toastwars.server.datamodel.core.Game;
 import toastwars.server.datamodel.core.Toaster;
 import toastwars.server.datamodel.core.Type;
+import toastwars.server.datamodel.user.Group;
 import toastwars.server.datamodel.user.Master;
 import toastwars.server.datamodel.user.UserFactory;
 
 public class Test_Game extends TestCase
 {
-
 	private Toaster meinToaster;
 	private Company com;
 	private Master master;
 	private Game game;
 	private ArrayList<Toaster> meineToaster;
-	private Type myType1;
-	private Toaster t1;
-	private ArrayList<Toaster> toasterList;
-	private Company c1;
-	private ArrayList<Company> companyList;
+	private Group group1;
 
 	@Before
 	protected void setUp() throws Exception
 	{
 		master = (Master) UserFactory.createUser("Master", "ADMIN", "ADMIN");
-		master.startGame(2);
+		master.startGame(1);
 		game = master.getCurrentGame();
 		meineToaster = new ArrayList<Toaster>();
-		Type myType = Type.TYPE1;
 		meinToaster = new Toaster(10, 10000.00, 12923.00, 1.00, 50000.00, 30000.00, 20000.00, 5000, Type.TYPE1);
-
 		meineToaster.add(meinToaster);
-		com = new Company( 500, 100, 400, 800, 20, meineToaster);
-
-		/*
-		 * um später mal das get/set CompanyList zu testen myType1 = Type.TYPE1;
-		 * t1 = new Toaster(8, 1000, 8155, 1.00, 2.37, 9.58, 2.58, 500,
-		 * myType1); toasterList = new ArrayList<Toaster>();
-		 * toasterList.add(t1); c1 = new Company("Test1", 1.05, 1.07, 2.10,
-		 * 2.13, 50, toasterList); companyList=new ArrayList<Company>();
-		 * companyList.add(c1);
-		 */
+		com = new Company("Meine erste", 500, 100, 400, 800, 20, meineToaster);
+		game.getGroupList().get(0).setCompany(com);
 	}
 
 	@After
@@ -86,7 +75,7 @@ public class Test_Game extends TestCase
 	public void testGetUserAmount()
 	{
 		assertNotNull(game.getUserAmount());
-		assertEquals(2, game.getUserAmount());
+		assertEquals(1, game.getUserAmount());
 	}
 
 	@Test
@@ -111,7 +100,6 @@ public class Test_Game extends TestCase
 	@Test
 	public void testSimulate()
 	{
-		game.addCompany(com);
 		game.simulateWithOutRandom();
 		assertEquals(1.0, meinToaster.getIndex());
 	}
@@ -128,11 +116,16 @@ public class Test_Game extends TestCase
 		ArrayList<Toaster> toasterList1 = new ArrayList<Toaster>();
 		toasterList1.add(toaster1);
 		toasterList1.add(toaster2);
-		game.getCompanyList().get(0).setToasterList(toasterList1);
+		game.getGroupList().get(0).getCompany().setToasterList(toasterList1);
 
 		double[] indexSums = game.calculateIndexSums();
 		assertEquals(indexSums[0], 3.85);
 		assertEquals(indexSums[1], 0.0);
 		assertEquals(indexSums[2], 0.0);
+	}
+	@Test
+	public void testToString()
+	{
+		System.out.println(game.toString());
 	}
 }
