@@ -22,6 +22,8 @@ public class Test_Company extends TestCase
 	@Before
 	public void setUp() throws Exception
 	{
+		
+
 		toaster1 = new Toaster(10, 10000.00, 12923.00, 0.00, 50000.00, 30000.00, 20000.00, 5000, Type.TYPE1);
 		toaster2 = new Toaster(10, 10000.00, 12923.00, 0.00, 50000.00, 30000.00, 20000.00, 5000, Type.TYPE2);
 		toaster3 = new Toaster(10, 10000.00, 12923.00, 0.00, 50000.00, 30000.00, 20000.00, 5000, Type.TYPE3);
@@ -56,13 +58,7 @@ public class Test_Company extends TestCase
 		assertEquals(company1.getTurnover(), 1.05);
 	}
 
-	@Test
-	public void testSetTurnover()
-	{
-		assertNotSame(company1.getTurnover(), 9.09);
-		company1.setTurnover(9.09);
-		assertEquals(company1.getTurnover(), 9.09);
-	}
+
 
 	@Test
 	public void testGetCost()
@@ -70,7 +66,34 @@ public class Test_Company extends TestCase
 		assertNotNull(company1.getCost());
 		assertEquals(company1.getCost(), 1.07);
 	}
-
+	@Test
+	public void testGetProfit()
+	{
+		assertNotNull(company1.getProfit());
+		assertEquals(company1.getProfit(), 2.10);
+	}
+	@Test
+	public void testGetCapital()
+	{
+		assertNotNull(company1.getCapital());
+		assertEquals(company1.getCapital(), 10000.00);
+	}
+	
+	@Test
+	public void testgetMarketShare()
+	{
+		assertNotNull(company1.getMarketShare());
+		assertEquals(company1.getMarketShare(), 50);
+	}
+	
+	
+	@Test
+	public void testSetTurnover()
+	{
+		assertNotSame(company1.getTurnover(), 9.09);
+		company1.setTurnover(9.09);
+		assertEquals(company1.getTurnover(), 9.09);
+	}
 	@Test
 	public void testSetCost()
 	{
@@ -81,10 +104,10 @@ public class Test_Company extends TestCase
 	}
 
 	@Test
-	public void testGetProfit()
+	public void testGetToasterList()
 	{
-		assertNotNull(company1.getProfit());
-		assertEquals(company1.getProfit(), 2.10);
+		assertNotNull(company1.getToasterList());
+		assertEquals(toasterList1, company1.getToasterList());
 	}
 
 	@Test
@@ -95,12 +118,7 @@ public class Test_Company extends TestCase
 		assertEquals(company1.getProfit(), 2.33);
 	}
 
-	@Test
-	public void testGetCapital()
-	{
-		assertNotNull(company1.getCapital());
-		assertEquals(company1.getCapital(), 10000.00);
-	}
+
 
 	@Test
 	public void testSetCapital()
@@ -110,12 +128,7 @@ public class Test_Company extends TestCase
 		assertEquals(company1.getCapital(), 2.09);
 	}
 
-	@Test
-	public void testgetMarketShare()
-	{
-		assertNotNull(company1.getMarketShare());
-		assertEquals(company1.getMarketShare(), 50);
-	}
+
 
 	@Test
 	public void testSetMarketShare()
@@ -125,12 +138,7 @@ public class Test_Company extends TestCase
 		assertEquals(company1.getMarketShare(), 9);
 	}
 
-	@Test
-	public void testGetToasterList()
-	{
-		assertNotNull(company1.getToasterList());
-		assertEquals(toasterList1, company1.getToasterList());
-	}
+
 
 	@Test
 	public void testSetToasterList()
@@ -209,7 +217,7 @@ public class Test_Company extends TestCase
 		company1.calculateCost();
 		assertEquals(17000.00, company1.getToasterList().get(0).getCost());
 
-		Type.TYPE3.setFixCostPerMachine(15000.00);
+		Type.TYPE3.setFixCosts(15000.00);
 		assertNotSame(95000.00, company2.getToasterList().get(0).getCost());
 		assertNotSame(450000.00, company2.getToasterList().get(1).getCost());
 		company2.calculateCost();
