@@ -58,22 +58,44 @@ public class Test_Type extends TestCase
 	@Test
 	public void testGetFixCost()
 	{
-		assertNotNull(type1.getFixCostPerMachine());
-		assertEquals(1000.00, type1.getFixCostPerMachine());
+		assertNotNull(type1.getFixCosts());
+		assertEquals(10000.00, type1.getFixCosts());
 
 	}
 
 	@Test
 	public void testGetVariableCost()
 	{
-		assertNotNull(type1.getVariableCost());
-		assertEquals(3.00, type1.getVariableCost());
+		assertNotNull(type1.getVariableCosts());
+		assertEquals(3.00, type1.getVariableCosts());
+
+	}
+	
+	@Test
+	public void testGetStepCost()
+	{
+		assertNotNull(type1.getStepCosts());
+		assertEquals(1000.00, type1.getStepCosts());
+
+	}
+	
+	@Test
+	public void testGetCapacity()
+	{
+		assertNotNull(type1.getCapacity());
+		assertEquals(4000, type1.getCapacity());
 
 	}
 
 	@Test
 	public void testConstructor()
 	{
+		
+
+
+
+
+
 
 		assertEquals("TYPE1", type1.name());
 		assertEquals("TYPE2", type2.name());
@@ -92,17 +114,24 @@ public class Test_Type extends TestCase
 		assertEquals(0.1, type3.getRandom());
 
 		assertEquals(10000, type1.getMarketVolume());
-		assertEquals(20000, type2.getMarketVolume());
-		assertEquals(30000, type3.getMarketVolume());
+		assertEquals(6000, type2.getMarketVolume());
+		assertEquals(2500, type3.getMarketVolume());
 
-		assertEquals(1000.00, type1.getFixCostPerMachine());
-		assertEquals(5000.00, type2.getFixCostPerMachine());
-		assertEquals(15000.00, type3.getFixCostPerMachine());
+		assertEquals(10000.00, type1.getFixCosts());
+		assertEquals(20000.00, type2.getFixCosts());
+		assertEquals(25000.00, type3.getFixCosts());
 
-		assertEquals(3.00, type1.getVariableCost());
-		assertEquals(15.00, type2.getVariableCost());
-		assertEquals(60.00, type3.getVariableCost());
+		assertEquals(3.00, type1.getVariableCosts());
+		assertEquals(15.00, type2.getVariableCosts());
+		assertEquals(40.00, type3.getVariableCosts());
 
+		assertEquals(1000.00, type1.getStepCosts());
+		assertEquals(5000.00, type2.getStepCosts());
+		assertEquals(8000.00, type3.getStepCosts());
+		
+		assertEquals(4000, type1.getCapacity());
+		assertEquals(1500, type2.getCapacity());
+		assertEquals(500, type3.getCapacity());
 	}
 
 	@Test
@@ -124,17 +153,33 @@ public class Test_Type extends TestCase
 	@Test
 	public void testSetFixCost()
 	{
-		assertNotSame(type1.getFixCostPerMachine(), 12000.00);
-		type1.setFixCostPerMachine(12000.00);
-		assertEquals(type1.getFixCostPerMachine(), 12000.00);
+		assertNotSame(type1.getFixCosts(), 12000.00);
+		type1.setFixCosts(12000.00);
+		assertEquals(type1.getFixCosts(), 12000.00);
 
 	}
 
 	@Test
 	public void testSetVariableCost()
 	{
-		assertNotSame(type1.getVariableCost(), 12.00);
-		type1.setVariableCost(12.00);
-		assertEquals(type1.getVariableCost(), 12.00);
+		assertNotSame(type1.getVariableCosts(), 12.00);
+		type1.setVariableCosts(12.00);
+		assertEquals(type1.getVariableCosts(), 12.00);
+	}
+	
+	@Test
+	public void testSetStepCost()
+	{
+		assertNotSame(type1.getStepCosts(), 3000.00);
+		type1.setStepCosts(3000.00);
+		assertEquals(type1.getStepCosts(), 3000.00);
+	}
+	
+	@Test
+	public void testSetCapacity()
+	{
+		assertNotSame(type1.getCapacity(), 8000);
+		type1.setCapacity(8000);
+		assertEquals(type1.getCapacity(), 8000);
 	}
 }
