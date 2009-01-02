@@ -87,8 +87,8 @@ public class Toaster implements IsSerializable {
 
 	public void calculateCost() {
 		this
-				.setCost((this.getMarketShare() * this.type.getVariableCost())
-						+ (this.type.getFixCost()
+				.setCost((this.getMarketShare() * this.type.getVariableCosts())
+						+ (this.type.getFixCosts()
 								* NumberUtil.roundDoubleUp((double) this
 										.getMarketShare(), this.type
 										.getCapacity()) / this.type
