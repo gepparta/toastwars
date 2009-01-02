@@ -182,4 +182,6 @@ public class Test_Type extends TestCase
 		type1.setCapacity(8000);
 		assertEquals(type1.getCapacity(), 8000);
 	}
+	
+
 }
