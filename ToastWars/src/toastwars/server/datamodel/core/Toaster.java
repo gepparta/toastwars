@@ -88,11 +88,16 @@ public class Toaster implements IsSerializable {
 	public void calculateCost() {
 		this
 				.setCost((this.getMarketShare() * this.type.getVariableCosts())
-						+ (this.type.getFixCosts()
-								* NumberUtil.roundDoubleUp((double) this
-										.getMarketShare(), this.type
-										.getCapacity()) / this.type
-								.getCapacity()));
+						+ NumberUtil.roundDoubleUp((this.getMarketShare()/this.getType().getCapacity()), 0)
+						+ this.type.getFixCosts());
+								
+								
+								
+								
+//								* NumberUtil.roundDoubleUp((double) this
+//										.getMarketShare(), this.type
+//										.getCapacity()) / this.type
+//								.getCapacity()));
 	}
 
 	// @by Alex
@@ -102,6 +107,8 @@ public class Toaster implements IsSerializable {
 	// Type2 : 8%
 	// Type3 : 10%
 	// z.b. NumberUtil.roundDouble(Math.random() * (1.05 - 0.95)) + 0.95;
+	
+	//Random ist wird nicht eingerechnet!!!
 	public void calculateIndex() {
 		double marketingIndex = calculateMarketing();
 		double researchIndex = calculateResearch();
@@ -188,6 +195,8 @@ public class Toaster implements IsSerializable {
 		}
 		double d = tvInvestmentIndex + radioInvestmentIndex
 				+ newsPaperInvestmentIndex;
+		//Michi --> das sollte doch auch noch rein
+		this.setMarketing(d);
 		return NumberUtil.roundDouble(d);
 	}
 
@@ -233,6 +242,8 @@ public class Toaster implements IsSerializable {
 		}
 
 		double d = qualityIndex + designIndex + efficiencyIndex;
+		//Michi --> das sollte doch auch noch rein
+		this.setResearch(d);
 		return NumberUtil.roundDouble(d);
 	}
 
@@ -489,6 +500,8 @@ public class Toaster implements IsSerializable {
 		}
 	}
 
+	
+	//Ist das so wie es ist sinnvoll?
 	public String toString() {
 
 		String s = "Toaster Eigenschaften: " + "\n ToasterID \t \t"
