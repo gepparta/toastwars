@@ -10,9 +10,9 @@ public enum Type implements IsSerializable {
 	private String description;
 	private int marketVolume;
 	private double random;
-	private double fixCost;
+	private double fixCosts;
 	private double stepCosts;
-	private double variableCost;
+	private double variableCosts;
 	private int capacity;
 
 	Type(String description, int marketVolume, double random, double fixCost,
@@ -20,9 +20,9 @@ public enum Type implements IsSerializable {
 		this.description = description;
 		this.marketVolume = marketVolume;
 		this.random = random;
-		this.fixCost = fixCost;
+		this.fixCosts = fixCost;
 		this.stepCosts = stepCosts;
-		this.variableCost = variableCost;
+		this.variableCosts = variableCost;
 		this.capacity = capacity;
 	}
 
@@ -34,8 +34,8 @@ public enum Type implements IsSerializable {
 		return this.description;
 	}
 
-	public double getFixCost() {
-		return fixCost;
+	public double getFixCosts() {
+		return fixCosts;
 	}
 
 	public int getMarketVolume() {
@@ -50,8 +50,8 @@ public enum Type implements IsSerializable {
 		return stepCosts;
 	}
 
-	public double getVariableCost() {
-		return variableCost;
+	public double getVariableCosts() {
+		return variableCosts;
 	}
 
 	public void setCapacity(int capacity) {
@@ -62,8 +62,8 @@ public enum Type implements IsSerializable {
 		this.description = description;
 	}
 
-	public void setFixCost(double fixCost) {
-		this.fixCost = fixCost;
+	public void setFixCosts(double fixCosts) {
+		this.fixCosts = fixCosts;
 	}
 
 	public void setMarketVolume(int marketVolume) {
@@ -74,8 +74,8 @@ public enum Type implements IsSerializable {
 		this.random = random;
 	}
 
-	public void setVariableCost(double variableCost) {
-		this.variableCost = variableCost;
+	public void setVariableCosts(double variableCosts) {
+		this.variableCosts = variableCosts;
 	}
 
 	public void setStepCosts(double stepCosts) {
@@ -87,9 +87,9 @@ public enum Type implements IsSerializable {
 		String s = "Type Eigenschaften: " + "\n description \t \t"
 				+ this.getDescription() + "\n marketVolume: \t"
 				+ this.getMarketVolume() + "\n random: \t" + this.getRandom()
-				+ "\n fixCost: \t" + this.getFixCost() + "\n stepCosts: \t"
+				+ "\n fixCost: \t" + this.getFixCosts() + "\n stepCosts: \t"
 				+ this.getStepCosts() + "\n variableCost: \t"
-				+ this.getVariableCost() + "\n capacity: \t"
+				+ this.getVariableCosts() + "\n capacity: \t"
 				+ this.getCapacity();
 
 		return s;
