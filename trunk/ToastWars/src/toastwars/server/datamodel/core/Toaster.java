@@ -86,18 +86,12 @@ public class Toaster implements IsSerializable {
 	}
 
 	public void calculateCost() {
-		this
-				.setCost((this.getMarketShare() * this.type.getVariableCosts())
-			//TODO			+ ((this.getMarketShare()/this.getType().getCapacity()))*this.getType().getStepCosts()
-						+ this.type.getFixCosts());
-								
-								
-								
-								
-//								* NumberUtil.roundDoubleUp((double) this
-//										.getMarketShare(), this.type
-//										.getCapacity()) / this.type
-//								.getCapacity()));
+
+		this.setCost((this.getMarketShare() * this.type.getVariableCosts())
+				+ (Math.ceil((double) this.getMarketShare()  //DAS (DOUBLE ist MUSS
+						/ this.getType().getCapacity()) * this.getType()
+						.getStepCosts()) + (this.type.getFixCosts()));
+
 	}
 
 	// @by Alex
@@ -107,8 +101,8 @@ public class Toaster implements IsSerializable {
 	// Type2 : 8%
 	// Type3 : 10%
 	// z.b. NumberUtil.roundDouble(Math.random() * (1.05 - 0.95)) + 0.95;
-	
-	//Random ist wird nicht eingerechnet!!!
+
+	// Random ist wird nicht eingerechnet!!!
 	public void calculateIndex() {
 		double marketingIndex = calculateMarketing();
 		double researchIndex = calculateResearch();
@@ -150,18 +144,18 @@ public class Toaster implements IsSerializable {
 		double radioInvestmentIndex = 0;
 		double newsPaperInvestmentIndex = 0;
 		if (this.type == Type.TYPE1) {
-			tvInvestmentIndex = 2.24 + 
-			((Math.pow(this.tvInvestment / 10000 - 8, 3)
-					+ Math.pow(this.tvInvestment / 10000 - 8, 2) 
-					+ Math.pow(this.tvInvestment / 10000 - 8, 1)) / 150);
+			tvInvestmentIndex = 2.24 + ((Math.pow(
+					this.tvInvestment / 10000 - 8, 3)
+					+ Math.pow(this.tvInvestment / 10000 - 8, 2) + Math.pow(
+					this.tvInvestment / 10000 - 8, 1)) / 150);
 
 			radioInvestmentIndex = (Math.log(this.radioInvestment / 3000))
 					* (this.radioInvestment
 							/ Math.pow(this.radioInvestment, 1.03) + 0.09);
-			newsPaperInvestmentIndex = 
-				(Math.log(this.newsPaperInvestment / 3000))
-				* (this.newsPaperInvestment/ Math.pow(this.newsPaperInvestment, 1.09)) 
-				+ 0.76;
+			newsPaperInvestmentIndex = (Math
+					.log(this.newsPaperInvestment / 3000))
+					* (this.newsPaperInvestment / Math.pow(
+							this.newsPaperInvestment, 1.09)) + 0.76;
 		}
 		if (this.type == Type.TYPE2) {
 			tvInvestmentIndex = 1.7 + ((Math.pow(this.tvInvestment / 10000 - 8,
@@ -177,7 +171,7 @@ public class Toaster implements IsSerializable {
 					* (this.newsPaperInvestment
 							/ Math.pow(this.newsPaperInvestment, 1.09) + 0.47);
 
-		} 
+		}
 		if (this.type == Type.TYPE3) {
 			tvInvestmentIndex = 1.35 + ((Math.pow(
 					this.tvInvestment / 10000 - 8, 3)
@@ -195,16 +189,15 @@ public class Toaster implements IsSerializable {
 		}
 		double d = tvInvestmentIndex + radioInvestmentIndex
 				+ newsPaperInvestmentIndex;
-		
+
 		System.out.println(this.getNewsPaperInvestment());
 		System.out.println(newsPaperInvestmentIndex);
 		System.out.println(this.getRadioInvestment());
 		System.out.println(radioInvestmentIndex);
 		System.out.println(this.getTvInvestment());
 		System.out.println(tvInvestmentIndex);
-		
-		
-		//Michi --> das sollte doch auch noch rein
+
+		// Michi --> das sollte doch auch noch rein
 		this.setMarketing(d);
 		return NumberUtil.roundDouble(d);
 	}
@@ -226,12 +219,13 @@ public class Toaster implements IsSerializable {
 		double designIndex = 0;
 		double efficiencyIndex = 0;
 		if (this.type == Type.TYPE1) {
-			qualityIndex = (Math.log(this.quality/3000))* ((this.quality / Math.pow(this.quality, 1.04))) + 0.635;
+			qualityIndex = (Math.log(this.quality / 3000))
+					* ((this.quality / Math.pow(this.quality, 1.04))) + 0.635;
 			designIndex = (Math.log(this.design / 2000))
 					* (this.design / Math.pow(this.design, 1.0658) + 0.48);
 			efficiencyIndex = (Math.log(this.efficiency / 1000))
 					* (this.efficiency / Math.pow(this.efficiency, 1.0992) + 0.31);
-			
+
 		}
 		if (this.type == Type.TYPE2) {
 			qualityIndex = (Math.log(this.quality / 3000))
@@ -241,8 +235,8 @@ public class Toaster implements IsSerializable {
 			efficiencyIndex = (Math.log(this.efficiency / 1000))
 					* (this.efficiency / Math.pow(this.efficiency, 1.0992) + 0.08);
 
-		} 
-		
+		}
+
 		if (this.type == Type.TYPE3) {
 			qualityIndex = (Math.log(this.quality / 3000))
 					* (this.quality / Math.pow(this.quality, 1.04) - 0.1);
@@ -260,7 +254,7 @@ public class Toaster implements IsSerializable {
 		System.out.println(efficiencyIndex);
 
 		double d = qualityIndex + designIndex + efficiencyIndex;
-		//Michi --> das sollte doch auch noch rein
+		// Michi --> das sollte doch auch noch rein
 		System.out.println(d);
 		this.setResearch(d);
 		return NumberUtil.roundDouble(d);
@@ -519,8 +513,7 @@ public class Toaster implements IsSerializable {
 		}
 	}
 
-	
-	//Ist das so wie es ist sinnvoll?
+	// Ist das so wie es ist sinnvoll?
 	public String toString() {
 
 		String s = "Toaster Eigenschaften: " + "\n ToasterID \t \t"
