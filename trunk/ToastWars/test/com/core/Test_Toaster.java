@@ -19,8 +19,8 @@ public class Test_Toaster extends TestCase {
 	protected void setUp() throws Exception {
 
 		myType = Type.TYPE1;
-		toaster1 = new Toaster(10.00, 3.00, 1.00, 1.00, 1.00, 3.00, 1.00, 1.00,
-				1.00, 11.76, 1000.00, 1000.00, 1000.00, 10000, myType);
+		toaster1 = new Toaster(10.00, 3.00, 20000.00, 5000.00, 10000.00, 3.00, 5000.00, 5000.00,
+				5000.00, 9.00, 1000.00, 1000.00, 1000.00, 10000, myType);
 
 	}
 
@@ -49,7 +49,7 @@ public class Test_Toaster extends TestCase {
 
 	{
 		assertNotNull(toaster1.getTvInvestment());
-		assertEquals(1.0, toaster1.getTvInvestment());
+		assertEquals(20000.0, toaster1.getTvInvestment());
 	}
 
 	@Test
@@ -57,7 +57,7 @@ public class Test_Toaster extends TestCase {
 
 	{
 		assertNotNull(toaster1.getNewsPaperInvestment());
-		assertEquals(1.0, toaster1.getNewsPaperInvestment());
+		assertEquals(5000.0, toaster1.getNewsPaperInvestment());
 	}
 
 	@Test
@@ -65,7 +65,7 @@ public class Test_Toaster extends TestCase {
 
 	{
 		assertNotNull(toaster1.getRadioInvestment());
-		assertEquals(1.0, toaster1.getRadioInvestment());
+		assertEquals(10000.0, toaster1.getRadioInvestment());
 	}
 
 	@Test
@@ -73,11 +73,30 @@ public class Test_Toaster extends TestCase {
 		assertNotNull(toaster1.getResearch());
 		assertEquals(3.0, toaster1.getResearch());
 	}
-
+	
+	@Test
+	public void testGetQuality() {
+		assertNotNull(toaster1.getQuality());
+		assertEquals(5000.0, toaster1.getQuality());
+	}
+	
+	@Test
+	public void testGetDesign() {
+		assertNotNull(toaster1.getDesign());
+		assertEquals(5000.0, toaster1.getDesign());
+	}	
+	
+	@Test
+	public void testGetEfficiency() {
+		assertNotNull(toaster1.getEfficiency());
+		assertEquals(5000.0, toaster1.getEfficiency());
+	}
+	
+	
 	@Test
 	public void testGetIndex() {
 		assertNotNull(toaster1.getIndex());
-		assertEquals(11.76, toaster1.getIndex());
+		assertEquals(9.00, toaster1.getIndex());
 	}
 
 	@Test
@@ -242,12 +261,14 @@ public class Test_Toaster extends TestCase {
 //TODO
 	@Test
 	public void testCalculateResearch() {
-		assertEquals(1.0, toaster1.calculateResearch());
+
+		assertEquals(3.00, toaster1.calculateResearch());
+
 	}
 //TODO
 	@Test
 	public void testCalculateMarketing() {
-		assertEquals(1.0, toaster1.calculateMarketing());
+		assertEquals(3.0, toaster1.calculateMarketing());
 	}
 
 	@Test
