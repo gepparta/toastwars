@@ -24,9 +24,11 @@ public class Test_Company extends TestCase
 	{
 		
 
-		toaster1 = new Toaster(10, 10000.00, 12923.00, 0.00, 50000.00, 30000.00, 20000.00, 5000, Type.TYPE1);
-		toaster2 = new Toaster(10, 10000.00, 12923.00, 0.00, 50000.00, 30000.00, 20000.00, 5000, Type.TYPE2);
-		toaster3 = new Toaster(10, 10000.00, 12923.00, 0.00, 50000.00, 30000.00, 20000.00, 5000, Type.TYPE3);
+		toaster1 = new Toaster(10.00, 3.00,1.00,1.00,1.00, 3.00, 1.00, 1.00, 1.00,9.00, 12923.00, 10000.00, 29230.00, 3215, Type.TYPE1);
+		toaster2 = new Toaster(10.00, 3.00,1.00,1.00,1.00, 3.00, 1.00, 1.00, 1.00,9.00, 12923.00, 10000.00, 29230.00, 3215, Type.TYPE2);
+		toaster3 = new Toaster(10.00, 3.00,1.00,1.00,1.00, 3.00, 1.00, 1.00, 1.00,9.00, 12923.00, 10000.00, 29230.00, 3215, Type.TYPE3);
+		
+
 		toasterList1 = new ArrayList<Toaster>();
 		toasterList1.add(toaster1);
 		toasterList2 = new ArrayList<Toaster>();
@@ -85,7 +87,12 @@ public class Test_Company extends TestCase
 		assertNotNull(company1.getMarketShare());
 		assertEquals(company1.getMarketShare(), 50);
 	}
-	
+	@Test
+	public void testGetToasterList()
+	{
+		assertNotNull(company1.getToasterList());
+		assertEquals(toasterList1, company1.getToasterList());
+	}
 	
 	@Test
 	public void testSetTurnover()
@@ -103,12 +110,7 @@ public class Test_Company extends TestCase
 
 	}
 
-	@Test
-	public void testGetToasterList()
-	{
-		assertNotNull(company1.getToasterList());
-		assertEquals(toasterList1, company1.getToasterList());
-	}
+
 
 	@Test
 	public void testSetProfit()
@@ -152,11 +154,11 @@ public class Test_Company extends TestCase
 	public void testCalaculateIndex()
 	{
 		assertEquals(company1.getToasterList().size(), 1);
-		assertNotSame(company1.getToasterList().get(0).getIndex(), 1.0);
+		assertNotSame(company1.getToasterList().get(0).getIndex(), 9.0);
 
 		company1.calculateIndexWithOutRandom();
 
-		assertEquals(company1.getToasterList().get(0).getIndex(), 1.0);
+		assertEquals(company1.getToasterList().get(0).getIndex(), 9.0);
 
 		assertNotSame(company2.getToasterList().get(0).getIndex(), 1.28);
 		assertNotSame(company2.getToasterList().get(1).getIndex(), 1.28);
