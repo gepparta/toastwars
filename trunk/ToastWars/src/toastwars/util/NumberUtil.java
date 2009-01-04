@@ -8,23 +8,19 @@ public class NumberUtil {
 		return i / 100.00;
 	}
 
+	public static double roundDoubleUp(double d) {
+		return Math.ceil(d);
+	}
+
 	// by Waldi
-	public static int roundDoubleUp(double d, int stellen) {
-
-		if (d % stellen == 0)
-			return (int) d;
-
-		int i = Math.round((float) ((d + stellen / 2) / stellen));
+	public static int roundIntUp(double d, int stellen) {
+		int i = (int) Math.ceil(d / stellen);
 		return i * stellen;
 	}
 
 	// by Waldi
-	public static int roundDoubleDown(double d, int stellen) {
-
-		if (d % stellen == 0)
-			return (int) d;
-
-		int i = Math.round((float) ((d - stellen / 2) / stellen));
+	public static int roundIntDown(double d, int stellen) {
+		int i = (int) Math.floor(d / stellen);
 		return i * stellen;
 	}
 }
