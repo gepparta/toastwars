@@ -28,7 +28,7 @@ public class Test_Type extends TestCase
 		type1 = null;
 		type2 = null;
 		type3 = null;
-
+		System.gc();
 	}
 
 	@Test

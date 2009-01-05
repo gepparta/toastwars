@@ -30,7 +30,7 @@ public class Test_Game extends TestCase
 		master.startGame(1);
 		game = master.getCurrentGame();
 		meineToaster = new ArrayList<Toaster>();
-		meinToaster = new Toaster(10, 10000.00, 12923.00, 1.00, 50000.00, 30000.00, 20000.00, 5000, Type.TYPE1);
+		meinToaster = new Toaster(10.00, 3.00, 20000.00, 5000.00, 10000.00, 3.00, 5000.00, 5000.00, 5000.00, 9.00, 1000.00, 1000.00, 1000.00, 10000, Type.TYPE1);
 		meineToaster.add(meinToaster);
 		com = new Company(500, 100, 400, 800, 20, meineToaster);
 		game.getGroupList().get(0).setCompany(com);
@@ -43,6 +43,7 @@ public class Test_Game extends TestCase
 		game = null;
 		meineToaster = null;
 		meinToaster = null;
+		System.gc();
 	}
 
 	@Test
@@ -99,7 +100,7 @@ public class Test_Game extends TestCase
 	public void testSimulate()
 	{
 		game.simulateWithOutRandom();
-		assertEquals(1.0, meinToaster.getIndex());
+		assertEquals(9.0, meinToaster.getIndex());
 	}
 
 	@Test
@@ -108,18 +109,19 @@ public class Test_Game extends TestCase
 		Type myType1 = Type.TYPE1;
 		Type myType2 = Type.TYPE2;
 		// Index Werte der beiden Toaster wie in ppt für Runde 1 angegeben
-		Toaster toaster1 = new Toaster(8, 1000, 8155, 1.28, 2.37, 9.58, 2.58, 500, myType1);
-		Toaster toaster2 = new Toaster(8, 1000, 8155, 2.57, 2.37, 9.58, 2.58, 500, myType1);
-
+		Toaster toaster1 = new Toaster(10.00, 3.00, 20000.00, 5000.00, 10000.00, 3.00, 5000.00, 5000.00, 5000.00, 9.00, 1000.00, 1000.00, 1000.00, 10000, Type.TYPE1);
+		Toaster toaster2 = new Toaster(10.00, 3.00, 20000.00, 5000.00, 10000.00, 3.00, 5000.00, 5000.00, 5000.00, 9.00, 1000.00, 1000.00, 1000.00, 10000, Type.TYPE2);
+		Toaster toaster3 = new Toaster(10.00, 3.00, 20000.00, 5000.00, 10000.00, 3.00, 5000.00, 5000.00, 5000.00, 9.00, 1000.00, 1000.00, 1000.00, 10000, Type.TYPE3);
 		ArrayList<Toaster> toasterList1 = new ArrayList<Toaster>();
 		toasterList1.add(toaster1);
 		toasterList1.add(toaster2);
+		toasterList1.add(toaster3);
 		game.getGroupList().get(0).getCompany().setToasterList(toasterList1);
 
 		double[] indexSums = game.calculateIndexSums();
-		assertEquals(indexSums[0], 3.85);
-		assertEquals(indexSums[1], 0.0);
-		assertEquals(indexSums[2], 0.0);
+		assertEquals(9.00, indexSums[0]);
+		assertEquals(9.00, indexSums[1]);
+		assertEquals(9.0, indexSums[2]);
 	}
 	@Test
 	public void testToString()
