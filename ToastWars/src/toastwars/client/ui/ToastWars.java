@@ -84,7 +84,7 @@ public class ToastWars implements EntryPoint {
 	private TabPanel createMainPanel() {
 
 		TabPanel mainPanel = new TabPanel();
-		mainPanel.setSize(600, 400);
+		mainPanel.setSize(595, 450);
 		mainPanel.setBorder(true);
 
 		// Willkommen Panel
@@ -105,7 +105,7 @@ public class ToastWars implements EntryPoint {
 	private TreePanel createNavigationPanel() {
 		final TreePanel treePanelNavigation = new TreePanel("Men&uuml;");
 		treePanelNavigation.setWidth(200);
-		treePanelNavigation.setHeight(400);
+		treePanelNavigation.setHeight(450);
 		treePanelNavigation.setUseArrows(true);
 
 		TreeNode root = new TreeNode("menu");
