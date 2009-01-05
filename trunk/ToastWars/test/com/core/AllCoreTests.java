@@ -12,7 +12,7 @@ public class AllCoreTests extends TestCase
 		//suite.addTestSuite(Test_Type.class);
 		suite.addTestSuite(Test_Company.class);
 		suite.addTestSuite(Test_Game.class);
-		suite.addTestSuite(Test_Toaster.class);
+		suite.addTestSuite(Test_Toaster_Type1.class);
 		suite.addTestSuite(Test_Type.class);
 		return suite;
 	}
