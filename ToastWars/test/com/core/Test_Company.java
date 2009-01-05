@@ -24,10 +24,10 @@ public class Test_Company extends TestCase
 	{
 		
 
-		toaster1 = new Toaster(10.00, 3.00,1.00,1.00,1.00, 3.00, 1.00, 1.00, 1.00,9.00, 12923.00, 10000.00, 29230.00, 3215, Type.TYPE1);
-		toaster2 = new Toaster(10.00, 3.00,1.00,1.00,1.00, 3.00, 1.00, 1.00, 1.00,9.00, 12923.00, 10000.00, 29230.00, 3215, Type.TYPE2);
-		toaster3 = new Toaster(10.00, 3.00,1.00,1.00,1.00, 3.00, 1.00, 1.00, 1.00,9.00, 12923.00, 10000.00, 29230.00, 3215, Type.TYPE3);
-		
+		toaster1 = new Toaster(10.00, 3.00, 20000.00, 5000.00, 10000.00, 3.00, 5000.00, 5000.00, 5000.00, 9.00, 1000.00, 1000.00, 1000.00, 10000, Type.TYPE1);
+		toaster2 = new Toaster(30.00, 3.00, 30000.00, 10000.00, 20000.00, 3.00, 10000.00, 10000.00, 10000.00, 9.00, 1000.00, 1000.00, 1000.00, 10000, Type.TYPE2);
+		toaster3 = new Toaster(150.00, 3.00, 40000.00, 20000.00, 30000.00, 3.00, 15000.00, 15000.00, 15000.00, 9.00, 1000.00, 1000.00, 1000.00, 10000, Type.TYPE3);
+
 
 		toasterList1 = new ArrayList<Toaster>();
 		toasterList1.add(toaster1);
@@ -48,7 +48,7 @@ public class Test_Company extends TestCase
 		toasterList2 = null;
 		company1 = null;
 		company2 = null;
-
+		System.gc();
 	}
 
 
@@ -154,11 +154,11 @@ public class Test_Company extends TestCase
 	public void testCalaculateIndex()
 	{
 		assertEquals(company1.getToasterList().size(), 1);
-		assertNotSame(company1.getToasterList().get(0).getIndex(), 9.0);
+		assertNotSame(9.0, company1.getToasterList().get(0).getIndex());
 
 		company1.calculateIndexWithOutRandom();
 
-		assertEquals(company1.getToasterList().get(0).getIndex(), 9.0);
+		assertEquals(9.0, company1.getToasterList().get(0).getIndex());
 
 		assertNotSame(company2.getToasterList().get(0).getIndex(), 1.28);
 		assertNotSame(company2.getToasterList().get(1).getIndex(), 1.28);
@@ -166,47 +166,47 @@ public class Test_Company extends TestCase
 		company2.calculateIndexWithOutRandom();
 
 		assertEquals(company2.getToasterList().size(), 2);
-		assertEquals(company2.getToasterList().get(0).getIndex(), 1.0);
-		assertEquals(company2.getToasterList().get(1).getIndex(), 1.0);
+		assertEquals(17.95,company2.getToasterList().get(0).getIndex());
+		assertEquals(9.0,company2.getToasterList().get(1).getIndex());
 
 	}
 
 	@Test
 	public void testCalculateMarketShare()
 	{
-		company1.getToasterList().get(0).setIndex(1.0);
-		company2.getToasterList().get(0).setIndex(1.0);
-		company2.getToasterList().get(1).setIndex(2.0);
+		company1.getToasterList().get(0).setIndex(9.0);
+		company2.getToasterList().get(0).setIndex(9.0);
+		company2.getToasterList().get(1).setIndex(9.0);
 		
 		double[] d = new double[3];
-		d[0] = 5;
-		d[1] = 10;
+		d[0] = 9;
+		d[1] = 9;
+		d[2] = 9;
 
-		assertNotSame(2000, company1.getToasterList().get(0).getMarketShare());
+		assertNotSame(10000, company1.getToasterList().get(0).getMarketShare());
 		company1.calculateMarketShares(d);
-		assertEquals(2000, company1.getToasterList().get(0).getMarketShare());
+		assertEquals(10000, company1.getToasterList().get(0).getMarketShare());
 
-		assertNotSame(2000, company2.getToasterList().get(0).getMarketShare());
-		assertNotSame(2000, company2.getToasterList().get(1).getMarketShare());
+		assertNotSame(6000, company2.getToasterList().get(0).getMarketShare());
+		assertNotSame(2500, company2.getToasterList().get(1).getMarketShare());
 		company2.calculateMarketShares(d);
-		assertEquals(4000, company2.getToasterList().get(0).getMarketShare());
-		assertEquals(6000, company2.getToasterList().get(1).getMarketShare());
+		assertEquals(6000, company2.getToasterList().get(0).getMarketShare());
+		assertEquals(2500, company2.getToasterList().get(1).getMarketShare());
 
-		assertEquals(10000, company2.getMarketShare());
+		assertEquals(8500, company2.getMarketShare());
 	}
 
 	@Test
 	public void testCalculateTurnover()
 	{
-
-		assertNotSame(50000.00, company1.getToasterList().get(0).getTurnover());
+		assertNotSame(100000.00, company1.getToasterList().get(0).getTurnover());
 		company1.calculateTurnover();
-		assertEquals(50000.00, company1.getToasterList().get(0).getTurnover());
+		assertEquals(100000.00, company1.getToasterList().get(0).getTurnover());
 
-		assertNotSame(50000.00, company2.getToasterList().get(0).getTurnover());
+		assertNotSame(90000.00, company2.getToasterList().get(0).getTurnover());
 		assertNotSame(50000.00, company2.getToasterList().get(1).getTurnover());
 		company2.calculateTurnover();
-		assertEquals(50000.00, company2.getToasterList().get(0).getTurnover());
+		assertEquals(90000.00, company2.getToasterList().get(0).getTurnover());
 		assertEquals(50000.00, company2.getToasterList().get(1).getTurnover());
 
 		assertEquals(100000.00, company2.getTurnover());

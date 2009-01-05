@@ -24,6 +24,7 @@ public class Test_Toaster_Type3 extends TestCase
 	protected void tearDown() throws Exception
 	{
 		toaster1 = null;
+		System.gc();
 	}
 
 	// ////////////GETTER//////////////
