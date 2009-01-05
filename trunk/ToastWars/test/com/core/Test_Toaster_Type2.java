@@ -55,8 +55,8 @@ public class Test_Toaster_Type2 extends TestCase
 	public void testGetNewsPaperInvestment()
 
 	{
-		assertNotNull(toaster1.getNewsPaperInvestment());
-		assertEquals(10000.0, toaster1.getNewsPaperInvestment());
+		assertNotNull(toaster1.getNewspaperInvestment());
+		assertEquals(10000.0, toaster1.getNewspaperInvestment());
 	}
 
 	@Test
@@ -77,22 +77,22 @@ public class Test_Toaster_Type2 extends TestCase
 	@Test
 	public void testGetQuality()
 	{
-		assertNotNull(toaster1.getQuality());
-		assertEquals(10000.0, toaster1.getQuality());
+		assertNotNull(toaster1.getQualityInvestment());
+		assertEquals(10000.0, toaster1.getQualityInvestment());
 	}
 
 	@Test
 	public void testGetDesign()
 	{
-		assertNotNull(toaster1.getDesign());
-		assertEquals(10000.0, toaster1.getDesign());
+		assertNotNull(toaster1.getDesignInvestment());
+		assertEquals(10000.0, toaster1.getDesignInvestment());
 	}
 
 	@Test
 	public void testGetEfficiency()
 	{
-		assertNotNull(toaster1.getEfficiency());
-		assertEquals(10000.0, toaster1.getEfficiency());
+		assertNotNull(toaster1.getEfficiencyInvestment());
+		assertEquals(10000.0, toaster1.getEfficiencyInvestment());
 	}
 
 	@Test
@@ -175,17 +175,17 @@ public class Test_Toaster_Type2 extends TestCase
 	}
 
 	@Test
-	public void testSetNewsPaperInvestment()
+	public void testSetNewspaperInvestment()
 	{
-		assertNotSame(5000.00, toaster1.getNewsPaperInvestment());
+		assertNotSame(5000.00, toaster1.getNewspaperInvestment());
 		try
 		{
-			toaster1.setNewsPaperInvestment(5000.00);
+			toaster1.setNewspaperInvestment(5000.00);
 		} catch (Exception e)
 		{
 			System.err.print(e);
 		}
-		assertEquals(5000.00, toaster1.getNewsPaperInvestment());
+		assertEquals(5000.00, toaster1.getNewspaperInvestment());
 	}
 
 	@Test
