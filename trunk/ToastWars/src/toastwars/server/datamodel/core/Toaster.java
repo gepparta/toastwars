@@ -18,13 +18,13 @@ public class Toaster implements IsSerializable
 	// Faktoren für marketing**************************************
 	private double marketing;
 	private double tvInvestment;
-	private double newsPaperInvestment;
+	private double newspaperInvestment;
 	private double radioInvestment;
 	// Faktoren für research**************************************
 	private double research;
-	private double quality;
-	private double design;
-	private double efficiency;
+	private double qualityInvestment;
+	private double designInvestment;
+	private double efficiencyInvestment;
 
 	public Toaster()
 	{
@@ -39,12 +39,12 @@ public class Toaster implements IsSerializable
 		this.price = price;
 		this.marketing = marketing;
 		this.tvInvestment = tvInvestment;
-		this.newsPaperInvestment = newsPaperInvestment;
+		this.newspaperInvestment = newsPaperInvestment;
 		this.radioInvestment = radioInvestment;
 		this.research = research;
-		this.quality = quality;
-		this.design = design;
-		this.efficiency = efficiency;
+		this.qualityInvestment = quality;
+		this.designInvestment = design;
+		this.efficiencyInvestment = efficiency;
 		this.index = index;
 		this.turnover = turnover;
 		this.cost = cost;
@@ -61,12 +61,12 @@ public class Toaster implements IsSerializable
 		this.price = price;
 		this.marketing = marketing;
 		this.tvInvestment = tvInvestment;
-		this.newsPaperInvestment = newsPaperInvestment;
+		this.newspaperInvestment = newsPaperInvestment;
 		this.radioInvestment = radioInvestment;
 		this.research = research;
-		this.quality = quality;
-		this.design = design;
-		this.efficiency = efficiency;
+		this.qualityInvestment = quality;
+		this.designInvestment = design;
+		this.efficiencyInvestment = efficiency;
 		this.index = index;
 		this.turnover = turnover;
 		this.cost = cost;
@@ -85,6 +85,77 @@ public class Toaster implements IsSerializable
 		Toaster.nextToasterID = nextToasterID;
 	}
 
+	public void addDesignInvestment(double euro)
+	{
+		double design_Investment = this.getDesignInvestment() + euro;
+		try
+		{
+			this.setDesignInvestment(design_Investment);
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public void addEfficiencyInvestment(double euro)
+	{
+		double efficiency_Investment = this.getEfficiencyInvestment() + euro;
+		try
+		{
+			this.setEfficiencyInvestment(efficiency_Investment);
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public void addNewspaperInvestment(double euro)
+	{
+		double newspaper_Investment = this.getNewspaperInvestment() + euro;
+		try
+		{
+			this.setNewspaperInvestment(newspaper_Investment);
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public void addQualityInvestment(double euro)
+	{
+		double quality_Investment = this.getQualityInvestment() + euro;
+		try
+		{
+			this.setQualityInvestment(quality_Investment);
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public void addRadioInvestment(double euro)
+	{
+		double radio_Investment = this.getRadioInvestment() + euro;
+		try
+		{
+			this.setRadioInvestment(radio_Investment);
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public void addTvInvestment(double euro)
+	{
+		double tv_Investment = this.getTvInvestment() + euro;
+		try
+		{
+			this.setTvInvestment(tv_Investment);
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
 	public void calculateCost()
 	{
 
@@ -94,14 +165,6 @@ public class Toaster implements IsSerializable
 				// MUSS
 				/ this.getType().getCapacity()) * this.getType().getStepCosts()) + (this.type.getFixCosts()));
 	}
-
-	// @by Alex
-	// Das Random für den jeweiligen ToasterTyp mit den verschiedenen
-	// Abweichungen:
-	// Type1 : 5% --> wird im Enum Konstruktor definiert
-	// Type2 : 8%
-	// Type3 : 10%
-	// z.b. NumberUtil.roundDouble(Math.random() * (1.05 - 0.95)) + 0.95;
 
 	// Random ist wird nicht eingerechnet!!!
 	public void calculateIndex()
@@ -150,43 +213,40 @@ public class Toaster implements IsSerializable
 		if (this.type == Type.TYPE1)
 		{
 			tvInvestmentIndex = NumberUtil.roundDouble(((Math.pow(this.tvInvestment / 10000 - 8, 3) + Math.pow(this.tvInvestment / 10000 - 8, 2) + Math.pow(
-					                   this.tvInvestment / 10000 - 8, 1)) / 150) + 2.24);
+					this.tvInvestment / 10000 - 8, 1)) / 150) + 2.24);
 
-			radioInvestmentIndex = NumberUtil.roundDouble((Math.log(this.radioInvestment / 3000)) * 
-					            (this.radioInvestment / Math.pow(this.radioInvestment, 1.03)) + 0.09);
-			newsPaperInvestmentIndex = NumberUtil.roundDouble((Math.log(this.newsPaperInvestment / 3000)) * (this.newsPaperInvestment / Math.pow(this.newsPaperInvestment, 1.09))
+			radioInvestmentIndex = NumberUtil.roundDouble((Math.log(this.radioInvestment / 3000)) * (this.radioInvestment / Math.pow(this.radioInvestment, 1.03)) + 0.09);
+			newsPaperInvestmentIndex = NumberUtil.roundDouble((Math.log(this.newspaperInvestment / 3000)) * (this.newspaperInvestment / Math.pow(this.newspaperInvestment, 1.09))
 					+ 0.76);
 		}
 		if (this.type == Type.TYPE2)
 		{
 			tvInvestmentIndex = NumberUtil.roundDouble(((Math.pow(this.tvInvestment / 10000 - 8, 3) + Math.pow(this.tvInvestment / 10000 - 8, 2) + Math.pow(
 					this.tvInvestment / 10000 - 8, 1)) / 150) + 1.7);
-			radioInvestmentIndex = NumberUtil.roundDouble((Math.log(this.radioInvestment / 3000)) * 
-					(this.radioInvestment / Math.pow(this.radioInvestment, 1.03)) - 0.41);
+			radioInvestmentIndex = NumberUtil.roundDouble((Math.log(this.radioInvestment / 3000)) * (this.radioInvestment / Math.pow(this.radioInvestment, 1.03)) - 0.41);
 
-			newsPaperInvestmentIndex = NumberUtil.roundDouble((Math.log(this.newsPaperInvestment / 3000))
-					* (this.newsPaperInvestment / Math.pow(this.newsPaperInvestment, 1.09)) + 0.47);
+			newsPaperInvestmentIndex = NumberUtil.roundDouble((Math.log(this.newspaperInvestment / 3000)) * (this.newspaperInvestment / Math.pow(this.newspaperInvestment, 1.09))
+					+ 0.47);
 
 		}
 		if (this.type == Type.TYPE3)
 		{
 			tvInvestmentIndex = NumberUtil.roundDouble(((Math.pow(this.tvInvestment / 10000 - 8, 3) + Math.pow(this.tvInvestment / 10000 - 8, 2) + Math.pow(
 					this.tvInvestment / 10000 - 8, 1)) / 150) + 1.35);
-			radioInvestmentIndex = NumberUtil.roundDouble((Math.log(this.radioInvestment / 3000)) * 
-					(this.radioInvestment / Math.pow(this.radioInvestment, 1.03)) - 0.69);
+			radioInvestmentIndex = NumberUtil.roundDouble((Math.log(this.radioInvestment / 3000)) * (this.radioInvestment / Math.pow(this.radioInvestment, 1.03)) - 0.69);
 
-			newsPaperInvestmentIndex = NumberUtil.roundDouble((Math.log(this.newsPaperInvestment / 3000))
-					* (this.newsPaperInvestment / Math.pow(this.newsPaperInvestment, 1.09)) + 0.22);
+			newsPaperInvestmentIndex = NumberUtil.roundDouble((Math.log(this.newspaperInvestment / 3000)) * (this.newspaperInvestment / Math.pow(this.newspaperInvestment, 1.09))
+					+ 0.22);
 
 		}
 		double d = tvInvestmentIndex + radioInvestmentIndex + newsPaperInvestmentIndex;
 
-//		System.out.println(this.getNewsPaperInvestment());
-//		System.out.println(newsPaperInvestmentIndex);
-//		System.out.println(this.getRadioInvestment());
-//		System.out.println(radioInvestmentIndex);
-//		System.out.println(this.getTvInvestment());
-//		System.out.println(tvInvestmentIndex);
+		// System.out.println(this.getNewsPaperInvestment());
+		// System.out.println(newsPaperInvestmentIndex);
+		// System.out.println(this.getRadioInvestment());
+		// System.out.println(radioInvestmentIndex);
+		// System.out.println(this.getTvInvestment());
+		// System.out.println(tvInvestmentIndex);
 
 		// Michi --> das sollte doch auch noch rein
 		this.setMarketing(NumberUtil.roundDouble(d));
@@ -213,32 +273,35 @@ public class Toaster implements IsSerializable
 		double efficiencyIndex = 0;
 		if (this.type == Type.TYPE1)
 		{
-			qualityIndex = NumberUtil.roundDouble((Math.log(this.quality / 3000)) * (this.quality / Math.pow(this.quality, 1.04)) + 0.635);
-			designIndex = NumberUtil.roundDouble((Math.log(this.design / 2000)) * (this.design / Math.pow(this.design, 1.0658)) + 0.48);
-			efficiencyIndex = NumberUtil.roundDouble((Math.log(this.efficiency / 1000)) * (this.efficiency / Math.pow(this.efficiency, 1.0992)) + 0.31);
+			qualityIndex = NumberUtil.roundDouble((Math.log(this.qualityInvestment / 3000)) * (this.qualityInvestment / Math.pow(this.qualityInvestment, 1.04)) + 0.635);
+			designIndex = NumberUtil.roundDouble((Math.log(this.designInvestment / 2000)) * (this.designInvestment / Math.pow(this.designInvestment, 1.0658)) + 0.48);
+			efficiencyIndex = NumberUtil.roundDouble((Math.log(this.efficiencyInvestment / 1000)) * (this.efficiencyInvestment / Math.pow(this.efficiencyInvestment, 1.0992))
+					+ 0.31);
 
 		}
 		if (this.type == Type.TYPE2)
 		{
-			qualityIndex = NumberUtil.roundDouble((Math.log(this.quality / 3000)) * (this.quality / Math.pow(this.quality, 1.04)) + 0.165);
-			designIndex = NumberUtil.roundDouble((Math.log(this.design / 2000)) * (this.design / Math.pow(this.design, 1.0658)) + 0.12);
-			efficiencyIndex = NumberUtil.roundDouble((Math.log(this.efficiency / 1000)) * (this.efficiency / Math.pow(this.efficiency, 1.0992)) + 0.08);
+			qualityIndex = NumberUtil.roundDouble((Math.log(this.qualityInvestment / 3000)) * (this.qualityInvestment / Math.pow(this.qualityInvestment, 1.04)) + 0.165);
+			designIndex = NumberUtil.roundDouble((Math.log(this.designInvestment / 2000)) * (this.designInvestment / Math.pow(this.designInvestment, 1.0658)) + 0.12);
+			efficiencyIndex = NumberUtil.roundDouble((Math.log(this.efficiencyInvestment / 1000)) * (this.efficiencyInvestment / Math.pow(this.efficiencyInvestment, 1.0992))
+					+ 0.08);
 
 		}
 
 		if (this.type == Type.TYPE3)
 		{
-			qualityIndex = NumberUtil.roundDouble((Math.log(this.quality / 3000)) * (this.quality / Math.pow(this.quality, 1.04)) - 0.1);
-			designIndex = NumberUtil.roundDouble((Math.log(this.design / 2000)) * (this.design / Math.pow(this.design, 1.0658)) - 0.07);
-			efficiencyIndex = NumberUtil.roundDouble((Math.log(this.efficiency / 1000)) * (this.efficiency / Math.pow(this.efficiency, 1.0992)) - 0.04);
+			qualityIndex = NumberUtil.roundDouble((Math.log(this.qualityInvestment / 3000)) * (this.qualityInvestment / Math.pow(this.qualityInvestment, 1.04)) - 0.1);
+			designIndex = NumberUtil.roundDouble((Math.log(this.designInvestment / 2000)) * (this.designInvestment / Math.pow(this.designInvestment, 1.0658)) - 0.07);
+			efficiencyIndex = NumberUtil.roundDouble((Math.log(this.efficiencyInvestment / 1000)) * (this.efficiencyInvestment / Math.pow(this.efficiencyInvestment, 1.0992))
+					- 0.04);
 		}
 
-//		System.out.println(this.getQuality());
-//		System.out.println(qualityIndex);
-//		System.out.println(this.getDesign());
-//		System.out.println(designIndex);
-//		System.out.println(this.getEfficiency());
-//		System.out.println(efficiencyIndex);
+		// System.out.println(this.getQuality());
+		// System.out.println(qualityIndex);
+		// System.out.println(this.getDesign());
+		// System.out.println(designIndex);
+		// System.out.println(this.getEfficiency());
+		// System.out.println(efficiencyIndex);
 
 		double d = qualityIndex + designIndex + efficiencyIndex;
 		this.setResearch(NumberUtil.roundDouble(d));
@@ -256,14 +319,14 @@ public class Toaster implements IsSerializable
 		return cost;
 	}
 
-	public double getDesign()
+	public double getDesignInvestment()
 	{
-		return design;
+		return designInvestment;
 	}
 
-	public double getEfficiency()
+	public double getEfficiencyInvestment()
 	{
-		return efficiency;
+		return efficiencyInvestment;
 	}
 
 	public double getIndex()
@@ -281,9 +344,9 @@ public class Toaster implements IsSerializable
 		return marketShare;
 	}
 
-	public double getNewsPaperInvestment()
+	public double getNewspaperInvestment()
 	{
-		return newsPaperInvestment;
+		return newspaperInvestment;
 	}
 
 	public double getPrice()
@@ -296,9 +359,9 @@ public class Toaster implements IsSerializable
 		return profit;
 	}
 
-	public double getQuality()
+	public double getQualityInvestment()
 	{
-		return quality;
+		return qualityInvestment;
 	}
 
 	public double getRadioInvestment()
@@ -336,51 +399,51 @@ public class Toaster implements IsSerializable
 		this.cost = cost;
 	}
 
-	public void setDesign(double design) throws Exception
+	public void setDesignInvestment(double design) throws Exception
 	{
 		if (this.type == Type.TYPE1)
 		{
 			if (design >= 5.000)
-				this.design = design;
+				this.designInvestment = design;
 			else
 				throw new Exception("Ungültige Eingabe für Design");
 		}
 		if (this.type == Type.TYPE2)
 		{
 			if (design >= 10.000)
-				this.design = design;
+				this.designInvestment = design;
 			else
 				throw new Exception("Ungültige Eingabe für Design");
 		}
 		if (this.type == Type.TYPE3)
 		{
 			if (design >= 20.000)
-				this.design = design;
+				this.designInvestment = design;
 			else
 				throw new Exception("Ungültige Eingabe für Design");
 		}
 	}
 
-	public void setEfficiency(double efficiency) throws Exception
+	public void setEfficiencyInvestment(double efficiency) throws Exception
 	{
 		if (this.type == Type.TYPE1)
 		{
 			if (efficiency >= 5.000)
-				this.efficiency = efficiency;
+				this.efficiencyInvestment = efficiency;
 			else
 				throw new Exception("Ungültige Eingabe für Ökologie");
 		}
 		if (this.type == Type.TYPE2)
 		{
 			if (efficiency >= 10.000)
-				this.efficiency = efficiency;
+				this.efficiencyInvestment = efficiency;
 			else
 				throw new Exception("Ungültige Eingabe für Ökologie");
 		}
 		if (this.type == Type.TYPE3)
 		{
 			if (efficiency >= 20.000)
-				this.efficiency = efficiency;
+				this.efficiencyInvestment = efficiency;
 			else
 				throw new Exception("Ungültige Eingabe für Ökologie");
 		}
@@ -401,26 +464,26 @@ public class Toaster implements IsSerializable
 		this.marketShare = marketShare;
 	}
 
-	public void setNewsPaperInvestment(double newsPaperInvestment) throws Exception
+	public void setNewspaperInvestment(double newsPaperInvestment) throws Exception
 	{
 		if (this.type == Type.TYPE1)
 		{
 			if (newsPaperInvestment >= 5.000)
-				this.newsPaperInvestment = newsPaperInvestment;
+				this.newspaperInvestment = newsPaperInvestment;
 			else
 				throw new Exception("Ungültige Eingabe für Zeitung-Werbung");
 		}
 		if (this.type == Type.TYPE2)
 		{
 			if (newsPaperInvestment >= 10.000)
-				this.newsPaperInvestment = newsPaperInvestment;
+				this.newspaperInvestment = newsPaperInvestment;
 			else
 				throw new Exception("Ungültige Eingabe für Zeitung-Werbung");
 		}
 		if (this.type == Type.TYPE3)
 		{
 			if (newsPaperInvestment >= 20.000)
-				this.newsPaperInvestment = newsPaperInvestment;
+				this.newspaperInvestment = newsPaperInvestment;
 			else
 				throw new Exception("Ungültige Eingabe für Zeitung-Werbung");
 		}
@@ -456,26 +519,26 @@ public class Toaster implements IsSerializable
 		this.profit = profit;
 	}
 
-	public void setQuality(double quality) throws Exception
+	public void setQualityInvestment(double quality) throws Exception
 	{
 		if (this.type == Type.TYPE1)
 		{
 			if (quality >= 5.000)
-				this.quality = quality;
+				this.qualityInvestment = quality;
 			else
 				throw new Exception("Ungültige Eingabe für Qualität");
 		}
 		if (this.type == Type.TYPE2)
 		{
 			if (quality >= 10.000)
-				this.quality = quality;
+				this.qualityInvestment = quality;
 			else
 				throw new Exception("Ungültige Eingabe für Qualität");
 		}
 		if (this.type == Type.TYPE3)
 		{
 			if (quality >= 20.000)
-				this.quality = quality;
+				this.qualityInvestment = quality;
 			else
 				throw new Exception("Ungültige Eingabe für Qualität");
 		}
