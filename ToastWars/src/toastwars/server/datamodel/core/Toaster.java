@@ -176,7 +176,7 @@ public class Toaster implements IsSerializable
 					(this.radioInvestment / Math.pow(this.radioInvestment, 1.03)) - 0.69);
 
 			newsPaperInvestmentIndex = NumberUtil.roundDouble((Math.log(this.newsPaperInvestment / 3000))
-					* (this.newsPaperInvestment / Math.pow(this.newsPaperInvestment, 1.09) + 0.22));
+					* (this.newsPaperInvestment / Math.pow(this.newsPaperInvestment, 1.09)) + 0.22);
 
 		}
 		double d = tvInvestmentIndex + radioInvestmentIndex + newsPaperInvestmentIndex;
