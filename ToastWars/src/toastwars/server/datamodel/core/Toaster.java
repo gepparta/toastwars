@@ -165,7 +165,7 @@ public class Toaster implements IsSerializable
 					(this.radioInvestment / Math.pow(this.radioInvestment, 1.03)) - 0.41);
 
 			newsPaperInvestmentIndex = NumberUtil.roundDouble((Math.log(this.newsPaperInvestment / 3000))
-					* (this.newsPaperInvestment / Math.pow(this.newsPaperInvestment, 1.09) + 0.47));
+					* (this.newsPaperInvestment / Math.pow(this.newsPaperInvestment, 1.09)) + 0.47);
 
 		}
 		if (this.type == Type.TYPE3)
@@ -181,15 +181,15 @@ public class Toaster implements IsSerializable
 		}
 		double d = tvInvestmentIndex + radioInvestmentIndex + newsPaperInvestmentIndex;
 
-		System.out.println(this.getNewsPaperInvestment());
-		System.out.println(newsPaperInvestmentIndex);
-		System.out.println(this.getRadioInvestment());
-		System.out.println(radioInvestmentIndex);
-		System.out.println(this.getTvInvestment());
-		System.out.println(tvInvestmentIndex);
+//		System.out.println(this.getNewsPaperInvestment());
+//		System.out.println(newsPaperInvestmentIndex);
+//		System.out.println(this.getRadioInvestment());
+//		System.out.println(radioInvestmentIndex);
+//		System.out.println(this.getTvInvestment());
+//		System.out.println(tvInvestmentIndex);
 
 		// Michi --> das sollte doch auch noch rein
-		this.setMarketing(d);
+		this.setMarketing(NumberUtil.roundDouble(d));
 		return NumberUtil.roundDouble(d);
 	}
 
@@ -233,17 +233,15 @@ public class Toaster implements IsSerializable
 			efficiencyIndex = NumberUtil.roundDouble((Math.log(this.efficiency / 1000)) * (this.efficiency / Math.pow(this.efficiency, 1.0992)) - 0.04);
 		}
 
-		System.out.println(this.getQuality());
-		System.out.println(qualityIndex);
-		System.out.println(this.getDesign());
-		System.out.println(designIndex);
-		System.out.println(this.getEfficiency());
-		System.out.println(efficiencyIndex);
+//		System.out.println(this.getQuality());
+//		System.out.println(qualityIndex);
+//		System.out.println(this.getDesign());
+//		System.out.println(designIndex);
+//		System.out.println(this.getEfficiency());
+//		System.out.println(efficiencyIndex);
 
 		double d = qualityIndex + designIndex + efficiencyIndex;
-		// Michi --> das sollte doch auch noch rein
-		System.out.println(d);
-		this.setResearch(d);
+		this.setResearch(NumberUtil.roundDouble(d));
 		return NumberUtil.roundDouble(d);
 	}
 
