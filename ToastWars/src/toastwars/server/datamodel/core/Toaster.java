@@ -621,8 +621,8 @@ public class Toaster implements IsSerializable
 		String s = "Toaster Eigenschaften: " + "\n ToasterID \t \t" + this.getToasterID() + "\n price: \t" + this.getPrice() + "\n index: \t" + this.getIndex() + "\n turnover: \t"
 				+ this.getTurnover() + "\n cost: \t" + this.getCost() + "\n profit: \t" + this.getProfit() + "\n marketShare: \t" + this.getMarketShare() + "\n type: \t"
 				+ this.getType().name() + "\n Marketingfaktoren: \t" + "\n marketing: \t" + this.getMarketing() + "\n TV Investment: \t" + this.getTvInvestment()
-				+ "\n Newspaper Investment: \t" + this.getNewsPaperInvestment() + "\n Radio Investment: \t" + this.getRadioInvestment() + "\n Forschungsfaktoren: \t"
-				+ "\n research: \t" + this.getResearch() + "\n quality: \t" + this.getQuality() + "\n design: \t" + this.getDesign() + "\n efficiency: \t" + this.getEfficiency();
+				+ "\n Newspaper Investment: \t" + this.getNewspaperInvestment() + "\n Radio Investment: \t" + this.getRadioInvestment() + "\n Forschungsfaktoren: \t"
+				+ "\n research: \t" + this.getResearch() + "\n quality: \t" + this.getQualityInvestment() + "\n design: \t" + this.getDesignInvestment() + "\n efficiency: \t" + this.getEfficiencyInvestment();
 		return s;
 	}
 
