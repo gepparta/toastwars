@@ -8,12 +8,13 @@ import java.util.ArrayList;
 import toastwars.server.datamodel.core.Toaster;
 import toastwars.server.datamodel.core.Company;
 import toastwars.server.datamodel.user.Group;
+import toastwars.server.datamodel.user.IUser;
 import toastwars.server.datamodel.user.Status;
 import toastwars.server.datamodel.user.UserFactory;
 
 public class DAOUser {
 
-	private ArrayList<Group> userList = new ArrayList<Group>();
+	private ArrayList<IUser> userList = new ArrayList<IUser>();
 
 	public void saveUser(String name, String password, Integer CompanyID) {
 		DBConnection con = new DBConnection();
@@ -51,7 +52,7 @@ public class DAOUser {
 			e.printStackTrace();
 		}
 	}
-	public ArrayList<Group> getAllUsers(DBConnection con) {
+	public ArrayList<IUser> getAllUsers(DBConnection con) {
 			try {
 				userList.clear();
 				// Abfrage definieren
