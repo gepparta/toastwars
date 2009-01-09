@@ -17,7 +17,7 @@ public class Test_Toaster_Type2 extends TestCase
 	{
 		// price, marketing, tvInvestment, newsPaperInvestment, radioInvestment, research, quality, design, efficiency, index, 
 		//	turnover, cost,  profit, marketShare, type
-		toaster1 = new Toaster(30.00, 3.00, 30000.00, 10000.00, 20000.00, 3.00, 10000.00, 10000.00, 10000.00, 9.00, 1000.00, 1000.00, 1000.00, 10000, Type.TYPE2);
+		toaster1 = new Toaster(30.00, 3.00, 30000.00, 10000.00, 20000.00, 3.00, 10000.00, 10000.00, 10000.00, 9.00, 1000.00, 1000.00, 1000.00, 6000, Type.TYPE2);
 	}
 
 	@After
@@ -127,7 +127,7 @@ public class Test_Toaster_Type2 extends TestCase
 	public void testGetMarketShare()
 	{
 		assertNotNull(toaster1.getMarketShare());
-		assertEquals(10000, toaster1.getMarketShare());
+		assertEquals(6000, toaster1.getMarketShare());
 	}
 
 	@Test
