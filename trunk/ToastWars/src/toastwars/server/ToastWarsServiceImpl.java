@@ -2,6 +2,7 @@ package toastwars.server;
 
 import javax.servlet.ServletException;
 import toastwars.client.ToastWarsService;
+import toastwars.server.dao.DAOUser;
 import toastwars.server.datamodel.user.Group;
 import toastwars.server.datamodel.user.Master;
 import toastwars.server.datamodel.user.IUser;
@@ -29,15 +30,19 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements ToastW
 		if (name.equals(master.getUsername()) && pwd.equals(master.getPassword()))
 			user = master;
 		else if (name.equals("gruppe"))
-//			TODO: DAO aufrufen und mit UserListe vergleichen
-			user = UserFactory.createUser("Group", name, pwd);
-
+			try
+			{
+				user = DAOUser.findUser(name, pwd);
+			} catch (Exception e)
+			{
+				return null;
+			}
 		return user;
 	}
 
 	public void save(Group group)
 	{
-		// TODO Auto-generated method stub
+		
 		
 	}
 }
