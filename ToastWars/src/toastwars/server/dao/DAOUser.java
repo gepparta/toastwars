@@ -5,13 +5,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import toastwars.server.datamodel.core.Company;
+import toastwars.server.datamodel.user.IUser;
 import toastwars.server.datamodel.user.Group;
 import toastwars.server.datamodel.user.Status;
 import toastwars.server.datamodel.user.UserFactory;
 
 public class DAOUser {
 
-	private ArrayList<Group> userList = new ArrayList<Group>();
+	private ArrayList<IUser> userList = new ArrayList<IUser>();
 
 	// test
 	public void saveUser(Group group, DBConnection con) {
@@ -59,7 +60,7 @@ public class DAOUser {
 		}
 	}
 
-	public ArrayList<Group> getAllUsers(DBConnection con) {
+	public ArrayList<IUser> getAllUsers(DBConnection con) {
 		try {
 			userList.clear();
 			// Abfrage definieren
@@ -103,5 +104,23 @@ public class DAOUser {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	public IUser findUser(String name, String pass) throws Exception
+	{
+		DBConnection con = new DBConnection();
+		con.connectToDB();
+		if (userList.size() == 0)
+		{
+			userList = this.getAllUsers(con);
+		} 
+		
+		for(int i=0;i<=userList.size();i++)
+		{
+			if(userList.get(i).getUsername().equals(name))
+				if(userList.get(i).getPassword().equals(pass))
+			return 	userList.get(i);	
+		}
+		con.closeConnectionToDB();
+		throw new Exception("No User found. Check spelling of name and password");
 	}
 }
