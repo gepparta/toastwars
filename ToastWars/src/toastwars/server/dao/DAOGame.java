@@ -10,6 +10,7 @@ import toastwars.server.datamodel.user.IUser;
 
 public class DAOGame {
 
+	
 	public static ArrayList<IUser> getAllUsers() {
 		try {
 			DBConnection con = new DBConnection();
@@ -29,10 +30,9 @@ public class DAOGame {
 			DBConnection con = new DBConnection();
 			con.connectToDB();
 			int size = userList.size();
-			DAOUser user = new DAOUser();
 			for (int i = 0; i < size; i++) {
 				Group group = userList.get(i);
-				user.saveUser(group, con);
+				DAOUser.saveUser(group, con);
 			}
 			changeCurrentRound(con);
 			con.closeConnectionToDB();
@@ -84,7 +84,6 @@ public class DAOGame {
 	public static void changeCurrentRound(DBConnection con){
 		int currentRound = 1;
 //		Game.getInstance().getCurrentRound();
-		con.connectToDB();
 		Statement stmt = con.getStatement();
 		String sql = "UPDATE [Game] SET [Game].CurrentRound = '" + currentRound + "'";
 		try {
