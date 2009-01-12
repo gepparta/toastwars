@@ -12,10 +12,10 @@ import toastwars.server.datamodel.user.UserFactory;
 
 public class DAOUser {
 
-	private ArrayList<IUser> userList = new ArrayList<IUser>();
+	private static  ArrayList<IUser> userList = new ArrayList<IUser>();
 
 	// test
-	public void saveUser(Group group, DBConnection con) {
+	public static void saveUser(Group group, DBConnection con) {
 		DAOCompany daoCompany = new DAOCompany();
 		Company company = group.getCompany();
 		String username = group.getUsername();
@@ -23,6 +23,17 @@ public class DAOUser {
 		daoCompany.saveCompany(company, con);
 	}
 
+	public static void saveUser(Group group) {
+		DBConnection con = new DBConnection();
+		con.connectToDB();
+		DAOCompany daoCompany = new DAOCompany();
+		Company company = group.getCompany();
+		String username = group.getUsername();
+		changeStatus(username, group.getStatus().name());
+		daoCompany.saveCompany(company, con);
+		con.closeConnectionToDB();
+	}
+	
 	public void saveUser(String name, String password, Integer CompanyID) {
 		DBConnection con = new DBConnection();
 		con.connectToDB();
@@ -60,7 +71,7 @@ public class DAOUser {
 		}
 	}
 
-	public ArrayList<IUser> getAllUsers(DBConnection con) {
+	public static ArrayList<IUser> getAllUsers(DBConnection con) {
 		try {
 			userList.clear();
 			// Abfrage definieren
@@ -86,8 +97,34 @@ public class DAOUser {
 			return null;
 		}
 	}
+	
+	public static void fillUserList(DBConnection con) {
+		try {
+			userList.clear();
+			// Abfrage definieren
+			String query = "SELECT * FROM User;";
+			Statement stmt = con.getStatement();
+			ResultSet rst = stmt.executeQuery(query);
+			DAOCompany test = new DAOCompany();
+			// Zeileninhalt ermitteln
+			while (rst.next()) {
+				Group group = (Group) UserFactory.createUser("Group", rst
+						.getString(1), rst.getString(2));
+				int companyID = rst.getInt(3);
+				group.setCompany(test.getCurrentCompany(con, companyID));
+				Status stat = Status.valueOf(rst.getString(4));
+				group.setStatus(stat);
+				userList.add(group);
+			}
+			rst.close();
+			stmt.close();
 
-	public void changeStatus(String username, String status) {
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void changeStatus(String username, String status) {
 
 		try {
 			DBConnection con = new DBConnection();
@@ -105,13 +142,13 @@ public class DAOUser {
 			e.printStackTrace();
 		}
 	}
-	public IUser findUser(String name, String pass) throws Exception
+	public static IUser findUser(String name, String pass) throws Exception
 	{
 		DBConnection con = new DBConnection();
 		con.connectToDB();
 		if (userList.size() == 0)
 		{
-			userList = this.getAllUsers(con);
+			fillUserList(con);
 			con.closeConnectionToDB();		
 		} 
 		
@@ -121,6 +158,6 @@ public class DAOUser {
 				if(userList.get(i).getPassword().equals(pass))
 			return 	userList.get(i);	
 		}
-		throw new Exception("No User found. Check spelling of name and password");
+		throw new Exception("No User found. Check name and password");
 	}
 }
