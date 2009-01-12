@@ -4,95 +4,53 @@ import java.sql.ResultSet; //import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import toastwars.server.datamodel.core.Game;
 import toastwars.server.datamodel.core.Toaster;
 import toastwars.server.datamodel.core.Type;
 
 public class DAOToaster {
 	ArrayList<Toaster> toasterList = new ArrayList<Toaster>();
-
-	public ArrayList<Toaster> getAllToaster(Statement stmt) {
-
+//test
+	public void saveToaster(Toaster toaster,int companyID, DBConnection con){
 		try {
-			// Abfrage definieren
-			String query = "SELECT * FROM Toaster;";
-			ResultSet rst = stmt.executeQuery(query);
-			// Zeileninhalt ermitteln
-			while (rst.next()) {
-				Toaster toaster = new Toaster(rst.getInt(2), rst.getDouble(4),
-						rst.getDouble(5), rst.getDouble(6), rst.getDouble(7),
-						rst.getDouble(8), rst.getDouble(9), rst.getDouble(10),
-						rst.getInt(11), Type.valueOf(rst.getString(12)));
-				toasterList.add(toaster);
+			int currentRound = 1;
+//			Game.getInstance().getCurrentRound();
+			int toasterID = toaster.getToasterID();
+			double price = toaster.getPrice();
+			double marketing = toaster.getMarketing();
+			double tv = toaster.getTvInvestment();
+			double newspaper = toaster.getNewsPaperInvestment();
+			double radio = toaster.getRadioInvestment();
+			double research = toaster.getResearch();
+			double quality= toaster.getQuality();
+			double design= toaster.getDesign();
+			double efficiency= toaster.getEfficiency();
+			double index=toaster.getIndex();
+			double turnover = toaster.getTurnover();
+			double cost=toaster.getCost();
+			double profit= toaster.getProfit();
+			int marketShare = toaster.getMarketShare();
+			String type = toaster.getType().getDescription();
+			if (type.equalsIgnoreCase("Der 1. Typ")) {
+				type = "TYPE1";
 			}
-
-			System.out.println(toasterList.toString());
-			rst.close();
-			stmt.close();
-			return toasterList;
+			if (type.equalsIgnoreCase("Der 2. Typ")) {
+				type = "TYPE2";
+			}
+			if (type.equalsIgnoreCase("Der 3. Typ")) {
+				type = "TYPE3";
+			}
+			Statement stmt = con.getStatement();			
+			String query = "INSERT INTO Toaster VALUES (" +currentRound +"," + toasterID + ","+ companyID 
+			+ ","+price + "," + marketing +"," + tv +"," + newspaper +"," + radio +"," + research +
+			"," + quality +"," + design +"," + efficiency +"," + index +"," + turnover +
+			","+ cost + ","+ profit + ","+ marketShare + ",'"+ type+"');";
+			stmt.execute(query);
 		} catch (Exception e) {
+			// TODO: handle exception
 			e.printStackTrace();
-			return null;
 		}
 	}
-
-	public ArrayList<Toaster> getToasterFromCompany(int companyID,
-			Statement stmt) {
-
-		try {
-			// Abfrage definieren
-			String query = "SELECT * FROM Toaster WHERE companyID = "
-					+ companyID + ";";
-			ResultSet rst = stmt.executeQuery(query);
-			// ResultSetMetaData md = rst.getMetaData();
-			// int columns = md.getColumnCount();
-			// Zeileninhalt ermitteln
-			while (rst.next()) {
-				Toaster toaster = new Toaster(rst.getInt(2), rst.getDouble(4),
-						rst.getDouble(5), rst.getDouble(6), rst.getDouble(7),
-						rst.getDouble(8), rst.getDouble(9), rst.getDouble(10),
-						rst.getInt(11), Type.valueOf(rst.getString(12)));
-				toasterList.add(toaster);
-			}
-
-			System.out.println(toasterList.toString());
-			rst.close();
-			stmt.close();
-			return toasterList;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-
-	}
-
-	public ArrayList<Toaster> getAllActualToaster(Statement stmt) {
-
-		try {
-			// Abfrage definieren
-
-			int currentRound = Game.getInstance().getCurrentRound() - 1;
-			String query = "SELECT * FROM Toaster WHERE Round = "
-					+ currentRound + ";";
-			ResultSet rst = stmt.executeQuery(query);
-			// Zeileninhalt ermitteln
-			while (rst.next()) {
-				Toaster toaster = new Toaster(rst.getInt(2), rst.getDouble(4),
-						rst.getDouble(5), rst.getDouble(6), rst.getDouble(7),
-						rst.getDouble(8), rst.getDouble(9), rst.getDouble(10),
-						rst.getInt(11), Type.valueOf(rst.getString(12)));
-				toasterList.add(toaster);
-			}
-			rst.close();
-			stmt.close();
-			
-			return toasterList;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
+	
 	public ArrayList<Toaster> getActualToasterFromCompany(int companyID,
 			DBConnection con) {
 
@@ -110,7 +68,9 @@ public class DAOToaster {
 				Toaster toaster = new Toaster(rst.getInt(2), rst.getDouble(4),
 						rst.getDouble(5), rst.getDouble(6), rst.getDouble(7),
 						rst.getDouble(8), rst.getDouble(9), rst.getDouble(10),
-						rst.getInt(11), Type.valueOf(rst.getString(12)));
+						rst.getDouble(11),rst.getDouble(12),rst.getDouble(13),
+						rst.getDouble(14),rst.getDouble(15),rst.getDouble(16),
+						rst.getInt(17), Type.valueOf(rst.getString(18)));
 				toasterList.add(toaster);
 			}
 			rst.close();
