@@ -5,35 +5,65 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import toastwars.server.datamodel.core.Company;
+import toastwars.server.datamodel.core.Toaster;
 
 public class DAOCompany {
-	ArrayList<Company> companyList = new ArrayList<Company>();
-	
-	public ArrayList<Company> getAllCurrentCompanies(DBConnection con) {
-
-			try {
-				companyList.clear();
-				// Abfrage definieren
-				int currentRound = 0;
-//					Game.getInstance().getCurrentRound() -1;
-				String query = "SELECT * FROM Company WHERE Round = "+ currentRound +";";
-				Statement stmt = con.getStatement();
-				ResultSet rst = stmt.executeQuery(query);
-				// Zeileninhalt ermitteln
-				while (rst.next()) {
-					DAOToaster toaster = new DAOToaster();
-					int companyID = rst.getInt(2);
-					Company company = new Company(companyID,rst.getDouble(3),
-							rst.getDouble(4), rst.getDouble(5), rst.getDouble(6), rst.getInt(7),
-							toaster.getActualToasterFromCompany(companyID, con));
-					companyList.add(company);
-					}
-				rst.close();
-				stmt.close();
-				return companyList;
-			} catch (Exception e) {
-				e.printStackTrace();
-				return null;
+//	test
+	public void saveCompany(Company company, DBConnection con){
+		try {
+			int currentRound = 1;
+//			Game.getInstance().getCurrentRound();
+			int companyID =company.getCompanyID();
+			double turnover = company.getTurnover();
+			double cost=company.getCost();
+			double profit= company.getProfit();
+			double capital=company.getCapital();
+			int marketShare = company.getMarketShare();
+			Statement stmt = con.getStatement();			
+			String query = "INSERT INTO Company VALUES (" +currentRound +"," + companyID + ","+ turnover + 
+			","+ cost + ","+ profit + ","+ capital + ","+ marketShare + ");";
+			stmt.execute(query);
+			ArrayList<Toaster> toasterList = company.getToasterList();
+			int size = toasterList.size();
+			DAOToaster daoToaster = new DAOToaster();
+			for (int i = 0; i < size; i++) {
+				Toaster toaster = toasterList.get(i);
+				daoToaster.saveToaster(toaster,companyID, con);
 			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 	}
+	public Company getCurrentCompany(DBConnection con, Integer companyID) {
+
+		try {
+			// Abfrage definieren
+			int currentRound = 0;
+//				Game.getInstance().getCurrentRound() -1;
+			String query = "SELECT * FROM Company WHERE companyID = "
+					+ companyID + " AND Round = "+ currentRound +";";
+			Statement stmt = con.getStatement();
+			ResultSet rst = stmt.executeQuery(query);
+			// Zeileninhalt ermitteln
+			while (rst.next()) {
+				DAOToaster toaster = new DAOToaster();
+				companyID = rst.getInt(2);
+				Company company = new Company(companyID,rst.getDouble(3),
+						rst.getDouble(4), rst.getDouble(5), rst.getDouble(6), rst.getInt(7),
+						toaster.getActualToasterFromCompany(companyID, con));
+				
+			rst.close();
+			stmt.close();
+			return company;
+			}
+			rst.close();
+			stmt.close();
+			return null;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+}
 }
