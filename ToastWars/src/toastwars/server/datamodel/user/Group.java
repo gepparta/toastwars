@@ -1,8 +1,10 @@
 package toastwars.server.datamodel.user;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
+
 import toastwars.server.datamodel.core.Company;
 
-public class Group implements IUser
+public class Group implements IUser, IsSerializable
 {
 //	private static ArrayList<Group> groupList = new ArrayList<Group>();
 	private String password;
