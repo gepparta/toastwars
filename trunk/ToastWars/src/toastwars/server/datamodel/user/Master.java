@@ -1,8 +1,10 @@
 package toastwars.server.datamodel.user;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
+
 import toastwars.server.datamodel.core.Game;
 
-public class Master implements IUser
+public class Master implements IUser, IsSerializable
 {
 	private String username;
 
