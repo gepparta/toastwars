@@ -6,15 +6,16 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import toastwars.server.datamodel.user.Group;
+import toastwars.server.datamodel.user.IUser;
 
 public class DAOGame {
 
-	public static ArrayList<Group> getAllUsers() {
+	public static ArrayList<IUser> getAllUsers() {
 		try {
 			DBConnection con = new DBConnection();
 			con.connectToDB();
 			DAOUser user = new DAOUser();
-			ArrayList<Group> userList = user.getAllUsers(con);
+			ArrayList<IUser> userList = user.getAllUsers(con);
 			con.closeConnectionToDB();
 			return userList;
 		} catch (RuntimeException e) {
