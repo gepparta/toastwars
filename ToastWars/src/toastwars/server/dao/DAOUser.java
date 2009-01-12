@@ -112,6 +112,7 @@ public class DAOUser {
 		if (userList.size() == 0)
 		{
 			userList = this.getAllUsers(con);
+			con.closeConnectionToDB();		
 		} 
 		
 		for(int i=0;i<=userList.size();i++)
@@ -120,7 +121,6 @@ public class DAOUser {
 				if(userList.get(i).getPassword().equals(pass))
 			return 	userList.get(i);	
 		}
-		con.closeConnectionToDB();
 		throw new Exception("No User found. Check spelling of name and password");
 	}
 }
