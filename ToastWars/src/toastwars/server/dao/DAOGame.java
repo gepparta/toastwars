@@ -1,20 +1,15 @@
 package toastwars.server.dao;
 
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import toastwars.server.datamodel.core.Company;
-import toastwars.server.datamodel.core.Toaster;
 import toastwars.server.datamodel.user.Group;
-import toastwars.server.datamodel.user.Status;
-import toastwars.server.datamodel.user.UserFactory;
 
 public class DAOGame {
 
-	public ArrayList<Group> getAllUsers() {
+	public static ArrayList<Group> getAllUsers() {
 		try {
 			DBConnection con = new DBConnection();
 			con.connectToDB();
@@ -28,8 +23,24 @@ public class DAOGame {
 			return null;
 		}
 	}
-
-	public Integer getCurrentRound() {
+	public static void saveAllUsers(ArrayList<Group> userList) {
+		try {
+			DBConnection con = new DBConnection();
+			con.connectToDB();
+			int size = userList.size();
+			DAOUser user = new DAOUser();
+			for (int i = 0; i < size; i++) {
+				Group group = userList.get(i);
+				user.saveUser(group, con);
+			}
+			changeCurrentRound(con);
+			con.closeConnectionToDB();
+		} catch (RuntimeException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public static Integer getCurrentRound() {
 		try {
 			String query = "SELECT Game.[CurrentRound]FROM Game;";
 			DBConnection con = new DBConnection();
@@ -50,7 +61,7 @@ public class DAOGame {
 		}
 	}
 
-	public Integer getUserAmount() {
+	public static Integer getUserAmount() {
 		try {
 			String query = "SELECT Game.[NumberOfUsers]FROM Game;";
 			DBConnection con = new DBConnection();
@@ -69,8 +80,21 @@ public class DAOGame {
 			return null;
 		}
 	}
-
-	public void createInitialData(Integer userAmount) {
+	public static void changeCurrentRound(DBConnection con){
+		int currentRound = 1;
+//		Game.getInstance().getCurrentRound();
+		con.connectToDB();
+		Statement stmt = con.getStatement();
+		String sql = "UPDATE [Game] SET [Game].CurrentRound = '" + currentRound + "'";
+		try {
+			stmt.execute(sql);
+			stmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public static void createInitialData(Integer userAmount) {
 		try {
 			DBConnection con = new DBConnection();
 			con.connectToDB();
@@ -85,7 +109,7 @@ public class DAOGame {
 				query = "INSERT INTO Company VALUES (0," + i + ",1000,1000,1000,1000,1000);";
 				stmt.execute(query);
 				query = "INSERT INTO Toaster VALUES (0," + i + "," + i + ",1000,1000,1000," +
-						"1000,1000,1000,1000,1000,'TYPE1');";
+						"1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,'TYPE1');";
 				stmt.execute(query);
 			}
 			stmt.close();
@@ -96,7 +120,7 @@ public class DAOGame {
 			e.printStackTrace();
 		}
 	}
-	public void resetGame() {
+	public static void resetGame() {
 		try {
 			DBConnection con = new DBConnection();
 			con.connectToDB();
@@ -117,29 +141,11 @@ public class DAOGame {
 			e.printStackTrace();
 		}
 	}
-	public static void main(String[] args) {
-		DAOGame user = new DAOGame();
-		user.resetGame();
-		user.createInitialData(4); 
-		ArrayList<Group> userList = user.getAllUsers();
-		 Group test= userList.get(0);
-		 System.out.println(test.getUsername());
-		 Company test1=test.getCompany();
-		 System.out.println(test1.getCompanyID());
-		 ArrayList<Toaster> test6 = test1.getToasterList();
-		 System.out.println(test6.get(0).getToasterID());
-
-		
-				
-		 Group test2=userList.get(1);
-		 System.out.println(test2.getUsername());
-		 Company test3=test2.getCompany();
-		 System.out.println(test3.getCompanyID());
-		 ArrayList<Toaster> test7 = test3.getToasterList();
-		 System.out.println(test7.get(0).getToasterID());
-
-		 System.out.println(user.getCurrentRound());
-		 System.out.println(user.getUserAmount());
-
-	}
+//	public static void main(String[] args) {
+//
+//		resetGame();
+//		createInitialData(5); 
+//		ArrayList<Group> userList = getAllUsers();
+//		saveAllUsers(userList);
+//	}
 }
