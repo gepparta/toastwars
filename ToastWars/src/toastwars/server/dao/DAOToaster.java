@@ -18,12 +18,12 @@ public class DAOToaster {
 			double price = toaster.getPrice();
 			double marketing = toaster.getMarketing();
 			double tv = toaster.getTvInvestment();
-			double newspaper = toaster.getNewsPaperInvestment();
+			double newspaper = toaster.getNewspaperInvestment();
 			double radio = toaster.getRadioInvestment();
 			double research = toaster.getResearch();
-			double quality= toaster.getQuality();
-			double design= toaster.getDesign();
-			double efficiency= toaster.getEfficiency();
+			double quality= toaster.getQualityInvestment();
+			double design= toaster.getDesignInvestment();
+			double efficiency= toaster.getEfficiencyInvestment();
 			double index=toaster.getIndex();
 			double turnover = toaster.getTurnover();
 			double cost=toaster.getCost();
