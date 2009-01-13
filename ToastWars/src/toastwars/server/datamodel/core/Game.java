@@ -1,8 +1,9 @@
 package toastwars.server.datamodel.core;
 
 import java.util.ArrayList;
+import toastwars.server.dao.DAOGame;
 import toastwars.server.datamodel.user.Group;
-import toastwars.server.datamodel.user.UserFactory;
+import toastwars.server.datamodel.user.IUser;
 import toastwars.util.NumberUtil;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
@@ -43,16 +44,19 @@ public class Game implements IsSerializable
 		if (instance == null)
 		{
 			instance = new Game(userAmount);
-			for (int a = 1; a < userAmount + 1; a++)
-				groupList.add((Group) UserFactory.createUser("Group", "group" + a, "group" + a));
+			DAOGame.createInitialData(userAmount);
+		
+			ArrayList<IUser> tmpList =  DAOGame.getAllUsers();
+			for(int i = 0; i<tmpList.size();i++)
+					Game.addGroup((Group)tmpList.get(i));
 		}
 		return instance;
 	}
 
 	// by Alex
-	public void addGroup(Group gr)
+	public static void addGroup(Group gr)
 	{
-		this.groupList.add(gr);
+		Game.groupList.add(gr);
 	}
 
 	// by Alex
@@ -79,12 +83,12 @@ public class Game implements IsSerializable
 		return indexSums;
 	}
 
-	public void changePrice(Company company, Toaster toaster, double price) throws Exception
-	{
-
-		company.getToasterList().get(company.getToasterList().indexOf(toaster)).setPrice(price);
-
-	}
+//	public void changePrice(Company company, Toaster toaster, double price) throws Exception
+//	{
+//
+//		company.getToasterList().get(company.getToasterList().indexOf(toaster)).setPrice(price);
+//
+//	}
 
 	// Methode Create Initial Data
 	/*
@@ -180,28 +184,6 @@ public class Game implements IsSerializable
 			groupList.get(a).setMarketResearchReportON(false);
 		}
 
-	}
-
-	// @by Alex extra for testing
-	public void simulateWithOutRandom()
-	{
-		double[] indexSums = new double[3];
-
-		for (int a = 0; a < groupList.size(); a++)
-		{
-			groupList.get(a).getCompany().calculateIndexWithOutRandom();
-		}
-
-		indexSums = calculateIndexSums();
-
-		for (int a = 0; a < groupList.size(); a++)
-		{
-			groupList.get(a).getCompany().calculateMarketShares(indexSums);
-			groupList.get(a).getCompany().calculateTurnover();
-			groupList.get(a).getCompany().calculateCost();
-			groupList.get(a).getCompany().calculateProfit();
-			groupList.get(a).getCompany().calculateCapital();
-		}
 	}
 
 	public boolean isGameStarted()
