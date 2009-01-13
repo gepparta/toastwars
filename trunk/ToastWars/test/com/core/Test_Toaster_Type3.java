@@ -312,10 +312,10 @@ public class Test_Toaster_Type3 extends TestCase
 	@Test
 	public void testCalculateCost()
 	{
-		assertNotSame(63440.00, toaster1.getCost());
+		assertNotSame(53440.00, toaster1.getCost());
 		toaster1.setMarketShare(561);
 		toaster1.calculateCost();
-		assertEquals(63440.00, toaster1.getCost());
+		assertEquals(53440.00, toaster1.getCost());
 	}
 
 	@Test

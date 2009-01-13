@@ -119,7 +119,7 @@ public class Test_Type extends TestCase
 
 		assertEquals(10000.00, type1.getFixCosts());
 		assertEquals(20000.00, type2.getFixCosts());
-		assertEquals(25000.00, type3.getFixCosts());
+		assertEquals(15000.00, type3.getFixCosts());
 
 		assertEquals(3.00, type1.getVariableCosts());
 		assertEquals(15.00, type2.getVariableCosts());
