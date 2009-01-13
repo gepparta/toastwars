@@ -13,7 +13,7 @@ public class Group implements IUser, IsSerializable
 	private boolean isOnline;
 	private Status status;
 	private boolean marketResearchReportON;
-	private MarketResearchReport marketResearchReport  =null;
+	private MarketResearchReport marketResearchReport = null;
 
 	public MarketResearchReport getMarketResearchReport()
 	{
