@@ -141,6 +141,30 @@ public class DAOGame {
 			e.printStackTrace();
 		}
 	}
+	public static boolean isGameStarted() {
+		try {
+			String query = "SELECT Game.[CurrentRound]FROM Game;";
+			DBConnection con = new DBConnection();
+			con.connectToDB();
+			Statement stmt = con.getStatement();
+			ResultSet rst = stmt.executeQuery(query);
+			rst.next();
+			Integer currentRound = rst.getInt(1);
+			rst.close();
+			stmt.close();
+			con.closeConnectionToDB();
+			if (currentRound > 0) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
 //	public static void main(String[] args) {
 //
 //		resetGame();
