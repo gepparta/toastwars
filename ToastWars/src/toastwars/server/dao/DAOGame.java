@@ -119,7 +119,15 @@ public class DAOGame
 			DBConnection con = new DBConnection();
 			con.connectToDB();
 			Statement stmt = con.getStatement();
-			String query = "INSERT INTO Game VALUES (0," + userAmount + ", 'Instruction');";
+			String query = "DELETE * FROM Game;";
+			stmt.execute(query);
+			query = "DELETE * FROM User;";
+			stmt.execute(query);
+			query = "DELETE * FROM Company;";
+			stmt.execute(query);
+			query = "DELETE * FROM Toaster;";
+			stmt.execute(query);
+			query = "INSERT INTO Game VALUES (0," + userAmount + ", 'Instruction');";
 			stmt.execute(query);
 			for (int i = 1; i <= userAmount; i++)
 			{
@@ -186,11 +194,12 @@ public class DAOGame
 			{
 				return false;
 			}
-		} catch (Exception e)
+		} catch (SQLException e)
 		{
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return false;
 		}
+		return false;
 	}
 	// public static void main(String[] args) {
 	//
