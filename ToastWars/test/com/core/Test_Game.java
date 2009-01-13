@@ -99,10 +99,11 @@ public class Test_Game extends TestCase
 	@Test
 	public void testSimulate()
 	{
-		game.simulateWithOutRandom();
+		game.simulate();
 		assertEquals(9.0, meinToaster.getIndex());
 	}
 
+	@SuppressWarnings("static-access")
 	@Test
 	public void testCalculateIndexSums()
 	{
@@ -116,7 +117,7 @@ public class Test_Game extends TestCase
 		toasterList1.add(toaster1);
 		toasterList1.add(toaster2);
 		toasterList1.add(toaster3);
-		game.getGroupList().get(0).getCompany().setToasterList(toasterList1);
+		Game.getGroupList().get(0).getCompany().setToasterList(toasterList1);
 
 		double[] indexSums = game.calculateIndexSums();
 		assertEquals(9.00, indexSums[0]);
