@@ -186,12 +186,11 @@ public class DAOGame
 			{
 				return false;
 			}
-		} catch (SQLException e)
+		} catch (Exception e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
-		return false;
 	}
 	// public static void main(String[] args) {
 	//
