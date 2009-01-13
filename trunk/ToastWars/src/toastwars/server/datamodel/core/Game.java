@@ -1,11 +1,9 @@
 package toastwars.server.datamodel.core;
 
 import java.util.ArrayList;
-
 import toastwars.server.datamodel.user.Group;
 import toastwars.server.datamodel.user.UserFactory;
 import toastwars.util.NumberUtil;
-
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class Game implements IsSerializable
@@ -13,7 +11,7 @@ public class Game implements IsSerializable
 	private static Game instance;
 	private int userAmount;
 	private int currentRound;
-	//private ArrayList<Company> companyList = new ArrayList<Company>();
+	// private ArrayList<Company> companyList = new ArrayList<Company>();
 	// @gwt.typeArgs <toastwars.server.datamodel.user.Group>
 	private static ArrayList<Group> groupList = new ArrayList<Group>();
 
@@ -45,8 +43,8 @@ public class Game implements IsSerializable
 		if (instance == null)
 		{
 			instance = new Game(userAmount);
-			for(int a = 1; a < userAmount+1; a++)
-				groupList.add((Group)UserFactory.createUser("Group", "group"+a, "group"+a));
+			for (int a = 1; a < userAmount + 1; a++)
+				groupList.add((Group) UserFactory.createUser("Group", "group" + a, "group" + a));
 		}
 		return instance;
 	}
@@ -88,7 +86,7 @@ public class Game implements IsSerializable
 
 	}
 
-//	Methode Create Initial Data
+	// Methode Create Initial Data
 	/*
 	 * private ArrayList<Company> createInitialData(int userAmount, double
 	 * initialPrice1, int initialMarketing1, int initialResearch1, double
@@ -165,6 +163,23 @@ public class Game implements IsSerializable
 			groupList.get(a).getCompany().calculateProfit();
 			groupList.get(a).getCompany().calculateCapital();
 		}
+		// ermittle marktforschungsbericht und gebe ihn als objectref
+		// zurück
+		MarketResearchReport report = new MarketResearchReport();
+		report.generateMarketResearchReport(groupList);
+		for (int a = 0; a < groupList.size(); a++)
+		{
+			groupList.get(a).setMarketResearchReport(null);
+			// Erstelle Markforschungsbericht wenn erwünscht
+			if (groupList.get(a).isMarketResearchReportON() == true)
+			{
+				// weise der gruppe die referenz zu
+				groupList.get(a).setMarketResearchReport(report);
+			}
+			// Marktforschungsbericht grundsätzlich auschecken
+			groupList.get(a).setMarketResearchReportON(false);
+		}
+
 	}
 
 	// @by Alex extra for testing
@@ -192,9 +207,10 @@ public class Game implements IsSerializable
 	public boolean isGameStarted()
 	{
 
-//		ruft eine DAO Methode (isGameStarted()) auf die auf die Game Tabelle zugreift 
-//		und schaut ob etwas drin ist
-//		fals Tabelle leer -> game noch nicht gestartet somit return false
+		// ruft eine DAO Methode (isGameStarted()) auf die auf die Game Tabelle
+		// zugreift
+		// und schaut ob etwas drin ist
+		// fals Tabelle leer -> game noch nicht gestartet somit return false
 		return false;
 	}
 
