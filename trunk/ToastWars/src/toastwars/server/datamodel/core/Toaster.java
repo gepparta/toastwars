@@ -24,7 +24,7 @@ public class Toaster implements IsSerializable
 	private double research;
 	private double qualityInvestment;
 	private double designInvestment;
-	private double efficiencyInvestment;
+	private double ecologyInvestment;
 
 	public Toaster()
 	{
@@ -44,7 +44,7 @@ public class Toaster implements IsSerializable
 		this.research = research;
 		this.qualityInvestment = quality;
 		this.designInvestment = design;
-		this.efficiencyInvestment = efficiency;
+		this.ecologyInvestment = efficiency;
 		this.index = index;
 		this.turnover = turnover;
 		this.cost = cost;
@@ -66,7 +66,7 @@ public class Toaster implements IsSerializable
 		this.research = research;
 		this.qualityInvestment = quality;
 		this.designInvestment = design;
-		this.efficiencyInvestment = efficiency;
+		this.ecologyInvestment = efficiency;
 		this.index = index;
 		this.turnover = turnover;
 		this.cost = cost;
@@ -272,7 +272,7 @@ public class Toaster implements IsSerializable
 		{
 			qualityIndex = NumberUtil.roundDouble((Math.log(this.qualityInvestment / 3000)) * (this.qualityInvestment / Math.pow(this.qualityInvestment, 1.04)) + 0.635);
 			designIndex = NumberUtil.roundDouble((Math.log(this.designInvestment / 2000)) * (this.designInvestment / Math.pow(this.designInvestment, 1.0658)) + 0.48);
-			efficiencyIndex = NumberUtil.roundDouble((Math.log(this.efficiencyInvestment / 1000)) * (this.efficiencyInvestment / Math.pow(this.efficiencyInvestment, 1.0992))
+			efficiencyIndex = NumberUtil.roundDouble((Math.log(this.ecologyInvestment / 1000)) * (this.ecologyInvestment / Math.pow(this.ecologyInvestment, 1.0992))
 					+ 0.31);
 
 		}
@@ -280,7 +280,7 @@ public class Toaster implements IsSerializable
 		{
 			qualityIndex = NumberUtil.roundDouble((Math.log(this.qualityInvestment / 3000)) * (this.qualityInvestment / Math.pow(this.qualityInvestment, 1.04)) + 0.165);
 			designIndex = NumberUtil.roundDouble((Math.log(this.designInvestment / 2000)) * (this.designInvestment / Math.pow(this.designInvestment, 1.0658)) + 0.12);
-			efficiencyIndex = NumberUtil.roundDouble((Math.log(this.efficiencyInvestment / 1000)) * (this.efficiencyInvestment / Math.pow(this.efficiencyInvestment, 1.0992))
+			efficiencyIndex = NumberUtil.roundDouble((Math.log(this.ecologyInvestment / 1000)) * (this.ecologyInvestment / Math.pow(this.ecologyInvestment, 1.0992))
 					+ 0.08);
 
 		}
@@ -289,7 +289,7 @@ public class Toaster implements IsSerializable
 		{
 			qualityIndex = NumberUtil.roundDouble((Math.log(this.qualityInvestment / 3000)) * (this.qualityInvestment / Math.pow(this.qualityInvestment, 1.04)) - 0.1);
 			designIndex = NumberUtil.roundDouble((Math.log(this.designInvestment / 2000)) * (this.designInvestment / Math.pow(this.designInvestment, 1.0658)) - 0.07);
-			efficiencyIndex = NumberUtil.roundDouble((Math.log(this.efficiencyInvestment / 1000)) * (this.efficiencyInvestment / Math.pow(this.efficiencyInvestment, 1.0992))
+			efficiencyIndex = NumberUtil.roundDouble((Math.log(this.ecologyInvestment / 1000)) * (this.ecologyInvestment / Math.pow(this.ecologyInvestment, 1.0992))
 					- 0.04);
 		}
 
@@ -323,7 +323,7 @@ public class Toaster implements IsSerializable
 
 	public double getEfficiencyInvestment()
 	{
-		return efficiencyInvestment;
+		return ecologyInvestment;
 	}
 
 	public double getIndex()
@@ -426,21 +426,21 @@ public class Toaster implements IsSerializable
 		if (this.type == Type.TYPE1)
 		{
 			if (efficiency >= 5.000)
-				this.efficiencyInvestment = efficiency;
+				this.ecologyInvestment = efficiency;
 			else
 				throw new Exception("Ungültige Eingabe für Ökologie");
 		}
 		if (this.type == Type.TYPE2)
 		{
 			if (efficiency >= 10.000)
-				this.efficiencyInvestment = efficiency;
+				this.ecologyInvestment = efficiency;
 			else
 				throw new Exception("Ungültige Eingabe für Ökologie");
 		}
 		if (this.type == Type.TYPE3)
 		{
 			if (efficiency >= 20.000)
-				this.efficiencyInvestment = efficiency;
+				this.ecologyInvestment = efficiency;
 			else
 				throw new Exception("Ungültige Eingabe für Ökologie");
 		}
