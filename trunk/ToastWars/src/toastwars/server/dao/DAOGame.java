@@ -17,8 +17,7 @@ public class DAOGame
 		{
 			DBConnection con = new DBConnection();
 			con.connectToDB();
-			DAOUser user = new DAOUser();
-			userList = user.getAllUsers(con);
+			userList = DAOUser.getAllUsers(con);
 			con.closeConnectionToDB();
 			return userList;
 		} catch (RuntimeException e)
