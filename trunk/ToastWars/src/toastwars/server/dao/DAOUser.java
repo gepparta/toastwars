@@ -19,7 +19,7 @@ public class DAOUser {
 		DAOCompany daoCompany = new DAOCompany();
 		Company company = group.getCompany();
 		String username = group.getUsername();
-		changeStatus(username, "COMPLETED");
+		changeStatus(username, group.getStatus().name());
 		daoCompany.saveCompany(company, con);
 	}
 
