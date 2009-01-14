@@ -163,7 +163,7 @@ public class Toaster implements IsSerializable
 				/ this.getType().getCapacity()) * this.getType().getStepCosts()) + (this.type.getFixCosts()));
 	}
 
-	// Random ist wird nicht eingerechnet!!!
+	// TODO: Random einsetzten
 	public void calculateIndex()
 	{
 		double marketingIndex = calculateMarketing();
@@ -196,8 +196,6 @@ public class Toaster implements IsSerializable
 		if (this.type == Type.TYPE3)
 			priceIndex = (1 / Math.pow((price / 150), 5));
 		double i = researchIndex * marketingIndex * priceIndex;
-		// * NumberUtil.roundDouble(Math.random() * (random * 2))+ (1 - random);
-		// runden auf zwei Stellen hinter dem Komma
 		setIndex(NumberUtil.roundDouble(i));
 	}
 
@@ -237,15 +235,6 @@ public class Toaster implements IsSerializable
 
 		}
 		double d = tvInvestmentIndex + radioInvestmentIndex + newsPaperInvestmentIndex;
-
-		// System.out.println(this.getNewsPaperInvestment());
-		// System.out.println(newsPaperInvestmentIndex);
-		// System.out.println(this.getRadioInvestment());
-		// System.out.println(radioInvestmentIndex);
-		// System.out.println(this.getTvInvestment());
-		// System.out.println(tvInvestmentIndex);
-
-		// Michi --> das sollte doch auch noch rein
 		this.setMarketing(NumberUtil.roundDouble(d));
 		return NumberUtil.roundDouble(d);
 	}
@@ -602,8 +591,6 @@ public class Toaster implements IsSerializable
 	{
 		this.type = type;
 	}
-
-	// Ist das so wie es ist sinnvoll?
 	public String toString()
 	{
 
