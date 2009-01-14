@@ -1,5 +1,6 @@
 package toastwars.client;
 
+import java.util.ArrayList;
 import toastwars.server.datamodel.user.Group;
 import toastwars.server.datamodel.user.IUser;
 
@@ -28,4 +29,6 @@ public interface ToastWarsService extends RemoteService {
 	public Boolean save(Group group);
 	
 	public Boolean logout(String name, String pwd);
+	public ArrayList<Group> startGame(int userAmount);
+	public Boolean simulate();
 }
