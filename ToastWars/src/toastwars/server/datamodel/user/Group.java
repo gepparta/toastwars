@@ -12,18 +12,6 @@ public class Group implements IUser, IsSerializable
 	private Company company;
 	private boolean isOnline;
 	private Status status;
-	private boolean marketResearchReportON;
-	private MarketResearchReport marketResearchReport = null;
-
-	public MarketResearchReport getMarketResearchReport()
-	{
-		return marketResearchReport;
-	}
-
-	public void setMarketResearchReport(MarketResearchReport marketResearchReport)
-	{
-		this.marketResearchReport = marketResearchReport;
-	}
 
 	public Group()
 	{
@@ -60,11 +48,6 @@ public class Group implements IUser, IsSerializable
 		return username;
 	}
 
-	public boolean isMarketResearchReportON()
-	{
-		return marketResearchReportON;
-	}
-
 	public boolean isMaster()
 	{
 		return false;
@@ -84,11 +67,6 @@ public class Group implements IUser, IsSerializable
 	{
 		if (this.company == null)
 			this.company = company;
-	}
-
-	public void setMarketResearchReportON(boolean marketResearchReportON)
-	{
-		this.marketResearchReportON = marketResearchReportON;
 	}
 
 	public void setOnline(boolean isOnline)
