@@ -29,15 +29,28 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements ToastW
 
 		if (name.equals(master.getUsername()) && pwd.equals(master.getPassword()))
 			user = master;
-		else if (name.equals("gruppe"))
+		else
 			try
 			{
 				user = DAOUser.findUser(name, pwd);
+				((Group) user).setOnline(true);
 			} catch (Exception e)
 			{
 				return null;
 			}
 		return user;
+	}
+	
+	public boolean logout(String name, String pwd)
+	{
+		try
+		{
+			((Group) DAOUser.findUser(name, pwd)).setOnline(false);
+		} catch (Exception e)
+		{
+			return false;
+		}
+		return true;
 	}
 
 	public boolean save(Group group)
