@@ -33,6 +33,8 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements ToastW
 			try
 			{
 				user = DAOUser.findUser(name, pwd);
+				if(((Group) user).isOnline())
+					return null;
 				((Group) user).setOnline(true);
 			} catch (Exception e)
 			{
@@ -41,7 +43,7 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements ToastW
 		return user;
 	}
 	
-	public boolean logout(String name, String pwd)
+	public Boolean logout(String name, String pwd)
 	{
 		try
 		{
@@ -53,8 +55,9 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements ToastW
 		return true;
 	}
 
-	public boolean save(Group group)
+	public Boolean save(Group group)
 	{
 		return DAOUser.saveUser(group);
 	}
+
 }
