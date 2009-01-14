@@ -40,8 +40,8 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements ToastW
 		return user;
 	}
 
-	public void save(Group group)
+	public boolean save(Group group)
 	{
-		DAOUser.saveUser(group);
+		return DAOUser.saveUser(group);
 	}
 }
