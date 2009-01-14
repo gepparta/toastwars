@@ -25,5 +25,5 @@ public interface ToastWarsService extends RemoteService {
 
 	public IUser login(String name, String pwd);
 
-	public boolean save(Group group);
+	public Boolean save(Group group);
 }
