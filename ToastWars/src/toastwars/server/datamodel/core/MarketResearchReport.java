@@ -1,11 +1,14 @@
 package toastwars.server.datamodel.core;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+
 import toastwars.server.datamodel.user.Group;
 
 public class MarketResearchReport implements Comparator
@@ -74,10 +77,7 @@ public class MarketResearchReport implements Comparator
 	{
 		double dd1 = (double) Double.parseDouble(arg0.toString());
 		double dd2 = (double) Double.parseDouble(arg1.toString());
-		return (dd1 > dd2) ? -1 : 
-			(dd1 < dd2) ? 1 : 
-				(dd1 == dd2) ? 1 : 
-					(arg1.toString()).compareTo(arg0.toString());
+		return (dd1 > dd2) ? -1 : (dd1 < dd2) ? 1 : (dd1 == dd2) ? 1 : (arg1.toString()).compareTo(arg0.toString());
 	}
 
 	public void generateMarketResearchReport(ArrayList<Group> grouplist)
@@ -127,7 +127,7 @@ public class MarketResearchReport implements Comparator
 			designRankingInternList.put(designInvestment, "Group" + com.getCompanyID());
 			ecologyRankingInternList.put(ecologyInvestment, "Group" + com.getCompanyID());
 			qualityRankingInternList.put(qualityInvestment, "Group" + com.getCompanyID());
-			
+
 			radioInvestment = 0;
 			tvInvestment = 0;
 			newspaperInvestment = 0;
@@ -137,11 +137,9 @@ public class MarketResearchReport implements Comparator
 		}
 		// mit .values wird nur das zweite String-Attibut der TreeMap zur
 		// ArrayList gemacht
-		values = capitalRankingInternList.values();
-		capitalRankingList = new ArrayList(values);
+		capitalRankingList = new ArrayList(Arrays.asList(generateStringArray(capitalRankingInternList)));
 
-		values = profitRankingInternList.values();
-		profitRankingList = new ArrayList(values);
+		profitRankingList = new ArrayList(Arrays.asList(generateStringArray(profitRankingInternList)));
 
 		values = radioRankingInternList.values();
 		radioRankingList = new ArrayList(values);
@@ -161,24 +159,28 @@ public class MarketResearchReport implements Comparator
 		values = qualityRankingInternList.values();
 		qualityRankingList = new ArrayList(values);
 
-//TODO: values + keys -> String[]
-		values = priceType1RankingInternList.values();
-		priceType1RankingList = new ArrayList(values);
+		priceType1RankingList = new ArrayList(Arrays.asList(generateStringArray(priceType1RankingInternList)));
+		priceType2RankingList = new ArrayList(Arrays.asList(generateStringArray(priceType2RankingInternList)));
+		priceType3RankingList = new ArrayList(Arrays.asList(generateStringArray(priceType3RankingInternList)));
 
-		values = priceType2RankingInternList.values();
-		priceType2RankingList = new ArrayList(values);
+		marketshareType1RankingList = new ArrayList(Arrays.asList(generateStringArray(marketshareType1RankingInternList)));
+		marketshareType2RankingList = new ArrayList(Arrays.asList(generateStringArray(marketshareType2RankingInternList)));
+		marketshareType3RankingList = new ArrayList(Arrays.asList(generateStringArray(marketshareType3RankingInternList)));
 
-		values = priceType3RankingInternList.values();
-		priceType3RankingList = new ArrayList(values);
+	}
 
-		values = marketshareType1RankingInternList.values();
-		marketshareType1RankingList = new ArrayList(values);
-
-		values = marketshareType2RankingInternList.values();
-		marketshareType2RankingList = new ArrayList(values);
-
-		values = marketshareType3RankingInternList.values();
-		marketshareType3RankingList = new ArrayList(values);
+	private String[] generateStringArray(Map map)
+	{
+		String[] werte = new String[map.size()];
+		Iterator it = map.entrySet().iterator();
+		int i = 0;
+		while (it.hasNext())
+		{
+			Map.Entry me = (Map.Entry) it.next();
+			werte[i] = me.getValue().toString() + " " + me.getKey();
+			i++;
+		}
+		return werte;
 	}
 
 	public List getCapitalRankingList()
@@ -249,5 +251,29 @@ public class MarketResearchReport implements Comparator
 	public List getTvRankingList()
 	{
 		return tvRankingList;
+	}
+	
+	public String toString()
+	{
+		String a;
+		a = "Kapital \t" + getCapitalRankingList().toString()+"\n"+
+			"Profit \t" + getProfitRankingList().toString()+"\n"+
+			
+			"Radio \t" + getRadioRankingList().toString()+"\n"+
+			"Tv \t" + getTvRankingList().toString()+"\n"+
+			"Newspaper \t" + getNewspaperRankingList().toString()+"\n"+
+			
+			"Design \t" + getDesignRankingList().toString()+"\n"+
+			"Ökologie \t" + getEcologyRankingList().toString()+"\n"+
+			"Qualität \t" + getQualityRankingList().toString()+"\n"+
+
+			"Marktanteil Typ1 \t" + getMarketshareType1RankingList().toString()+"\n"+
+			"Marktanteil Typ2  \t" + getMarketshareType2RankingList().toString()+"\n"+
+			"Marktanteil Typ3  \t" + getMarketshareType3RankingList().toString()+"\n"+
+
+			"PriceType1 \t" + getPriceType1RankingList().toString()+"\n"+
+			"PriceType2 \t" + getPriceType2RankingList().toString()+"\n"+
+			"PriceType3 \t" + getPriceType3RankingList().toString()+"\n";
+		return a;
 	}
 }

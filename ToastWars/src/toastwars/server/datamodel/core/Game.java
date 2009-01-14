@@ -173,17 +173,16 @@ public class Game implements IsSerializable
 		report.generateMarketResearchReport(groupList);
 		for (int a = 0; a < groupList.size(); a++)
 		{
-			groupList.get(a).setMarketResearchReport(null);
+			groupList.get(a).getCompany().setMarketResearchReport(null);
 			// Erstelle Markforschungsbericht wenn erwünscht
-			if (groupList.get(a).isMarketResearchReportON() == true)
+			if (groupList.get(a).getCompany().isMarketResearchReportON() == true)
 			{
 				// weise der gruppe die referenz zu
-				groupList.get(a).setMarketResearchReport(report);
+				groupList.get(a).getCompany().setMarketResearchReport(report);
 			}
 			// Marktforschungsbericht grundsätzlich auschecken
-			groupList.get(a).setMarketResearchReportON(false);
+			groupList.get(a).getCompany().setMarketResearchReportON(false);
 		}
-
 	}
 
 	public boolean isGameStarted()
