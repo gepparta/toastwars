@@ -60,4 +60,9 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements ToastW
 		return DAOUser.saveUser(group);
 	}
 
+	public Boolean startGame(int userAmount)
+	{
+		Master.getInstance().startGame(userAmount);
+		return null;
+	}
 }
