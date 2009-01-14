@@ -133,11 +133,11 @@ public class DAOGame
 			{
 				query = "INSERT INTO User VALUES ('user" + i + "','password" + i + "'," + i + ",'STARTED');";
 				stmt.execute(query);
-				// turnover, cost, profit, capital, marketShare, toasterList
-				query = "INSERT INTO Company VALUES (0," + i + ",1.05, 1.07, 2.10, 100000.00, 50);";
+				// turnover, cost, profit, capital, marketShare
+				query = "INSERT INTO Company VALUES (0," + i + ", 0, 0, 0, 100000.00, "+10000/userAmount+");";
 				stmt.execute(query);
 				// price, marketing, tvInvestment, newsPaperInvestment, radioInvestment, research, quality, design, efficiency, index, turnover, cost, profit, marketShare, type
-				query = "INSERT INTO Toaster VALUES (0," + i + "," + i + ",10,3,20000," + "5000.00, 10000.00, 3.00, 5000.00, 5000.00, 5000.00, 9.00, 100000.00, 43000.00, 1000.00, 10000,'TYPE1');";
+				query = "INSERT INTO Toaster VALUES (0," + i + "," + i + ",10,3.00,20000," + "5000, 10000, 3.00,5000, 5000, 5000, 9.00, 100000.00, 43000.00, 1000.00, 10000,'TYPE1');";
 
 				stmt.execute(query);
 			}
