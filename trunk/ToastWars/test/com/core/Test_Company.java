@@ -35,8 +35,9 @@ public class Test_Company extends TestCase
 		toasterList2 = new ArrayList<Toaster>();
 		toasterList2.add(toaster2);
 		toasterList2.add(toaster3);
-		company1 = new Company(1.05, 1.07, 2.10, 10000.00, 50, toasterList1);
-		company2 = new Company(1.05, 1.07, 2.10, 20000.00, 50, toasterList2);
+		// turnover, cost, profit, capital, marketShare, toasterList
+		company1 = new Company(1.05, 1.07, 2.10, 100000.00, 50, toasterList1);
+		company2 = new Company(1.05, 1.07, 2.10, 200000.00, 50, toasterList2);
 	}
 
 	@After
@@ -77,7 +78,7 @@ public class Test_Company extends TestCase
 	public void testGetCapital()
 	{
 		assertNotNull(company1.getCapital());
-		assertEquals(company1.getCapital(), 10000.00);
+		assertEquals(100000.00,company1.getCapital());
 	}
 
 	@Test

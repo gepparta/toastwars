@@ -42,8 +42,8 @@ public class Test_MarketResearchReport extends TestCase
 		toasterList2.add(toaster2);
 		toasterList2.add(toaster3);
 		// turnover, cost, profit, capital, marketShare, toasterList
-		company1 = new Company(1.05, 1.07, 2.10, 10000.00, 50, toasterList1);
-		company2 = new Company(1.05, 1.07, 2.10, 20000.00, 50, toasterList2);
+		company1 = new Company(1.05, 1.07, 2.10, 100000.00, 50, toasterList1);
+		company2 = new Company(1.05, 1.07, 2.10, 100000.00, 50, toasterList2);
 
 		master = (Master) UserFactory.createUser("Master", "ADMIN", "ADMIN");
 		master.startGame(2);
@@ -69,23 +69,12 @@ public class Test_MarketResearchReport extends TestCase
 	@Test
 	public void testGenerateMarketResearchReport()
 	{
-		Game.getInstance().getGroupList().get(0).setMarketResearchReportON(true);
-		assertNull(Game.getInstance().getGroupList().get(0).getMarketResearchReport());
+		Game.getInstance().getGroupList().get(0).getCompany().setMarketResearchReportON(true);
+		assertNull(Game.getInstance().getGroupList().get(0).getCompany().getMarketResearchReport());
 		master.simulate();
-		assertFalse(Game.getInstance().getGroupList().get(0).isMarketResearchReportON());
-		assertNotNull(Game.getInstance().getGroupList().get(0).getMarketResearchReport());
-		System.out.println("Kapital " + Game.getInstance().getGroupList().get(0).getMarketResearchReport().getCapitalRankingList().get(0).toString());
-		System.out.println("Profit " + Game.getInstance().getGroupList().get(0).getMarketResearchReport().getProfitRankingList().toString());
-		System.out.println("Design " + Game.getInstance().getGroupList().get(0).getMarketResearchReport().getDesignRankingList().toString());
-		System.out.println("Ökologie " + Game.getInstance().getGroupList().get(0).getMarketResearchReport().getEcologyRankingList().toString());
-		System.out.println("Qualität " + Game.getInstance().getGroupList().get(0).getMarketResearchReport().getQualityRankingList().toString());
-		System.out.println("Typ1 " + Game.getInstance().getGroupList().get(0).getMarketResearchReport().getMarketshareType1RankingList().toString());
-		System.out.println("Typ2 " + Game.getInstance().getGroupList().get(0).getMarketResearchReport().getMarketshareType2RankingList().toString());
-		System.out.println("Typ3 " + Game.getInstance().getGroupList().get(0).getMarketResearchReport().getMarketshareType3RankingList().toString());
-
-		System.out.println("Typ3 " + Game.getInstance().getGroupList().get(0).getMarketResearchReport().getPriceType1RankingList().toString());
-
-				
+		assertFalse(Game.getInstance().getGroupList().get(0).getCompany().isMarketResearchReportON());
+		assertNotNull(Game.getInstance().getGroupList().get(0).getCompany().getMarketResearchReport());
+		System.out.println(Game.getInstance().getGroupList().get(0).getCompany().getMarketResearchReport().toString());
+		System.out.println(Game.getInstance().getGroupList().get(0).getCompany().toString());
 	}
-
 }
