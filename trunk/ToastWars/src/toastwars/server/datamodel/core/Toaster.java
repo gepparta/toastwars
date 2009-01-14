@@ -292,14 +292,6 @@ public class Toaster implements IsSerializable
 			efficiencyIndex = NumberUtil.roundDouble((Math.log(this.ecologyInvestment / 1000)) * (this.ecologyInvestment / Math.pow(this.ecologyInvestment, 1.0992))
 					- 0.04);
 		}
-
-		// System.out.println(this.getQuality());
-		// System.out.println(qualityIndex);
-		// System.out.println(this.getDesign());
-		// System.out.println(designIndex);
-		// System.out.println(this.getEfficiency());
-		// System.out.println(efficiencyIndex);
-
 		double d = qualityIndex + designIndex + efficiencyIndex;
 		this.setResearch(NumberUtil.roundDouble(d));
 		return NumberUtil.roundDouble(d);
