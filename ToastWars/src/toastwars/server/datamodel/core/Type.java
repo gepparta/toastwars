@@ -4,8 +4,10 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 
 public enum Type implements IsSerializable
 {
-	TYPE1("Der 1. Typ", 10000, 0.05, 10000.00, 1000.00, 3.00, 4000), 
-	TYPE2("Der 2. Typ", 6000, 0.08, 20000.00, 5000.00, 15.00, 1500), 
+//	 description,  marketVolume,  random,  fixCost,  stepCosts,  variableCost,  capacity
+
+	TYPE1("Der 1. Typ", 10000, 0.05, 10000.00, 1000.00, 3.00, 2000), 
+	TYPE2("Der 2. Typ", 6000, 0.08, 20000.00, 5000.00, 15.00, 1000), 
 	TYPE3("Der 3. Typ", 2500, 0.10, 25000.00, 8000.00, 40.00, 500);
 
 	private String description;
