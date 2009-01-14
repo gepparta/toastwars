@@ -9,7 +9,7 @@ import toastwars.server.datamodel.core.Toaster;
 
 public class DAOCompany {
 //	test
-	public void saveCompany(Company company, DBConnection con){
+	public boolean saveCompany(Company company, DBConnection con){
 		try {
 			int currentRound = 1;
 //			Game.getInstance().getCurrentRound();
@@ -30,10 +30,11 @@ public class DAOCompany {
 				Toaster toaster = toasterList.get(i);
 				daoToaster.saveToaster(toaster,companyID, con);
 			}
+			return true;
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
-		
+		return false;
 	}
 	public Company getCurrentCompany(DBConnection con, Integer companyID) {
 

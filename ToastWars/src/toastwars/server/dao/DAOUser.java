@@ -23,15 +23,19 @@ public class DAOUser {
 		daoCompany.saveCompany(company, con);
 	}
 
-	public static void saveUser(Group group) {
+	public static boolean saveUser(Group group) {
 		DBConnection con = new DBConnection();
 		con.connectToDB();
 		DAOCompany daoCompany = new DAOCompany();
 		Company company = group.getCompany();
 		String username = group.getUsername();
-		changeStatus(username, group.getStatus().name());
-		daoCompany.saveCompany(company, con);
+		boolean b1 = changeStatus(username, group.getStatus().name());
+		boolean b2 = daoCompany.saveCompany(company, con);
 		con.closeConnectionToDB();
+		if(b1 == true && b2 == true)
+			return true;
+		else
+			return false;
 	}
 	
 	public void saveUser(String name, String password, Integer CompanyID) {
@@ -124,7 +128,7 @@ public class DAOUser {
 		}
 	}
 
-	public static void changeStatus(String username, String status) {
+	public static boolean changeStatus(String username, String status) {
 
 		try {
 			DBConnection con = new DBConnection();
@@ -137,10 +141,11 @@ public class DAOUser {
 			stmt.close();
 			con.closeConnectionToDB();
 			userList.clear();
+			return true;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return false;
 	}
 	public static IUser findUser(String name, String pass) throws Exception
 	{
