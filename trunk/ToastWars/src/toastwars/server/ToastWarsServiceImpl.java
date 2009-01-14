@@ -42,7 +42,6 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements ToastW
 
 	public void save(Group group)
 	{
-		
-		
+		DAOUser.saveUser(group);
 	}
 }
