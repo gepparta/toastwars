@@ -1,8 +1,10 @@
 package toastwars.server;
 
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import toastwars.client.ToastWarsService;
 import toastwars.server.dao.DAOUser;
+import toastwars.server.datamodel.core.Game;
 import toastwars.server.datamodel.user.Group;
 import toastwars.server.datamodel.user.Master;
 import toastwars.server.datamodel.user.IUser;
@@ -60,9 +62,32 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements ToastW
 		return DAOUser.saveUser(group);
 	}
 
-	public Boolean startGame(int userAmount)
+	public ArrayList<Group> startGame(int userAmount)
 	{
-		Master.getInstance().startGame(userAmount);
-		return null;
+		try
+		{
+			Master.getInstance().startGame(userAmount);
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return Game.getGroupList();
 	}
+	
+	public void simulate()
+	{
+		try
+		{
+			Master.getInstance().simulate();
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public Boolean endGame()
+	{
+		return Master.getInstance().endGame();
+	}
+	
 }
