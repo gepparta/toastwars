@@ -30,5 +30,6 @@ public interface ToastWarsService extends RemoteService {
 	
 	public Boolean logout(String name, String pwd);
 	public ArrayList<Group> startGame(int userAmount);
-	public Boolean simulate();
+	public Boolean endGame();
+	public void simulate();
 }
