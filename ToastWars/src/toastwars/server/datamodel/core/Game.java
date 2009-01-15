@@ -12,7 +12,6 @@ public class Game implements IsSerializable
 	private static Game instance;
 	private int userAmount;
 	private int currentRound;
-	// private ArrayList<Company> companyList = new ArrayList<Company>();
 	// @gwt.typeArgs <toastwars.server.datamodel.user.Group>
 	private static ArrayList<Group> groupList = new ArrayList<Group>();
 
@@ -82,35 +81,6 @@ public class Game implements IsSerializable
 
 		return indexSums;
 	}
-
-	// public void changePrice(Company company, Toaster toaster, double price)
-	// throws Exception
-	// {
-	//
-	// company.getToasterList().get(company.getToasterList().indexOf(toaster)).setPrice(price);
-	//
-	// }
-
-	// Methode Create Initial Data
-	/*
-	 * private ArrayList<Company> createInitialData(int userAmount, double
-	 * initialPrice1, int initialMarketing1, int initialResearch1, double
-	 * initialPrice2, int initialMarketing2, int initialResearch2, double
-	 * initialPrice3, int initialMarketing3, int initialResearch3, String
-	 * initialDescription) { Type Typ1 = Type.TYPE1; Type Typ2 = Type.TYPE2;
-	 * Type Typ3 = Type.TYPE3; Toaster Toaster1; Toaster Toaster2; Toaster
-	 * Toaster3; ArrayList<Toaster> toasterList; ArrayList<Company>
-	 * companyList = new ArrayList<Company>(); for (int i = 1; i == userAmount;
-	 * i++) { Toaster1 = new Toaster(initialPrice1, initialMarketing1,
-	 * initialResearch1, 0.00, 0.00, 0.00, 0.00, 0, Typ1); Toaster2 = new
-	 * Toaster(initialPrice2, initialMarketing2, initialResearch2, 0.00, 0.00,
-	 * 0.00, 0.00, 0, Typ2); Toaster3 = new Toaster(initialPrice3,
-	 * initialMarketing3, initialResearch3, 0.00, 0.00, 0.00, 0.00, 0, Typ3);
-	 * toasterList = new ArrayList<Toaster>(); toasterList.add(Toaster1);
-	 * toasterList.add(Toaster2); toasterList.add(Toaster3); companyList.add(new
-	 * Company(initialDescription, 0.00, 0.00, 0.00, 0.00, 0, toasterList)); }
-	 * return companyList; }
-	 */
 
 	public int getCurrentRound()
 	{
