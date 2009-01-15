@@ -12,7 +12,7 @@ import toastwars.server.datamodel.user.UserFactory;
 
 public class DAOUser {
 
-	private static  ArrayList<IUser> userList = new ArrayList<IUser>();
+	private static  ArrayList<Group> userList = new ArrayList<Group>();
 
 	// test
 	public static void saveUser(Group group, DBConnection con) {
@@ -78,7 +78,7 @@ public class DAOUser {
 		}
 	}
 
-	public static ArrayList<IUser> getAllUsers(DBConnection con) {
+	public static ArrayList<Group> getAllUsers(DBConnection con) {
 		try {
 			userList.clear();
 			// Abfrage definieren
