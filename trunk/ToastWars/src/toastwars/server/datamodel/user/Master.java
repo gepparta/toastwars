@@ -76,10 +76,10 @@ public class Master implements IUser, IsSerializable
 		return game;
 	}
 
-	public boolean endGame()
-	{
-		return DAOGame.resetGame();
-	}
+//	public boolean endGame()
+//	{
+//		return DAOGame.resetGame();
+//	}
 
 	public void simulate() throws Exception
 	{
@@ -89,14 +89,14 @@ public class Master implements IUser, IsSerializable
 			throw new Exception("Spiel noch nicht gestartet");
 	}
 
-	public void createInitialData(int userAmount)
-	{
-		for (int i = 0; i == userAmount; i++)
-		{
-			String name = "Group" + i;
-			String pass = "Group" + i;
-			// UserFactory.createUser("Group", name, pass);
-		}
-	}
+//	public void createInitialData(int userAmount)
+//	{
+//		for (int i = 0; i == userAmount; i++)
+//		{
+//			String name = "Group" + i;
+//			String pass = "Group" + i;
+//			// UserFactory.createUser("Group", name, pass);
+//		}
+//	}
 
 }
