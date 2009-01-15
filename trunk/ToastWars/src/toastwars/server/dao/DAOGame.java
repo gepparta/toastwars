@@ -151,7 +151,7 @@ public class DAOGame
 		}
 	}
 
-	public static void resetGame()
+	public static boolean resetGame()
 	{
 		try
 		{
@@ -168,12 +168,12 @@ public class DAOGame
 			stmt.execute(query);
 			stmt.close();
 			con.closeConnectionToDB();
-
+			return true;
 		} catch (SQLException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return false;
 	}
 
 	public static boolean isGameStarted()
