@@ -1,8 +1,7 @@
 package toastwars.server.datamodel.user;
 
-import com.google.gwt.user.client.rpc.IsSerializable;
-import toastwars.server.dao.DAOGame;
 import toastwars.server.datamodel.core.Game;
+import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class Master implements IUser, IsSerializable
 {
@@ -63,30 +62,27 @@ public class Master implements IUser, IsSerializable
 		this.username = username;
 	}
 
-	public void startGame(int userAmount) throws Exception
-	{
-		if (Game.isGameStarted())
-			throw new Exception("Spiel bereits gestartet");
-		else
-		game = Game.getInstance(userAmount);
-	}
+//	public void startGame(int userAmount) throws Exception
+//	{
+//		if (Game.isGameStarted())
+//			throw new Exception("Spiel bereits gestartet");
+//		else
+//		game = Game.getInstance(userAmount);
+//	}
 
 	public Game getCurrentGame()
 	{
 		return game;
 	}
 
-	public boolean endGame()
-	{
-		return DAOGame.resetGame();
-	}
+//	public boolean endGame()
+//	{
+//		return DAOGame.resetGame();
+//	}
 
 	public void simulate() throws Exception
-	{
-		if (Game.isGameStarted())
+	{	
 			Game.getInstance().simulate();
-		else
-			throw new Exception("Spiel noch nicht gestartet");
 	}
 
 //	public void createInitialData(int userAmount)

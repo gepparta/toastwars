@@ -1,9 +1,7 @@
 package toastwars.server.datamodel.core;
 
 import java.util.ArrayList;
-import toastwars.server.dao.DAOGame;
 import toastwars.server.datamodel.user.Group;
-import toastwars.server.datamodel.user.IUser;
 import toastwars.util.NumberUtil;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
@@ -43,11 +41,6 @@ public class Game implements IsSerializable
 		if (instance == null)
 		{
 			instance = new Game(userAmount);
-			DAOGame.createInitialData(userAmount);
-
-			ArrayList<IUser> tmpList = DAOGame.getAllUsers();
-			for (int i = 0; i < tmpList.size(); i++)
-				Game.addGroup((Group) tmpList.get(i));
 		}
 		return instance;
 	}
@@ -156,10 +149,10 @@ public class Game implements IsSerializable
 		}
 	}
 
-	public static boolean isGameStarted()
-	{
-		return DAOGame.isGameStarted();
-	}
+//	public static boolean isGameStarted()
+//	{
+//		return DAOGame.isGameStarted();
+//	}
 
 	public String toString()
 	{
