@@ -45,10 +45,10 @@ public class Game implements IsSerializable
 		{
 			instance = new Game(userAmount);
 			DAOGame.createInitialData(userAmount);
-		
-			ArrayList<IUser> tmpList =  DAOGame.getAllUsers();
-			for(int i = 0; i<tmpList.size();i++)
-					Game.addGroup((Group)tmpList.get(i));
+
+			ArrayList<IUser> tmpList = DAOGame.getAllUsers();
+			for (int i = 0; i < tmpList.size(); i++)
+				Game.addGroup((Group) tmpList.get(i));
 		}
 		return instance;
 	}
@@ -83,12 +83,13 @@ public class Game implements IsSerializable
 		return indexSums;
 	}
 
-//	public void changePrice(Company company, Toaster toaster, double price) throws Exception
-//	{
-//
-//		company.getToasterList().get(company.getToasterList().indexOf(toaster)).setPrice(price);
-//
-//	}
+	// public void changePrice(Company company, Toaster toaster, double price)
+	// throws Exception
+	// {
+	//
+	// company.getToasterList().get(company.getToasterList().indexOf(toaster)).setPrice(price);
+	//
+	// }
 
 	// Methode Create Initial Data
 	/*
@@ -185,14 +186,9 @@ public class Game implements IsSerializable
 		}
 	}
 
-	public boolean isGameStarted()
+	public static boolean isGameStarted()
 	{
-
-		// ruft eine DAO Methode (isGameStarted()) auf die auf die Game Tabelle
-		// zugreift
-		// und schaut ob etwas drin ist
-		// fals Tabelle leer -> game noch nicht gestartet somit return false
-		return false;
+		return DAOGame.isGameStarted();
 	}
 
 	public String toString()
