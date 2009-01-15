@@ -21,13 +21,14 @@ public class DecissionForm extends Panel {
 
 	private Button[]				buttons;
 	private ArrayList<NumberField>	fields	= new ArrayList<NumberField>();
+	private NumberField				capital;
 
-	public DecissionForm(Button[] buttons) {
+	public DecissionForm(Button[] buttons, NumberField capital) {
 		this.buttons = buttons;
+		this.capital = capital;
 
-		setHeight(380);
-		setWidth(570);
-		setPaddings(0, 15, 0, 0);
+		setHeight(250);
+		setWidth(970);
 		setBorder(false);
 		setLayout(new VerticalLayout(0));
 
@@ -38,11 +39,17 @@ public class DecissionForm extends Panel {
 		configureSlider(priceSlider, 1, 10, 15, 5, " &euro;", fields.get(0));
 		add(createSliderField(fields.get(0), priceSlider));
 
+		Panel horPanel = new Panel();
+		horPanel.setLayout(new HorizontalLayout(15));
+		horPanel.setPaddings(0);
+
 		FieldSet marketingFS = createMarketingFieldSet();
-		add(marketingFS);
+		horPanel.add(marketingFS);
 
 		FieldSet researchFS = createResearchFieldSet();
-		add(researchFS);
+		horPanel.add(researchFS);
+
+		add(horPanel);
 	}
 
 	private void createFields() {
@@ -83,6 +90,7 @@ public class DecissionForm extends Panel {
 	private FieldSet createResearchFieldSet() {
 		// add research fields
 		FieldSet researchFS = new FieldSet("Forschung und Entwicklung");
+		researchFS.setPaddings(5, 5, 5, 0);
 
 		SliderBar qSlider = new SliderBar(0, 100000);
 		configureSlider(qSlider, 10000, 0, 10, 2, " &euro;", fields.get(4));
@@ -101,17 +109,19 @@ public class DecissionForm extends Panel {
 
 	private Component createSliderField(NumberField field, SliderBar slider) {
 		Panel panel = new Panel();
-		panel.setLayout(new HorizontalLayout(0));
+		panel.setLayout(new HorizontalLayout(15));
 		panel.setBorder(false);
 
 		FormPanel form = new FormPanel();
 		form.setBorder(false);
-		form.setWidth(200);
-		form.setLabelWidth(100);
+		form.setWidth(110);
+		form.setLabelWidth(50);
 		form.add(field);
 
 		panel.add(form);
-		panel.add(slider);
+
+		if (slider != null)
+			panel.add(slider);
 
 		return panel;
 	}
@@ -123,7 +133,8 @@ public class DecissionForm extends Panel {
 		slider.setNumTicks(ticks);
 		slider.setNumLabels(labels);
 		slider.setLabelFormatter(new SliderLabelFormatter(postfix));
-		slider.addChangeListener(new SliderChangeListener(field, slider));
+		slider.addChangeListener(new SliderChangeListener(field, slider,
+				capital));
 	}
 
 	private NumberField createNumberField(String text, String name, int value,

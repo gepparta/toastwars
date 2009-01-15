@@ -16,10 +16,11 @@ public class ReportPanel extends Panel {
 
 	private ReportPanel() {
 		setTitle("Analyse-Bericht");
+		setPaddings(15);
 
 		Panel horizPanel = new Panel();
 		horizPanel.setLayout(new HorizontalLayout(2));
-		horizPanel.setSize(600, 300);
+		horizPanel.setSize(980, 300);
 		horizPanel.add(createPieChart());
 		horizPanel.add(createBarChart());
 
@@ -34,13 +35,14 @@ public class ReportPanel extends Panel {
 
 	private ChartWidget createPieChart() {
 		ChartWidget chart = new ChartWidget();
-		chart.setStyleName("background-color:transparent");
-		ChartData cd = new ChartData("Sales by Region",
-				"font-size: 14px; font-family: Verdana; text-align: center;");
-		cd.setBackgroundColour("transparent");
+
+		ChartData cd = new ChartData("Marktanteile",
+				"font-size: 14px; text-align: center; border: 1px solid gold;");
+		cd.setBackgroundColour("#000000");
+
 		PieChart pie = new PieChart();
-		pie.setAlpha(0.7f);
-		pie.setNoLabels(false);
+		pie.setAlpha(1f);
+		pie.setNoLabels(true);
 		pie.setTooltip("#label#<br>#val# Toaster<br>#percent#");
 		pie.setAnimate(false);
 		pie.setGradientFill(true);
@@ -49,8 +51,10 @@ public class ReportPanel extends Panel {
 		pie.addSlices(new PieChart.Slice(2000, "Gruppe 2"));
 		pie.addSlices(new PieChart.Slice(6000, "Gruppe 3"));
 		pie.addSlices(new PieChart.Slice(1000, "Gruppe 4"));
+
 		cd.addElements(pie);
-		chart.setSize("300", "300");
+
+		chart.setSize("300", "250");
 		chart.setJsonData(cd.toString());
 		return chart;
 	}

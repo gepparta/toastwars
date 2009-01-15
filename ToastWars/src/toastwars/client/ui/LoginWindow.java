@@ -18,7 +18,6 @@ public class LoginWindow extends Window {
 	private LoginWindow	loginWindow;
 	private TextField	userName;
 	private TextField	userPass;
-	private IUser		user;
 	private ToastWars	toastWars;
 	private Controller	controller;
 
@@ -44,9 +43,10 @@ public class LoginWindow extends Window {
 	private FormPanel createLoginPanel() {
 		FormPanel loginPanel = new FormPanel();
 		loginPanel.setPaddings(10);
+		loginPanel.setStyle("background: url(images/starfield_JPG.jpg);");
 
 		userName = new TextField("Benutzer");
-		userName.setValue("gruppe");
+		userName.setValue("Master");
 		userPass = new TextField("Kennwort");
 		userPass.setValue("master");
 		userPass.setPassword(true);
@@ -67,7 +67,6 @@ public class LoginWindow extends Window {
 
 	public void login(IUser user) {
 		if (user != null) {
-			this.user = user;
 			if (user instanceof Master)
 				controller.setUserType(Controller.SPIELLEITER);
 			else if (user instanceof Group)
