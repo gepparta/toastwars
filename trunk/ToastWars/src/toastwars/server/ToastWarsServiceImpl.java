@@ -3,11 +3,12 @@ package toastwars.server;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import toastwars.client.ToastWarsService;
+import toastwars.server.dao.DAOGame;
 import toastwars.server.dao.DAOUser;
 import toastwars.server.datamodel.core.Game;
 import toastwars.server.datamodel.user.Group;
-import toastwars.server.datamodel.user.Master;
 import toastwars.server.datamodel.user.IUser;
+import toastwars.server.datamodel.user.Master;
 import toastwars.server.datamodel.user.UserFactory;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -35,7 +36,7 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements ToastW
 			try
 			{
 				user = DAOUser.findUser(name, pwd);
-				if(((Group) user).isOnline())
+				if (((Group) user).isOnline())
 					return null;
 				((Group) user).setOnline(true);
 			} catch (Exception e)
@@ -44,7 +45,7 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements ToastW
 			}
 		return user;
 	}
-	
+
 	public Boolean logout(String name, String pwd)
 	{
 		try
@@ -66,28 +67,37 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements ToastW
 	{
 		try
 		{
-			Master.getInstance().startGame(userAmount);
+			Game.getInstance(userAmount);
+			DAOGame.createInitialData(userAmount);
+
+			ArrayList<IUser> tmpList = DAOGame.getAllUsers();
+			for (int i = 0; i < tmpList.size(); i++)
+				Game.addGroup((Group) tmpList.get(i));
 		} catch (Exception e)
 		{
 			e.printStackTrace();
 		}
 		return Game.getGroupList();
 	}
-	
+
 	public void simulate()
 	{
-		try
+		if (DAOGame.isGameStarted())
 		{
-			Master.getInstance().simulate();
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-		}
+			try
+			{
+				Master.getInstance().simulate();
+			} catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+		} 
 	}
-	
+
 	public Boolean endGame()
 	{
-		return Master.getInstance().endGame();
+		// return Master.getInstance().endGame();
+		return DAOGame.resetGame();
 	}
-	
+
 }
