@@ -21,6 +21,7 @@ public class DAOUser {
 		String username = group.getUsername();
 		changeStatus(username, group.getStatus().name());
 		daoCompany.saveCompany(company, con);
+		fillUserList(con);
 	}
 
 	public static boolean saveUser(Group group) {
@@ -31,6 +32,7 @@ public class DAOUser {
 		String username = group.getUsername();
 		boolean b1 = changeStatus(username, group.getStatus().name());
 		boolean b2 = daoCompany.saveCompany(company, con);
+		fillUserList(con);
 		con.closeConnectionToDB();
 		if(b1 == true && b2 == true)
 			return true;
@@ -52,6 +54,7 @@ public class DAOUser {
 		try {
 			stmt.execute(sql);
 			stmt.close();
+			fillUserList(con);
 			con.closeConnectionToDB();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
