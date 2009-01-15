@@ -1,6 +1,7 @@
 package toastwars.client;
 
 import toastwars.client.ui.LoginWindow;
+import toastwars.client.ui.ToastWars;
 import toastwars.server.datamodel.user.Group;
 import toastwars.server.datamodel.user.IUser;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -9,6 +10,8 @@ public class Controller {
 
 	private static Controller	controller;
 	private LoginWindow			loginWindow;
+	private ToastWars			toastWars;
+
 	private IUser				user;
 
 	// Benutzer-Parameter
@@ -43,18 +46,62 @@ public class Controller {
 		service.login(name, pwd, callback);
 	}
 
-	public void save() throws Exception {
+	public void logout(ToastWars tw) {
+		toastWars = tw;
+
+		if (userType == SPIELLEITER) {
+			toastWars.reloadPage(true);
+			return;
+		}
+
 		ToastWarsServiceAsync service = ToastWarsService.Util.getInstance();
 
-		AsyncCallback callback = new AsyncCallback() {
+		AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {
 			public void onFailure(Throwable caught) {
 			}
 
-			public void onSuccess(Object result) {
+			public void onSuccess(Boolean result) {
+				toastWars.reloadPage(result.booleanValue());
 			}
 		};
 
-		((Group) user).getCompany().getToasterList().get(0).setPrice(5);
+		service.logout(user.getUsername(), user.getPassword(), callback);
+	}
+
+	public void startGame(int userAmount) {
+		// ToastWarsServiceAsync service = ToastWarsService.Util.getInstance();
+		//
+		// AsyncCallback<ArrayList<Group>> callback = new
+		// AsyncCallback<ArrayList<Group>>() {
+		// public void onFailure(Throwable caught) {
+		// }
+		//
+		// public void onSuccess(ArrayList<Group> result) {
+		//				
+		// }
+		// };
+		//
+		// service.startGame(userAmount, callback);
+	}
+
+	public void endGame() {
+
+	}
+
+	public void simulate() {
+
+	}
+
+	public void save() throws Exception {
+		ToastWarsServiceAsync service = ToastWarsService.Util.getInstance();
+
+		AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {
+			public void onFailure(Throwable caught) {
+			}
+
+			public void onSuccess(Boolean result) {
+			}
+		};
 
 		service.save((Group) user, callback);
 	}
