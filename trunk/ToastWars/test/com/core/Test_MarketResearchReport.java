@@ -5,11 +5,11 @@ import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import toastwars.server.ToastWarsServiceImpl;
 import toastwars.server.datamodel.core.Company;
 import toastwars.server.datamodel.core.Game;
 import toastwars.server.datamodel.core.Toaster;
 import toastwars.server.datamodel.core.Type;
-import toastwars.server.datamodel.user.Group;
 import toastwars.server.datamodel.user.Master;
 import toastwars.server.datamodel.user.UserFactory;
 
@@ -28,11 +28,13 @@ public class Test_MarketResearchReport extends TestCase
 	private Company company2;
 	private Company company3;
 	private Master master;
+	
+	private ToastWarsServiceImpl impl;
 
 	@Before
 	public void setUp() throws Exception
 	{
-
+		impl = new ToastWarsServiceImpl();
 		// price, 
 		// marketing, tvInvestment, newsPaperInvestment, radioInvestment,
 		// research, quality, design, efficiency, 
@@ -62,7 +64,7 @@ public class Test_MarketResearchReport extends TestCase
 		company3 = new Company(1.05, 1.07, 2.10, 100000.00, 50, toasterList3);
 
 		master = (Master) UserFactory.createUser("Master", "ADMIN", "ADMIN");
-		master.startGame(3);
+		impl.startGame(3);
 		Game.getInstance().getGroupList().get(0).setCompany(company1);
 		Game.getInstance().getGroupList().get(1).setCompany(company2);
 		Game.getInstance().getGroupList().get(2).setCompany(company3);
@@ -87,14 +89,17 @@ public class Test_MarketResearchReport extends TestCase
 	@Test
 	public void testGenerateMarketResearchReport()
 	{
-		Game.getInstance().getGroupList().get(0).getCompany().setMarketResearchReportON(true);
-		assertNull(Game.getInstance().getGroupList().get(0).getCompany().getMarketResearchReport());
-		master.simulate();
-		assertFalse(Game.getInstance().getGroupList().get(0).getCompany().isMarketResearchReportON());
-		assertNotNull(Game.getInstance().getGroupList().get(0).getCompany().getMarketResearchReport());
-		System.out.println(Game.getInstance().getGroupList().get(0).getCompany().getMarketResearchReport().toString());
-		System.out.println(Game.getInstance().getGroupList().get(0).getCompany().toString());
-		System.out.println(Game.getInstance().getGroupList().get(0).getCompany().getToasterList().get(0).toString());
+		Game.getGroupList().get(0).getCompany().setMarketResearchReportON(true);
+		assertNull(Game.getGroupList().get(0).getCompany().getMarketResearchReport());
+		impl.simulate();
+		assertNotNull(Game.getInstance());
+		assertNotNull(Game.getGroupList());
+		assertNotNull(Game.getGroupList().get(0).getCompany());
+		assertFalse(Game.getGroupList().get(0).getCompany().isMarketResearchReportON());
+		assertNotNull(Game.getGroupList().get(0).getCompany().getMarketResearchReport());
+		System.out.println(Game.getGroupList().get(0).getCompany().getMarketResearchReport().toString());
+		System.out.println(Game.getGroupList().get(0).getCompany().toString());
+		System.out.println(Game.getGroupList().get(0).getCompany().getToasterList().get(0).toString());
 
 	}
 }
