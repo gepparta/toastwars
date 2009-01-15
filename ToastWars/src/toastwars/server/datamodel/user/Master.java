@@ -76,10 +76,10 @@ public class Master implements IUser, IsSerializable
 		return game;
 	}
 
-//	public boolean endGame()
-//	{
-//		return DAOGame.resetGame();
-//	}
+	public boolean endGame()
+	{
+		return DAOGame.resetGame();
+	}
 
 	public void simulate() throws Exception
 	{
