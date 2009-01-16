@@ -9,9 +9,9 @@ public class Game implements IsSerializable
 {
 	private static Game instance;
 	private int userAmount;
-	private int currentRound;
+	private int currentRound = 1;
 	// @gwt.typeArgs <toastwars.server.datamodel.user.Group>
-	private static ArrayList<Group> groupList = new ArrayList<Group>();
+	private ArrayList<Group> groupList = new ArrayList<Group>();
 
 	// *************************Constructor*****************************************************
 	public Game()
@@ -46,9 +46,9 @@ public class Game implements IsSerializable
 	}
 
 	// by Alex
-	public static void addGroup(Group gr)
+	public void addGroup(Group gr)
 	{
-		Game.groupList.add(gr);
+		groupList.add(gr);
 	}
 
 	// by Alex
@@ -85,20 +85,20 @@ public class Game implements IsSerializable
 		return userAmount;
 	}
 
-	public static ArrayList<Group> getGroupList()
+	public ArrayList<Group> getGroupList()
 	{
 		return groupList;
 	}
 
-	public static void setGroupList(ArrayList<Group> groupList)
+	public void setGroupList(ArrayList<Group> groupList)
 	{
-		Game.groupList = groupList;
+		this.groupList = groupList;
 	}
 
 	// @ by Alex
 	public void setCurrentRound(int currentRound) throws Exception
 	{
-		if (currentRound <= this.currentRound)
+		if (currentRound < this.currentRound)
 		{
 			throw new Exception("Invalid Input. Current round is bigger than the requested");
 		} else
@@ -159,5 +159,4 @@ public class Game implements IsSerializable
 		String s = "Game Eigenschaften: \n user amount: \t \t" + this.getUserAmount() + "\n current round: \t" + this.getCurrentRound();
 		return s;
 	}
-
 }
