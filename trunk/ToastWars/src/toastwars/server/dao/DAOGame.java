@@ -84,8 +84,7 @@ public class DAOGame {
 	}
 
 	public static void changeCurrentRound(DBConnection con) {
-		int currentRound = 1;
-		// Game.getInstance().getCurrentRound();
+		int currentRound = Game.getInstance().getCurrentRound() + 1;
 		Statement stmt = con.getStatement();
 		String sql = "UPDATE [Game] SET [Game].CurrentRound = '" + currentRound
 				+ "'";
@@ -119,13 +118,13 @@ public class DAOGame {
 						+ "'," + i + ",'STARTED');";
 				stmt.execute(query);
 				// turnover, cost, profit, capital, marketShare
-				query = "INSERT INTO Company VALUES (0," + i
+				query = "INSERT INTO Company VALUES (1," + i
 						+ ", 0, 0, 0, 100000.00, " + 10000 / userAmount + ");";
 				stmt.execute(query);
 				// price, marketing, tvInvestment, newsPaperInvestment,
 				// radioInvestment, research, quality, design, efficiency,
 				// index, turnover, cost, profit, marketShare, type
-				query = "INSERT INTO Toaster VALUES (0,"
+				query = "INSERT INTO Toaster VALUES (1,"
 						+ i
 						+ ","
 						+ i

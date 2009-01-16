@@ -2,6 +2,7 @@ package toastwars.client.ui;
 
 import toastwars.client.Controller;
 import toastwars.server.datamodel.user.Group;
+import toastwars.server.datamodel.user.Status;
 
 import com.gwtext.client.core.EventObject;
 import com.gwtext.client.core.Position;
@@ -55,7 +56,7 @@ public class DecissionPanel extends Panel {
 		// tabPanel.add(form);
 		// tabPanel.activate(0);
 
-		// add(form);
+		add(form);
 		add(middlePanel);
 		addButton(btnSave);
 		addButton(btnEnd);
@@ -123,13 +124,16 @@ public class DecissionPanel extends Panel {
 
 	private void setNewGroupData() {
 		group.getCompany().setMarketResearchReportON(report.getValue());
-		group.getCompany().setCapital(50000);
+		group.getCompany().setCapital(capital.getValue().doubleValue());
+		group.setStatus(Status.EDITED);
 	}
 
 	public void createUserMessage(boolean success) {
 		if (success)
 			MessageBox.alert("Daten gespeichert!");
-		else
+		else {
+			group.setStatus(Status.STARTED);
 			MessageBox.alert("Speichern fehlgeschlagen!");
+		}
 	}
 }

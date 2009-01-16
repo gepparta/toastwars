@@ -12,7 +12,23 @@ import toastwars.server.datamodel.user.UserFactory;
 
 public class DAOUser {
 
-	private static  ArrayList<Group> userList = new ArrayList<Group>();
+	private static ArrayList<Group>	userList	= new ArrayList<Group>();
+
+	public static boolean updateUser(Group group) {
+		DBConnection con = new DBConnection();
+		con.connectToDB();
+		DAOCompany daoCompany = new DAOCompany();
+		Company company = group.getCompany();
+		String username = group.getUsername();
+		boolean b1 = changeStatus(username, group.getStatus().name());
+		boolean b2 = daoCompany.updateCompany(company, con);
+		fillUserList(con);
+		con.closeConnectionToDB();
+		if (b1 == true && b2 == true)
+			return true;
+		else
+			return false;
+	}
 
 	// test
 	public static void saveUser(Group group, DBConnection con) {
@@ -34,12 +50,12 @@ public class DAOUser {
 		boolean b2 = daoCompany.saveCompany(company, con);
 		fillUserList(con);
 		con.closeConnectionToDB();
-		if(b1 == true && b2 == true)
+		if (b1 == true && b2 == true)
 			return true;
 		else
 			return false;
 	}
-	
+
 	public void saveUser(String name, String password, Integer CompanyID) {
 		DBConnection con = new DBConnection();
 		con.connectToDB();
@@ -104,7 +120,7 @@ public class DAOUser {
 			return null;
 		}
 	}
-	
+
 	public static void fillUserList(DBConnection con) {
 		try {
 			userList.clear();
@@ -150,21 +166,19 @@ public class DAOUser {
 		}
 		return false;
 	}
-	public static IUser findUser(String name, String pass) throws Exception
-	{
+
+	public static IUser findUser(String name, String pass) throws Exception {
 		DBConnection con = new DBConnection();
 		con.connectToDB();
-		if (userList.size() == 0)
-		{
+		if (userList.size() == 0) {
 			fillUserList(con);
-			con.closeConnectionToDB();		
-		} 
-		
-		for(int i=0;i<=userList.size();i++)
-		{
-			if(userList.get(i).getUsername().equals(name))
-				if(userList.get(i).getPassword().equals(pass))
-			return 	userList.get(i);	
+			con.closeConnectionToDB();
+		}
+
+		for (int i = 0; i <= userList.size(); i++) {
+			if (userList.get(i).getUsername().equals(name))
+				if (userList.get(i).getPassword().equals(pass))
+					return userList.get(i);
 		}
 		throw new Exception("No User found. Check name and password");
 	}
