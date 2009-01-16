@@ -85,6 +85,10 @@ public class Master implements IUser, IsSerializable
 			Game.getInstance().simulate();
 	}
 
+	public void setGame(Game game) {
+		this.game = game;
+	}
+
 //	public void createInitialData(int userAmount)
 //	{
 //		for (int i = 0; i == userAmount; i++)

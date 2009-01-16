@@ -2,7 +2,6 @@ package toastwars.server.datamodel.user;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 import toastwars.server.datamodel.core.Company;
-import toastwars.server.datamodel.core.MarketResearchReport;
 
 public class Group implements IUser, IsSerializable
 {
