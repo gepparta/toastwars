@@ -3,7 +3,11 @@ package toastwars.client.ui;
 import java.util.ArrayList;
 
 import toastwars.client.Controller;
+import toastwars.server.datamodel.core.Game;
+import toastwars.server.datamodel.core.Toaster;
 import toastwars.server.datamodel.user.Group;
+import toastwars.server.datamodel.user.Master;
+import toastwars.server.datamodel.user.Status;
 
 import com.gwtext.client.core.EventObject;
 import com.gwtext.client.core.Position;
@@ -26,7 +30,14 @@ public class MasterPanel extends Panel {
 
 	private static MasterPanel	masterPanel;
 	private Button				startGameBtn;
+	private Button				endGame;
 	private Button				simulateBtn;
+	private Store				store;
+	private GridPanel			grid;
+
+	private Game				game;
+	private ArrayList<Group>	groupList;
+	private String				round	= "";
 
 	public static MasterPanel getInstance() {
 		if (masterPanel == null)
@@ -35,6 +46,13 @@ public class MasterPanel extends Panel {
 	}
 
 	private MasterPanel() {
+
+		game = ((Master) Controller.getInstance().getUser()).getCurrentGame();
+		if (game != null) {
+			groupList = game.getGroupList();
+			round = " in der Runde " + game.getCurrentRound();
+		}
+
 		setTitle("Spiel&uuml;bersicht");
 		setPaddings(0, 15, 0, 0);
 		setLayout(new VerticalLayout(10));
@@ -56,41 +74,49 @@ public class MasterPanel extends Panel {
 		});
 		control.addButton(startGameBtn);
 
-		control.addButton(new Button("Spiel beenden",
-				new ButtonListenerAdapter() {
-					public void onClick(Button button, EventObject e) {
-						// Controller.getInstance().endGame();
-						endGame();
-					}
-				}));
+		endGame = new Button("Spiel beenden", new ButtonListenerAdapter() {
+			public void onClick(Button button, EventObject e) {
+				Controller.getInstance().endGame();
+			}
+		});
+		control.addButton(endGame);
+
+		if (game == null) {
+			endGame.setDisabled(true);
+			startGameBtn.setDisabled(false);
+		} else {
+			endGame.setDisabled(false);
+			startGameBtn.setDisabled(true);
+		}
 
 		add(control);
 	}
 
 	private void createGrid() {
 
-		GridPanel grid = new GridPanel();
+		grid = new GridPanel();
 		grid.setFrame(true);
 		grid.setStripeRows(true);
 		grid.setHeight(270);
 		grid.setWidth(1160);
-		grid.setTitle("Spielstand");
+		grid.setTitle("Spielstand" + round);
 
 		RecordDef recordDef = new RecordDef(new FieldDef[] {
 				new StringFieldDef("group"), new StringFieldDef("price"),
 				new StringFieldDef("magazine"), new StringFieldDef("radio"),
 				new StringFieldDef("tv"), new StringFieldDef("quality"),
 				new StringFieldDef("design"), new StringFieldDef("ecology"),
-				new StringFieldDef("capital"), new StringFieldDef("report") });
+				new StringFieldDef("capital"), new StringFieldDef("report"),
+				new StringFieldDef("status") });
 
 		ArrayReader reader = new ArrayReader(recordDef);
-		Store store = new Store(new MemoryProxy(getGameData()), reader);
+		store = new Store(new MemoryProxy(getGameData()), reader);
 		store.load();
 		grid.setStore(store);
 
 		ColumnConfig[] columns = new ColumnConfig[] {
-				new ColumnConfig("Gruppe", "group", 100, true),
-				new ColumnConfig("Preis", "price", 100, true),
+				new ColumnConfig("Gruppe", "group", 70, true),
+				new ColumnConfig("Preis", "price", 50, true),
 				new ColumnConfig("Zeitung", "magazine", 100, true),
 				new ColumnConfig("Radio", "radio", 100, true),
 				new ColumnConfig("TV", "tv", 100, true),
@@ -98,7 +124,8 @@ public class MasterPanel extends Panel {
 				new ColumnConfig("Design", "design", 100, true),
 				new ColumnConfig("&Ouml;kologie", "ecology", 100, true),
 				new ColumnConfig("Kapital", "capital", 100, true),
-				new ColumnConfig("Marktforschungsbericht", "report", 100, true) };
+				new ColumnConfig("Marktforschungsbericht", "report", 150, true),
+				new ColumnConfig("Status", "status", 170, true) };
 
 		ColumnModel columnModel = new ColumnModel(columns);
 		grid.setColumnModel(columnModel);
@@ -107,11 +134,30 @@ public class MasterPanel extends Panel {
 	}
 
 	private Object[][] getGameData() {
-		
-		
-		return new Object[][] { new Object[] { "3m Co", new Double(71.72),
-				new Double(0.02), new Double(0.03), "9/1 12:00am", "MMM",
-				"Manufacturing", true } };
+		if (groupList == null)
+			return new Object[][] { new Object[] {} };
+
+		Object[][] data = new Object[groupList.size()][11];
+
+		for (int i = 0; i < data.length; i++) {
+			Group group = groupList.get(i);
+			data[i][0] = group.getUsername();
+
+			Toaster toaster = group.getCompany().getToasterList().get(0);
+			data[i][1] = toaster.getPrice();
+			data[i][2] = toaster.getNewspaperInvestment();
+			data[i][3] = toaster.getRadioInvestment();
+			data[i][4] = toaster.getTvInvestment();
+			data[i][5] = toaster.getQualityInvestment();
+			data[i][6] = toaster.getDesignInvestment();
+			data[i][7] = toaster.getEfficiencyInvestment();
+
+			data[i][8] = group.getCompany().getCapital();
+			data[i][9] = group.getCompany().isMarketResearchReportON();
+			data[i][10] = group.getStatus().getDescription();
+		}
+
+		return data;
 	}
 
 	private void createSimulateButton() {
@@ -123,13 +169,38 @@ public class MasterPanel extends Panel {
 				});
 		addButton(simulateBtn);
 		setButtonAlign(Position.CENTER);
+
+		if (!areAllGroupsReady())
+			simulateBtn.setDisabled(true);
 	}
 
-	public void startGame(ArrayList<Group> groupList) {
+	private boolean areAllGroupsReady() {
+		if (groupList == null)
+			return false;
+		for (Group group : groupList) {
+			if (group.getStatus() != Status.COMPLETED)
+				return false;
+		}
+		return true;
+	}
+
+	public void startGame(Game game) {
 		startGameBtn.setDisabled(true);
+		endGame.setDisabled(false);
+		groupList = game.getGroupList();
+		store.setDataProxy(new MemoryProxy(getGameData()));
+		store.load();
+		grid.setTitle("Spielstand in der Runde " + game.getCurrentRound());
 	}
 
 	public void endGame() {
 		startGameBtn.setDisabled(false);
+		endGame.setDisabled(true);
+		game = null;
+		groupList = null;
+
+		store.setDataProxy(new MemoryProxy(getGameData()));
+		store.load();
+		grid.setTitle("Spielstand");
 	}
 }

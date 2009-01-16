@@ -1,9 +1,14 @@
 package toastwars.client;
 
 import toastwars.client.ui.LoginWindow;
+import toastwars.client.ui.MasterPanel;
+import toastwars.client.ui.StartGameWindow;
 import toastwars.client.ui.ToastWars;
+import toastwars.server.datamodel.core.Game;
 import toastwars.server.datamodel.user.Group;
 import toastwars.server.datamodel.user.IUser;
+import toastwars.server.datamodel.user.Master;
+
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public class Controller {
@@ -11,6 +16,7 @@ public class Controller {
 	private static Controller	controller;
 	private LoginWindow			loginWindow;
 	private ToastWars			toastWars;
+	private StartGameWindow		startGameWindow;
 
 	private IUser				user;
 
@@ -68,24 +74,40 @@ public class Controller {
 		service.logout(user.getUsername(), user.getPassword(), callback);
 	}
 
-	public void startGame(int userAmount) {
-		// ToastWarsServiceAsync service = ToastWarsService.Util.getInstance();
-		//
-		// AsyncCallback<ArrayList<Group>> callback = new
-		// AsyncCallback<ArrayList<Group>>() {
-		// public void onFailure(Throwable caught) {
-		// }
-		//
-		// public void onSuccess(ArrayList<Group> result) {
-		//				
-		// }
-		// };
-		//
-		// service.startGame(userAmount, callback);
+	public void startGame(int userAmount, StartGameWindow window) {
+		startGameWindow = window;
+
+		ToastWarsServiceAsync service = ToastWarsService.Util.getInstance();
+
+		AsyncCallback<Game> callback = new AsyncCallback<Game>() {
+			public void onFailure(Throwable caught) {
+			}
+
+			public void onSuccess(Game result) {
+				((Master) user).setGame(result);
+				startGameWindow.startGame(result);
+			}
+		};
+
+		service.startGame(userAmount, callback);
 	}
 
 	public void endGame() {
+		ToastWarsServiceAsync service = ToastWarsService.Util.getInstance();
 
+		AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {
+			public void onFailure(Throwable caught) {
+			}
+
+			public void onSuccess(Boolean result) {
+				if (result) {
+					((Master) user).setGame(null);
+					MasterPanel.getInstance().endGame();
+				}
+			}
+		};
+
+		service.endGame(callback);
 	}
 
 	public void simulate() {
