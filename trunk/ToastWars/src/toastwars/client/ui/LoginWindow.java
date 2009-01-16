@@ -62,6 +62,21 @@ public class LoginWindow extends Window {
 								userPass.getText(), loginWindow);
 					}
 				}));
+
+		loginPanel.addButton(new Button("Master", new ButtonListenerAdapter() {
+			public void onClick(Button button, EventObject e) {
+				userName.setValue("Master");
+				userPass.setValue("master");
+			}
+		}));
+
+		loginPanel.addButton(new Button("Gruppe", new ButtonListenerAdapter() {
+			public void onClick(Button button, EventObject e) {
+				userName.setValue("Gruppe 1");
+				userPass.setValue("pass1");
+			}
+		}));
+
 		return loginPanel;
 	}
 
