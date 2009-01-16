@@ -24,6 +24,7 @@ import com.gwtext.client.widgets.form.FieldSet;
 import com.gwtext.client.widgets.grid.ColumnConfig;
 import com.gwtext.client.widgets.grid.ColumnModel;
 import com.gwtext.client.widgets.grid.GridPanel;
+import com.gwtext.client.widgets.layout.HorizontalLayout;
 import com.gwtext.client.widgets.layout.VerticalLayout;
 
 public class MasterPanel extends Panel {
@@ -58,8 +59,8 @@ public class MasterPanel extends Panel {
 		setLayout(new VerticalLayout(10));
 
 		createControlFieldSet();
-		createGrid();
-		createSimulateButton();
+//		createGrid();
+//		createSimulateButton();
 	}
 
 	private void createControlFieldSet() {
@@ -67,19 +68,24 @@ public class MasterPanel extends Panel {
 		control.setWidth(1160);
 		control.setButtonAlign(Position.CENTER);
 
+		Panel panel = new Panel();
+		panel.setBorder(false);
+		panel.setLayout(new HorizontalLayout(10));
+		panel.setStyle("text-align: center;");
+
 		startGameBtn = new Button("Spiel starten", new ButtonListenerAdapter() {
 			public void onClick(Button button, EventObject e) {
 				new StartGameWindow();
 			}
 		});
-		control.addButton(startGameBtn);
+		panel.add(startGameBtn);
 
 		endGame = new Button("Spiel beenden", new ButtonListenerAdapter() {
 			public void onClick(Button button, EventObject e) {
 				Controller.getInstance().endGame();
 			}
 		});
-		control.addButton(endGame);
+		panel.add(endGame);
 
 		if (game == null) {
 			endGame.setDisabled(true);
@@ -89,6 +95,7 @@ public class MasterPanel extends Panel {
 			startGameBtn.setDisabled(true);
 		}
 
+		control.add(panel);
 		add(control);
 	}
 
@@ -97,7 +104,7 @@ public class MasterPanel extends Panel {
 		grid = new GridPanel();
 		grid.setFrame(true);
 		grid.setStripeRows(true);
-		grid.setHeight(270);
+		grid.setHeight(280);
 		grid.setWidth(1160);
 		grid.setTitle("Spielstand" + round);
 
@@ -187,6 +194,7 @@ public class MasterPanel extends Panel {
 	public void startGame(Game game) {
 		startGameBtn.setDisabled(true);
 		endGame.setDisabled(false);
+		this.game = game;
 		groupList = game.getGroupList();
 		store.setDataProxy(new MemoryProxy(getGameData()));
 		store.load();
@@ -202,5 +210,13 @@ public class MasterPanel extends Panel {
 		store.setDataProxy(new MemoryProxy(getGameData()));
 		store.load();
 		grid.setTitle("Spielstand");
+	}
+
+	public void simulate(Game game) {
+		this.game = game;
+		groupList = game.getGroupList();
+		store.setDataProxy(new MemoryProxy(getGameData()));
+		store.load();
+		grid.setTitle("Spielstand in der Runde " + game.getCurrentRound());
 	}
 }

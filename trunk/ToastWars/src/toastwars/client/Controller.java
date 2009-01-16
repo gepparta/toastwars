@@ -1,5 +1,6 @@
 package toastwars.client;
 
+import toastwars.client.ui.DecissionPanel;
 import toastwars.client.ui.LoginWindow;
 import toastwars.client.ui.MasterPanel;
 import toastwars.client.ui.StartGameWindow;
@@ -111,7 +112,19 @@ public class Controller {
 	}
 
 	public void simulate() {
+		ToastWarsServiceAsync service = ToastWarsService.Util.getInstance();
 
+		AsyncCallback<Game> callback = new AsyncCallback<Game>() {
+			public void onFailure(Throwable caught) {
+			}
+
+			public void onSuccess(Game result) {
+				((Master) user).setGame(result);
+				MasterPanel.getInstance().simulate(result);
+			}
+		};
+
+		service.simulate(callback);
 	}
 
 	public void save() throws Exception {
@@ -122,6 +135,7 @@ public class Controller {
 			}
 
 			public void onSuccess(Boolean result) {
+				DecissionPanel.getInstance().createUserMessage(result);
 			}
 		};
 

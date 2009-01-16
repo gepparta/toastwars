@@ -34,5 +34,5 @@ public interface ToastWarsService extends RemoteService {
 
 	public Boolean endGame();
 
-	public void simulate();
+	public Game simulate();
 }

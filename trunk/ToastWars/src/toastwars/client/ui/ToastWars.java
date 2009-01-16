@@ -35,10 +35,20 @@ public class ToastWars implements EntryPoint {
 	}
 
 	public void createUI() {
-		Panel panel = new Panel();
-		panel.setBorder(false);
-		panel.setPaddings(0, 2, 1, 0);
-		panel.setStyle("background: url(images/starfield_JPG.jpg);");
+		Panel root = new Panel();
+		root.setBorder(false);
+		root.setLayout(new VerticalLayout(0));
+
+		Panel header = new Panel();
+		header.setSize(1200, 150);
+		header.setBorder(false);
+		header.setPaddings(0);
+		header.setStyle("background: url(images/logo_1200.jpg);");
+
+		Panel body = new Panel();
+		body.setBorder(false);
+		body.setPaddings(0, 2, 1, 0);
+		body.setStyle("background: url(images/starfield_JPG.jpg);");
 
 		Panel horizontalPanel = new Panel();
 		horizontalPanel.setLayout(new HorizontalLayout(2));
@@ -58,9 +68,12 @@ public class ToastWars implements EntryPoint {
 		verticalPanel.add(horizontalPanel);
 		verticalPanel.add(footerPanel);
 
-		panel.add(verticalPanel);
+		body.add(verticalPanel);
 
-		RootPanel.get("main").add(panel);
+		root.add(header);
+		root.add(body);
+
+		RootPanel.get("main").add(root);
 	}
 
 	private Panel createFooterPanel() {
@@ -85,11 +98,11 @@ public class ToastWars implements EntryPoint {
 	}
 
 	public native void reloadPage(boolean success)/*-{
-	       if(success == true)
-	       		$wnd.location.reload();
-	       else
-	       		@com.gwtext.client.widgets.MessageBox::alert(Ljava/lang/String;)("Abmelden fehlgeschlagen!");
-	   }-*/;
+       if(success == true)
+       		$wnd.location.reload();
+       else
+       		@com.gwtext.client.widgets.MessageBox::alert(Ljava/lang/String;)("Abmelden fehlgeschlagen!");
+   }-*/;
 
 	private TabPanel createMainPanel() {
 
