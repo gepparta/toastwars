@@ -13,68 +13,82 @@ import toastwars.server.datamodel.user.UserFactory;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
-public class ToastWarsServiceImpl extends RemoteServiceServlet implements
-		ToastWarsService {
+public class ToastWarsServiceImpl extends RemoteServiceServlet implements ToastWarsService
+{
 
-	private static final long	serialVersionUID	= 1L;
-	private Master				master;
+	private static final long serialVersionUID = 1L;
+	private Master master;
 
 	@Override
-	public void init() throws ServletException {
+	public void init() throws ServletException
+	{
 		super.init();
 		master = (Master) UserFactory.createUser("Master", "Master", "master");
-		if (DAOGame.isGameStarted()) {
-			try {
+		if (DAOGame.isGameStarted())
+		{
+			try
+			{
 				Game game = Game.getInstance(DAOGame.getUserAmount());
 				game.setCurrentRound(DAOGame.getCurrentRound());
 				game.setGroupList(DAOGame.getAllUsers());
 				master.setGame(Game.getInstance());
-			} catch (Exception e) {
+			} catch (Exception e)
+			{
 				e.printStackTrace();
 			}
 		}
 	}
 
-	public IUser login(String name, String pwd) {
+	public IUser login(String name, String pwd)
+	{
 
 		IUser user = null;
 
-		if (name.equals(master.getUsername())
-				&& pwd.equals(master.getPassword()))
+		if (name.equals(master.getUsername()) && pwd.equals(master.getPassword()))
 			user = master;
 		else
-			try {
+			try
+			{
 				user = DAOUser.findUser(name, pwd);
 				if (((Group) user).isOnline())
 					return null;
 				((Group) user).setOnline(true);
-			} catch (Exception e) {
+			} catch (Exception e)
+			{
 				return null;
 			}
 		return user;
 	}
 
-	public Boolean logout(String name, String pwd) {
-		try {
+	public Boolean logout(String name, String pwd)
+	{
+		try
+		{
 			((Group) DAOUser.findUser(name, pwd)).setOnline(false);
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 			return false;
 		}
 		return true;
 	}
 
-	public Boolean save(Group group) {
+	public Boolean save(Group group)
+	{
 		return DAOUser.saveUser(group);
 	}
 
-	public Game startGame(int userAmount) {
-		if (!DAOGame.isGameStarted()) {
-			try {
+	public Game startGame(int userAmount)
+	{
+		if (!DAOGame.isGameStarted())
+		{
+			try
+			{
 				Game.getInstance(userAmount);
 				DAOGame.createInitialData(userAmount);
 				Game.getInstance().setGroupList(DAOGame.getAllUsers());
-				master.setGame(Game.getInstance());
-			} catch (Exception e) {
+				Master.getInstance().setGame(Game.getInstance());
+			} catch (Exception e)
+			{
 				e.printStackTrace();
 			}
 			return Game.getInstance();
@@ -82,26 +96,34 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements
 		return null;
 	}
 
-	public void simulate() {
-		if (DAOGame.isGameStarted()) {
-			try {
+	public void simulate()
+	{
+		if (DAOGame.isGameStarted())
+		{
+			try
+			{
 				Master.getInstance().simulate();
-			} catch (Exception e) {
+			} catch (Exception e)
+			{
 				e.printStackTrace();
 			}
 		}
 	}
 
-	public Boolean endGame() {
+	public Boolean endGame()
+	{
 		// return Master.getInstance().endGame();
 		boolean b = DAOGame.resetGame();
 
-		if (b) {
-			try {
+		if (b)
+		{
+			try
+			{
 				Game game = Game.getInstance();
 				game = null;
 				master.setGame(null);
-			} catch (Exception e) {
+			} catch (Exception e)
+			{
 				e.printStackTrace();
 			}
 			return true;
