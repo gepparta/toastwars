@@ -1,6 +1,8 @@
 package toastwars.client.ui;
 
 import toastwars.client.Controller;
+import toastwars.server.datamodel.user.Group;
+
 import com.gwtext.client.core.EventObject;
 import com.gwtext.client.core.Position;
 import com.gwtext.client.widgets.Button;
@@ -18,9 +20,20 @@ public class DecissionPanel extends Panel {
 	private Button					btnSave;
 	private Button					btnEnd;
 	private NumberField				capital;
+	private Checkbox				report;
 	private static DecissionPanel	decissionPanel;
 
+	private Group					group;
+
+	public static DecissionPanel getInstance() {
+		if (decissionPanel == null)
+			decissionPanel = new DecissionPanel();
+		return decissionPanel;
+	}
+
 	private DecissionPanel() {
+		group = (Group) Controller.getInstance().getUser();
+
 		setTitle("Entscheidungen");
 		setPaddings(15, 30, 0, 0);
 		setSize(985, 400);
@@ -42,7 +55,7 @@ public class DecissionPanel extends Panel {
 		// tabPanel.add(form);
 		// tabPanel.activate(0);
 
-		add(form);
+		// add(form);
 		add(middlePanel);
 		addButton(btnSave);
 		addButton(btnEnd);
@@ -57,14 +70,16 @@ public class DecissionPanel extends Panel {
 		horPanel.setBorder(true);
 
 		// add capital field
-		capital = new NumberField("Kapital", "capital", 70, 100000);
+		capital = new NumberField("Kapital", "capital", 70);
+		capital.setValue(group.getCompany().getCapital());
 		capital.setAllowNegative(false);
 		capital.setReadOnly(true);
 		capital.setDecimalSeparator(",");
 		capital.setStyle("text-align: right");
 
-		Checkbox report = new Checkbox("Marktforschungsbericht");
+		report = new Checkbox("Marktforschungsbericht");
 		report.setHeight(20);
+		report.setValue(group.getCompany().isMarketResearchReportON());
 
 		Panel reportForm = new Panel();
 		reportForm.setBorder(false);
@@ -82,22 +97,18 @@ public class DecissionPanel extends Panel {
 		return horPanel;
 	}
 
-	public static DecissionPanel getInstance() {
-		if (decissionPanel == null)
-			decissionPanel = new DecissionPanel();
-		return decissionPanel;
-	}
-
 	private void createButtons() {
 		btnSave = new Button("Speichern", new ButtonListenerAdapter() {
 			public void onClick(Button button, EventObject e) {
 				super.onClick(button, e);
+
+				setNewGroupData();
+
 				try {
 					Controller.getInstance().save();
 				} catch (Exception e1) {
 					MessageBox.alert("Speichern fehlgeschlagen!");
 				}
-				MessageBox.alert("Daten gespeichert!");
 			}
 		});
 
@@ -108,5 +119,17 @@ public class DecissionPanel extends Panel {
 						MessageBox.alert("Runde abschlie&szlig;en");
 					}
 				});
+	}
+
+	private void setNewGroupData() {
+		group.getCompany().setMarketResearchReportON(report.getValue());
+		group.getCompany().setCapital(50000);
+	}
+
+	public void createUserMessage(boolean success) {
+		if (success)
+			MessageBox.alert("Daten gespeichert!");
+		else
+			MessageBox.alert("Speichern fehlgeschlagen!");
 	}
 }

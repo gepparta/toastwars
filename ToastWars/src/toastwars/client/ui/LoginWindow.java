@@ -46,9 +46,9 @@ public class LoginWindow extends Window {
 		loginPanel.setStyle("background: url(images/starfield_JPG.jpg);");
 
 		userName = new TextField("Benutzer");
-		userName.setValue("Master");
+		userName.setValue("Gruppe 1");
 		userPass = new TextField("Kennwort");
-		userPass.setValue("master");
+		userPass.setValue("pass1");
 		userPass.setPassword(true);
 
 		loginPanel.add(userName);
