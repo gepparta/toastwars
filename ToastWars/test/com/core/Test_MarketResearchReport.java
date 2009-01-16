@@ -6,6 +6,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import toastwars.server.ToastWarsServiceImpl;
+import toastwars.server.dao.DAOGame;
+import toastwars.server.dao.DAOUser;
 import toastwars.server.datamodel.core.Company;
 import toastwars.server.datamodel.core.Game;
 import toastwars.server.datamodel.core.Toaster;
@@ -35,6 +37,7 @@ public class Test_MarketResearchReport extends TestCase
 	public void setUp() throws Exception
 	{
 		impl = new ToastWarsServiceImpl();
+		DAOGame.resetGame();
 		// price, 
 		// marketing, tvInvestment, newsPaperInvestment, radioInvestment,
 		// research, quality, design, efficiency, 
@@ -89,17 +92,17 @@ public class Test_MarketResearchReport extends TestCase
 	@Test
 	public void testGenerateMarketResearchReport()
 	{
-		Game.getGroupList().get(0).getCompany().setMarketResearchReportON(true);
-		assertNull(Game.getGroupList().get(0).getCompany().getMarketResearchReport());
+		Game.getInstance().getGroupList().get(0).getCompany().setMarketResearchReportON(true);
+		assertNull(Game.getInstance().getGroupList().get(0).getCompany().getMarketResearchReport());
 		impl.simulate();
 		assertNotNull(Game.getInstance());
-		assertNotNull(Game.getGroupList());
-		assertNotNull(Game.getGroupList().get(0).getCompany());
-		assertFalse(Game.getGroupList().get(0).getCompany().isMarketResearchReportON());
-		assertNotNull(Game.getGroupList().get(0).getCompany().getMarketResearchReport());
-		System.out.println(Game.getGroupList().get(0).getCompany().getMarketResearchReport().toString());
-		System.out.println(Game.getGroupList().get(0).getCompany().toString());
-		System.out.println(Game.getGroupList().get(0).getCompany().getToasterList().get(0).toString());
+		assertNotNull(Game.getInstance().getGroupList());
+		assertNotNull(Game.getInstance().getGroupList().get(0).getCompany());
+		assertFalse(Game.getInstance().getGroupList().get(0).getCompany().isMarketResearchReportON());
+		assertNotNull(Game.getInstance().getGroupList().get(0).getCompany().getMarketResearchReport());
+		System.out.println(Game.getInstance().getGroupList().get(0).getCompany().getMarketResearchReport().toString());
+		System.out.println(Game.getInstance().getGroupList().get(0).getCompany().toString());
+		System.out.println(Game.getInstance().getGroupList().get(0).getCompany().getToasterList().get(0).toString());
 
 	}
 }

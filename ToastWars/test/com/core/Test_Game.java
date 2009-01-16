@@ -34,13 +34,13 @@ public class Test_Game extends TestCase
 		meinToaster = new Toaster(10.00, 3.00, 20000.00, 5000.00, 10000.00, 3.00, 5000.00, 5000.00, 5000.00, 9.00, 1000.00, 1000.00, 1000.00, 10000, Type.TYPE1);
 		meineToaster.add(meinToaster);
 		com = new Company(500, 100, 400, 800, 20, meineToaster);
-		Game.getGroupList().get(0).setCompany(com);
+		Game.getInstance().getGroupList().get(0).setCompany(com);
 	}
 
 	@After
 	protected void tearDown() throws Exception
 	{
-		Game.getGroupList().clear();
+		Game.getInstance().getGroupList().clear();
 		master = null;
 		meineToaster = null;
 		meinToaster = null;
@@ -120,8 +120,8 @@ public class Test_Game extends TestCase
 		toasterList1.add(toaster1);
 		toasterList1.add(toaster2);
 		toasterList1.add(toaster3);
-		Game.getGroupList().get(0).getCompany().setToasterList(toasterList1);
-		assertEquals(1, Game.getGroupList().size());
+		Game.getInstance().getGroupList().get(0).getCompany().setToasterList(toasterList1);
+		assertEquals(1, Game.getInstance().getGroupList().size());
 
 		double[] indexSums = Game.getInstance().calculateIndexSums();
 		assertEquals(9.00, indexSums[0]);
