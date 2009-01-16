@@ -19,12 +19,14 @@ public class DAOCompany {
 			double profit = company.getProfit();
 			double capital = company.getCapital();
 			int marketShare = company.getMarketShare();
+			boolean extraReport = company.isMarketResearchReportON();
 			Statement stmt = con.getStatement();
 			String query = "UPDATE Company SET Company.turnover = " + turnover
 					+ ", Company.cost = " + cost + ", Company.profit = "
 					+ profit + ", Company.capital = " + capital
 					+ ", Company.marketShare = " + marketShare
-					+ " WHERE (((Company.round)=" + currentRound
+					+ ", Company.extraReport = " + extraReport
+					+" WHERE (((Company.round)=" + currentRound
 					+ ") AND ((Company.companyID)=" + companyID + "));";
 			stmt.execute(query);
 			ArrayList<Toaster> toasterList = company.getToasterList();
@@ -51,10 +53,11 @@ public class DAOCompany {
 			double profit = company.getProfit();
 			double capital = company.getCapital();
 			int marketShare = company.getMarketShare();
+			boolean extraReport = company.isMarketResearchReportON();
 			Statement stmt = con.getStatement();
 			String query = "INSERT INTO Company VALUES (" + currentRound + ","
 					+ companyID + "," + turnover + "," + cost + "," + profit
-					+ "," + capital + "," + marketShare + ");";
+					+ "," + capital + "," + marketShare + ","+ extraReport+");";
 			stmt.execute(query);
 			ArrayList<Toaster> toasterList = company.getToasterList();
 			int size = toasterList.size();
@@ -79,6 +82,7 @@ public class DAOCompany {
 					+ companyID + " AND Round = " + currentRound + ";";
 			Statement stmt = con.getStatement();
 			ResultSet rst = stmt.executeQuery(query);
+			boolean extraReport;
 			// Zeileninhalt ermitteln
 			while (rst.next()) {
 				DAOToaster toaster = new DAOToaster();
@@ -87,7 +91,8 @@ public class DAOCompany {
 						.getDouble(4), rst.getDouble(5), rst.getDouble(6), rst
 						.getInt(7), toaster.getActualToasterFromCompany(
 						companyID, con));
-
+				extraReport = rst.getBoolean(8);
+				company.setMarketResearchReportON(extraReport);
 				rst.close();
 				stmt.close();
 				return company;
