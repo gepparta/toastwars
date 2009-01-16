@@ -119,7 +119,7 @@ public class DAOGame {
 				stmt.execute(query);
 				// turnover, cost, profit, capital, marketShare
 				query = "INSERT INTO Company VALUES (1," + i
-						+ ", 0, 0, 0, 100000.00, " + 10000 / userAmount + ");";
+						+ ", 0, 0, 0, 100000.00, " + 10000 / userAmount + ",FALSE);";
 				stmt.execute(query);
 				// price, marketing, tvInvestment, newsPaperInvestment,
 				// radioInvestment, research, quality, design, efficiency,
@@ -184,11 +184,10 @@ public class DAOGame {
 		}
 		return isGameStarted;
 	}
-	// public static void main(String[] args) {
-	//
-	// resetGame();
-	// createInitialData(5);
-	// ArrayList<Group> userList = getAllUsers();
-	// saveAllUsers(userList);
-	// }
+	 public static void main(String[] args) {
+	
+	 
+	 createInitialData(5);
+	 
+	 }
 }
