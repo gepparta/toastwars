@@ -1830,6 +1830,7 @@ fieldset.x-panel-collapsed .x-fieldset-bwrap {
 	text-overflow: ellipsis;
 	padding: 3px 3px 3px 5px;
 	white-space: nowrap;
+	color: black;
 }
 
 .x-grid3-hd-inner {
