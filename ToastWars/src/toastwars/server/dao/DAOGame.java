@@ -115,8 +115,8 @@ public class DAOGame {
 					+ ", 'Instruction');";
 			stmt.execute(query);
 			for (int i = 1; i <= userAmount; i++) {
-				query = "INSERT INTO User VALUES ('Gruppe " + i + "','pass"
-						+ i + "'," + i + ",'STARTED');";
+				query = "INSERT INTO User VALUES ('Gruppe " + i + "','pass" + i
+						+ "'," + i + ",'STARTED');";
 				stmt.execute(query);
 				// turnover, cost, profit, capital, marketShare
 				query = "INSERT INTO Company VALUES (0," + i
@@ -173,7 +173,7 @@ public class DAOGame {
 			con.connectToDB();
 			Statement stmt = con.getStatement();
 			ResultSet rst = stmt.executeQuery(query);
-			if(rst.next())
+			if (rst.next())
 				isGameStarted = true;
 			rst.close();
 			stmt.close();
