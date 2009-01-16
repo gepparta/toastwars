@@ -63,13 +63,6 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements
 		return true;
 	}
 
-	public Boolean save(Group group) {
-		boolean success = DAOUser.saveUser(group);
-		Game.getInstance().setGroupList(DAOGame.getAllUsers());
-		
-		return success;
-	}
-
 	public Game startGame(int userAmount) {
 		if (!DAOGame.isGameStarted()) {
 			try {
@@ -83,6 +76,22 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements
 			return Game.getInstance();
 		}
 		return null;
+	}
+
+	public Boolean endGame() {
+		boolean b = DAOGame.resetGame();
+
+		if (b) {
+			try {
+				Game game = Game.getInstance();
+				game = null;
+				master.setGame(null);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return true;
+		}
+		return false;
 	}
 
 	public Game simulate() {
@@ -99,21 +108,10 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements
 		return null;
 	}
 
-	public Boolean endGame() {
-		// return Master.getInstance().endGame();
-		boolean b = DAOGame.resetGame();
+	public Boolean save(Group group) {
+		boolean success = DAOUser.updateUser(group);
+		Game.getInstance().setGroupList(DAOGame.getAllUsers());
 
-		if (b) {
-			try {
-				Game game = Game.getInstance();
-				game = null;
-				master.setGame(null);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return true;
-		}
-		return false;
+		return success;
 	}
-
 }

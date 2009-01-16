@@ -59,8 +59,8 @@ public class MasterPanel extends Panel {
 		setLayout(new VerticalLayout(10));
 
 		createControlFieldSet();
-//		createGrid();
-//		createSimulateButton();
+		createGrid();
+		createSimulateButton();
 	}
 
 	private void createControlFieldSet() {
@@ -141,7 +141,7 @@ public class MasterPanel extends Panel {
 	}
 
 	private Object[][] getGameData() {
-		if (groupList == null)
+		if (groupList == null || groupList.size() <= 0)
 			return new Object[][] { new Object[] {} };
 
 		Object[][] data = new Object[groupList.size()][11];
