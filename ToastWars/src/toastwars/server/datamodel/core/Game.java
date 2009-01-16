@@ -8,8 +8,23 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 public class Game implements IsSerializable
 {
 	private static Game instance;
+	// **********************Methods************************************************************
+	public static Game getInstance()
+	{
+		return instance;
+	}
+	public static Game getInstance(int userAmount)
+	{
+		if (instance == null)
+		{
+			instance = new Game(userAmount);
+		}
+		return instance;
+	}
 	private int userAmount;
+
 	private int currentRound = 1;
+
 	// @gwt.typeArgs <toastwars.server.datamodel.user.Group>
 	private ArrayList<Group> groupList = new ArrayList<Group>();
 
@@ -28,21 +43,6 @@ public class Game implements IsSerializable
 		{
 			e.printStackTrace();
 		}
-	}
-
-	// **********************Methods************************************************************
-	public static Game getInstance()
-	{
-		return instance;
-	}
-
-	public static Game getInstance(int userAmount)
-	{
-		if (instance == null)
-		{
-			instance = new Game(userAmount);
-		}
-		return instance;
 	}
 
 	// by Alex
@@ -80,19 +80,14 @@ public class Game implements IsSerializable
 		return currentRound;
 	}
 
-	public int getUserAmount()
-	{
-		return userAmount;
-	}
-
 	public ArrayList<Group> getGroupList()
 	{
 		return groupList;
 	}
 
-	public void setGroupList(ArrayList<Group> groupList)
+	public int getUserAmount()
 	{
-		this.groupList = groupList;
+		return userAmount;
 	}
 
 	// @ by Alex
@@ -105,6 +100,11 @@ public class Game implements IsSerializable
 		{
 			this.currentRound = currentRound;
 		}
+	}
+
+	public void setGroupList(ArrayList<Group> groupList)
+	{
+		this.groupList = groupList;
 	}
 
 	public void setUserAmount(int userAmount)
