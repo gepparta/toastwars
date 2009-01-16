@@ -2,6 +2,8 @@ package toastwars.client.ui;
 
 import java.util.ArrayList;
 
+import toastwars.client.Controller;
+import toastwars.server.datamodel.core.Game;
 import toastwars.server.datamodel.user.Group;
 
 import com.gwtext.client.core.EventObject;
@@ -60,9 +62,11 @@ public class StartGameWindow extends Window {
 		panel.addButton(new Button("Spiel starten",
 				new ButtonListenerAdapter() {
 					public void onClick(Button button, EventObject e) {
-						// Controller.getInstance().startGame(
-						// Integer.parseInt(userAmount.getValue()));
-						startGame(new ArrayList<Group>());
+						Controller
+								.getInstance()
+								.startGame(
+										Integer.parseInt(userAmount.getValue()),
+										window);
 					}
 				}));
 
@@ -75,12 +79,12 @@ public class StartGameWindow extends Window {
 		return panel;
 	}
 
-	public void startGame(ArrayList<Group> groupList) {
-		if (groupList == null)
+	public void startGame(Game game) {
+		if (game == null || game.getGroupList().size() <= 0)
 			MessageBox.alert("Spiel konnte nicht gestartet werden!");
 		else {
 			window.close();
-			MasterPanel.getInstance().startGame(groupList);
+			MasterPanel.getInstance().startGame(game);
 		}
 	}
 }

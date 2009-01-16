@@ -1,8 +1,6 @@
 package toastwars.client;
 
-import java.util.ArrayList;
 import toastwars.server.datamodel.user.Group;
-import toastwars.server.datamodel.user.IUser;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
