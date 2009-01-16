@@ -43,8 +43,8 @@ public class DAOToaster {
 					+ turnover + ", Toaster.cost = " + cost
 					+ ", Toaster.profit = " + profit
 					+ ", Toaster.marketShare = " + marketShare
-					+ ", Toaster.type = \"" + type
-					+ "\" WHERE (((Toaster.round)=" + currentRound
+					+ ", Toaster.type = '" + type
+					+ "' WHERE (((Toaster.round)=" + currentRound
 					+ ") AND ((Toaster.toasterID)=" + toasterID
 					+ ") AND ((Toaster.companyID)=" + companyID + "));";
 			stmt.execute(query);
