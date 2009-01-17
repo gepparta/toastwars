@@ -1,10 +1,7 @@
 package toastwars.client.ui;
 
-import java.util.ArrayList;
-
 import toastwars.client.Controller;
 import toastwars.server.datamodel.core.Game;
-import toastwars.server.datamodel.user.Group;
 
 import com.gwtext.client.core.EventObject;
 import com.gwtext.client.data.SimpleStore;
@@ -45,6 +42,7 @@ public class StartGameWindow extends Window {
 
 		userAmount = new ComboBox("Gruppenanzahl");
 		Store store = new SimpleStore(new String[] { "col" }, new String[][] {
+				new String[] { "2" }, new String[] { "3" },
 				new String[] { "4" }, new String[] { "5" },
 				new String[] { "6" }, new String[] { "7" },
 				new String[] { "8" }, new String[] { "9" },
@@ -55,18 +53,15 @@ public class StartGameWindow extends Window {
 		userAmount.setWidth(60);
 		userAmount.setEditable(false);
 		userAmount.setListWidth(40);
-		userAmount.setValue("4");
+		userAmount.setValue("2");
 
 		panel.add(userAmount);
 
 		panel.addButton(new Button("Spiel starten",
 				new ButtonListenerAdapter() {
 					public void onClick(Button button, EventObject e) {
-						Controller
-								.getInstance()
-								.startGame(
-										Integer.parseInt(userAmount.getValue()),
-										window);
+						int amount = Integer.parseInt(userAmount.getValue());
+						Controller.getInstance().startGame(amount, window);
 					}
 				}));
 
