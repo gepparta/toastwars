@@ -224,7 +224,7 @@ public class Toaster implements IsSerializable
 		{
 			double tv = this.tvInvestmentKum + Type.TYPE1.getTvInvestmentPlus();
 			double radio = this.radioInvestmentKum + Type.TYPE1.getRadioInvestmentPlus();
-			double newspaper = this.getNewspaperInvestmentKum() + Type.TYPE1.getNewspaperInvestmentPlus();
+			double newspaper = this.newspaperInvestmentKum + Type.TYPE1.getNewspaperInvestmentPlus();
 			tvInvestmentIndex = NumberUtil.roundDouble(((Math.pow(tv / 10000 - 8, 3) + Math.pow(tv / 10000 - 8, 2) + Math.pow(tv / 10000 - 8, 1)) / 150) + 2.24);
 
 			radioInvestmentIndex = NumberUtil.roundDouble((Math.log(radio / 3000)) * (radio / Math.pow(radio, 1.03)) + 0.09);
@@ -244,9 +244,9 @@ public class Toaster implements IsSerializable
 		}
 		if (this.type == Type.TYPE3)
 		{
-			double tv = this.tvInvestmentKum + Type.TYPE2.getTvInvestmentPlus();
-			double radio = this.radioInvestmentKum + Type.TYPE2.getRadioInvestmentPlus();
-			double newspaper = this.getNewspaperInvestmentKum() + Type.TYPE2.getNewspaperInvestmentPlus();
+			double tv = this.tvInvestmentKum + Type.TYPE3.getTvInvestmentPlus();
+			double radio = this.radioInvestmentKum + Type.TYPE3.getRadioInvestmentPlus();
+			double newspaper = this.getNewspaperInvestmentKum() + Type.TYPE3.getNewspaperInvestmentPlus();
 			tvInvestmentIndex = NumberUtil.roundDouble(((Math.pow(tv / 10000 - 8, 3) + Math.pow(tv / 10000 - 8, 2) + Math.pow(tv / 10000 - 8, 1)) / 150) + 1.35);
 			radioInvestmentIndex = NumberUtil.roundDouble((Math.log(radio / 3000)) * (radio / Math.pow(radio, 1.03)) - 0.69);
 
@@ -278,24 +278,39 @@ public class Toaster implements IsSerializable
 		double efficiencyIndex = 0;
 		if (this.type == Type.TYPE1)
 		{
-			qualityIndex = NumberUtil.roundDouble((Math.log(this.qualityInvestment / 3000)) * (this.qualityInvestment / Math.pow(this.qualityInvestment, 1.04)) + 0.635);
-			designIndex = NumberUtil.roundDouble((Math.log(this.designInvestment / 2000)) * (this.designInvestment / Math.pow(this.designInvestment, 1.0658)) + 0.48);
-			efficiencyIndex = NumberUtil.roundDouble((Math.log(this.ecologyInvestment / 1000)) * (this.ecologyInvestment / Math.pow(this.ecologyInvestment, 1.0992)) + 0.31);
+
+			double quality = this.qualityInvestmentKum + Type.TYPE1.getQualityInvestmentPlus();
+			double design = this.designInvestmentKum + Type.TYPE1.getDesignInvestmentPlus();
+			double efficiency = this.ecologyInvestmentKum + Type.TYPE1.getEcologyInvestmentPlus();
+					
+			qualityIndex = NumberUtil.roundDouble((Math.log(quality / 3000)) * (quality / Math.pow(quality, 1.04)) + 0.635);
+			designIndex = NumberUtil.roundDouble((Math.log(design / 2000)) * (design / Math.pow(design, 1.0658)) + 0.48);
+			efficiencyIndex = NumberUtil.roundDouble((Math.log(efficiency / 1000)) * (efficiency / Math.pow(efficiency, 1.0992)) + 0.31);
 
 		}
 		if (this.type == Type.TYPE2)
 		{
-			qualityIndex = NumberUtil.roundDouble((Math.log(this.qualityInvestment / 3000)) * (this.qualityInvestment / Math.pow(this.qualityInvestment, 1.04)) + 0.165);
-			designIndex = NumberUtil.roundDouble((Math.log(this.designInvestment / 2000)) * (this.designInvestment / Math.pow(this.designInvestment, 1.0658)) + 0.12);
-			efficiencyIndex = NumberUtil.roundDouble((Math.log(this.ecologyInvestment / 1000)) * (this.ecologyInvestment / Math.pow(this.ecologyInvestment, 1.0992)) + 0.08);
+
+			double quality = this.qualityInvestmentKum + Type.TYPE2.getQualityInvestmentPlus();
+			double design = this.designInvestmentKum + Type.TYPE2.getDesignInvestmentPlus();
+			double efficiency = this.ecologyInvestmentKum + Type.TYPE2.getEcologyInvestmentPlus();
+			
+			qualityIndex = NumberUtil.roundDouble((Math.log(quality / 3000)) * (quality / Math.pow(quality, 1.04)) + 0.165);
+			designIndex = NumberUtil.roundDouble((Math.log(design / 2000)) * (design / Math.pow(design, 1.0658)) + 0.12);
+			efficiencyIndex = NumberUtil.roundDouble((Math.log(efficiency / 1000)) * (efficiency / Math.pow(efficiency, 1.0992)) + 0.08);
 
 		}
 
 		if (this.type == Type.TYPE3)
 		{
-			qualityIndex = NumberUtil.roundDouble((Math.log(this.qualityInvestment / 3000)) * (this.qualityInvestment / Math.pow(this.qualityInvestment, 1.04)) - 0.1);
-			designIndex = NumberUtil.roundDouble((Math.log(this.designInvestment / 2000)) * (this.designInvestment / Math.pow(this.designInvestment, 1.0658)) - 0.07);
-			efficiencyIndex = NumberUtil.roundDouble((Math.log(this.ecologyInvestment / 1000)) * (this.ecologyInvestment / Math.pow(this.ecologyInvestment, 1.0992)) - 0.04);
+
+			double quality = this.qualityInvestmentKum + Type.TYPE3.getQualityInvestmentPlus();
+			double design = this.designInvestmentKum + Type.TYPE3.getDesignInvestmentPlus();
+			double efficiency = this.ecologyInvestmentKum + Type.TYPE3.getEcologyInvestmentPlus();
+			
+			qualityIndex = NumberUtil.roundDouble((Math.log(quality / 3000)) * (quality / Math.pow(quality, 1.04)) - 0.1);
+			designIndex = NumberUtil.roundDouble((Math.log(design / 2000)) * (design / Math.pow(design, 1.0658)) - 0.07);
+			efficiencyIndex = NumberUtil.roundDouble((Math.log(efficiency / 1000)) * (efficiency / Math.pow(efficiency, 1.0992)) - 0.04);
 		}
 		double d = qualityIndex + designIndex + efficiencyIndex;
 		this.setResearch(NumberUtil.roundDouble(d));
