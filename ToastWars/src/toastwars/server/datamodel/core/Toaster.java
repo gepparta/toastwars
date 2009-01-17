@@ -20,6 +20,7 @@ public class Toaster implements IsSerializable
 	private double tvInvestment;
 	private double newspaperInvestment;
 	private double radioInvestment;
+	private double tvInvestmentKum;
 	// Faktoren für research**************************************
 	private double research;
 	private double qualityInvestment;
@@ -207,6 +208,7 @@ public class Toaster implements IsSerializable
 		double newsPaperInvestmentIndex = 0;
 		if (this.type == Type.TYPE1)
 		{
+			double tv = this.tvInvestmentKum + Type.TYPE1.getTvInvestmentPlus();
 			tvInvestmentIndex = NumberUtil.roundDouble(((Math.pow(this.tvInvestment / 10000 - 8, 3) + Math.pow(this.tvInvestment / 10000 - 8, 2) + Math.pow(
 					this.tvInvestment / 10000 - 8, 1)) / 150) + 2.24);
 
@@ -600,6 +602,14 @@ public class Toaster implements IsSerializable
 				+ "\n Newspaper Investment: \t" + this.getNewspaperInvestment() + "\n Radio Investment: \t" + this.getRadioInvestment() + "\n Forschungsfaktoren: \t"
 				+ "\n research: \t" + this.getResearch() + "\n quality: \t" + this.getQualityInvestment() + "\n design: \t" + this.getDesignInvestment() + "\n efficiency: \t" + this.getEfficiencyInvestment();
 		return s;
+	}
+
+	public double getTvInvestmentKum() {
+		return tvInvestmentKum;
+	}
+
+	public void setTvInvestmentKum(double tvInvestmentKum) {
+		this.tvInvestmentKum = tvInvestmentKum;
 	}
 
 }
