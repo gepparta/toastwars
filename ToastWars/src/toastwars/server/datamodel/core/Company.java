@@ -26,7 +26,7 @@ public class Company implements IsSerializable
 	private int marketShare;
 	private boolean marketResearchReportON;
 
-	private MarketResearchReport marketResearchReport = null;
+//	private MarketResearchReport marketResearchReport = null;
 
 	// @gwt.typeArgs <toastwars.server.datamodel.core.Toaster>
 	private ArrayList<Toaster> toasterList = new ArrayList<Toaster>();
@@ -138,7 +138,7 @@ public class Company implements IsSerializable
 	{
 //		kommulieren der investitionen des users
 //		wird für die exakte berechnung beim simulieren benötigt
-		for(int i = 0; i<=this.getToasterList().size();i++)
+		for(int i = 0; i < this.getToasterList().size(); i++)
 		{
 			this.getToasterList().get(i).setDesignInvestmentKum();
 			this.getToasterList().get(i).setEcologyInvestmentKum();
@@ -164,10 +164,10 @@ public class Company implements IsSerializable
 		return cost;
 	}
 
-	public MarketResearchReport getMarketResearchReport()
-	{
-		return marketResearchReport;
-	}
+//	public MarketResearchReport getMarketResearchReport()
+//	{
+//		return marketResearchReport;
+//	}
 
 	public int getMarketShare()
 	{
@@ -211,10 +211,10 @@ public class Company implements IsSerializable
 		this.cost = cost;
 	}
 
-	public void setMarketResearchReport(MarketResearchReport marketResearchReport)
-	{
-		this.marketResearchReport = marketResearchReport;
-	}
+//	public void setMarketResearchReport(MarketResearchReport marketResearchReport)
+//	{
+//		this.marketResearchReport = marketResearchReport;
+//	}
 
 	public void setMarketResearchReportON(boolean marketResearchReportON)
 	{
