@@ -35,6 +35,7 @@ public class DAOGame {
 				DAOUser.saveUser(group, con);
 			}
 			changeCurrentRound(con);
+//			DAOUser.fillUserList(con);
 			con.closeConnectionToDB();
 		} catch (RuntimeException e) {
 			e.printStackTrace();
