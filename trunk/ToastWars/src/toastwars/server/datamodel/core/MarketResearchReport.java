@@ -14,6 +14,17 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 public class MarketResearchReport implements Comparator, IsSerializable
 
 {
+	private static MarketResearchReport instance;
+
+	public static MarketResearchReport getInstance()
+	{
+		if (instance == null)
+		{
+			instance = new MarketResearchReport();
+		}
+		return instance;
+	}
+
 	// @gwt.typeArgs <java.lang.Number,java.lang.String>
 	private Map<Number, String> capitalRankingInternList;
 	// @gwt.typeArgs <java.lang.Number,java.lang.String>
@@ -38,11 +49,11 @@ public class MarketResearchReport implements Comparator, IsSerializable
 	private Map<Number, String> priceType2RankingInternList;
 	// @gwt.typeArgs <java.lang.Number,java.lang.String>
 	private Map<Number, String> marketshareType2RankingInternList;
+
 	// @gwt.typeArgs <java.lang.Number,java.lang.String>
 	private Map<Number, String> priceType3RankingInternList;
 	// @gwt.typeArgs <java.lang.Number,java.lang.String>
 	private Map<Number, String> marketshareType3RankingInternList;
-
 	// @gwt.typeArgs <java.lang.String>
 	private Collection<String> values;
 	// @gwt.typeArgs <java.lang.String>
@@ -69,12 +80,14 @@ public class MarketResearchReport implements Comparator, IsSerializable
 	private List<String> priceType3RankingList;
 	// @gwt.typeArgs <java.lang.String>
 	private List<String> marketshareType1RankingList;
+
 	// @gwt.typeArgs <java.lang.String>
 	private List<String> marketshareType2RankingList;
+
 	// @gwt.typeArgs <java.lang.String>
 	private List<String> marketshareType3RankingList;
 
-	public MarketResearchReport()
+	private MarketResearchReport()
 	{
 		capitalRankingInternList = new TreeMap<Number, String>(this);
 		profitRankingInternList = new TreeMap<Number, String>(this);
@@ -283,6 +296,57 @@ public class MarketResearchReport implements Comparator, IsSerializable
 	{
 		return radioRankingList;
 	}
+	// @gwt.typeArgs <java.lang.String>
+	public List<String> generateHeaders()
+	{
+		List<String> liste = new ArrayList<String>();
+		liste.add("Kapital");
+		liste.add("Gewinn");
+		liste.add("Radio");
+		liste.add("TV");
+		liste.add("Zeitung");
+		liste.add("Design");
+		liste.add("Ökologie");
+		liste.add("Qualität");
+		liste.add("Marktanteile : Markt 1");
+		if (MarketResearchReport.getInstance().getMarketshareType2RankingList().size() != 0)
+			liste.add("Marktanteile : Markt 2");
+		if (MarketResearchReport.getInstance().getMarketshareType3RankingList().size() != 0)
+			liste.add("Marktanteile : Markt 3");
+		liste.add("Preisrangliste für Markt 1");
+		if (MarketResearchReport.getInstance().getPriceType2RankingList().size() != 0)
+			liste.add("Preisrangliste für Markt 2");
+		if (MarketResearchReport.getInstance().getPriceType3RankingList().size() != 0)
+			liste.add("Preisrangliste für Markt 3");
+		return liste;
+	}
+
+	public ArrayList<List<String>> getReports()
+	{
+		ArrayList<List<String>> liste = new ArrayList<List<String>>();
+		liste.add(generateHeaders());
+		liste.add(MarketResearchReport.getInstance().getCapitalRankingList());
+		liste.add(MarketResearchReport.getInstance().getProfitRankingList());
+		liste.add(MarketResearchReport.getInstance().getRadioRankingList());
+		liste.add(MarketResearchReport.getInstance().getTvRankingList());
+		liste.add(MarketResearchReport.getInstance().getNewspaperRankingList());
+		liste.add(MarketResearchReport.getInstance().getDesignRankingList());
+		liste.add(MarketResearchReport.getInstance().getEcologyRankingList());
+		liste.add(MarketResearchReport.getInstance().getQualityRankingList());
+
+		liste.add(MarketResearchReport.getInstance().getMarketshareType1RankingList());
+		if (MarketResearchReport.getInstance().getMarketshareType2RankingList().size() != 0)
+			liste.add(MarketResearchReport.getInstance().getMarketshareType2RankingList());
+		if (MarketResearchReport.getInstance().getMarketshareType3RankingList().size() != 0)
+			liste.add(MarketResearchReport.getInstance().getMarketshareType3RankingList());
+
+		liste.add(MarketResearchReport.getInstance().getPriceType1RankingList());
+		if (MarketResearchReport.getInstance().getPriceType2RankingList().size() != 0)
+			liste.add(MarketResearchReport.getInstance().getPriceType2RankingList());
+		if (MarketResearchReport.getInstance().getPriceType3RankingList().size() != 0)
+			liste.add(MarketResearchReport.getInstance().getPriceType3RankingList());
+		return liste;
+	}
 
 	// @gwt.typeArgs <java.lang.String>
 	public List<String> getTvRankingList()
@@ -295,16 +359,17 @@ public class MarketResearchReport implements Comparator, IsSerializable
 		String a;
 		a = "Kapital \t" + getCapitalRankingList().toString() + "\n" + "Profit \t" + getProfitRankingList().toString() + "\n" +
 
-		"Radio \t" + getRadioRankingList().toString() + "\n" + "Tv \t" + getTvRankingList().toString() + "\n" + "Newspaper \t" + getNewspaperRankingList().toString() + "\n" +
+		"Radio \t" + getRadioRankingList().toString() + "\n" + "Tv \t" + getTvRankingList().toString() + "\n" + "Newspaper \t"
+				+ getNewspaperRankingList().toString() + "\n" +
 
-		"Design \t" + getDesignRankingList().toString() + "\n" + "Ökologie \t" + getEcologyRankingList().toString() + "\n" + "Qualität \t" + getQualityRankingList().toString()
-				+ "\n" +
+				"Design \t" + getDesignRankingList().toString() + "\n" + "Ökologie \t" + getEcologyRankingList().toString() + "\n" + "Qualität \t"
+				+ getQualityRankingList().toString() + "\n" +
 
-				"Marktanteil Typ1 \t" + getMarketshareType1RankingList().toString() + "\n" + "Marktanteil Typ2  \t" + getMarketshareType2RankingList().toString() + "\n"
-				+ "Marktanteil Typ3  \t" + getMarketshareType3RankingList().toString() + "\n" +
+				"Marktanteil Typ1 \t" + getMarketshareType1RankingList().toString() + "\n" + "Marktanteil Typ2  \t"
+				+ getMarketshareType2RankingList().toString() + "\n" + "Marktanteil Typ3  \t" + getMarketshareType3RankingList().toString() + "\n" +
 
-				"PriceType1 \t" + getPriceType1RankingList().toString() + "\n" + "PriceType2 \t" + getPriceType2RankingList().toString() + "\n" + "PriceType3 \t"
-				+ getPriceType3RankingList().toString() + "\n";
+				"PriceType1 \t" + getPriceType1RankingList().toString() + "\n" + "PriceType2 \t" + getPriceType2RankingList().toString() + "\n"
+				+ "PriceType3 \t" + getPriceType3RankingList().toString() + "\n";
 		return a;
 	}
 }
