@@ -617,9 +617,9 @@ public class Toaster implements IsSerializable
 		return tvInvestmentKum;
 	}
 
-	public void setTvInvestmentKum(double tvInvestmentKum)
+	public void setTvInvestmentKum()
 	{
-		this.tvInvestmentKum = tvInvestmentKum;
+		this.tvInvestmentKum += this.tvInvestment;
 	}
 
 	public double getNewspaperInvestmentKum()
