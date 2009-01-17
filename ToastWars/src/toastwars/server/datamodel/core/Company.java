@@ -29,7 +29,7 @@ public class Company implements IsSerializable
 	private boolean marketResearchReportON;
 
 	/**
-	 * @gwt.typeArgs <java.util.List<java.lang.String>>
+	 * @gwt.typeArgs <java.util.ArrayList<java.util.List<java.lang.String>>>
 	 */ 
 	public ArrayList<List<String>> reportListe;
 	// @gwt.typeArgs <toastwars.server.datamodel.core.Toaster>
