@@ -117,6 +117,10 @@ public class Company implements IsSerializable {
 			this.turnover = this.turnover + toasterList.get(i).getTurnover();
 		}
 	}
+	
+	public void accumulateToasterValues(){
+		
+	}
 
 	public double getCapital() {
 		return capital;
