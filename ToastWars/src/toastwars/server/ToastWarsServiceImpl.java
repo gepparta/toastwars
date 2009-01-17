@@ -1,5 +1,7 @@
 package toastwars.server;
 
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 
 import toastwars.client.ToastWarsService;
@@ -9,6 +11,7 @@ import toastwars.server.datamodel.core.Game;
 import toastwars.server.datamodel.user.Group;
 import toastwars.server.datamodel.user.IUser;
 import toastwars.server.datamodel.user.Master;
+import toastwars.server.datamodel.user.Status;
 import toastwars.server.datamodel.user.UserFactory;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -68,6 +71,8 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements
 			try {
 				Game.getInstance(userAmount);
 				DAOGame.createInitialData(userAmount);
+				Game.getInstance().setUserAmount(userAmount);
+				Game.getInstance().setCurrentRound(1);
 				Game.getInstance().setGroupList(DAOGame.getAllUsers());
 				master.setGame(Game.getInstance());
 			} catch (Exception e) {
@@ -83,8 +88,7 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements
 
 		if (b) {
 			try {
-				Game game = Game.getInstance();
-				game = null;
+				Game.getInstance().getGroupList().clear();
 				master.setGame(null);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -98,8 +102,10 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements
 		if (DAOGame.isGameStarted()) {
 			try {
 				Master.getInstance().simulate();
-				int round = Game.getInstance().getCurrentRound();
-				Game.getInstance().setCurrentRound(round + 1);
+
+				ArrayList<Group> groupList = Game.getInstance().getGroupList();
+				DAOGame.saveAllUsers(groupList);
+
 				return Game.getInstance();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -111,6 +117,9 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements
 	public Boolean save(Group group) {
 		boolean success = DAOUser.updateUser(group);
 		Game.getInstance().setGroupList(DAOGame.getAllUsers());
+
+		if (group.getStatus() == Status.COMPLETED)
+			Game.getInstance().completeRound(group);
 
 		return success;
 	}
