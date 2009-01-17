@@ -218,5 +218,6 @@ public class MasterPanel extends Panel {
 		store.setDataProxy(new MemoryProxy(getGameData()));
 		store.load();
 		grid.setTitle("Spielstand in der Runde " + game.getCurrentRound());
+		simulateBtn.setDisabled(true);
 	}
 }

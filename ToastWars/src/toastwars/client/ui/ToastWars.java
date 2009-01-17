@@ -131,7 +131,7 @@ public class ToastWars implements EntryPoint {
 
 	private TreePanel createNavigationPanel() {
 		final TreePanel treePanelNavigation = new TreePanel("Men&uuml;");
-		treePanelNavigation.setWidth(200);
+		treePanelNavigation.setWidth(197);
 		treePanelNavigation.setHeight(450);
 		treePanelNavigation.setUseArrows(true);
 		treePanelNavigation.setPaddings(5);

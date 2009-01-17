@@ -23,6 +23,7 @@ public class DecissionPanel extends Panel {
 	private NumberField				capital;
 	private Checkbox				report;
 	private static DecissionPanel	decissionPanel;
+	private DecissionForm			decissionForm;
 
 	private Group					group;
 
@@ -46,8 +47,8 @@ public class DecissionPanel extends Panel {
 		Panel middlePanel = createMiddlePanel();
 
 		// Formular
-		DecissionForm form = new DecissionForm(
-				new Button[] { btnSave, btnEnd }, capital);
+		decissionForm = new DecissionForm(new Button[] { btnSave, btnEnd },
+				capital);
 
 		// tab panel for multiple toaster types
 		// form.setTitle("Typ 1");
@@ -56,10 +57,12 @@ public class DecissionPanel extends Panel {
 		// tabPanel.add(form);
 		// tabPanel.activate(0);
 
-		add(form);
+		add(decissionForm);
 		add(middlePanel);
 		addButton(btnSave);
 		addButton(btnEnd);
+
+		disableSlidersAndButtons();
 	}
 
 	private Panel createMiddlePanel() {
@@ -104,6 +107,8 @@ public class DecissionPanel extends Panel {
 				super.onClick(button, e);
 
 				setNewGroupData();
+				group.setStatus(Status.EDITED);
+				decissionForm.updateToasterData();
 
 				try {
 					Controller.getInstance().save();
@@ -117,7 +122,17 @@ public class DecissionPanel extends Panel {
 				new ButtonListenerAdapter() {
 					public void onClick(Button button, EventObject e) {
 						super.onClick(button, e);
-						MessageBox.alert("Runde abschlie&szlig;en");
+
+						setNewGroupData();
+						group.setStatus(Status.COMPLETED);
+						decissionForm.updateToasterData();
+
+						try {
+							Controller.getInstance().save();
+						} catch (Exception e1) {
+							MessageBox
+									.alert("Runde konnte nicht abgeschlossen werden!");
+						}
 					}
 				});
 	}
@@ -125,15 +140,29 @@ public class DecissionPanel extends Panel {
 	private void setNewGroupData() {
 		group.getCompany().setMarketResearchReportON(report.getValue());
 		group.getCompany().setCapital(capital.getValue().doubleValue());
-		group.setStatus(Status.EDITED);
 	}
 
 	public void createUserMessage(boolean success) {
-		if (success)
-			MessageBox.alert("Daten gespeichert!");
-		else {
+		if (success) {
+			if (group.getStatus() == Status.EDITED)
+				MessageBox.alert("Daten gespeichert!");
+			else if (group.getStatus() == Status.COMPLETED) {
+				MessageBox.alert("Runde abgeschlossen!");
+				disableSlidersAndButtons();
+			}
+
+		} else {
 			group.setStatus(Status.STARTED);
 			MessageBox.alert("Speichern fehlgeschlagen!");
+		}
+	}
+
+	private void disableSlidersAndButtons() {
+		if (group.getStatus() == Status.COMPLETED) {
+			btnSave.setDisabled(true);
+			btnEnd.setDisabled(true);
+			report.setReadOnly(true);
+			decissionForm.disablePriceField();
 		}
 	}
 }

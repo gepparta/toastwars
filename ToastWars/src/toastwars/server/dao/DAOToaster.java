@@ -40,16 +40,15 @@ public class DAOToaster {
 			Statement stmt = con.getStatement();
 			String query = "UPDATE Toaster SET Toaster.price = " + price
 					+ ", Toaster.marketing = " + marketing + ", Toaster.tv = "
-					+ tv + ", Toaster.tvKum = "
-					+ tvKum + ", Toaster.newspaper = " + newspaper
+					+ tv + ", Toaster.tvKum = " + tvKum
+					+ ", Toaster.newspaper = " + newspaper
 					+ ", Toaster.newspaperKum = " + newspaperKum
-					+ ", Toaster.radio = " + radio + ", Toaster.radioKum = " + radioKum 
-					+ ", Toaster.research = "
-					+ research + ", Toaster.quality = " + quality
+					+ ", Toaster.radio = " + radio + ", Toaster.radioKum = "
+					+ radioKum + ", Toaster.research = " + research
+					+ ", Toaster.quality = " + quality
 					+ ", Toaster.qualityKum = " + qualityKum
-					+", Toaster.design = " + design
-					+ ", Toaster.designKum = " + designKum
-					+ ", Toaster.efficiency = " + efficiency
+					+ ", Toaster.design = " + design + ", Toaster.designKum = "
+					+ designKum + ", Toaster.efficiency = " + efficiency
 					+ ", Toaster.efficiencyKum = " + efficiencyKum
 					+ ", Toaster.[index] = " + index + ", Toaster.turnover = "
 					+ turnover + ", Toaster.cost = " + cost
@@ -96,10 +95,10 @@ public class DAOToaster {
 			Statement stmt = con.getStatement();
 			String query = "INSERT INTO Toaster VALUES (" + currentRound + ","
 					+ toasterID + "," + companyID + "," + price + ","
-					+ marketing + "," + tv + ","+ tvKum + "," + newspaper + "," 
-					+ newspaperKum + "," + radio + radioKum+ ","
-					+ "," + research + "," + quality + "," + qualityKum + "," 
-					+ design + "," + designKum + ","+ efficiency + "," 
+					+ marketing + "," + tv + "," + tvKum + "," + newspaper
+					+ "," + newspaperKum + "," + radio + "," + radioKum + ","
+					+ research + "," + quality + "," + qualityKum + ","
+					+ design + "," + designKum + "," + efficiency + ","
 					+ efficiencyKum + "," + index + "," + turnover + "," + cost
 					+ "," + profit + "," + marketShare + ",'" + type + "');";
 			stmt.execute(query);
@@ -124,11 +123,12 @@ public class DAOToaster {
 			while (rst.next()) {
 				Toaster toaster = new Toaster(rst.getInt(2), rst.getDouble(4),
 						rst.getDouble(5), rst.getDouble(6), rst.getDouble(8),
-						rst.getDouble(10), rst.getDouble(12), rst.getDouble(13),
-						rst.getDouble(15), rst.getDouble(17),
-						rst.getDouble(19), rst.getDouble(20),
-						rst.getDouble(21), rst.getDouble(22), rst.getInt(23),
-						Type.valueOf(rst.getString(24)));
+						rst.getDouble(10), rst.getDouble(12),
+						rst.getDouble(13), rst.getDouble(15),
+						rst.getDouble(17), rst.getDouble(19),
+						rst.getDouble(20), rst.getDouble(21),
+						rst.getDouble(22), rst.getInt(23), Type.valueOf(rst
+								.getString(24)));
 				toasterList.add(toaster);
 			}
 			rst.close();

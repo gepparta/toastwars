@@ -16,9 +16,11 @@ public class SliderChangeListener implements ChangeListener {
 		this.field = field;
 		this.slider = slider;
 		this.capital = capital;
+		previousValue = slider.getCurrentValue();
 	}
 
 	public void onChange(Widget sender) {
+
 		double delta = slider.getCurrentValue() - previousValue;
 
 		field.setValue(slider.getCurrentValue());

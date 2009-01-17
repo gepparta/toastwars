@@ -2,9 +2,13 @@ package toastwars.client.ui;
 
 import java.util.ArrayList;
 
+import toastwars.client.Controller;
 import toastwars.client.slider.SliderBar;
 import toastwars.client.slider.SliderChangeListener;
 import toastwars.client.slider.SliderLabelFormatter;
+import toastwars.server.datamodel.core.Toaster;
+import toastwars.server.datamodel.user.Group;
+import toastwars.server.datamodel.user.Status;
 
 import com.gwtext.client.widgets.Button;
 import com.gwtext.client.widgets.Component;
@@ -21,9 +25,14 @@ public class DecissionForm extends Panel {
 
 	private Button[]				buttons;
 	private ArrayList<NumberField>	fields	= new ArrayList<NumberField>();
+	private ArrayList<SliderBar>	sliders	= new ArrayList<SliderBar>();
 	private NumberField				capital;
+	private Toaster					toaster;
 
 	public DecissionForm(Button[] buttons, NumberField capital) {
+		toaster = ((Group) Controller.getInstance().getUser()).getCompany()
+				.getToasterList().get(0);
+
 		this.buttons = buttons;
 		this.capital = capital;
 
@@ -36,7 +45,8 @@ public class DecissionForm extends Panel {
 
 		// add price field
 		SliderBar priceSlider = new SliderBar(5, 20);
-		configureSlider(priceSlider, 1, 10, 15, 5, " &euro;", fields.get(0));
+		configureSlider(priceSlider, 1, 15, 5, " &euro;", fields.get(0),
+				toaster.getPrice());
 		add(createSliderField(fields.get(0), priceSlider));
 
 		Panel horPanel = new Panel();
@@ -50,21 +60,27 @@ public class DecissionForm extends Panel {
 		horPanel.add(researchFS);
 
 		add(horPanel);
+
+		if (((Group) Controller.getInstance().getUser()).getStatus() == Status.COMPLETED)
+			disablePriceField();
 	}
 
 	private void createFields() {
 		// create all fields and put them in a list
-		fields.add(createNumberField("Preis", "price", 10, 5, 20, true));
-		fields.add(createNumberField("Zeitung", "mag", 0, 0, 0, false));
-		fields.add(createNumberField("Radio", "radio", 0, 0, 0, false));
-		fields.add(createNumberField("TV", "tv", 0, 0, 0, false));
-		fields
-				.add(createNumberField("Qualit&auml;t", "quality", 0, 0, 0,
-						false));
-		fields.add(createNumberField("Design", "design", 0, 0, 0, false));
-		fields
-				.add(createNumberField("&Ouml;kologie", "ecology", 0, 0, 0,
-						false));
+		fields.add(createNumberField("Preis", "price", toaster.getPrice(), 5,
+				20, true));
+		fields.add(createNumberField("Zeitung", "mag", toaster
+				.getNewspaperInvestment(), 0, 0, false));
+		fields.add(createNumberField("Radio", "radio", toaster
+				.getRadioInvestment(), 0, 0, false));
+		fields.add(createNumberField("TV", "tv", toaster.getTvInvestment(), 0,
+				0, false));
+		fields.add(createNumberField("Qualit&auml;t", "quality", toaster
+				.getQualityInvestment(), 0, 0, false));
+		fields.add(createNumberField("Design", "design", toaster
+				.getDesignInvestment(), 0, 0, false));
+		fields.add(createNumberField("&Ouml;kologie", "ecology", toaster
+				.getEfficiencyInvestment(), 0, 0, false));
 	}
 
 	private FieldSet createMarketingFieldSet() {
@@ -73,15 +89,18 @@ public class DecissionForm extends Panel {
 		marketingFS.setPaddings(5, 5, 5, 0);
 
 		SliderBar magSlider = new SliderBar(0, 100000);
-		configureSlider(magSlider, 10000, 0, 10, 2, " &euro;", fields.get(1));
+		configureSlider(magSlider, 5000, 20, 2, " &euro;", fields.get(1),
+				toaster.getNewspaperInvestment());
 		marketingFS.add(createSliderField(fields.get(1), magSlider));
 
 		SliderBar radioSlider = new SliderBar(0, 100000);
-		configureSlider(radioSlider, 10000, 0, 10, 2, " &euro;", fields.get(2));
+		configureSlider(radioSlider, 10000, 10, 2, " &euro;", fields.get(2),
+				toaster.getRadioInvestment());
 		marketingFS.add(createSliderField(fields.get(2), radioSlider));
 
-		SliderBar tvSlider = new SliderBar(0, 100000);
-		configureSlider(tvSlider, 10000, 0, 10, 2, " &euro;", fields.get(3));
+		SliderBar tvSlider = new SliderBar(0, 120000);
+		configureSlider(tvSlider, 20000, 6, 2, " &euro;", fields.get(3),
+				toaster.getTvInvestment());
 		marketingFS.add(createSliderField(fields.get(3), tvSlider));
 
 		return marketingFS;
@@ -93,15 +112,18 @@ public class DecissionForm extends Panel {
 		researchFS.setPaddings(5, 5, 5, 0);
 
 		SliderBar qSlider = new SliderBar(0, 100000);
-		configureSlider(qSlider, 10000, 0, 10, 2, " &euro;", fields.get(4));
+		configureSlider(qSlider, 5000, 20, 2, " &euro;", fields.get(4), toaster
+				.getQualityInvestment());
 		researchFS.add(createSliderField(fields.get(4), qSlider));
 
 		SliderBar designSlider = new SliderBar(0, 100000);
-		configureSlider(designSlider, 10000, 0, 10, 2, " &euro;", fields.get(5));
+		configureSlider(designSlider, 5000, 20, 2, " &euro;", fields.get(5),
+				toaster.getDesignInvestment());
 		researchFS.add(createSliderField(fields.get(5), designSlider));
 
 		SliderBar ecoSlider = new SliderBar(0, 100000);
-		configureSlider(ecoSlider, 10000, 0, 10, 2, " &euro;", fields.get(6));
+		configureSlider(ecoSlider, 5000, 20, 2, " &euro;", fields.get(6),
+				toaster.getEfficiencyInvestment());
 		researchFS.add(createSliderField(fields.get(6), ecoSlider));
 
 		return researchFS;
@@ -126,20 +148,22 @@ public class DecissionForm extends Panel {
 		return panel;
 	}
 
-	private void configureSlider(SliderBar slider, int stepSize, int value,
-			int ticks, int labels, String postfix, NumberField field) {
+	private void configureSlider(SliderBar slider, int stepSize, int ticks,
+			int labels, String postfix, NumberField field, Number value) {
 		slider.setStepSize(stepSize);
-		slider.setCurrentValue(value);
+		slider.setCurrentValue(value.doubleValue());
 		slider.setNumTicks(ticks);
 		slider.setNumLabels(labels);
 		slider.setLabelFormatter(new SliderLabelFormatter(postfix));
 		slider.addChangeListener(new SliderChangeListener(field, slider,
 				capital));
+		sliders.add(slider);
 	}
 
-	private NumberField createNumberField(String text, String name, int value,
-			int minvalue, int maxvalue, boolean decimal) {
-		NumberField numField = new NumberField(text, name, 55, value);
+	private NumberField createNumberField(String text, String name,
+			Number value, int minvalue, int maxvalue, boolean decimal) {
+		NumberField numField = new NumberField(text, name, 55, value
+				.floatValue());
 
 		numField.setAllowNegative(false);
 
@@ -174,6 +198,9 @@ public class DecissionForm extends Panel {
 			}
 		});
 
+		if (!name.equals("price"))
+			numField.setReadOnly(true);
+
 		return numField;
 	}
 
@@ -184,5 +211,30 @@ public class DecissionForm extends Panel {
 		}
 
 		return true;
+	}
+
+	public void updateToasterData() {
+		try {
+			toaster.setPrice(fields.get(0).getValue().doubleValue());
+			toaster.setNewspaperInvestment(fields.get(1).getValue()
+					.doubleValue());
+			toaster.setRadioInvestment(fields.get(2).getValue().doubleValue());
+			toaster.setTvInvestment(fields.get(3).getValue().doubleValue());
+			toaster
+					.setQualityInvestment(fields.get(4).getValue()
+							.doubleValue());
+			toaster.setDesignInvestment(fields.get(5).getValue().doubleValue());
+			toaster.setEfficiencyInvestment(fields.get(6).getValue()
+					.doubleValue());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void disablePriceField() {
+		fields.get(0).setReadOnly(true);
+		for (SliderBar slider : sliders) {
+			slider.setVisible(false);
+		}
 	}
 }
