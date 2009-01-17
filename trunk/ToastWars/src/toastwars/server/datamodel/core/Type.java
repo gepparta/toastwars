@@ -4,12 +4,15 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 
 public enum Type implements IsSerializable
 {
-//	 description,  marketVolume,  random,  fixCost,  stepCosts,  variableCost,  capacity, 
-//	 tvInvestmentPlus, radioInvestmentPlus
+	// description, marketVolume, random, fixCost, stepCosts, variableCost,
+	// capacity,
+	// tvInvestmentPlus, radioInvestmentPlus newspaperInvestmentPlus
+	// qualityInvestmentPlus
+	// designInvestmentPlus ecologyInvestmentPlus
 
-	TYPE1("Der 1. Typ", 10000, 0.05, 10000.00, 1000.00,  3.00, 2000, 20000, 10000), 
-	TYPE2("Der 2. Typ",  6000, 0.08, 20000.00, 5000.00, 15.00, 1000, 30000, 20000), 
-	TYPE3("Der 3. Typ",  2500, 0.10, 25000.00, 8000.00, 40.00,  500, 40000, 30000);
+	TYPE1("Der 1. Typ", 10000, 0.05, 10000.00, 1000.00, 3.00, 2000, 20000, 10000, 5000, 5000, 5000, 5000), 
+	TYPE2("Der 2. Typ", 6000, 0.08, 20000.00, 5000.00, 15.00, 1000, 30000, 20000, 10000, 10000, 10000, 10000), 
+	TYPE3("Der 3. Typ", 2500, 0.10, 25000.00, 8000.00, 40.00, 500, 40000, 30000, 20000, 15000, 15000, 15000);
 
 	private String description;
 	private int marketVolume;
@@ -20,10 +23,14 @@ public enum Type implements IsSerializable
 	private int capacity;
 	private double tvInvestmentPlus;
 	private double radioInvestmentPlus;
+	private double newspaperInvestmentPlus;
+	private double qualityInvestmentPlus;
+	private double designInvestmentPlus;
+	private double ecologyInvestmentPlus;
 
-	private Type(String description, int marketVolume, double random,
-			double fixCosts, double stepCosts, double variableCosts,
-			int capacity, double tvInvestmentPlus, double radioInvestmentPlus) {
+	private Type(String description, int marketVolume, double random, double fixCosts, double stepCosts, double variableCosts, int capacity, double tvInvestmentPlus,
+			double radioInvestmentPlus, double newspaperInvestmentPlus, double qualityInvestmentPlus, double designInvestmentPlus, double ecologyInvestmentPlus)
+	{
 		this.description = description;
 		this.marketVolume = marketVolume;
 		this.random = random;
@@ -33,6 +40,10 @@ public enum Type implements IsSerializable
 		this.capacity = capacity;
 		this.tvInvestmentPlus = tvInvestmentPlus;
 		this.radioInvestmentPlus = radioInvestmentPlus;
+		this.newspaperInvestmentPlus = newspaperInvestmentPlus;
+		this.qualityInvestmentPlus = qualityInvestmentPlus;
+		this.designInvestmentPlus = designInvestmentPlus;
+		this.ecologyInvestmentPlus = ecologyInvestmentPlus;
 	}
 
 	public int getCapacity()
@@ -115,20 +126,64 @@ public enum Type implements IsSerializable
 		return s;
 	}
 
-	public double getTvInvestmentPlus() {
+	public double getTvInvestmentPlus()
+	{
 		return tvInvestmentPlus;
 	}
 
-	public void setTvInvestmentPlus(double tvInvestmentPlus) {
+	public void setTvInvestmentPlus(double tvInvestmentPlus)
+	{
 		this.tvInvestmentPlus = tvInvestmentPlus;
 	}
 
-	public double getRadioInvestmentPlus() {
+	public double getRadioInvestmentPlus()
+	{
 		return radioInvestmentPlus;
 	}
 
-	public void setRadioInvestmentPlus(double radioInvestmentPlus) {
+	public void setRadioInvestmentPlus(double radioInvestmentPlus)
+	{
 		this.radioInvestmentPlus = radioInvestmentPlus;
+	}
+
+	public double getNewspaperInvestmentPlus()
+	{
+		return newspaperInvestmentPlus;
+	}
+
+	public double getQualityInvestmentPlus()
+	{
+		return qualityInvestmentPlus;
+	}
+
+	public double getDesignInvestmentPlus()
+	{
+		return designInvestmentPlus;
+	}
+
+	public double getEcologyInvestmentPlus()
+	{
+		return ecologyInvestmentPlus;
+	}
+
+	public void setNewspaperInvestmentPlus(double newspaperInvestmentPlus)
+	{
+		this.newspaperInvestmentPlus = newspaperInvestmentPlus;
+	}
+
+	public void setQualityInvestmentPlus(double qualityInvestmentPlus)
+	{
+		this.qualityInvestmentPlus = qualityInvestmentPlus;
+	}
+
+	public void setDesignInvestmentPlus(double designInvestmentPlus)
+	{
+		this.designInvestmentPlus = designInvestmentPlus;
+	}
+
+	public void setEcologyInvestmentPlus(double ecologyInvestmentPlus)
+	{
+		this.ecologyInvestmentPlus = ecologyInvestmentPlus;
 	}
 
 }
