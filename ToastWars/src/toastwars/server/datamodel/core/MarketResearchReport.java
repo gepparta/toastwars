@@ -321,7 +321,7 @@ public class MarketResearchReport implements Comparator, IsSerializable
 		return liste;
 	}
 	/**
-	 * @gwt.typeArgs <java.util.List<java.lang.String>>
+	 * @gwt.typeArgs <java.util.ArrayList<java.util.List<java.lang.String>>>
 	 */ 
 	public ArrayList<List<String>> getReports()
 	{
