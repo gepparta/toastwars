@@ -1,6 +1,8 @@
 package toastwars.server.datamodel.core;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class Company implements IsSerializable
@@ -26,8 +28,10 @@ public class Company implements IsSerializable
 	private int marketShare;
 	private boolean marketResearchReportON;
 
-//	private MarketResearchReport marketResearchReport = null;
-
+	/**
+	 * @gwt.typeArgs <java.util.List<java.lang.String>>
+	 */ 
+	public ArrayList<List<String>> reportListe;
 	// @gwt.typeArgs <toastwars.server.datamodel.core.Toaster>
 	private ArrayList<Toaster> toasterList = new ArrayList<Toaster>();
 
@@ -46,6 +50,7 @@ public class Company implements IsSerializable
 		this.capital = capital;
 		this.marketShare = marketShare;
 		this.toasterList = toasterList;
+		reportListe = new ArrayList<List<String>>();
 
 	}
 
@@ -59,6 +64,7 @@ public class Company implements IsSerializable
 		this.capital = capital;
 		this.marketShare = marketShare;
 		this.toasterList = toasterList;
+		reportListe = new ArrayList<List<String>>();
 
 	}
 
@@ -164,11 +170,6 @@ public class Company implements IsSerializable
 		return cost;
 	}
 
-//	public MarketResearchReport getMarketResearchReport()
-//	{
-//		return marketResearchReport;
-//	}
-
 	public int getMarketShare()
 	{
 		return marketShare;
@@ -211,11 +212,6 @@ public class Company implements IsSerializable
 		this.cost = cost;
 	}
 
-//	public void setMarketResearchReport(MarketResearchReport marketResearchReport)
-//	{
-//		this.marketResearchReport = marketResearchReport;
-//	}
-
 	public void setMarketResearchReportON(boolean marketResearchReportON)
 	{
 		this.marketResearchReportON = marketResearchReportON;
@@ -249,95 +245,14 @@ public class Company implements IsSerializable
 		return s;
 	}
 
+	public ArrayList<List<String>> getReportListe()
+	{
+		return reportListe;
+	}
+
+	public void setReportListe(ArrayList<List<String>> reportListe)
+	{
+		this.reportListe = reportListe;
+	}
+
 }
-
-// public int calculateAndSetMarketShare(int marketvolume1, int
-// marketvolume2,
-// int marketvolume3, double sumIndex) {
-// int calcMarketShare = 0;
-// int buffer;
-// int marketvolume;
-// int size = toasterList.size();
-// for (int i = 0; i <= (size - 1); i++) {
-//
-// if (i == 0)
-// marketvolume = marketvolume1;
-// else if (i == 1)
-// marketvolume = marketvolume2;
-// else
-// marketvolume = marketvolume3;
-//
-// buffer = (int) Math.round(marketvolume / sumIndex // ///ACHTUNG!
-// // Runden der
-// // Marktanteile!////
-// * toasterList.get(i).getIndex());
-//
-// toasterList.get(i).setMarketShare(buffer);
-//
-// calcMarketShare = calcMarketShare + buffer;
-//
-// }
-// this.setMarketShare(calcMarketShare);
-// return calcMarketShare;
-// }
-//
-// public double calculateAndSetTurnover() {
-// double calcTurnover = 0;
-// double buffer;
-// int size = toasterList.size();
-//
-// for (int i = 0; i <= (size - 1); i++) {
-//
-// buffer = (toasterList.get(i).getMarketShare() * toasterList.get(i)
-// .getPrice());
-// toasterList.get(i).setTurnover(buffer);
-// calcTurnover = calcTurnover + buffer;
-// }
-// this.setTurnover(calcTurnover);
-// return calcTurnover;
-// }
-//
-// public double calculateAndSetCost(Double fixCost1, Double variableCost1,
-// Double fixCost2, Double variableCost2, Double fixCost3,
-// Double variableCost3) {
-// double calcCost = 0;
-// double buffer;
-// double fixCost;
-// double variableCost;
-//
-// int size = toasterList.size();
-//
-// for (int i = 0; i <= (size - 1); i++) {
-//
-// if (i == 0) {
-// fixCost = fixCost1;
-// variableCost = variableCost1;
-// } else if (i == 1) {
-// fixCost = fixCost2;
-// variableCost = variableCost2;
-// } else {
-// fixCost = fixCost2;
-// variableCost = variableCost2;
-// }
-//
-// buffer = (fixCost + (variableCost * toasterList.get(i)
-// .getMarketShare()));
-// toasterList.get(i).setCost(buffer);
-// calcCost = calcCost + buffer;
-// }
-// this.setCost(calcCost);
-// return calcCost;
-// }
-//
-// public double calculateAndSetProfit() {
-// // muss mit for gemacht werden, um werte einzeln in die toaster objekte
-// // zu schreiben
-// return this.turnover - this.cost;
-// }
-//
-// public double calculateAndSetCapital() {
-// // CAPITAL aus Toaster entfernen!!!
-// return this.capital = capital + this.profit;
-//
-// }
-
