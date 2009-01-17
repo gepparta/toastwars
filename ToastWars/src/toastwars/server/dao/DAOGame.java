@@ -37,7 +37,6 @@ public class DAOGame {
 			changeCurrentRound(con);
 			con.closeConnectionToDB();
 		} catch (RuntimeException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -57,7 +56,6 @@ public class DAOGame {
 			return currentRound;
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
@@ -77,7 +75,6 @@ public class DAOGame {
 			con.closeConnectionToDB();
 			return UserAmount;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
@@ -92,7 +89,6 @@ public class DAOGame {
 			stmt.execute(sql);
 			stmt.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -119,7 +115,8 @@ public class DAOGame {
 				stmt.execute(query);
 				// turnover, cost, profit, capital, marketShare
 				query = "INSERT INTO Company VALUES (1," + i
-						+ ", 0, 0, 0, 100000.00, " + 10000 / userAmount + ",FALSE);";
+						+ ", 0, 0, 0, 100000.00, " + 10000 / userAmount
+						+ ",FALSE);";
 				stmt.execute(query);
 				// price, marketing, tvInvestment, newsPaperInvestment,
 				// radioInvestment, research, quality, design, efficiency,
@@ -128,15 +125,13 @@ public class DAOGame {
 						+ i
 						+ ","
 						+ i
-						+ ",10,3.00,20000,"
-						+ "5000, 10000, 3.00,5000, 5000, 5000, 9.00, 100000.00, 43000.00, 1000.00, 10000,'TYPE1');";
+						+ ", 10, 3.00, 0, 0, 0, 3.00, 0, 0, 0, 9.00, 0.00, 0.00, 0.00, 0,'TYPE1');";
 
 				stmt.execute(query);
 			}
 			stmt.close();
 			con.closeConnectionToDB();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -178,16 +173,15 @@ public class DAOGame {
 			stmt.close();
 			con.closeConnectionToDB();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
 		return isGameStarted;
 	}
-	 public static void main(String[] args) {
-	
-	 
-	 createInitialData(5);
-	 
-	 }
+
+	public static void main(String[] args) {
+
+		createInitialData(5);
+
+	}
 }
