@@ -387,52 +387,15 @@ public class Toaster implements IsSerializable
 
 	public void setDesignInvestment(double design) throws Exception
 	{
-		if (this.type == Type.TYPE1)
-		{
-			if (design >= 5.000)
-				this.designInvestment = design;
-			else
-				throw new Exception("Ungültige Eingabe für Design");
-		}
-		if (this.type == Type.TYPE2)
-		{
-			if (design >= 10.000)
-				this.designInvestment = design;
-			else
-				throw new Exception("Ungültige Eingabe für Design");
-		}
-		if (this.type == Type.TYPE3)
-		{
-			if (design >= 20.000)
-				this.designInvestment = design;
-			else
-				throw new Exception("Ungültige Eingabe für Design");
-		}
+
+		this.designInvestment = design;
 	}
 
 	public void setEfficiencyInvestment(double efficiency) throws Exception
 	{
-		if (this.type == Type.TYPE1)
-		{
-			if (efficiency >= 5.000)
-				this.ecologyInvestment = efficiency;
-			else
-				throw new Exception("Ungültige Eingabe für Ökologie");
-		}
-		if (this.type == Type.TYPE2)
-		{
-			if (efficiency >= 10.000)
-				this.ecologyInvestment = efficiency;
-			else
-				throw new Exception("Ungültige Eingabe für Ökologie");
-		}
-		if (this.type == Type.TYPE3)
-		{
-			if (efficiency >= 20.000)
-				this.ecologyInvestment = efficiency;
-			else
-				throw new Exception("Ungültige Eingabe für Ökologie");
-		}
+
+		this.ecologyInvestment = efficiency;
+
 	}
 
 	public void setIndex(double index)
@@ -452,27 +415,7 @@ public class Toaster implements IsSerializable
 
 	public void setNewspaperInvestment(double newsPaperInvestment) throws Exception
 	{
-		if (this.type == Type.TYPE1)
-		{
-			if (newsPaperInvestment >= 5.000)
-				this.newspaperInvestment = newsPaperInvestment;
-			else
-				throw new Exception("Ungültige Eingabe für Zeitung-Werbung");
-		}
-		if (this.type == Type.TYPE2)
-		{
-			if (newsPaperInvestment >= 10.000)
-				this.newspaperInvestment = newsPaperInvestment;
-			else
-				throw new Exception("Ungültige Eingabe für Zeitung-Werbung");
-		}
-		if (this.type == Type.TYPE3)
-		{
-			if (newsPaperInvestment >= 20.000)
-				this.newspaperInvestment = newsPaperInvestment;
-			else
-				throw new Exception("Ungültige Eingabe für Zeitung-Werbung");
-		}
+		this.newspaperInvestment = newsPaperInvestment;
 	}
 
 	public void setPrice(double price) throws Exception
@@ -507,52 +450,16 @@ public class Toaster implements IsSerializable
 
 	public void setQualityInvestment(double quality) throws Exception
 	{
-		if (this.type == Type.TYPE1)
-		{
-			if (quality >= 5.000)
-				this.qualityInvestment = quality;
-			else
-				throw new Exception("Ungültige Eingabe für Qualität");
-		}
-		if (this.type == Type.TYPE2)
-		{
-			if (quality >= 10.000)
-				this.qualityInvestment = quality;
-			else
-				throw new Exception("Ungültige Eingabe für Qualität");
-		}
-		if (this.type == Type.TYPE3)
-		{
-			if (quality >= 20.000)
-				this.qualityInvestment = quality;
-			else
-				throw new Exception("Ungültige Eingabe für Qualität");
-		}
+
+		this.qualityInvestment = quality;
+
 	}
 
 	public void setRadioInvestment(double radioInvestment) throws Exception
 	{
-		if (this.type == Type.TYPE1)
-		{
-			if (radioInvestment >= 10.000)
-				this.radioInvestment = radioInvestment;
-			else
-				throw new Exception("Ungültige Eingabe für Radio-Werbung");
-		}
-		if (this.type == Type.TYPE2)
-		{
-			if (radioInvestment >= 20.000)
-				this.radioInvestment = radioInvestment;
-			else
-				throw new Exception("Ungültige Eingabe für Radio-Werbung");
-		}
-		if (this.type == Type.TYPE3)
-		{
-			if (radioInvestment >= 30.000)
-				this.radioInvestment = radioInvestment;
-			else
-				throw new Exception("Ungültige Eingabe für Radio-Werbung");
-		}
+
+		this.radioInvestment = radioInvestment;
+
 	}
 
 	public void setResearch(double research)
@@ -572,27 +479,9 @@ public class Toaster implements IsSerializable
 
 	public void setTvInvestment(double tvInvestment) throws Exception
 	{
-		if (this.type == Type.TYPE1)
-		{
-			if (tvInvestment >= 20.000)
-				this.tvInvestment = tvInvestment;
-			else
-				throw new Exception("Ungültige Eingabe für TV-Werbung");
-		}
-		if (this.type == Type.TYPE2)
-		{
-			if (tvInvestment >= 30.000)
-				this.tvInvestment = tvInvestment;
-			else
-				throw new Exception("Ungültige Eingabe für TV-Werbung");
-		}
-		if (this.type == Type.TYPE3)
-		{
-			if (tvInvestment >= 40.000)
-				this.tvInvestment = tvInvestment;
-			else
-				throw new Exception("Ungültige Eingabe für TV-Werbung");
-		}
+
+		this.tvInvestment = tvInvestment;
+
 	}
 
 	public void setType(Type type)
