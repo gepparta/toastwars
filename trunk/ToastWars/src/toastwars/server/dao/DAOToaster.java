@@ -20,10 +20,16 @@ public class DAOToaster {
 			double tv = toaster.getTvInvestment();
 			double newspaper = toaster.getNewspaperInvestment();
 			double radio = toaster.getRadioInvestment();
+			double tvKum = toaster.getTvInvestmentKum();
+			double newspaperKum = toaster.getNewspaperInvestmentKum();
+			double radioKum = toaster.getRadioInvestmentKum();
 			double research = toaster.getResearch();
 			double quality = toaster.getQualityInvestment();
 			double design = toaster.getDesignInvestment();
 			double efficiency = toaster.getEfficiencyInvestment();
+			double qualityKum = toaster.getQualityInvestmentKum();
+			double designKum = toaster.getDesignInvestmentKum();
+			double efficiencyKum = toaster.getEcologyInvestmentKum();
 			double index = toaster.getIndex();
 			double turnover = toaster.getTurnover();
 			double cost = toaster.getCost();
@@ -34,11 +40,17 @@ public class DAOToaster {
 			Statement stmt = con.getStatement();
 			String query = "UPDATE Toaster SET Toaster.price = " + price
 					+ ", Toaster.marketing = " + marketing + ", Toaster.tv = "
-					+ tv + ", Toaster.newspaper = " + newspaper
-					+ ", Toaster.radio = " + radio + ", Toaster.research = "
+					+ tv + ", Toaster.tvKum = "
+					+ tvKum + ", Toaster.newspaper = " + newspaper
+					+ ", Toaster.newspaperKum = " + newspaperKum
+					+ ", Toaster.radio = " + radio + ", Toaster.radioKum = " + radioKum 
+					+ ", Toaster.research = "
 					+ research + ", Toaster.quality = " + quality
-					+ ", Toaster.design = " + design
+					+ ", Toaster.qualityKum = " + qualityKum
+					+", Toaster.design = " + design
+					+ ", Toaster.designKum = " + designKum
 					+ ", Toaster.efficiency = " + efficiency
+					+ ", Toaster.efficiencyKum = " + efficiencyKum
 					+ ", Toaster.[index] = " + index + ", Toaster.turnover = "
 					+ turnover + ", Toaster.cost = " + cost
 					+ ", Toaster.profit = " + profit
@@ -64,10 +76,16 @@ public class DAOToaster {
 			double tv = toaster.getTvInvestment();
 			double newspaper = toaster.getNewspaperInvestment();
 			double radio = toaster.getRadioInvestment();
+			double tvKum = toaster.getTvInvestmentKum();
+			double newspaperKum = toaster.getNewspaperInvestmentKum();
+			double radioKum = toaster.getRadioInvestmentKum();
 			double research = toaster.getResearch();
 			double quality = toaster.getQualityInvestment();
 			double design = toaster.getDesignInvestment();
 			double efficiency = toaster.getEfficiencyInvestment();
+			double qualityKum = toaster.getQualityInvestmentKum();
+			double designKum = toaster.getDesignInvestmentKum();
+			double efficiencyKum = toaster.getEcologyInvestmentKum();
 			double index = toaster.getIndex();
 			double turnover = toaster.getTurnover();
 			double cost = toaster.getCost();
@@ -78,9 +96,11 @@ public class DAOToaster {
 			Statement stmt = con.getStatement();
 			String query = "INSERT INTO Toaster VALUES (" + currentRound + ","
 					+ toasterID + "," + companyID + "," + price + ","
-					+ marketing + "," + tv + "," + newspaper + "," + radio
-					+ "," + research + "," + quality + "," + design + ","
-					+ efficiency + "," + index + "," + turnover + "," + cost
+					+ marketing + "," + tv + ","+ tvKum + "," + newspaper + "," 
+					+ newspaperKum + "," + radio + radioKum+ ","
+					+ "," + research + "," + quality + "," + qualityKum + "," 
+					+ design + "," + designKum + ","+ efficiency + "," 
+					+ efficiencyKum + "," + index + "," + turnover + "," + cost
 					+ "," + profit + "," + marketShare + ",'" + type + "');";
 			stmt.execute(query);
 		} catch (Exception e) {
@@ -103,12 +123,12 @@ public class DAOToaster {
 			// Zeileninhalt ermitteln
 			while (rst.next()) {
 				Toaster toaster = new Toaster(rst.getInt(2), rst.getDouble(4),
-						rst.getDouble(5), rst.getDouble(6), rst.getDouble(7),
-						rst.getDouble(8), rst.getDouble(9), rst.getDouble(10),
-						rst.getDouble(11), rst.getDouble(12),
-						rst.getDouble(13), rst.getDouble(14),
-						rst.getDouble(15), rst.getDouble(16), rst.getInt(17),
-						Type.valueOf(rst.getString(18)));
+						rst.getDouble(5), rst.getDouble(6), rst.getDouble(8),
+						rst.getDouble(10), rst.getDouble(12), rst.getDouble(13),
+						rst.getDouble(15), rst.getDouble(17),
+						rst.getDouble(19), rst.getDouble(20),
+						rst.getDouble(21), rst.getDouble(22), rst.getInt(23),
+						Type.valueOf(rst.getString(24)));
 				toasterList.add(toaster);
 			}
 			rst.close();
