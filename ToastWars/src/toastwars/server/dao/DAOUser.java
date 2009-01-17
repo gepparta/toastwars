@@ -37,7 +37,7 @@ public class DAOUser {
 		String username = group.getUsername();
 		changeStatus(username, group.getStatus().name());
 		daoCompany.saveCompany(company, con);
-		fillUserList(con);
+//		fillUserList(con);
 	}
 
 	public static boolean saveUser(Group group) {
@@ -159,7 +159,7 @@ public class DAOUser {
 			stmt.execute(sql);
 			stmt.close();
 			con.closeConnectionToDB();
-			userList.clear();
+//			userList.clear();
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
