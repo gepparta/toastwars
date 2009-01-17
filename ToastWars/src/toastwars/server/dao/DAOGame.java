@@ -25,13 +25,13 @@ public class DAOGame {
 		return userList;
 	}
 
-	public static void saveAllUsers(ArrayList<IUser> userList) {
+	public static void saveAllUsers(ArrayList<Group> userList) {
 		try {
 			DBConnection con = new DBConnection();
 			con.connectToDB();
 			int size = userList.size();
 			for (int i = 0; i < size; i++) {
-				Group group = (Group) userList.get(i);
+				Group group = userList.get(i);
 				DAOUser.saveUser(group, con);
 			}
 			changeCurrentRound(con);
