@@ -320,7 +320,9 @@ public class MarketResearchReport implements Comparator, IsSerializable
 			liste.add("Preisrangliste für Markt 3");
 		return liste;
 	}
-
+	/**
+	 * @gwt.typeArgs <java.util.List<java.lang.String>>
+	 */ 
 	public ArrayList<List<String>> getReports()
 	{
 		ArrayList<List<String>> liste = new ArrayList<List<String>>();
@@ -353,7 +355,6 @@ public class MarketResearchReport implements Comparator, IsSerializable
 	{
 		return tvRankingList;
 	}
-
 	public String toString()
 	{
 		String a;
