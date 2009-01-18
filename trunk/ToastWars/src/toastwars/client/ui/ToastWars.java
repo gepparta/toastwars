@@ -61,8 +61,8 @@ public class ToastWars implements EntryPoint {
 			TreePanel navigationPanel = createNavigationPanel();
 			horizontalPanel.add(navigationPanel);
 		}
-		mainPanel = createMainPanel();
 
+		createMainPanel();
 		horizontalPanel.add(mainPanel);
 
 		final Panel footerPanel = createFooterPanel();
@@ -112,15 +112,14 @@ public class ToastWars implements EntryPoint {
 	}
 
 	public native void reloadPage(boolean success)/*-{
-		       if(success == true)
-		       		$wnd.location.reload();
-		       else
-		       		@com.gwtext.client.widgets.MessageBox::alert(Ljava/lang/String;)("Abmelden fehlgeschlagen!");
-		   }-*/;
+			       if(success == true)
+			       		$wnd.location.reload();
+			       else
+			       		@com.gwtext.client.widgets.MessageBox::alert(Ljava/lang/String;)("Abmelden fehlgeschlagen!");
+			   }-*/;
 
-	private TabPanel createMainPanel() {
-
-		TabPanel mainPanel = new TabPanel();
+	private void createMainPanel() {
+		mainPanel = new TabPanel();
 		mainPanel.setSize(995, 450);
 		mainPanel.setBorder(true);
 		mainPanel.setPaddings(15, 0, 0, 0);
@@ -139,8 +138,6 @@ public class ToastWars implements EntryPoint {
 			mainPanel.setWidth(1195);
 		}
 		mainPanel.setActiveTab(0);
-
-		return mainPanel;
 	}
 
 	private TreePanel createNavigationPanel() {
