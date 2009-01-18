@@ -1,7 +1,13 @@
 package toastwars.server.datamodel.core;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import toastwars.server.datamodel.user.Group;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
@@ -219,6 +225,26 @@ public class Company implements IsSerializable {
 
 	public void setReportListe(ArrayList<List<String>> reportListe) {
 		this.reportListe = reportListe;
+	}
+	
+	/*
+	 * Diese Methode bereitet die Daten für die Kapitalanzeige im Analysebericht vor
+	 * Dabei wird der Gruppenname durch "Ihre Gruppe" ersetzt
+	 */
+	public Map<Number, String> getKapitalOverview(Game game)
+	{
+		Map<Number, String> liste = new HashMap<Number, String>();
+		String groupName = "Gruppe "+this.getCompanyID();
+		ArrayList<Group> grListe = game.getInstance().getGroupList();
+		for(int i=0;i<grListe.size();i++)
+		{
+			Number key = grListe.get(i).getCompany().getCapital();
+			String value = "Gruppe "+grListe.get(i).getCompany().getCompanyID();
+			if(value.equals(groupName))
+				value = "Ihre Gruppe";
+			liste.put(key, value);
+		}
+		return liste;
 	}
 
 }
