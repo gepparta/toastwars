@@ -48,8 +48,14 @@ public class Controller {
 			public void onSuccess(IUser result) {
 				user = result;
 
-				if (result != null && result instanceof Group)
-					getCurrentGame();
+				if (result != null) {
+					if (result instanceof Group)
+						getCurrentGame();
+					else if (result instanceof Master)
+						loginWindow.loginSuccess(result);
+				} else
+					loginWindow.loginFailure();
+
 			}
 		};
 
@@ -66,7 +72,7 @@ public class Controller {
 			public void onSuccess(Game result) {
 				game = result;
 
-				if (user != null && game != null)
+				if (game != null)
 					loginWindow.loginSuccess(user);
 				else
 					loginWindow.loginFailure();
