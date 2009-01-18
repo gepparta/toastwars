@@ -10,6 +10,8 @@ public interface ToastWarsServiceAsync {
 
 	public void login(String name, String pwd, AsyncCallback callback);
 
+	public void getCurrentGame(AsyncCallback callback);
+
 	public void save(Group group, AsyncCallback callback);
 
 	public void logout(String name, String pwd, AsyncCallback callback);
