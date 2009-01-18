@@ -264,13 +264,31 @@ public class Company implements IsSerializable
 	 * Diese Methode bereitet die Daten für die Kapitalanzeige im Analysebericht
 	 * vor Dabei wird der Gruppenname durch "Ihre Gruppe" ersetzt
 	 */
-	public ArrayList<Number> getKapitalOverview(Game game)
+	public ArrayList<Number> getCapitalOverview(Game game)
 	{
 		ArrayList<Number> liste = new ArrayList<Number>();
 		ArrayList<Group> grListe = game.getGroupList();
 		for (int i = 0; i < grListe.size(); i++)
 		{
+//			ProfitListe aus MarketResearchReport holen
+//			da diese dann statisch für die ganze runde ist!
 			liste.add( grListe.get(i).getCompany().getCapital());
+		}
+		return liste;
+	}
+	/*
+	 * Diese Methode bereitet die Daten für die Kapitalanzeige im Analysebericht
+	 * vor Dabei wird der Gruppenname durch "Ihre Gruppe" ersetzt
+	 */
+	public ArrayList<Number> getProfitOverview(Game game)
+	{
+		ArrayList<Number> liste = new ArrayList<Number>();
+		ArrayList<Group> grListe = game.getGroupList();
+		for (int i = 0; i < grListe.size(); i++)
+		{
+//			ProfitListe aus MarketResearchReport holen
+//			da diese dann statisch für die ganze runde ist!
+			liste.add( grListe.get(i).getCompany().getProfit());
 		}
 		return liste;
 	}
