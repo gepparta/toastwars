@@ -9,7 +9,6 @@ import toastwars.server.datamodel.core.Game;
 import toastwars.server.datamodel.user.Group;
 import toastwars.server.datamodel.user.IUser;
 import toastwars.server.datamodel.user.Master;
-import toastwars.server.datamodel.user.Status;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 

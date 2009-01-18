@@ -98,11 +98,11 @@ public class ToastWars implements EntryPoint {
 	}
 
 	public native void reloadPage(boolean success)/*-{
-       if(success == true)
-       		$wnd.location.reload();
-       else
-       		@com.gwtext.client.widgets.MessageBox::alert(Ljava/lang/String;)("Abmelden fehlgeschlagen!");
-   }-*/;
+		       if(success == true)
+		       		$wnd.location.reload();
+		       else
+		       		@com.gwtext.client.widgets.MessageBox::alert(Ljava/lang/String;)("Abmelden fehlgeschlagen!");
+		   }-*/;
 
 	private TabPanel createMainPanel() {
 
