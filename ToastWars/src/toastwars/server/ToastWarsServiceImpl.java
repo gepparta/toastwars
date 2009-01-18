@@ -33,7 +33,23 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements
 				Game game = Game.getInstance(DAOGame.getUserAmount());
 				game.setCurrentRound(DAOGame.getCurrentRound());
 				game.setGroupList(DAOGame.getAllUsers());
-				master.setGame(Game.getInstance());
+
+				// set extra report for each group
+				ArrayList<Group> groupList = game.getGroupList();
+
+				MarketResearchReport report = MarketResearchReport
+						.getInstance();
+				report.generateMarketResearchReport(groupList);
+
+				for (int i = 0; i < groupList.size(); i++) {
+					Company company = groupList.get(i).getCompany();
+					company.setReportListe(null);
+
+					if (company.isMarketResearchReportON())
+						company.setReportListe(report.getReports());
+				}
+
+				master.setGame(game);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
