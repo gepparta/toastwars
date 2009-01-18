@@ -35,7 +35,67 @@ public class Toaster implements IsSerializable
 	public Toaster()
 	{
 	}
+	public Toaster(double price, double index, double turnover, double cost, double profit, int marketShare, Type type, double marketing,
+			double tvInvestment, double newspaperInvestment, double radioInvestment, double tvInvestmentKum, double newspaperInvestmentKum,
+			double radioInvestmentKum, double research, double qualityInvestment, double designInvestment, double ecologyInvestment,
+			double qualityInvestmentKum, double designInvestmentKum, double ecologyInvestmentKum)
+	{
+		this.toasterID = nextToasterID;
+		nextToasterID++;
+		this.price = price;
+		this.index = index;
+		this.turnover = turnover;
+		this.cost = cost;
+		this.profit = profit;
+		this.marketShare = marketShare;
+		this.type = type;
+		this.marketing = marketing;
+		this.tvInvestment = tvInvestment;
+		this.newspaperInvestment = newspaperInvestment;
+		this.radioInvestment = radioInvestment;
+		this.tvInvestmentKum = tvInvestmentKum;
+		this.newspaperInvestmentKum = newspaperInvestmentKum;
+		this.radioInvestmentKum = radioInvestmentKum;
+		this.research = research;
+		this.qualityInvestment = qualityInvestment;
+		this.designInvestment = designInvestment;
+		this.ecologyInvestment = ecologyInvestment;
+		this.qualityInvestmentKum = qualityInvestmentKum;
+		this.designInvestmentKum = designInvestmentKum;
+		this.ecologyInvestmentKum = ecologyInvestmentKum;
+	}
 
+	public Toaster(int toasterID, double price, double index, double turnover, double cost, double profit, int marketShare, Type type,
+			double marketing, double tvInvestment, double newspaperInvestment, double radioInvestment, double tvInvestmentKum,
+			double newspaperInvestmentKum, double radioInvestmentKum, double research, double qualityInvestment, double designInvestment,
+			double ecologyInvestment, double qualityInvestmentKum, double designInvestmentKum, double ecologyInvestmentKum)
+	{
+		this.toasterID = toasterID;
+		this.price = price;
+		this.index = index;
+		this.turnover = turnover;
+		this.cost = cost;
+		this.profit = profit;
+		this.marketShare = marketShare;
+		this.type = type;
+		this.marketing = marketing;
+		this.tvInvestment = tvInvestment;
+		this.newspaperInvestment = newspaperInvestment;
+		this.radioInvestment = radioInvestment;
+		this.tvInvestmentKum = tvInvestmentKum;
+		this.newspaperInvestmentKum = newspaperInvestmentKum;
+		this.radioInvestmentKum = radioInvestmentKum;
+		this.research = research;
+		this.qualityInvestment = qualityInvestment;
+		this.designInvestment = designInvestment;
+		this.ecologyInvestment = ecologyInvestment;
+		this.qualityInvestmentKum = qualityInvestmentKum;
+		this.designInvestmentKum = designInvestmentKum;
+		this.ecologyInvestmentKum = ecologyInvestmentKum;
+	}
+	
+//	@deprecated
+//	use for tests only for tests
 	public Toaster(double price, double marketing, double tvInvestment, double newsPaperInvestment, double radioInvestment, double research, double quality, double design,
 			double efficiency, double index, double turnover, double cost, double profit, int marketShare, Type type)
 	{
@@ -59,7 +119,8 @@ public class Toaster implements IsSerializable
 		this.type = type;
 
 	}
-
+//	@deprecated
+//	use for tests only for tests
 	public Toaster(int toasterID, double price, double marketing, double tvInvestment, double newsPaperInvestment, double radioInvestment, double research, double quality,
 			double design, double efficiency, double index, double turnover, double cost, double profit, int marketShare, Type type)
 	{
@@ -89,78 +150,6 @@ public class Toaster implements IsSerializable
 	public static void setNextToasterID(int nextToasterID)
 	{
 		Toaster.nextToasterID = nextToasterID;
-	}
-
-	public void addDesignInvestment(double euro)
-	{
-		double design_Investment = this.getDesignInvestment() + euro;
-		try
-		{
-			this.setDesignInvestment(design_Investment);
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
-
-	public void addEfficiencyInvestment(double euro)
-	{
-		double efficiency_Investment = this.getEfficiencyInvestment() + euro;
-		try
-		{
-			this.setEfficiencyInvestment(efficiency_Investment);
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
-
-	public void addNewspaperInvestment(double euro)
-	{
-		double newspaper_Investment = this.getNewspaperInvestment() + euro;
-		try
-		{
-			this.setNewspaperInvestment(newspaper_Investment);
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
-
-	public void addQualityInvestment(double euro)
-	{
-		double quality_Investment = this.getQualityInvestment() + euro;
-		try
-		{
-			this.setQualityInvestment(quality_Investment);
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
-
-	public void addRadioInvestment(double euro)
-	{
-		double radio_Investment = this.getRadioInvestment() + euro;
-		try
-		{
-			this.setRadioInvestment(radio_Investment);
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
-
-	public void addTvInvestment(double euro)
-	{
-		double tv_Investment = this.getTvInvestment() + euro;
-		try
-		{
-			this.setTvInvestment(tv_Investment);
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-		}
 	}
 
 	public void calculateCost()

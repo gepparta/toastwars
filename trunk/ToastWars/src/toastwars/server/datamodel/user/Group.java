@@ -5,13 +5,11 @@ import toastwars.server.datamodel.core.Company;
 
 public class Group implements IUser, IsSerializable
 {
-	// private static ArrayList<Group> groupList = new ArrayList<Group>();
 	private String password;
 	private String username;
 	private Company company;
 	private boolean isOnline;
 	private Status status;
-
 	public Group()
 	{
 	}
