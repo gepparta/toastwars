@@ -85,7 +85,7 @@ public class InfoPanel extends Panel {
 
 	private TabPanel createDepartmentPanel() {
 		TabPanel departmentPanel = new TabPanel();
-		departmentPanel.setTitle("Unternmehmensbereiche");
+		departmentPanel.setTitle("Unternehmensbereiche");
 		departmentPanel.setTabPosition(Position.BOTTOM);
 		departmentPanel.setStyle("background: black;");
 

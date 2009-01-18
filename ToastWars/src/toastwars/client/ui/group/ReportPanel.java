@@ -26,7 +26,8 @@ public class ReportPanel extends Panel {
 
 		tabPanel.add(StandardReportPanel.getInstance());
 
-		if (company.isMarketResearchReportON())
+		if (company.getReportListe() != null
+				&& company.getReportListe().size() > 0)
 			tabPanel.add(ExtraReportPanel.getInstance());
 
 		add(tabPanel);

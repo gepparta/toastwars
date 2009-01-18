@@ -1,30 +1,27 @@
 package toastwars.client.ui.group;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import toastwars.client.Controller;
+import toastwars.server.datamodel.core.Game;
+import toastwars.server.datamodel.user.Group;
+
+import com.gwtext.client.data.ArrayReader;
+import com.gwtext.client.data.FieldDef;
+import com.gwtext.client.data.MemoryProxy;
+import com.gwtext.client.data.RecordDef;
+import com.gwtext.client.data.Store;
+import com.gwtext.client.data.StringFieldDef;
 import com.gwtext.client.widgets.Panel;
-import com.gwtext.client.widgets.layout.HorizontalLayout;
-import com.rednels.ofcgwt.client.ChartWidget;
-import com.rednels.ofcgwt.client.model.ChartData;
-import com.rednels.ofcgwt.client.model.axis.XAxis;
-import com.rednels.ofcgwt.client.model.axis.YAxis;
-import com.rednels.ofcgwt.client.model.elements.BarChart;
-import com.rednels.ofcgwt.client.model.elements.PieChart;
-import com.rednels.ofcgwt.client.model.elements.BarChart.BarStyle;
+import com.gwtext.client.widgets.grid.ColumnConfig;
+import com.gwtext.client.widgets.grid.ColumnModel;
+import com.gwtext.client.widgets.grid.GridPanel;
 
 public class ExtraReportPanel extends Panel {
 
 	private static ExtraReportPanel	reportPanel;
-
-	private ExtraReportPanel() {
-		setTitle("Marktforschungsbericht");
-		setPaddings(15);
-
-		Panel horizPanel = new Panel();
-		horizPanel.setLayout(new HorizontalLayout(2));
-//		horizPanel.add(createPieChart());
-//		horizPanel.add(createBarChart());
-
-		add(horizPanel);
-	}
+	private ArrayList<List<String>>	report;
 
 	public static ExtraReportPanel getInstance() {
 		if (reportPanel == null)
@@ -32,58 +29,58 @@ public class ExtraReportPanel extends Panel {
 		return reportPanel;
 	}
 
-	private ChartWidget createPieChart() {
-		ChartWidget chart = new ChartWidget();
+	private ExtraReportPanel() {
+		Game game = Controller.getInstance().getGame();
+		report = ((Group) Controller.getInstance().getUser()).getCompany()
+				.getReportListe();
 
-		ChartData cd = new ChartData("Marktanteile",
-				"font-size: 14px; text-align: center; border: 1px solid gold;");
-		cd.setBackgroundColour("#000000");
+		setTitle("Marktforschungsbericht");
+		setPaddings(15);
 
-		PieChart pie = new PieChart();
-		pie.setAlpha(1f);
-		pie.setNoLabels(true);
-		pie.setTooltip("#label#<br>#val# Toaster<br>#percent#");
-		pie.setAnimate(false);
-		pie.setGradientFill(true);
-		pie.setColours("#ff0000", "#00ff00", "#0000ff", "#ff9900");
-		pie.addSlices(new PieChart.Slice(1000, "Gruppe 1"));
-		pie.addSlices(new PieChart.Slice(2000, "Gruppe 2"));
-		pie.addSlices(new PieChart.Slice(6000, "Gruppe 3"));
-		pie.addSlices(new PieChart.Slice(1000, "Gruppe 4"));
+		GridPanel grid = new GridPanel();
+		grid.setFrame(true);
+		grid.setStripeRows(true);
+		grid.setHeight(280);
+		grid.setWidth(800);
+		grid.setTitle("Platzierungen in der Runde "
+				+ (game.getCurrentRound() - 1));
 
-		cd.addElements(pie);
+		RecordDef recordDef = new RecordDef(new FieldDef[] {
+				new StringFieldDef("rank"), new StringFieldDef("magazine"),
+				new StringFieldDef("radio"), new StringFieldDef("tv"),
+				new StringFieldDef("quality"), new StringFieldDef("design"),
+				new StringFieldDef("ecology") });
 
-		chart.setSize("300", "250");
-		chart.setJsonData(cd.toString());
-		return chart;
+		ArrayReader reader = new ArrayReader(recordDef);
+		Store store = new Store(new MemoryProxy(getGameData()), reader);
+		store.load();
+		grid.setStore(store);
+
+		ColumnConfig[] columns = new ColumnConfig[] {
+				new ColumnConfig("Platz", "rank", 70, true),
+				new ColumnConfig("Zeitung", "magazine", 100, true),
+				new ColumnConfig("Radio", "radio", 100, true),
+				new ColumnConfig("TV", "tv", 100, true),
+				new ColumnConfig("Qualit&auml;t", "quality", 100, true),
+				new ColumnConfig("Design", "design", 100, true),
+				new ColumnConfig("&Ouml;kologie", "ecology", 100, true) };
+
+		ColumnModel columnModel = new ColumnModel(columns);
+		grid.setColumnModel(columnModel);
+
+		add(grid);
 	}
 
-	private ChartWidget createBarChart() {
-		ChartWidget chart = new ChartWidget();
-		ChartData cd = new ChartData("Kapital nach Runde 1",
-				"font-size: 14px; font-family: Verdana; text-align: center;");
-		cd.setBackgroundColour("#ffffff");
+	private Object[][] getGameData() {
+		Object[][] data = new Object[report.get(1).size()][7];
 
-		XAxis xa = new XAxis();
-		xa.setLabels("Gruppe 1", "Gruppe 2", "Gruppe 3", "Gruppe 4");
-		xa.setMax(3);
-		cd.setXAxis(xa);
+		for (int i = 0; i < data.length; i++) {
+			data[i][0] = i;
+			for (int j = 1; j < report.size() - 1; j++) {
+				data[i][j] = report.get(j).get(i);
+			}
+		}
 
-		YAxis ya = new YAxis();
-		ya.setSteps(40000);
-		ya.setMax(200000);
-		cd.setYAxis(ya);
-
-		BarChart bchart = new BarChart(BarStyle.GLASS);
-		bchart.setColour("#00aa00");
-		bchart.setTooltip("#val# &#8364;");
-		bchart.addValues(40000, 60000, 30000, 150000);
-		cd.addElements(bchart);
-
-		chart.setSize("300", "250");
-		chart.setJsonData(cd.toString());
-
-		return chart;
+		return data;
 	}
-
 }
