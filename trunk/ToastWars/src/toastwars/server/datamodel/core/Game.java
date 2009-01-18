@@ -111,7 +111,7 @@ public class Game implements IsSerializable
 		{
 			if (g.getUsername().equals(group.getUsername()))
 			{
-				g.getCompany().accumulateToasterValues();
+				group.getCompany().accumulateToasterValues();
 				return;
 			}
 		}

@@ -158,8 +158,10 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements
 		boolean success = DAOUser.updateUser(group);
 		Game.getInstance().setGroupList(DAOGame.getAllUsers());
 
-		if (group.getStatus() == Status.COMPLETED)
+		if (group.getStatus() == Status.COMPLETED) {
 			Game.getInstance().completeRound(group);
+			DAOUser.updateUser(group);
+		}
 
 		return success;
 	}
