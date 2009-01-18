@@ -1,6 +1,9 @@
 package toastwars.client.ui;
 
 import toastwars.client.Controller;
+import toastwars.server.datamodel.core.Game;
+import toastwars.server.datamodel.user.Group;
+import toastwars.server.datamodel.user.Status;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -80,12 +83,12 @@ public class ToastWars implements EntryPoint {
 
 		Panel footerPanel = new Panel();
 		footerPanel.setLayout(new HorizontalLayout(10));
-		footerPanel.setSize(802, 25);
-		footerPanel.setPaddings(3, 5, 5, 0);
+		footerPanel.setSize(1195, 25);
+		footerPanel.setPaddings(3, 5, 0, 0);
 
 		Label text = new Label("Angemeldet als: "
 				+ controller.getUser().getUsername());
-		text.setStyle("font:bold 11px tahoma,arial,verdana,sans-serif");
+		text.setStyle("font:bold 11px tahoma,arial,verdana,sans-serif;");
 
 		footerPanel.add(text);
 		footerPanel.add(new Button("Abmelden", new ButtonListenerAdapter() {
@@ -94,15 +97,22 @@ public class ToastWars implements EntryPoint {
 			}
 		}));
 
+		Label round = new Label("Runde: "
+				+ Controller.getInstance().getGame().getCurrentRound());
+		round.setWidth(930);
+		round.setStyle("font: bold 11px tahoma, arial, verdana, sans-serif;"
+				+ "text-align: right;");
+		footerPanel.add(round);
+
 		return footerPanel;
 	}
 
 	public native void reloadPage(boolean success)/*-{
-		       if(success == true)
-		       		$wnd.location.reload();
-		       else
-		       		@com.gwtext.client.widgets.MessageBox::alert(Ljava/lang/String;)("Abmelden fehlgeschlagen!");
-		   }-*/;
+       if(success == true)
+       		$wnd.location.reload();
+       else
+       		@com.gwtext.client.widgets.MessageBox::alert(Ljava/lang/String;)("Abmelden fehlgeschlagen!");
+   }-*/;
 
 	private TabPanel createMainPanel() {
 
@@ -195,4 +205,5 @@ public class ToastWars implements EntryPoint {
 				mainPanel.hideTabStripItem(i);
 		}
 	}
+
 }

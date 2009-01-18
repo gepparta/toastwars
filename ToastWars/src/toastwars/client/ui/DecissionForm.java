@@ -62,7 +62,7 @@ public class DecissionForm extends Panel {
 		add(horPanel);
 
 		if (((Group) Controller.getInstance().getUser()).getStatus() == Status.COMPLETED)
-			disablePriceField();
+			disableSliders();
 	}
 
 	private void createFields() {
@@ -231,7 +231,7 @@ public class DecissionForm extends Panel {
 		}
 	}
 
-	public void disablePriceField() {
+	public void disableSliders() {
 		fields.get(0).setReadOnly(true);
 		for (SliderBar slider : sliders) {
 			slider.setVisible(false);

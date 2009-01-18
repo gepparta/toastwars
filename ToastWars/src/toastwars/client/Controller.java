@@ -20,6 +20,7 @@ public class Controller {
 	private StartGameWindow		startGameWindow;
 
 	private IUser				user;
+	private Game				game;
 
 	// Benutzer-Parameter
 	public static final int		SPIELLEITER	= 1;
@@ -46,11 +47,33 @@ public class Controller {
 
 			public void onSuccess(IUser result) {
 				user = result;
-				loginWindow.login(result);
+
+				if (result != null && result instanceof Group)
+					getCurrentGame();
 			}
 		};
 
 		service.login(name, pwd, callback);
+	}
+
+	public void getCurrentGame() {
+		ToastWarsServiceAsync service = ToastWarsService.Util.getInstance();
+
+		AsyncCallback<Game> callback = new AsyncCallback<Game>() {
+			public void onFailure(Throwable caught) {
+			}
+
+			public void onSuccess(Game result) {
+				game = result;
+
+				if (user != null && game != null)
+					loginWindow.loginSuccess(user);
+				else
+					loginWindow.loginFailure();
+			}
+		};
+
+		service.getCurrentGame(callback);
 	}
 
 	public void logout(ToastWars tw) {
@@ -153,5 +176,9 @@ public class Controller {
 
 	public IUser getUser() {
 		return user;
+	}
+
+	public Game getGame() {
+		return game;
 	}
 }

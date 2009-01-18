@@ -162,7 +162,7 @@ public class DecissionPanel extends Panel {
 			btnSave.setDisabled(true);
 			btnEnd.setDisabled(true);
 			report.setReadOnly(true);
-			decissionForm.disablePriceField();
+			decissionForm.disableSliders();
 		}
 	}
 }

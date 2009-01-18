@@ -80,15 +80,17 @@ public class LoginWindow extends Window {
 		return loginPanel;
 	}
 
-	public void login(IUser user) {
-		if (user != null) {
-			if (user instanceof Master)
-				controller.setUserType(Controller.SPIELLEITER);
-			else if (user instanceof Group)
-				controller.setUserType(Controller.GRUPPE);
-			loginWindow.close();
-			toastWars.createUI();
-		} else
-			MessageBox.alert("Anmeldung fehlgeschlagen!");
+	public void loginSuccess(IUser user) {
+		if (user instanceof Master)
+			controller.setUserType(Controller.SPIELLEITER);
+		else if (user instanceof Group)
+			controller.setUserType(Controller.GRUPPE);
+
+		loginWindow.close();
+		toastWars.createUI();
+	}
+
+	public void loginFailure() {
+		MessageBox.alert("Anmeldung fehlgeschlagen!");
 	}
 }
