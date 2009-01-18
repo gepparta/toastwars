@@ -5,9 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import toastwars.server.datamodel.user.Group;
-
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class Company implements IsSerializable
@@ -32,6 +30,10 @@ public class Company implements IsSerializable
 	private double capital;
 	private int marketShare;
 	private boolean marketResearchReportON;
+	// @gwt.typeArgs <Number>
+	private ArrayList<Number> profitRankingList = null;
+	// @gwt.typeArgs <Number>
+	private ArrayList<Number> capitalRankingInternList = null;
 
 	// @gwt.typeArgs
 	// java.util.ArrayList<java.util.ArrayList<java.util.List<java.lang.String>>>
@@ -244,9 +246,8 @@ public class Company implements IsSerializable
 	public String toString()
 	{
 
-		String s = "Company Eigenschaften: \n companyID \t \t" + this.getCompanyID() + "\n turnover: \t" + this.getTurnover() + "\n cost: \t"
-				+ this.getCost() + "\n profit: \t" + this.getProfit() + "\n capital: \t" + this.getCapital() + "\n market share: \t"
-				+ this.getMarketShare();
+		String s = "Company Eigenschaften: \n companyID \t \t" + this.getCompanyID() + "\n turnover: \t" + this.getTurnover() + "\n cost: \t" + this.getCost() + "\n profit: \t"
+				+ this.getProfit() + "\n capital: \t" + this.getCapital() + "\n market share: \t" + this.getMarketShare();
 		return s;
 	}
 
@@ -264,18 +265,19 @@ public class Company implements IsSerializable
 	 * Diese Methode bereitet die Daten für die Kapitalanzeige im Analysebericht
 	 * vor Dabei wird der Gruppenname durch "Ihre Gruppe" ersetzt
 	 */
-	public ArrayList<Number> getCapitalOverview(Game game)
-	{
-		ArrayList<Number> liste = new ArrayList<Number>();
-		ArrayList<Group> grListe = game.getGroupList();
-		for (int i = 0; i < grListe.size(); i++)
-		{
-//			ProfitListe aus MarketResearchReport holen
-//			da diese dann statisch für die ganze runde ist!
-			liste.add( grListe.get(i).getCompany().getCapital());
-		}
-		return liste;
-	}
+//	public ArrayList<Number> getCapitalOverview(Game game)
+//	{
+//		ArrayList<Number> liste = new ArrayList<Number>();
+//		ArrayList<Group> grListe = game.getGroupList();
+//		for (int i = 0; i < grListe.size(); i++)
+//		{
+//			// ProfitListe aus MarketResearchReport holen
+//			// da diese dann statisch für die ganze runde ist!
+//			liste.add(grListe.get(i).getCompany().getCapital());
+//		}
+//		return liste;
+//	}
+
 	/*
 	 * Diese Methode bereitet die Daten für die Kapitalanzeige im Analysebericht
 	 * vor Dabei wird der Gruppenname durch "Ihre Gruppe" ersetzt
@@ -286,11 +288,41 @@ public class Company implements IsSerializable
 		ArrayList<Group> grListe = game.getGroupList();
 		for (int i = 0; i < grListe.size(); i++)
 		{
-//			ProfitListe aus MarketResearchReport holen
-//			da diese dann statisch für die ganze runde ist!
-			liste.add( grListe.get(i).getCompany().getProfit());
+			liste = this.getProfitRankingList();
 		}
 		return liste;
+	}
+
+	public ArrayList<Number> getCapitalOverview(Game game)
+	{
+		ArrayList<Number> liste = new ArrayList<Number>();
+		ArrayList<Group> grListe = game.getGroupList();
+		for (int i = 0; i < grListe.size(); i++)
+		{
+			liste = this.getCapitalRankingInternList();
+		}
+		return liste;
+	}
+
+	// @gwt.typeArgs <Number>
+	public ArrayList<Number> getProfitRankingList()
+	{
+		return profitRankingList;
+	}
+
+	public void setProfitRankingList(ArrayList<Number> profitRankingList)
+	{
+		this.profitRankingList = profitRankingList;
+	}
+
+	public ArrayList<Number> getCapitalRankingInternList()
+	{
+		return capitalRankingInternList;
+	}
+
+	public void setCapitalRankingInternList(ArrayList<Number> capitalRankingInternList)
+	{
+		this.capitalRankingInternList = capitalRankingInternList;
 	}
 
 }
