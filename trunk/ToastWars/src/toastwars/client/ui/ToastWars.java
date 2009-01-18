@@ -1,6 +1,10 @@
 package toastwars.client.ui;
 
 import toastwars.client.Controller;
+import toastwars.client.ui.group.DecissionPanel;
+import toastwars.client.ui.group.InfoPanel;
+import toastwars.client.ui.group.ReportPanel;
+import toastwars.client.ui.master.MasterPanel;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.RootPanel;

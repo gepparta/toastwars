@@ -1,4 +1,4 @@
-package toastwars.client.ui;
+package toastwars.client.ui.group;
 
 import toastwars.client.Controller;
 import toastwars.server.datamodel.core.Company;

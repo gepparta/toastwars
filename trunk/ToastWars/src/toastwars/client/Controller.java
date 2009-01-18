@@ -1,10 +1,10 @@
 package toastwars.client;
 
-import toastwars.client.ui.DecissionPanel;
 import toastwars.client.ui.LoginWindow;
-import toastwars.client.ui.MasterPanel;
-import toastwars.client.ui.StartGameWindow;
 import toastwars.client.ui.ToastWars;
+import toastwars.client.ui.group.DecissionPanel;
+import toastwars.client.ui.master.MasterPanel;
+import toastwars.client.ui.master.StartGameWindow;
 import toastwars.server.datamodel.core.Game;
 import toastwars.server.datamodel.user.Group;
 import toastwars.server.datamodel.user.IUser;

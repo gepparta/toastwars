@@ -1,4 +1,4 @@
-package toastwars.client.ui;
+package toastwars.client.ui.master;
 
 import toastwars.client.Controller;
 import toastwars.server.datamodel.core.Game;
