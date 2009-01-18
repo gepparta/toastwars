@@ -1,4 +1,4 @@
-package toastwars.client.ui;
+package toastwars.client.ui.group;
 
 import java.util.ArrayList;
 import java.util.Iterator;

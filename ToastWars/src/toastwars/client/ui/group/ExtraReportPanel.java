@@ -1,4 +1,4 @@
-package toastwars.client.ui;
+package toastwars.client.ui.group;
 
 import com.gwtext.client.widgets.Panel;
 import com.gwtext.client.widgets.layout.HorizontalLayout;
