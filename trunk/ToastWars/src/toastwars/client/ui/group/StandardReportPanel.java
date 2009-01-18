@@ -45,10 +45,10 @@ public class StandardReportPanel extends Panel
 		setPaddings(15);
 
 		Panel horizPanel = new Panel();
-		horizPanel.setLayout(new HorizontalLayout(2));
+		horizPanel.setLayout(new HorizontalLayout(3));
 		horizPanel.add(createPieChart());
-		horizPanel.add(createBarChart());
-
+		horizPanel.add(createCapitalBarChart());
+		horizPanel.add(createProfitBarChart());
 		add(horizPanel);
 	}
 
@@ -88,7 +88,7 @@ public class StandardReportPanel extends Panel
 		return chart;
 	}
 
-	private ChartWidget createBarChart()
+	private ChartWidget createCapitalBarChart()
 	{
 		ChartWidget chart = new ChartWidget();
 		ChartData cd = new ChartData("Kapital nach Runde 1", "font-size: 14px; font-family: Verdana; text-align: center;");
@@ -99,7 +99,7 @@ public class StandardReportPanel extends Panel
 		List<Number> bchartValues = new ArrayList<Number>();
 		Game game = Controller.getInstance().getGame();
 
-		ArrayList<Number> capitalList = group.getCompany().getKapitalOverview(game);
+		ArrayList<Number> capitalList = group.getCompany().getCapitalOverview(game);
 		for (int i = 0; i < capitalList.size(); i++)
 		{
 		
@@ -110,6 +110,47 @@ public class StandardReportPanel extends Panel
 		}
 			xa.setLabels(labels);
 		xa.setMax(capitalList.size()-1);
+		cd.setXAxis(xa);
+
+		YAxis ya = new YAxis();
+		ya.setSteps(40000);
+		ya.setMax(200000);
+		cd.setYAxis(ya);
+
+		BarChart bchart = new BarChart(BarStyle.GLASS);
+		bchart.setColour("#00aa00");
+		bchart.setTooltip("#val# &#8364;");
+		bchart.addValues(bchartValues);
+		cd.addElements(bchart);
+
+		chart.setSize("300", "250");
+		chart.setJsonData(cd.toString());
+
+		return chart;
+	}
+	
+	private ChartWidget createProfitBarChart()
+	{
+		ChartWidget chart = new ChartWidget();
+		ChartData cd = new ChartData("Kapital nach Runde 1", "font-size: 14px; font-family: Verdana; text-align: center;");
+		cd.setBackgroundColour("#ffffff");
+
+		XAxis xa = new XAxis();
+		List<String> labels = new ArrayList<String>();
+		List<Number> bchartValues = new ArrayList<Number>();
+		Game game = Controller.getInstance().getGame();
+
+		ArrayList<Number> profitList = group.getCompany().getProfitOverview(game);
+		for (int i = 0; i < profitList.size(); i++)
+		{
+		
+			Number key = profitList.get(i);
+			String value = game.getGroupList().get(i).getUsername();
+			labels.add(value);
+			bchartValues.add(key);
+		}
+			xa.setLabels(labels);
+		xa.setMax(profitList.size()-1);
 		cd.setXAxis(xa);
 
 		YAxis ya = new YAxis();
