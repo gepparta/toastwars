@@ -90,14 +90,15 @@ public class StandardReportPanel extends Panel
 
 	private ChartWidget createCapitalBarChart()
 	{
+		Game game = Controller.getInstance().getGame();
+
 		ChartWidget chart = new ChartWidget();
-		ChartData cd = new ChartData("Kapital nach Runde 1", "font-size: 14px; font-family: Verdana; text-align: center;");
+		ChartData cd = new ChartData("Kapital nach Runde "+game.getCurrentRound(), "font-size: 14px; font-family: Verdana; text-align: center;");
 		cd.setBackgroundColour("#ffffff");
 
 		XAxis xa = new XAxis();
 		List<String> labels = new ArrayList<String>();
 		List<Number> bchartValues = new ArrayList<Number>();
-		Game game = Controller.getInstance().getGame();
 
 		ArrayList<Number> capitalList = group.getCompany().getCapitalOverview(game);
 		for (int i = 0; i < capitalList.size(); i++)
@@ -131,14 +132,14 @@ public class StandardReportPanel extends Panel
 	
 	private ChartWidget createProfitBarChart()
 	{
+		Game game = Controller.getInstance().getGame();
 		ChartWidget chart = new ChartWidget();
-		ChartData cd = new ChartData("Kapital nach Runde 1", "font-size: 14px; font-family: Verdana; text-align: center;");
+		ChartData cd = new ChartData("Gewinn nach Runde "+game.getCurrentRound(), "font-size: 14px; font-family: Verdana; text-align: center;");
 		cd.setBackgroundColour("#ffffff");
 
 		XAxis xa = new XAxis();
 		List<String> labels = new ArrayList<String>();
 		List<Number> bchartValues = new ArrayList<Number>();
-		Game game = Controller.getInstance().getGame();
 
 		ArrayList<Number> profitList = group.getCompany().getProfitOverview(game);
 		for (int i = 0; i < profitList.size(); i++)
