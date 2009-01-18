@@ -516,6 +516,7 @@ ul.x-tab-strip li.x-tab-edge {
 .x-tab-strip-top .x-tab-strip-active .x-tab-right span.x-tab-strip-text
 	{
 	padding-bottom: 5px;
+	cursor: pointer;
 }
 
 .x-tab-strip-bottom .x-tab-strip-active .x-tab-right {
@@ -525,6 +526,7 @@ ul.x-tab-strip li.x-tab-edge {
 .x-tab-strip-bottom .x-tab-strip-active .x-tab-right span.x-tab-strip-text
 	{
 	padding-top: 5px;
+	cursor: pointer;
 }
 
 .x-tab-strip-top .x-tab-right {
