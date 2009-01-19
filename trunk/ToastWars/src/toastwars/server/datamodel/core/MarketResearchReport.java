@@ -371,12 +371,12 @@ public class MarketResearchReport implements Comparator
 		ArrayList<List<String>> liste = new ArrayList<List<String>>();
 		liste.add(generateHeaders());
 		// liste.add(MarketResearchReport.getInstance().getCapitalRankingList());
+		liste.add(getNewspaperRankingList());
 		liste.add(getRadioRankingList());
 		liste.add(getTvRankingList());
-		liste.add(getNewspaperRankingList());
+		liste.add(getQualityRankingList());
 		liste.add(getDesignRankingList());
 		liste.add(getEcologyRankingList());
-		liste.add(getQualityRankingList());
 
 		// liste.add(MarketResearchReport.getInstance().getMarketshareType1RankingList());
 		// if
