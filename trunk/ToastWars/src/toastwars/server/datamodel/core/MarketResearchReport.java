@@ -189,12 +189,12 @@ public class MarketResearchReport implements Comparator
 			for (int a = 0; a < tList.size(); a++)
 			{
 				// Investments einer Company zusammenrechnen
-				radioInvestment += tList.get(a).getRadioInvestment();
-				tvInvestment += tList.get(a).getTvInvestment();
-				newspaperInvestment += tList.get(a).getNewspaperInvestment();
-				qualityInvestment += tList.get(a).getQualityInvestment();
-				designInvestment += tList.get(a).getDesignInvestment();
-				ecologyInvestment += tList.get(a).getEfficiencyInvestment();
+				radioInvestment += tList.get(a).getRadioInvestmentKum();
+				tvInvestment += tList.get(a).getTvInvestmentKum();
+				newspaperInvestment += tList.get(a).getNewspaperInvestmentKum();
+				qualityInvestment += tList.get(a).getQualityInvestmentKum();
+				designInvestment += tList.get(a).getDesignInvestmentKum();
+				ecologyInvestment += tList.get(a).getEcologyInvestmentKum();
 
 				// if (com.getToasterList().get(a).getType() == Type.TYPE1)
 				// {
