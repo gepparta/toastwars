@@ -12,15 +12,12 @@ import toastwars.server.datamodel.user.IUser;
 public class DAOGame
 {
 
-	public static ArrayList<Group> getAllUsers()
+	public static ArrayList<Group> getAllUsers(DBConnection con)
 	{
 		ArrayList<Group> userList = new ArrayList<Group>();
 		try
 		{
-			DBConnection con = DBConnection.getInstance();
-			con.connectToDB();
 			userList = DAOUser.getAllUsers(con);
-			con.closeConnectionToDB();
 			return userList;
 		} catch (RuntimeException e)
 		{
@@ -29,12 +26,10 @@ public class DAOGame
 		return userList;
 	}
 
-	public static void saveAllUsers(ArrayList<Group> userList)
+	public static void saveAllUsers(ArrayList<Group> userList,DBConnection con)
 	{
 		try
 		{
-			DBConnection con = DBConnection.getInstance();
-			con.connectToDB();
 			int size = userList.size();
 			for (int i = 0; i < size; i++)
 			{
@@ -43,27 +38,23 @@ public class DAOGame
 			}
 			changeCurrentRound(con);
 //			DAOUser.fillUserList(con);
-			con.closeConnectionToDB();
 		} catch (RuntimeException e)
 		{
 			e.printStackTrace();
 		}
 	}
 
-	public static Integer getCurrentRound()
+	public static Integer getCurrentRound(DBConnection con)
 	{
 		try
 		{
 			String query = "SELECT Game.[CurrentRound]FROM Game;";
-			DBConnection con = DBConnection.getInstance();
-			con.connectToDB();
 			Statement stmt = con.getStatement();
 			ResultSet rst = stmt.executeQuery(query);
 			rst.next();
 			Integer currentRound = rst.getInt(1);
 			rst.close();
 			stmt.close();
-			con.closeConnectionToDB();
 			return currentRound;
 
 		} catch (SQLException e)
@@ -73,20 +64,17 @@ public class DAOGame
 		}
 	}
 
-	public static Integer getUserAmount()
+	public static Integer getUserAmount(DBConnection con)
 	{
 		try
 		{
 			String query = "SELECT Game.[NumberOfUsers]FROM Game;";
-			DBConnection con = DBConnection.getInstance();
-			con.connectToDB();
 			Statement stmt = con.getStatement();
 			ResultSet rst = stmt.executeQuery(query);
 			rst.next();
 			Integer UserAmount = rst.getInt(1);
 			rst.close();
 			stmt.close();
-			con.closeConnectionToDB();
 			return UserAmount;
 		} catch (SQLException e)
 		{
@@ -110,12 +98,10 @@ public class DAOGame
 		}
 	}
 
-	public static void createInitialData(Integer userAmount)
+	public static void createInitialData(Integer userAmount,DBConnection con)
 	{
 		try
 		{
-			DBConnection con = DBConnection.getInstance();
-			con.connectToDB();
 			Statement stmt = con.getStatement();
 			String query = "DELETE * FROM Game;";
 			stmt.execute(query);
@@ -143,19 +129,16 @@ public class DAOGame
 				stmt.execute(query);
 			}
 			stmt.close();
-			con.closeConnectionToDB();
 		} catch (SQLException e)
 		{
 			e.printStackTrace();
 		}
 	}
 
-	public static boolean resetGame()
+	public static boolean resetGame(DBConnection con)
 	{
 		try
 		{
-			DBConnection con = DBConnection.getInstance();
-			con.connectToDB();
 			Statement stmt = con.getStatement();
 			String query = "DELETE * FROM Game;";
 			stmt.execute(query);
@@ -166,7 +149,6 @@ public class DAOGame
 			query = "DELETE * FROM Toaster;";
 			stmt.execute(query);
 			stmt.close();
-			con.closeConnectionToDB();
 
 			return true;
 		} catch (SQLException e)
@@ -176,33 +158,23 @@ public class DAOGame
 		return false;
 	}
 
-	public static boolean isGameStarted()
+	public static boolean isGameStarted(DBConnection con)
 	{
 		boolean isGameStarted = false;
 		try
 		{
 			String query = "SELECT Game.[CurrentRound]FROM Game;";
-			DBConnection con = DBConnection.getInstance();
-			con.connectToDB();
 			Statement stmt = con.getStatement();
 			ResultSet rst = stmt.executeQuery(query);
 			if (rst.next())
 				isGameStarted = true;
 			rst.close();
 			stmt.close();
-			con.closeConnectionToDB();
 		} catch (SQLException e)
 		{
 			e.printStackTrace();
 			return false;
 		}
 		return isGameStarted;
-	}
-
-	public static void main(String[] args)
-	{
-
-		createInitialData(5);
-
 	}
 }
