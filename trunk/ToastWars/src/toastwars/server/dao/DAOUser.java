@@ -30,15 +30,6 @@ public class DAOUser
 	}
 
 	// test
-	public static void saveUser(Group group, DBConnection con)
-	{
-		DAOCompany daoCompany = new DAOCompany();
-		Company company = group.getCompany();
-		String username = group.getUsername();
-		changeStatus(username, group.getStatus().name(),con);
-		daoCompany.saveCompany(company, con);
-//		fillUserList(con);
-	}
 
 	public static boolean saveUser(Group group,DBConnection con)
 	{
