@@ -108,6 +108,36 @@ public class DAOUser
 			return null;
 		}
 	}
+	
+	public static ArrayList<Group> getAllUsersByRound(DBConnection con, Integer round)
+	{
+		try
+		{
+			userList.clear();
+			// Abfrage definieren
+			String query = "SELECT * FROM User;";
+			Statement stmt = con.getStatement();
+			ResultSet rst = stmt.executeQuery(query);
+			DAOCompany test = new DAOCompany();
+			// Zeileninhalt ermitteln
+			while (rst.next())
+			{
+				Group group = (Group) UserFactory.createUser("Group", rst.getString(1), rst.getString(2));
+				int companyID = rst.getInt(3);
+				group.setCompany(test.getCompanyByRound(con, companyID, round));
+				Status stat = Status.valueOf(rst.getString(4));
+				group.setStatus(stat);
+				userList.add(group);
+			}
+			rst.close();
+			stmt.close();
+			return userList;
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 	public static void fillUserList(DBConnection con)
 	{
