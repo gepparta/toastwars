@@ -41,7 +41,7 @@ public class StandardReportPanel extends Panel
 	{
 		group = (Group) Controller.getInstance().getUser();
 
-		setTitle("Analyse-bericht");
+		setTitle("Analyse-Bericht");
 		setPaddings(15);
 
 		Panel horizPanel = new Panel();
