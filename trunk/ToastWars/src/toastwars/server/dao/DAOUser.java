@@ -10,12 +10,14 @@ import toastwars.server.datamodel.user.Group;
 import toastwars.server.datamodel.user.Status;
 import toastwars.server.datamodel.user.UserFactory;
 
-public class DAOUser {
+public class DAOUser
+{
 
-	private static ArrayList<Group>	userList	= new ArrayList<Group>();
+	private static ArrayList<Group> userList = new ArrayList<Group>();
 
-	public static boolean updateUser(Group group) {
-		DBConnection con = new DBConnection();
+	public static boolean updateUser(Group group)
+	{
+		DBConnection con = DBConnection.getInstance();
 		con.connectToDB();
 		DAOCompany daoCompany = new DAOCompany();
 		Company company = group.getCompany();
@@ -31,7 +33,8 @@ public class DAOUser {
 	}
 
 	// test
-	public static void saveUser(Group group, DBConnection con) {
+	public static void saveUser(Group group, DBConnection con)
+	{
 		DAOCompany daoCompany = new DAOCompany();
 		Company company = group.getCompany();
 		String username = group.getUsername();
@@ -40,8 +43,9 @@ public class DAOUser {
 //		fillUserList(con);
 	}
 
-	public static boolean saveUser(Group group) {
-		DBConnection con = new DBConnection();
+	public static boolean saveUser(Group group)
+	{
+		DBConnection con = DBConnection.getInstance();
 		con.connectToDB();
 		DAOCompany daoCompany = new DAOCompany();
 		Company company = group.getCompany();
@@ -56,46 +60,49 @@ public class DAOUser {
 			return false;
 	}
 
-	public void saveUser(String name, String password, Integer CompanyID) {
-		DBConnection con = new DBConnection();
+	public void saveUser(String name, String password, Integer CompanyID)
+	{
+		DBConnection con = DBConnection.getInstance();
 		con.connectToDB();
 		Statement stmt = con.getStatement();
-		String sql = "INSERT INTO User (UserName, Password, CompanyID, Status)VALUES ('"
-				+ name
-				+ "','"
-				+ password
-				+ "','"
-				+ CompanyID
+		String sql = "INSERT INTO User (UserName, Password, CompanyID, Status)VALUES ('" + name + "','" + password + "','" + CompanyID
 				+ "', 'started');";
-		try {
+		try
+		{
 			stmt.execute(sql);
 			stmt.close();
 			fillUserList(con);
 			con.closeConnectionToDB();
-		} catch (SQLException e) {
+		} catch (SQLException e)
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	public void deleteUsers() {
-		DBConnection con = new DBConnection();
+	public void deleteUsers()
+	{
+		DBConnection con = DBConnection.getInstance();
 		con.connectToDB();
 		Statement stmt = con.getStatement();
 		String sql = "DELETE * FROM User;";
-		try {
+		try
+		{
 			stmt.execute(sql);
 			stmt.close();
 			con.closeConnectionToDB();
 			userList.clear();
-		} catch (SQLException e) {
+		} catch (SQLException e)
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	public static ArrayList<Group> getAllUsers(DBConnection con) {
-		try {
+	public static ArrayList<Group> getAllUsers(DBConnection con)
+	{
+		try
+		{
 			userList.clear();
 			// Abfrage definieren
 			String query = "SELECT * FROM User;";
@@ -103,9 +110,9 @@ public class DAOUser {
 			ResultSet rst = stmt.executeQuery(query);
 			DAOCompany test = new DAOCompany();
 			// Zeileninhalt ermitteln
-			while (rst.next()) {
-				Group group = (Group) UserFactory.createUser("Group", rst
-						.getString(1), rst.getString(2));
+			while (rst.next())
+			{
+				Group group = (Group) UserFactory.createUser("Group", rst.getString(1), rst.getString(2));
 				int companyID = rst.getInt(3);
 				group.setCompany(test.getCurrentCompany(con, companyID));
 				Status stat = Status.valueOf(rst.getString(4));
@@ -115,14 +122,17 @@ public class DAOUser {
 			rst.close();
 			stmt.close();
 			return userList;
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 			e.printStackTrace();
 			return null;
 		}
 	}
 
-	public static void fillUserList(DBConnection con) {
-		try {
+	public static void fillUserList(DBConnection con)
+	{
+		try
+		{
 			userList.clear();
 			// Abfrage definieren
 			String query = "SELECT * FROM User;";
@@ -130,9 +140,9 @@ public class DAOUser {
 			ResultSet rst = stmt.executeQuery(query);
 			DAOCompany test = new DAOCompany();
 			// Zeileninhalt ermitteln
-			while (rst.next()) {
-				Group group = (Group) UserFactory.createUser("Group", rst
-						.getString(1), rst.getString(2));
+			while (rst.next())
+			{
+				Group group = (Group) UserFactory.createUser("Group", rst.getString(1), rst.getString(2));
 				int companyID = rst.getInt(3);
 				group.setCompany(test.getCurrentCompany(con, companyID));
 				Status stat = Status.valueOf(rst.getString(4));
@@ -142,40 +152,46 @@ public class DAOUser {
 			rst.close();
 			stmt.close();
 
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 			e.printStackTrace();
 		}
 	}
 
-	public static boolean changeStatus(String username, String status) {
+	public static boolean changeStatus(String username, String status)
+	{
 
-		try {
-			DBConnection con = new DBConnection();
+		try
+		{
+			DBConnection con = DBConnection.getInstance();
 			con.connectToDB();
 			Statement stmt = con.getStatement();
-			String sql = "UPDATE [User] SET [User].Status = '" + status
-					+ "' WHERE (((User.UserName)='" + username + "'));";
+			String sql = "UPDATE [User] SET [User].Status = '" + status + "' WHERE (((User.UserName)='" + username + "'));";
 
 			stmt.execute(sql);
 			stmt.close();
 			con.closeConnectionToDB();
 //			userList.clear();
 			return true;
-		} catch (SQLException e) {
+		} catch (SQLException e)
+		{
 			e.printStackTrace();
 		}
 		return false;
 	}
 
-	public static IUser findUser(String name, String pass) throws Exception {
-		DBConnection con = new DBConnection();
+	public static IUser findUser(String name, String pass) throws Exception
+	{
+		DBConnection con = DBConnection.getInstance();
 		con.connectToDB();
-		if (userList.size() == 0) {
+		if (userList.size() == 0)
+		{
 			fillUserList(con);
 			con.closeConnectionToDB();
 		}
 
-		for (int i = 0; i <= userList.size(); i++) {
+		for (int i = 0; i <= userList.size(); i++)
+		{
 			if (userList.get(i).getUsername().equals(name))
 				if (userList.get(i).getPassword().equals(pass))
 					return userList.get(i);
