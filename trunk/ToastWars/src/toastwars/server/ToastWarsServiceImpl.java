@@ -118,6 +118,18 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements ToastW
 				Game.getInstance().setCurrentRound(1);
 				Game.getInstance().setGroupList(DAOGame.getAllUsers());
 				master.setGame(Game.getInstance());
+				
+				MarketResearchReport report = MarketResearchReport.getInstance();
+				ArrayList<Group> grouplist = Game.getInstance().getGroupList();
+
+				report.generateMarketResearchReport(grouplist);
+				this.capitalRankingInternList = report.getCapitalRankingInternList();
+				this.profitRankingList = report.getProfitRankingInternList();
+				for (int i = 0; i < grouplist.size(); i++)
+				{
+					grouplist.get(i).getCompany().setProfitRankingList(this.profitRankingList);
+					grouplist.get(i).getCompany().setCapitalRankingInternList(this.capitalRankingInternList);
+				}
 			} catch (Exception e)
 			{
 				e.printStackTrace();
@@ -170,7 +182,6 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements ToastW
 
 					if (company.isMarketResearchReportON())
 						company.setReportListe(report.getReports());
-
 					company.setMarketResearchReportON(false);
 				}
 
