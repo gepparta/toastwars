@@ -93,7 +93,7 @@ public class StandardReportPanel extends Panel
 		Game game = Controller.getInstance().getGame();
 
 		ChartWidget chart = new ChartWidget();
-		ChartData cd = new ChartData("Kapital nach Runde "+game.getCurrentRound(), "font-size: 14px; font-family: Verdana; text-align: center;");
+		ChartData cd = new ChartData("Kapital nach Runde "+(game.getCurrentRound()-1), "font-size: 14px; font-family: Verdana; text-align: center;");
 		cd.setBackgroundColour("#ffffff");
 
 		XAxis xa = new XAxis();
@@ -134,7 +134,7 @@ public class StandardReportPanel extends Panel
 	{
 		Game game = Controller.getInstance().getGame();
 		ChartWidget chart = new ChartWidget();
-		ChartData cd = new ChartData("Gewinn nach Runde "+game.getCurrentRound(), "font-size: 14px; font-family: Verdana; text-align: center;");
+		ChartData cd = new ChartData("Gewinn nach Runde "+(game.getCurrentRound()-1), "font-size: 14px; font-family: Verdana; text-align: center;");
 		cd.setBackgroundColour("#ffffff");
 
 		XAxis xa = new XAxis();
