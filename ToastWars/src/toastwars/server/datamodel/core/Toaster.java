@@ -1,6 +1,7 @@
 package toastwars.server.datamodel.core;
 
 import toastwars.util.NumberUtil;
+
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class Toaster implements IsSerializable
@@ -15,6 +16,7 @@ public class Toaster implements IsSerializable
 	private double profit;
 	private int marketShare;
 	private Type type;
+	private int amountToProduce;
 	// Faktoren für marketing**************************************
 	private double marketing;
 	private double tvInvestment;
@@ -571,6 +573,14 @@ public class Toaster implements IsSerializable
 	public void setEcologyInvestmentKum()
 	{
 		this.ecologyInvestmentKum += this.ecologyInvestment;
+	}
+	public int getAmountToProduce()
+	{
+		return amountToProduce;
+	}
+	public void setAmountToProduce(int amountToProduce)
+	{
+		this.amountToProduce = amountToProduce;
 	}
 
 }
