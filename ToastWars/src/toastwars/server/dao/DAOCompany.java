@@ -106,4 +106,36 @@ public class DAOCompany {
 			return null;
 		}
 	}
+	public Company getCompanyByRound(DBConnection con, Integer companyID, Integer round) {
+
+		try {
+			// Abfrage definieren
+			String query = "SELECT * FROM Company WHERE companyID = "
+					+ companyID + " AND Round = " + round + ";";
+			Statement stmt = con.getStatement();
+			ResultSet rst = stmt.executeQuery(query);
+			boolean extraReport;
+			// Zeileninhalt ermitteln
+			while (rst.next()) {
+				DAOToaster toaster = new DAOToaster();
+				companyID = rst.getInt(2);
+				Company company = new Company(companyID, rst.getDouble(3), rst
+						.getDouble(4), rst.getDouble(5), rst.getDouble(6), rst
+						.getInt(7), toaster.getToasterFromCompanyByRound(
+						companyID, con, round));
+				extraReport = rst.getBoolean(8);
+				company.setMarketResearchReportON(extraReport);
+				rst.close();
+				stmt.close();
+				return company;
+			}
+			rst.close();
+			stmt.close();
+			return null;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

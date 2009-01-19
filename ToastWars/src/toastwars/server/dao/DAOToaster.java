@@ -179,4 +179,75 @@ public class DAOToaster {
 			return null;
 		}
 	}
+	
+	public ArrayList<Toaster> getToasterFromCompanyByRound(int companyID,
+			DBConnection con, Integer round) {
+
+		try {
+			toasterList.clear();
+			// Abfrage definieren
+			String query = "SELECT * FROM Toaster WHERE companyID = "
+					+ companyID + " AND Round = " + round + ";";
+			Statement stmt = con.getStatement();
+			ResultSet rst = stmt.executeQuery(query);
+			
+			
+//			this.toasterID = toasterID;
+//			this.price = price;
+//			this.index = index;
+////			this.turnover = turnover;
+//			this.cost = cost;
+//			this.profit = profit;
+//			this.marketShare = marketShare;
+//			this.type = type;
+//			this.marketing = marketing;
+//			this.tvInvestment = tvInvestment;
+//			this.newspaperInvestment = newspaperInvestment;
+//			this.radioInvestment = radioInvestment;
+//			this.tvInvestmentKum = tvInvestmentKum;
+//			this.newspaperInvestmentKum = newspaperInvestmentKum;
+//			this.radioInvestmentKum = radioInvestmentKum;
+//			this.research = research;
+//			this.qualityInvestment = qualityInvestment;
+//			this.designInvestment = designInvestment;
+//			this.ecologyInvestment = ecologyInvestment;
+//			this.qualityInvestmentKum = qualityInvestmentKum;
+//			this.designInvestmentKum = designInvestmentKum;
+//			this.ecologyInvestmentKum = ecologyInvestmentKum;
+			// Zeileninhalt ermitteln
+			while (rst.next()) {
+				Toaster toaster = new Toaster(rst.getInt(2),
+											  rst.getDouble(4),
+						                      rst.getDouble(19), 
+						                      rst.getDouble(20),
+						                      rst.getDouble(21), 
+						                      rst.getDouble(22),
+						                      rst.getInt(23),
+						                      Type.valueOf(rst.getString(24)),
+						                      rst.getDouble(5),
+						                      rst.getDouble(6), 
+						                      rst.getDouble(8),
+						                      rst.getDouble(10),
+						                      rst.getDouble(7), 
+						                      rst.getDouble(9), 
+						                      rst.getDouble(11),
+						                      rst.getDouble(12),
+						                      rst.getDouble(13),
+						                      rst.getDouble(15),
+						                      rst.getDouble(17), 
+						                      rst.getDouble(14),
+						                      rst.getDouble(16), 
+						                      rst.getDouble(18)
+						                      );
+				toasterList.add(toaster);
+			}
+			rst.close();
+			stmt.close();
+			return toasterList;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

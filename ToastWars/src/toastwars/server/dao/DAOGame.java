@@ -25,7 +25,20 @@ public class DAOGame
 		}
 		return userList;
 	}
-
+	
+	public static ArrayList<Group> getAllUsersByRound(DBConnection con, Integer round)
+	{
+		ArrayList<Group> userList = new ArrayList<Group>();
+		try
+		{
+			userList = DAOUser.getAllUsersByRound(con, round);
+			return userList;
+		} catch (RuntimeException e)
+		{
+			e.printStackTrace();
+		}
+		return userList;
+	}
 	public static void saveAllUsers(ArrayList<Group> userList,DBConnection con)
 	{
 		try
