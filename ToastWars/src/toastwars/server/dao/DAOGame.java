@@ -9,43 +9,53 @@ import toastwars.server.datamodel.core.Game;
 import toastwars.server.datamodel.user.Group;
 import toastwars.server.datamodel.user.IUser;
 
-public class DAOGame {
+public class DAOGame
+{
 
-	public static ArrayList<Group> getAllUsers() {
+	public static ArrayList<Group> getAllUsers()
+	{
 		ArrayList<Group> userList = new ArrayList<Group>();
-		try {
-			DBConnection con = new DBConnection();
+		try
+		{
+			DBConnection con = DBConnection.getInstance();
 			con.connectToDB();
 			userList = DAOUser.getAllUsers(con);
 			con.closeConnectionToDB();
 			return userList;
-		} catch (RuntimeException e) {
+		} catch (RuntimeException e)
+		{
 			e.printStackTrace();
 		}
 		return userList;
 	}
 
-	public static void saveAllUsers(ArrayList<Group> userList) {
-		try {
-			DBConnection con = new DBConnection();
+	public static void saveAllUsers(ArrayList<Group> userList)
+	{
+		try
+		{
+			DBConnection con = DBConnection.getInstance();
 			con.connectToDB();
 			int size = userList.size();
-			for (int i = 0; i < size; i++) {
+			for (int i = 0; i < size; i++)
+			{
 				Group group = userList.get(i);
 				DAOUser.saveUser(group, con);
 			}
 			changeCurrentRound(con);
 //			DAOUser.fillUserList(con);
 			con.closeConnectionToDB();
-		} catch (RuntimeException e) {
+		} catch (RuntimeException e)
+		{
 			e.printStackTrace();
 		}
 	}
 
-	public static Integer getCurrentRound() {
-		try {
+	public static Integer getCurrentRound()
+	{
+		try
+		{
 			String query = "SELECT Game.[CurrentRound]FROM Game;";
-			DBConnection con = new DBConnection();
+			DBConnection con = DBConnection.getInstance();
 			con.connectToDB();
 			Statement stmt = con.getStatement();
 			ResultSet rst = stmt.executeQuery(query);
@@ -56,16 +66,19 @@ public class DAOGame {
 			con.closeConnectionToDB();
 			return currentRound;
 
-		} catch (SQLException e) {
+		} catch (SQLException e)
+		{
 			e.printStackTrace();
 			return null;
 		}
 	}
 
-	public static Integer getUserAmount() {
-		try {
+	public static Integer getUserAmount()
+	{
+		try
+		{
 			String query = "SELECT Game.[NumberOfUsers]FROM Game;";
-			DBConnection con = new DBConnection();
+			DBConnection con = DBConnection.getInstance();
 			con.connectToDB();
 			Statement stmt = con.getStatement();
 			ResultSet rst = stmt.executeQuery(query);
@@ -75,28 +88,33 @@ public class DAOGame {
 			stmt.close();
 			con.closeConnectionToDB();
 			return UserAmount;
-		} catch (SQLException e) {
+		} catch (SQLException e)
+		{
 			e.printStackTrace();
 			return null;
 		}
 	}
 
-	public static void changeCurrentRound(DBConnection con) {
+	public static void changeCurrentRound(DBConnection con)
+	{
 		int currentRound = Game.getInstance().getCurrentRound() + 1;
 		Statement stmt = con.getStatement();
-		String sql = "UPDATE [Game] SET [Game].CurrentRound = '" + currentRound
-				+ "'";
-		try {
+		String sql = "UPDATE [Game] SET [Game].CurrentRound = '" + currentRound + "'";
+		try
+		{
 			stmt.execute(sql);
 			stmt.close();
-		} catch (SQLException e) {
+		} catch (SQLException e)
+		{
 			e.printStackTrace();
 		}
 	}
 
-	public static void createInitialData(Integer userAmount) {
-		try {
-			DBConnection con = new DBConnection();
+	public static void createInitialData(Integer userAmount)
+	{
+		try
+		{
+			DBConnection con = DBConnection.getInstance();
 			con.connectToDB();
 			Statement stmt = con.getStatement();
 			String query = "DELETE * FROM Game;";
@@ -107,39 +125,36 @@ public class DAOGame {
 			stmt.execute(query);
 			query = "DELETE * FROM Toaster;";
 			stmt.execute(query);
-			query = "INSERT INTO Game VALUES (1," + userAmount
-					+ ", 'Instruction');";
+			query = "INSERT INTO Game VALUES (1," + userAmount + ", 'Instruction');";
 			stmt.execute(query);
-			for (int i = 1; i <= userAmount; i++) {
-				query = "INSERT INTO User VALUES ('Gruppe " + i + "','pass" + i
-						+ "'," + i + ",'STARTED');";
+			for (int i = 1; i <= userAmount; i++)
+			{
+				query = "INSERT INTO User VALUES ('Gruppe " + i + "','pass" + i + "'," + i + ",'STARTED');";
 				stmt.execute(query);
 				// turnover, cost, profit, capital, marketShare
-				query = "INSERT INTO Company VALUES (1," + i
-						+ ", 0, 0, 0, 100000.00, " + 10000 / userAmount
-						+ ",FALSE);";
+				query = "INSERT INTO Company VALUES (1," + i + ", 0, 0, 0, 100000.00, " + 10000 / userAmount + ",FALSE);";
 				stmt.execute(query);
 				// price, marketing, tvInvestment, newsPaperInvestment,
 				// radioInvestment, research, quality, design, efficiency,
 				// index, turnover, cost, profit, marketShare, type
-				query = "INSERT INTO Toaster VALUES (1,"
-						+ i
-						+ ","
-						+ i
+				query = "INSERT INTO Toaster VALUES (1," + i + "," + i
 						+ ", 10, 3.00, 0, 0, 0, 0, 0, 0, 3.00, 0, 0, 0, 0, 0, 0, 9.00, 0.00, 0.00, 0.00, 0,'TYPE1');";
 
 				stmt.execute(query);
 			}
 			stmt.close();
 			con.closeConnectionToDB();
-		} catch (SQLException e) {
+		} catch (SQLException e)
+		{
 			e.printStackTrace();
 		}
 	}
 
-	public static boolean resetGame() {
-		try {
-			DBConnection con = new DBConnection();
+	public static boolean resetGame()
+	{
+		try
+		{
+			DBConnection con = DBConnection.getInstance();
 			con.connectToDB();
 			Statement stmt = con.getStatement();
 			String query = "DELETE * FROM Game;";
@@ -154,17 +169,20 @@ public class DAOGame {
 			con.closeConnectionToDB();
 
 			return true;
-		} catch (SQLException e) {
+		} catch (SQLException e)
+		{
 			e.printStackTrace();
 		}
 		return false;
 	}
 
-	public static boolean isGameStarted() {
+	public static boolean isGameStarted()
+	{
 		boolean isGameStarted = false;
-		try {
+		try
+		{
 			String query = "SELECT Game.[CurrentRound]FROM Game;";
-			DBConnection con = new DBConnection();
+			DBConnection con = DBConnection.getInstance();
 			con.connectToDB();
 			Statement stmt = con.getStatement();
 			ResultSet rst = stmt.executeQuery(query);
@@ -173,14 +191,16 @@ public class DAOGame {
 			rst.close();
 			stmt.close();
 			con.closeConnectionToDB();
-		} catch (SQLException e) {
+		} catch (SQLException e)
+		{
 			e.printStackTrace();
 			return false;
 		}
 		return isGameStarted;
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args)
+	{
 
 		createInitialData(5);
 
