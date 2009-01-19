@@ -71,9 +71,15 @@ public class LoginWindow extends Window {
 		}));
 
 		loginPanel.addButton(new Button("Gruppe", new ButtonListenerAdapter() {
+			private int	i	= 2;
+
 			public void onClick(Button button, EventObject e) {
-				userName.setValue("Gruppe 2");
-				userPass.setValue("pass2");
+				userName.setValue("Gruppe " + i);
+				userPass.setValue("pass" + i);
+				i++;
+
+				if (i == 5)
+					i = 1;
 			}
 		}));
 
