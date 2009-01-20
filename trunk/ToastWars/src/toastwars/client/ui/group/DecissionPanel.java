@@ -1,6 +1,11 @@
 package toastwars.client.ui.group;
 
+import java.util.ArrayList;
+
 import toastwars.client.Controller;
+import toastwars.server.datamodel.core.Game;
+import toastwars.server.datamodel.core.Toaster;
+import toastwars.server.datamodel.core.Type;
 import toastwars.server.datamodel.user.Group;
 import toastwars.server.datamodel.user.Status;
 
@@ -9,6 +14,8 @@ import com.gwtext.client.core.Position;
 import com.gwtext.client.widgets.Button;
 import com.gwtext.client.widgets.MessageBox;
 import com.gwtext.client.widgets.Panel;
+import com.gwtext.client.widgets.TabPanel;
+import com.gwtext.client.widgets.Window;
 import com.gwtext.client.widgets.event.ButtonListenerAdapter;
 import com.gwtext.client.widgets.form.Checkbox;
 import com.gwtext.client.widgets.form.FormPanel;
@@ -23,7 +30,9 @@ public class DecissionPanel extends Panel {
 	private NumberField				capital;
 	private Checkbox				report;
 	private static DecissionPanel	decissionPanel;
-	private DecissionForm			decissionForm;
+	private DecissionForm			decissionFormType1;
+	private DecissionForm			decissionFormType2;
+	private Game					game;
 
 	private Group					group;
 
@@ -34,10 +43,11 @@ public class DecissionPanel extends Panel {
 	}
 
 	private DecissionPanel() {
+		game = Controller.getInstance().getGame();
 		group = (Group) Controller.getInstance().getUser();
 
 		setTitle("Entscheidungen");
-		setPaddings(15, 30, 0, 0);
+		setPaddings(0, 15, 0, 0);
 		setSize(985, 400);
 		setButtonAlign(Position.CENTER);
 		setLayout(new VerticalLayout(5));
@@ -46,18 +56,35 @@ public class DecissionPanel extends Panel {
 
 		Panel middlePanel = createMiddlePanel();
 
-		// Formular
-		decissionForm = new DecissionForm(new Button[] { btnSave, btnEnd },
-				capital);
-
 		// tab panel for multiple toaster types
-		// form.setTitle("Typ 1");
-		// TabPanel tabPanel = new TabPanel();
-		// tabPanel.setTabPosition(Position.BOTTOM);
-		// tabPanel.add(form);
-		// tabPanel.activate(0);
+		TabPanel tabPanel = new TabPanel();
+		tabPanel.setTabPosition(Position.BOTTOM);
+		tabPanel.setPaddings(15);
+		tabPanel.setSize(965, 310);
 
-		add(decissionForm);
+		// from for type 1
+		Toaster toasterType1 = group.getCompany().getToasterList().get(0);
+		decissionFormType1 = new DecissionForm(
+				new Button[] { btnSave, btnEnd }, capital, toasterType1);
+		decissionFormType1.setTitle(Type.TYPE1.getDescription());
+		tabPanel.add(decissionFormType1);
+
+		// from for type 2
+		if (group.getCompany().getToasterList().size() > 1) {
+			Toaster toasterType2 = group.getCompany().getToasterList().get(1);
+			decissionFormType2 = new DecissionForm(new Button[] { btnSave,
+					btnEnd }, capital, toasterType2);
+		} else if (game.getCurrentRound() > 0) {
+			decissionFormType2 = new DecissionForm(new Button[] { btnSave,
+					btnEnd }, capital, Type.TYPE2);
+		}
+
+		if (decissionFormType2 != null) {
+			decissionFormType2.setTitle(Type.TYPE2.getDescription());
+			tabPanel.add(decissionFormType2);
+		}
+
+		add(tabPanel);
 		add(middlePanel);
 		addButton(btnSave);
 		addButton(btnEnd);
@@ -70,8 +97,18 @@ public class DecissionPanel extends Panel {
 		horPanel.setPaddings(15);
 		horPanel.setLayout(new HorizontalLayout(30));
 		horPanel.setStyle("text-align: center;");
-		horPanel.setSize(940, 55);
+		horPanel.setSize(965, 55);
 		horPanel.setBorder(true);
+
+		// add extra report check box
+		report = new Checkbox("Marktforschungsbericht");
+		report.setHeight(20);
+		report.setValue(group.getCompany().isMarketResearchReportON());
+
+		Panel reportForm = new Panel();
+		reportForm.setBorder(false);
+
+		reportForm.add(report);
 
 		// add capital field
 		capital = new NumberField("Kapital", "capital", 70);
@@ -81,18 +118,10 @@ public class DecissionPanel extends Panel {
 		capital.setDecimalSeparator(",");
 		capital.setStyle("text-align: right");
 
-		report = new Checkbox("Marktforschungsbericht");
-		report.setHeight(20);
-		report.setValue(group.getCompany().isMarketResearchReportON());
-
-		Panel reportForm = new Panel();
-		reportForm.setBorder(false);
-
 		FormPanel capitalForm = new FormPanel();
 		capitalForm.setBorder(false);
 		capitalForm.setLabelWidth(50);
 
-		reportForm.add(report);
 		capitalForm.add(capital);
 
 		horPanel.add(reportForm);
@@ -108,7 +137,7 @@ public class DecissionPanel extends Panel {
 
 				setNewGroupData();
 				group.setStatus(Status.EDITED);
-				decissionForm.updateToasterData();
+				decissionFormType1.updateToasterData();
 
 				try {
 					Controller.getInstance().save();
@@ -125,7 +154,7 @@ public class DecissionPanel extends Panel {
 
 						setNewGroupData();
 						group.setStatus(Status.COMPLETED);
-						decissionForm.updateToasterData();
+						decissionFormType1.updateToasterData();
 
 						try {
 							Controller.getInstance().save();
@@ -162,7 +191,7 @@ public class DecissionPanel extends Panel {
 			btnSave.setDisabled(true);
 			btnEnd.setDisabled(true);
 			report.setReadOnly(true);
-			decissionForm.disableSliders();
+			decissionFormType1.disableSliders();
 		}
 	}
 }

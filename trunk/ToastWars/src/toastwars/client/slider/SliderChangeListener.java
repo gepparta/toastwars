@@ -24,7 +24,8 @@ public class SliderChangeListener implements ChangeListener {
 		double delta = slider.getCurrentValue() - previousValue;
 
 		field.setValue(slider.getCurrentValue());
-		if (!field.getName().equals("price")) {
+		if (!field.getName().equals("price")
+				&& !field.getName().equals("amount")) {
 			double newCapital = capital.getValue().floatValue() - delta;
 			if (newCapital >= 0)
 				capital.setValue(newCapital);

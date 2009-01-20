@@ -6,20 +6,23 @@ import toastwars.client.Controller;
 import toastwars.client.slider.SliderBar;
 import toastwars.client.slider.SliderChangeListener;
 import toastwars.client.slider.SliderLabelFormatter;
+import toastwars.server.datamodel.core.Company;
 import toastwars.server.datamodel.core.Toaster;
+import toastwars.server.datamodel.core.Type;
 import toastwars.server.datamodel.user.Group;
 import toastwars.server.datamodel.user.Status;
 
+import com.gwtext.client.core.EventObject;
+import com.gwtext.client.core.Position;
 import com.gwtext.client.widgets.Button;
-import com.gwtext.client.widgets.Component;
 import com.gwtext.client.widgets.Panel;
+import com.gwtext.client.widgets.event.ButtonListenerAdapter;
 import com.gwtext.client.widgets.form.Field;
 import com.gwtext.client.widgets.form.FieldSet;
 import com.gwtext.client.widgets.form.FormPanel;
 import com.gwtext.client.widgets.form.NumberField;
 import com.gwtext.client.widgets.form.event.FieldListenerAdapter;
 import com.gwtext.client.widgets.layout.HorizontalLayout;
-import com.gwtext.client.widgets.layout.VerticalLayout;
 
 public class DecissionForm extends Panel {
 
@@ -27,28 +30,58 @@ public class DecissionForm extends Panel {
 	private ArrayList<NumberField>	fields	= new ArrayList<NumberField>();
 	private ArrayList<SliderBar>	sliders	= new ArrayList<SliderBar>();
 	private NumberField				capital;
+	private Company					company;
 	private Toaster					toaster;
+	private Type					type;
+	private Panel					panel;
 
-	public DecissionForm(Button[] buttons, NumberField capital) {
-		toaster = ((Group) Controller.getInstance().getUser()).getCompany()
-				.getToasterList().get(0);
+	public DecissionForm(Button[] buttons, NumberField capital, Object o) {
+		setBorder(false);
+		company = ((Group) Controller.getInstance().getUser()).getCompany();
+
+		if (o instanceof Toaster) {
+			toaster = (Toaster) o;
+			createContent();
+		} else if (o instanceof Type) {
+			type = (Type) o;
+			createEmptyContent();
+		}
 
 		this.buttons = buttons;
 		this.capital = capital;
+	}
 
-		setHeight(250);
-		setWidth(970);
-		setBorder(false);
-		setLayout(new VerticalLayout(0));
+	private void createEmptyContent() {
+		panel = new Panel();
+		panel.setBorder(false);
+		panel.setButtonAlign(Position.CENTER);
+		panel.addButton(new Button(type.getDescription() + " entwickeln",
+				new ButtonListenerAdapter() {
+					public void onClick(Button button, EventObject e) {
+						super.onClick(button, e);
+						toaster = new Toaster();
+						toaster.setType(type);
+						try {
+							toaster.setPrice((type.getMinPrice() + type
+									.getMaxPrice()) / 2);
+						} catch (Exception e1) {
+							e1.printStackTrace();
+						}
+						company.getToasterList().add(toaster);
+						createContent();
+					}
+				}));
+
+		add(panel);
+	}
+
+	private void createContent() {
+		if (panel != null)
+			remove(panel, true);
 
 		createFields();
 
-		// add price field
-		SliderBar priceSlider = new SliderBar(5, 20);
-		configureSlider(priceSlider, 1, 15, 5, " &euro;", fields.get(0),
-				toaster.getPrice());
-		add(createSliderField(fields.get(0), priceSlider));
-
+		// add marketing and research field sets
 		Panel horPanel = new Panel();
 		horPanel.setLayout(new HorizontalLayout(15));
 		horPanel.setPaddings(0);
@@ -59,16 +92,55 @@ public class DecissionForm extends Panel {
 		FieldSet researchFS = createResearchFieldSet();
 		horPanel.add(researchFS);
 
+		add(createTopPanel());
 		add(horPanel);
+		add(createStockField());
 
 		if (((Group) Controller.getInstance().getUser()).getStatus() == Status.COMPLETED)
 			disableSliders();
+
+		doLayout();
+	}
+
+	private Panel createTopPanel() {
+		type = toaster.getType();
+
+		Panel topPanel = new Panel();
+		topPanel.setLayout(new HorizontalLayout(0));
+		topPanel.setWidth(930);
+		topPanel.setStyle("text-align: center;");
+
+		// add price field
+		SliderBar priceSlider = new SliderBar(type.getMinPrice(), type
+				.getMaxPrice());
+		int stepSize = (type.getMaxPrice() - type.getMinPrice()) / 15;
+		if (type == Type.TYPE3)
+			stepSize = 10;
+		configureSlider(priceSlider, 1, 15, 5, " &euro;", fields.get(0),
+				toaster.getPrice());
+		Panel pricePanel = createSliderField(fields.get(0), priceSlider);
+		pricePanel.setMargins(0, 0, 35, 0);
+		topPanel.add(pricePanel);
+
+		// add amount field
+		SliderBar amountSlider = new SliderBar(0, type.getMarketVolume());
+		configureSlider(amountSlider, type.getMarketVolume() / 20, 20, 2,
+				" ME", fields.get(1), 0);
+		Panel amountPanel = createSliderField(fields.get(1), amountSlider);
+		amountPanel.setMargins(0, 5, 0, 0);
+		topPanel.add(amountPanel);
+
+		return topPanel;
 	}
 
 	private void createFields() {
 		// create all fields and put them in a list
-		fields.add(createNumberField("Preis", "price", toaster.getPrice(), 5,
-				20, true));
+		fields.add(createNumberField("Preis", "price", toaster.getPrice(),
+				toaster.getType().getMinPrice(), toaster.getType()
+						.getMaxPrice(), true));
+		fields.add(createNumberField("Menge", "amount", toaster
+				.getAmountToProduce(), 0, toaster.getType().getMarketVolume(),
+				false));
 		fields.add(createNumberField("Zeitung", "mag", toaster
 				.getNewspaperInvestment(), 0, 0, false));
 		fields.add(createNumberField("Radio", "radio", toaster
@@ -89,19 +161,19 @@ public class DecissionForm extends Panel {
 		marketingFS.setPaddings(5, 5, 5, 0);
 
 		SliderBar magSlider = new SliderBar(0, 100000);
-		configureSlider(magSlider, 5000, 20, 2, " &euro;", fields.get(1),
+		configureSlider(magSlider, 5000, 20, 2, " &euro;", fields.get(2),
 				toaster.getNewspaperInvestment());
-		marketingFS.add(createSliderField(fields.get(1), magSlider));
+		marketingFS.add(createSliderField(fields.get(2), magSlider));
 
 		SliderBar radioSlider = new SliderBar(0, 100000);
-		configureSlider(radioSlider, 10000, 10, 2, " &euro;", fields.get(2),
+		configureSlider(radioSlider, 10000, 10, 2, " &euro;", fields.get(3),
 				toaster.getRadioInvestment());
-		marketingFS.add(createSliderField(fields.get(2), radioSlider));
+		marketingFS.add(createSliderField(fields.get(3), radioSlider));
 
 		SliderBar tvSlider = new SliderBar(0, 120000);
-		configureSlider(tvSlider, 20000, 6, 2, " &euro;", fields.get(3),
+		configureSlider(tvSlider, 20000, 6, 2, " &euro;", fields.get(4),
 				toaster.getTvInvestment());
-		marketingFS.add(createSliderField(fields.get(3), tvSlider));
+		marketingFS.add(createSliderField(fields.get(4), tvSlider));
 
 		return marketingFS;
 	}
@@ -112,27 +184,27 @@ public class DecissionForm extends Panel {
 		researchFS.setPaddings(5, 5, 5, 0);
 
 		SliderBar qSlider = new SliderBar(0, 100000);
-		configureSlider(qSlider, 5000, 20, 2, " &euro;", fields.get(4), toaster
+		configureSlider(qSlider, 5000, 20, 2, " &euro;", fields.get(5), toaster
 				.getQualityInvestment());
-		researchFS.add(createSliderField(fields.get(4), qSlider));
+		researchFS.add(createSliderField(fields.get(5), qSlider));
 
 		SliderBar designSlider = new SliderBar(0, 100000);
-		configureSlider(designSlider, 5000, 20, 2, " &euro;", fields.get(5),
+		configureSlider(designSlider, 5000, 20, 2, " &euro;", fields.get(6),
 				toaster.getDesignInvestment());
-		researchFS.add(createSliderField(fields.get(5), designSlider));
+		researchFS.add(createSliderField(fields.get(6), designSlider));
 
 		SliderBar ecoSlider = new SliderBar(0, 100000);
-		configureSlider(ecoSlider, 5000, 20, 2, " &euro;", fields.get(6),
+		configureSlider(ecoSlider, 5000, 20, 2, " &euro;", fields.get(7),
 				toaster.getEfficiencyInvestment());
-		researchFS.add(createSliderField(fields.get(6), ecoSlider));
+		researchFS.add(createSliderField(fields.get(7), ecoSlider));
 
 		return researchFS;
 	}
 
-	private Component createSliderField(NumberField field, SliderBar slider) {
+	private Panel createSliderField(NumberField field, SliderBar slider) {
 		Panel panel = new Panel();
-		panel.setLayout(new HorizontalLayout(15));
-		panel.setBorder(false);
+		panel.setLayout(new HorizontalLayout(13));
+		panel.setPaddings(0);
 
 		FormPanel form = new FormPanel();
 		form.setBorder(false);
@@ -204,6 +276,31 @@ public class DecissionForm extends Panel {
 		return numField;
 	}
 
+	private Panel createStockField() {
+		Panel panel = new Panel();
+		panel.setWidth(930);
+		panel.setStyle("text-align: center;");
+		panel.setBorder(false);
+
+		FormPanel form = new FormPanel();
+		form.setWidth(180);
+		form.setLabelWidth(100);
+		form.setBorder(false);
+		form.setPaddings(7);
+
+		NumberField stockField = new NumberField("Lagerbestand", "stock", 55,
+				1000);
+		stockField.setStyle("text-align: right;");
+		stockField.setReadOnly(true);
+		stockField.setAllowDecimals(false);
+		fields.add(stockField);
+
+		form.add(stockField);
+		panel.add(form);
+
+		return panel;
+	}
+
 	private boolean areAllFieldsValid() {
 		for (NumberField field : fields) {
 			if (!field.isValid())
@@ -214,27 +311,34 @@ public class DecissionForm extends Panel {
 	}
 
 	public void updateToasterData() {
-		try {
-			toaster.setPrice(fields.get(0).getValue().doubleValue());
-			toaster.setNewspaperInvestment(fields.get(1).getValue()
-					.doubleValue());
-			toaster.setRadioInvestment(fields.get(2).getValue().doubleValue());
-			toaster.setTvInvestment(fields.get(3).getValue().doubleValue());
-			toaster
-					.setQualityInvestment(fields.get(4).getValue()
-							.doubleValue());
-			toaster.setDesignInvestment(fields.get(5).getValue().doubleValue());
-			toaster.setEfficiencyInvestment(fields.get(6).getValue()
-					.doubleValue());
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (toaster != null) {
+			try {
+				toaster.setPrice(fields.get(0).getValue().doubleValue());
+				toaster.setAmountToProduce(fields.get(1).getValue().intValue());
+				toaster.setNewspaperInvestment(fields.get(2).getValue()
+						.doubleValue());
+				toaster.setRadioInvestment(fields.get(3).getValue()
+						.doubleValue());
+				toaster.setTvInvestment(fields.get(4).getValue().doubleValue());
+				toaster.setQualityInvestment(fields.get(5).getValue()
+						.doubleValue());
+				toaster.setDesignInvestment(fields.get(6).getValue()
+						.doubleValue());
+				toaster.setEfficiencyInvestment(fields.get(7).getValue()
+						.doubleValue());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
 	public void disableSliders() {
-		fields.get(0).setReadOnly(true);
-		for (SliderBar slider : sliders) {
-			slider.setVisible(false);
+		if (toaster != null) {
+			fields.get(0).setReadOnly(true);
+			fields.get(1).setReadOnly(true);
+			for (SliderBar slider : sliders) {
+				slider.setVisible(false);
+			}
 		}
 	}
 }
