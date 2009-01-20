@@ -33,10 +33,15 @@ public class DecissionForm extends Panel {
 	private Company					company;
 	private Toaster					toaster;
 	private Type					type;
-	private Panel					panel;
+	private Panel					newPanel;
+	private ArrayList<Toaster>		toasterList;
 
-	public DecissionForm(Button[] buttons, NumberField capital, Object o) {
+	public DecissionForm(Button[] buttons, NumberField capital, Object o,
+			ArrayList<Toaster> toasterList) {
+
 		setBorder(false);
+
+		this.toasterList = toasterList;
 		company = ((Group) Controller.getInstance().getUser()).getCompany();
 
 		this.buttons = buttons;
@@ -52,15 +57,16 @@ public class DecissionForm extends Panel {
 	}
 
 	private void createEmptyContent() {
-		panel = new Panel();
-		panel.setBorder(false);
-		panel.setButtonAlign(Position.CENTER);
-		panel.addButton(new Button(type.getDescription() + " entwickeln",
+		newPanel = new Panel();
+		newPanel.setBorder(false);
+		newPanel.setButtonAlign(Position.CENTER);
+		newPanel.addButton(new Button(type.getDescription() + " entwickeln",
 				new ButtonListenerAdapter() {
 					public void onClick(Button button, EventObject e) {
 						super.onClick(button, e);
 						toaster = new Toaster();
 						toaster.setType(type);
+						toaster.setToasterID(type.ordinal() + 1);
 						try {
 							toaster.setPrice((type.getMinPrice() + type
 									.getMaxPrice()) / 2);
@@ -68,16 +74,17 @@ public class DecissionForm extends Panel {
 							e1.printStackTrace();
 						}
 						company.getToasterList().add(toaster);
+						toasterList.add(toaster);
 						createContent();
 					}
 				}));
 
-		add(panel);
+		add(newPanel);
 	}
 
 	private void createContent() {
-		if (panel != null)
-			remove(panel, true);
+		if (newPanel != null)
+			remove(newPanel, true);
 
 		createFields();
 
@@ -96,7 +103,8 @@ public class DecissionForm extends Panel {
 		add(horPanel);
 		add(createStockField());
 
-		if (((Group) Controller.getInstance().getUser()).getStatus() == Status.COMPLETED || ((Group) Controller.getInstance().getUser()).getStatus() == Status.INACTIVE )
+		if (((Group) Controller.getInstance().getUser()).getStatus() == Status.COMPLETED
+				|| ((Group) Controller.getInstance().getUser()).getStatus() == Status.INACTIVE)
 			disableSliders();
 
 		doLayout();
@@ -139,9 +147,9 @@ public class DecissionForm extends Panel {
 		fields.add(createNumberField("Preis", "price", toaster.getPrice(),
 				toaster.getType().getMinPrice(), toaster.getType()
 						.getMaxPrice(), true));
-		fields.add(createNumberField("Menge", "amount", toaster
-				.getProduction(), 0, toaster.getType().getMarketVolume(),
-				false));
+		fields.add(createNumberField("Menge", "amount",
+				toaster.getProduction(), 0,
+				toaster.getType().getMarketVolume(), false));
 		fields.add(createNumberField("Zeitung", "mag", toaster
 				.getNewspaperInvestment(), 0, 0, false));
 		fields.add(createNumberField("Radio", "radio", toaster
