@@ -30,13 +30,6 @@ public class Stock
 		this.totalStockCosts = totalStockCosts;
 	}
 
-	public Stock(int stockTT1, int stockTT2, int stockTT3)
-	{
-		this.stockTT1 = stockTT1;
-		this.stockTT2 = stockTT2;
-		this.stockTT3 = stockTT3;
-	}
-
 	public double calculateTotalStockCosts()
 	{
 		double total;
