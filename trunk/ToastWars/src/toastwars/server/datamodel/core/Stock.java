@@ -1,6 +1,8 @@
 package toastwars.server.datamodel.core;
 
-public class Stock
+import com.google.gwt.user.client.rpc.IsSerializable;
+
+public class Stock implements IsSerializable
 {
 
 	private int stockTT1 = 0;

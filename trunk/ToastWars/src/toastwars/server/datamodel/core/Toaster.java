@@ -398,13 +398,13 @@ public class Toaster implements IsSerializable
 		this.cost = cost;
 	}
 
-	public void setDesignInvestment(double design) throws Exception
+	public void setDesignInvestment(double design) 
 	{
 
 		this.designInvestment = design;
 	}
 
-	public void setEfficiencyInvestment(double efficiency) throws Exception
+	public void setEfficiencyInvestment(double efficiency) 
 	{
 
 		this.ecologyInvestment = efficiency;
@@ -426,7 +426,7 @@ public class Toaster implements IsSerializable
 		this.marketShare = marketShare;
 	}
 
-	public void setNewspaperInvestment(double newsPaperInvestment) throws Exception
+	public void setNewspaperInvestment(double newsPaperInvestment) 
 	{
 		this.newspaperInvestment = newsPaperInvestment;
 	}
@@ -461,14 +461,14 @@ public class Toaster implements IsSerializable
 		this.profit = profit;
 	}
 
-	public void setQualityInvestment(double quality) throws Exception
+	public void setQualityInvestment(double quality) 
 	{
 
 		this.qualityInvestment = quality;
 
 	}
 
-	public void setRadioInvestment(double radioInvestment) throws Exception
+	public void setRadioInvestment(double radioInvestment)
 	{
 
 		this.radioInvestment = radioInvestment;
@@ -490,7 +490,7 @@ public class Toaster implements IsSerializable
 		this.turnover = turnover;
 	}
 
-	public void setTvInvestment(double tvInvestment) throws Exception
+	public void setTvInvestment(double tvInvestment) 
 	{
 
 		this.tvInvestment = tvInvestment;

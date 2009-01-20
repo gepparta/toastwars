@@ -1,10 +1,7 @@
 package toastwars.server.datamodel.core;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import toastwars.server.datamodel.user.Group;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
