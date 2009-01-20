@@ -15,9 +15,9 @@ public class MarketResearchReport implements Comparator
 {
 	private static MarketResearchReport instance;
 
-	// @gwt.typeArgs <java.lang.Number,java.lang.String>
+	// @gwt.typeArgs <java.lang.Number>
 	private ArrayList<Number> capitalRankingInternList = new ArrayList<Number>();
-	// @gwt.typeArgs <java.lang.Number,java.lang.String>
+	// @gwt.typeArgs <java.lang.Number>
 	private ArrayList<Number> profitRankingInternList = new ArrayList<Number>();
 
 	// @gwt.typeArgs <java.lang.Number,java.lang.String>
@@ -32,6 +32,7 @@ public class MarketResearchReport implements Comparator
 	private Map<Number, String> ecologyRankingInternList;
 	// @gwt.typeArgs <java.lang.Number,java.lang.String>
 	private Map<Number, String> qualityRankingInternList;
+
 	// @gwt.typeArgs <java.lang.Number,java.lang.String>
 	// private Map<Number, String> priceType1RankingInternList;
 	// // @gwt.typeArgs <java.lang.Number,java.lang.String>
@@ -47,11 +48,12 @@ public class MarketResearchReport implements Comparator
 	// private Map<Number, String> marketshareType3RankingInternList;
 	// @gwt.typeArgs <java.lang.String>
 	private Collection<String> values;
+	// @gwt.typeArgs <java.lang.Number>
+	private Collection<Number> numberValues;
 	// // @gwt.typeArgs <java.lang.String>
 	// private List<String> capitalRankingList;
 	// @gwt.typeArgs <java.lang.String>
 	private List<String> radioRankingList;
-
 	// @gwt.typeArgs <java.lang.String>
 	private List<String> tvRankingList;
 	// @gwt.typeArgs <java.lang.String>
@@ -62,6 +64,7 @@ public class MarketResearchReport implements Comparator
 	private List<String> ecologyRankingList;
 	// @gwt.typeArgs <java.lang.String>
 	private List<String> qualityRankingList;
+
 	// @gwt.typeArgs <java.lang.String>
 	// private List<String> priceType1RankingList;
 	// // @gwt.typeArgs <java.lang.String>
@@ -76,7 +79,6 @@ public class MarketResearchReport implements Comparator
 	//
 	// // @gwt.typeArgs <java.lang.String>
 	// private List<String> marketshareType3RankingList;
-	
 
 	private MarketResearchReport()
 	{
@@ -442,4 +444,65 @@ public class MarketResearchReport implements Comparator
 	{
 		this.capitalRankingInternList = capitalRankingInternList;
 	}
+
+	// @gwt.typeArgs <java.lang.Number>
+	public ArrayList<Number> getSortedIndexListTyp1()
+	{
+		if (numberValues != null)
+			numberValues.clear();
+		Map<Number, Number> sortedIndexList = new TreeMap<Number, Number>(this);
+		ArrayList<Group> grouplist = Game.getInstance().getGroupList();
+
+		for (int i = 0; i < grouplist.size(); i++)
+		{
+			for (int a = 0; a < grouplist.get(i).getCompany().getToasterList().size(); a++)
+			{
+				if (grouplist.get(i).getCompany().getToasterList().get(a).getType() == Type.TYPE1)
+					sortedIndexList.put(grouplist.get(i).getCompany().getToasterList().get(a).getIndex(), grouplist.get(i).getCompany().getCompanyID());
+			}
+		}
+		numberValues = sortedIndexList.values();
+		return new ArrayList<Number>(numberValues);
+	}
+
+	// @gwt.typeArgs <java.lang.Number>
+	public ArrayList<Number> getSortedIndexListTyp2()
+	{
+		if (numberValues != null)
+			numberValues.clear();
+		Map<Number, Number> sortedIndexList = new TreeMap<Number, Number>(this);
+		ArrayList<Group> grouplist = Game.getInstance().getGroupList();
+
+		for (int i = 0; i < grouplist.size(); i++)
+		{
+			for (int a = 0; a < grouplist.get(i).getCompany().getToasterList().size(); a++)
+			{
+				if (grouplist.get(i).getCompany().getToasterList().get(a).getType() == Type.TYPE2)
+					sortedIndexList.put(grouplist.get(i).getCompany().getToasterList().get(a).getIndex(), grouplist.get(i).getCompany().getCompanyID());
+			}
+		}
+		numberValues = sortedIndexList.values();
+		return new ArrayList<Number>(numberValues);
+	}
+	
+	// @gwt.typeArgs <java.lang.Number>
+	public ArrayList<Number> getSortedIndexListTyp3()
+	{
+		if (numberValues != null)
+			numberValues.clear();
+		Map<Number, Number> sortedIndexList = new TreeMap<Number, Number>(this);
+		ArrayList<Group> grouplist = Game.getInstance().getGroupList();
+
+		for (int i = 0; i < grouplist.size(); i++)
+		{
+			for (int a = 0; a < grouplist.get(i).getCompany().getToasterList().size(); a++)
+			{
+				if (grouplist.get(i).getCompany().getToasterList().get(a).getType() == Type.TYPE3)
+					sortedIndexList.put(grouplist.get(i).getCompany().getToasterList().get(a).getIndex(), grouplist.get(i).getCompany().getCompanyID());
+			}
+		}
+		numberValues = sortedIndexList.values();
+		return new ArrayList<Number>(numberValues);
+	}
+
 }
