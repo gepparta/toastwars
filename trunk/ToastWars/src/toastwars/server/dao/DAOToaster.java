@@ -68,7 +68,7 @@ public class DAOToaster {
 	}
 
 	// test
-	public void saveToaster(Toaster toaster, int companyID, Connection con) {
+	public boolean saveToaster(Toaster toaster, int companyID, Connection con) {
 		try {
 			int currentRound = Game.getInstance().getCurrentRound();
 			int toasterID = toaster.getToasterID();
@@ -105,10 +105,10 @@ public class DAOToaster {
 					+ efficiencyKum + "," + index + "," + turnover + "," + cost
 					+ "," + profit + "," + marketShare + ",'" + type +
 					"'," + production +");";
-			stmt.execute(query);
+			return stmt.execute(query);
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
+			return false;
 		}
 	}
 
