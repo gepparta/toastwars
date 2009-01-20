@@ -1,7 +1,5 @@
 package toastwars.client.ui.group;
 
-import java.util.ArrayList;
-
 import toastwars.client.Controller;
 import toastwars.server.datamodel.core.Game;
 import toastwars.server.datamodel.core.Toaster;
@@ -15,7 +13,6 @@ import com.gwtext.client.widgets.Button;
 import com.gwtext.client.widgets.MessageBox;
 import com.gwtext.client.widgets.Panel;
 import com.gwtext.client.widgets.TabPanel;
-import com.gwtext.client.widgets.Window;
 import com.gwtext.client.widgets.event.ButtonListenerAdapter;
 import com.gwtext.client.widgets.form.Checkbox;
 import com.gwtext.client.widgets.form.FormPanel;
@@ -32,6 +29,7 @@ public class DecissionPanel extends Panel {
 	private static DecissionPanel	decissionPanel;
 	private DecissionForm			decissionFormType1;
 	private DecissionForm			decissionFormType2;
+	private DecissionForm			decissionFormType3;
 	private Game					game;
 
 	private Group					group;
@@ -56,20 +54,29 @@ public class DecissionPanel extends Panel {
 
 		Panel middlePanel = createMiddlePanel();
 
+		add(createDecissionForms());
+		add(middlePanel);
+		addButton(btnSave);
+		addButton(btnEnd);
+
+		disableSlidersAndButtons();
+	}
+
+	private TabPanel createDecissionForms() {
 		// tab panel for multiple toaster types
 		TabPanel tabPanel = new TabPanel();
 		tabPanel.setTabPosition(Position.BOTTOM);
 		tabPanel.setPaddings(15);
 		tabPanel.setSize(965, 310);
 
-		// from for type 1
+		// form for type 1
 		Toaster toasterType1 = group.getCompany().getToasterList().get(0);
 		decissionFormType1 = new DecissionForm(
 				new Button[] { btnSave, btnEnd }, capital, toasterType1);
 		decissionFormType1.setTitle(Type.TYPE1.getDescription());
 		tabPanel.add(decissionFormType1);
 
-		// from for type 2
+		// form for type 2
 		if (group.getCompany().getToasterList().size() > 1) {
 			Toaster toasterType2 = group.getCompany().getToasterList().get(1);
 			decissionFormType2 = new DecissionForm(new Button[] { btnSave,
@@ -84,12 +91,21 @@ public class DecissionPanel extends Panel {
 			tabPanel.add(decissionFormType2);
 		}
 
-		add(tabPanel);
-		add(middlePanel);
-		addButton(btnSave);
-		addButton(btnEnd);
+		// form for type 3
+		if (group.getCompany().getToasterList().size() > 2) {
+			Toaster toasterType3 = group.getCompany().getToasterList().get(2);
+			decissionFormType3 = new DecissionForm(new Button[] { btnSave,
+					btnEnd }, capital, toasterType3);
+		} else if (game.getCurrentRound() > 0) {
+			decissionFormType3 = new DecissionForm(new Button[] { btnSave,
+					btnEnd }, capital, Type.TYPE3);
+		}
 
-		disableSlidersAndButtons();
+		if (decissionFormType3 != null) {
+			decissionFormType3.setTitle(Type.TYPE3.getDescription());
+			tabPanel.add(decissionFormType3);
+		}
+		return tabPanel;
 	}
 
 	private Panel createMiddlePanel() {
@@ -111,7 +127,7 @@ public class DecissionPanel extends Panel {
 		reportForm.add(report);
 
 		// add capital field
-		capital = new NumberField("Kapital", "capital", 70);
+		capital = new NumberField("Kapital", "capital", 80);
 		capital.setValue(group.getCompany().getCapital());
 		capital.setAllowNegative(false);
 		capital.setReadOnly(true);
@@ -138,6 +154,8 @@ public class DecissionPanel extends Panel {
 				setNewGroupData();
 				group.setStatus(Status.EDITED);
 				decissionFormType1.updateToasterData();
+				decissionFormType2.updateToasterData();
+				decissionFormType3.updateToasterData();
 
 				try {
 					Controller.getInstance().save();
@@ -155,6 +173,8 @@ public class DecissionPanel extends Panel {
 						setNewGroupData();
 						group.setStatus(Status.COMPLETED);
 						decissionFormType1.updateToasterData();
+						decissionFormType2.updateToasterData();
+						decissionFormType3.updateToasterData();
 
 						try {
 							Controller.getInstance().save();

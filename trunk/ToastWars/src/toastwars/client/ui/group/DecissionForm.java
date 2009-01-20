@@ -39,6 +39,9 @@ public class DecissionForm extends Panel {
 		setBorder(false);
 		company = ((Group) Controller.getInstance().getUser()).getCompany();
 
+		this.buttons = buttons;
+		this.capital = capital;
+
 		if (o instanceof Toaster) {
 			toaster = (Toaster) o;
 			createContent();
@@ -46,9 +49,6 @@ public class DecissionForm extends Panel {
 			type = (Type) o;
 			createEmptyContent();
 		}
-
-		this.buttons = buttons;
-		this.capital = capital;
 	}
 
 	private void createEmptyContent() {
@@ -113,11 +113,12 @@ public class DecissionForm extends Panel {
 		// add price field
 		SliderBar priceSlider = new SliderBar(type.getMinPrice(), type
 				.getMaxPrice());
-		int stepSize = (type.getMaxPrice() - type.getMinPrice()) / 15;
+		int ticks = 15;
 		if (type == Type.TYPE3)
-			stepSize = 10;
-		configureSlider(priceSlider, 1, 15, 5, " &euro;", fields.get(0),
-				toaster.getPrice());
+			ticks = 7;
+		int stepSize = (type.getMaxPrice() - type.getMinPrice()) / ticks;
+		configureSlider(priceSlider, stepSize, ticks, 4, " &euro;", fields
+				.get(0), toaster.getPrice());
 		Panel pricePanel = createSliderField(fields.get(0), priceSlider);
 		pricePanel.setMargins(0, 0, 35, 0);
 		topPanel.add(pricePanel);
