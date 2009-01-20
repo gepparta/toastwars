@@ -3,8 +3,7 @@ package toastwars.server.datamodel.user;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 public enum Status implements IsSerializable {
-	STARTED("Runde gestartet"), EDITED("Daten zwischen gespeichert"), COMPLETED(
-			"Runde abgeschlossen");
+	STARTED("Runde gestartet"), EDITED("Daten zwischen gespeichert"), COMPLETED("Runde abgeschlossen"),Inactive("Sie sind pleite");
 
 	private String	description;
 
