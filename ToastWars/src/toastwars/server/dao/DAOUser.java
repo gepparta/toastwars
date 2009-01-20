@@ -15,16 +15,13 @@ public class DAOUser {
 
 	private static ArrayList<Group>	userList	= new ArrayList<Group>();
 
-	public static boolean updateUser(Group group) {
-		DBConnection con = new DBConnection();
-		con.connectToDB();
+	public static boolean updateUser(Group group, Connection con) {
 		DAOCompany daoCompany = new DAOCompany();
 		Company company = group.getCompany();
 		String username = group.getUsername();
 		boolean b1 = changeStatus(username, group.getStatus().name(), con);
 		boolean b2 = daoCompany.updateCompany(company, con);
-		con.closeConnectionToDB();
-		fillUserList();
+		fillUserList(con);
 		if (b1 == true && b2 == true)
 			return true;
 		else
@@ -33,14 +30,13 @@ public class DAOUser {
 
 	// test
 
-	public static boolean saveUser(Group group, DBConnection con) {
+	public static boolean saveUser(Group group, Connection con) {
 
 		DAOCompany daoCompany = new DAOCompany();
 		Company company = group.getCompany();
 		String username = group.getUsername();
 		boolean b1 = changeStatus(username, group.getStatus().name(), con);
 		boolean b2 = daoCompany.saveCompany(company, con);
-		fillUserList();
 		if (b1 == true && b2 == true)
 			return true;
 		else
@@ -48,9 +44,9 @@ public class DAOUser {
 	}
 
 	public void saveUser(String name, String password, Integer CompanyID,
-			DBConnection con) {
+			Connection con) {
 		try {
-			Statement stmt = con.getStatement();
+			Statement stmt = con.createStatement();
 			String sql = "INSERT INTO User (UserName, Password, CompanyID, Status)VALUES ('"
 					+ name
 					+ "','"
@@ -60,16 +56,16 @@ public class DAOUser {
 					+ "', 'started');";
 			stmt.execute(sql);
 			stmt.close();
-			fillUserList();
+			fillUserList(con);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	public void deleteUsers(DBConnection con) {
+	public void deleteUsers(Connection con) {
 		try {
-			Statement stmt = con.getStatement();
+			Statement stmt = con.createStatement();
 			String sql = "DELETE * FROM User;";
 			stmt.execute(sql);
 			stmt.close();
@@ -80,14 +76,12 @@ public class DAOUser {
 		}
 	}
 
-	public static ArrayList<Group> getAllUsers() {
-		DBConnection con = new DBConnection();
-		con.connectToDB();
+	public static ArrayList<Group> getAllUsers(Connection con) {
 		try {
 			userList.clear();
 			// Abfrage definieren
 			String query = "SELECT * FROM User;";
-			Statement stmt = con.getStatement();
+			Statement stmt = con.createStatement();
 			ResultSet rst = stmt.executeQuery(query);
 			DAOCompany test = new DAOCompany();
 			// Zeileninhalt ermitteln
@@ -102,7 +96,6 @@ public class DAOUser {
 			}
 			rst.close();
 			stmt.close();
-			con.closeConnectionToDB();
 			return userList;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -138,39 +131,37 @@ public class DAOUser {
 		}
 	}
 
-	public static void fillUserList() {
-		DBConnection con = new DBConnection();
-		con.connectToDB();
+	public static void fillUserList(Connection con) {
 		try {
 			userList.clear();
 			// Abfrage definieren
 			String query = "SELECT * FROM User;";
-			Statement stmt = con.getStatement();
+			Statement stmt = con.createStatement();
 			ResultSet rst = stmt.executeQuery(query);
 			DAOCompany test = new DAOCompany();
-			int companyID;
 			// Zeileninhalt ermitteln
 			while (rst.next()) {
 				Group group = (Group) UserFactory.createUser("Group", rst
 						.getString(1), rst.getString(2));
-				companyID = rst.getInt(3);
+				int companyID = rst.getInt(3);
 				group.setCompany(test.getCurrentCompany(con, companyID));
 				Status stat = Status.valueOf(rst.getString(4));
 				group.setStatus(stat);
 				userList.add(group);
 			}
+			rst.close();
+			stmt.close();
+
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			con.closeConnectionToDB();
 		}
 	}
 
 	public static boolean changeStatus(String username, String status,
-			DBConnection con) {
+			Connection con) {
 
 		try {
-			Statement stmt = con.getStatement();
+			Statement stmt = con.createStatement();
 			String sql = "UPDATE [User] SET [User].Status = '" + status
 					+ "' WHERE (((User.UserName)='" + username + "'));";
 
@@ -184,9 +175,10 @@ public class DAOUser {
 		return false;
 	}
 
-	public static IUser findUser(String name, String pass) throws Exception {
+	public static IUser findUser(String name, String pass, Connection con)
+			throws Exception {
 		if (userList.size() == 0) {
-			fillUserList();
+			fillUserList(con);
 		}
 
 		for (int i = 0; i <= userList.size(); i++) {

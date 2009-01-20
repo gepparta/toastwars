@@ -3,42 +3,43 @@ package toastwars.server.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class DBConnection {
-	private static boolean	firstCall	= true;
-	private Connection		con;
+	private static DBConnection	instance;
 
-	public DBConnection() {
-	}
-
-	public void connectToDB() {
+	private DBConnection() {
 		try {
 			Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
-			con = DriverManager
-					.getConnection(
-							"jdbc:odbc:Driver={Microsoft Access Driver (*.mdb)};DBQ=C:/db/ToastWars.mdb",
-							"", "");
-		} catch (Exception e) {
-			System.out.println(e.getLocalizedMessage());
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
 		}
 	}
 
-	public void closeConnectionToDB() {
+	public static DBConnection getInstance() {
+		if (instance == null)
+			instance = new DBConnection();
+		return instance;
+	}
+
+	public Connection connectToDB() {
+		try {
+			Connection con = DriverManager
+					.getConnection(
+							"jdbc:odbc:Driver={Microsoft Access Driver (*.mdb)};DBQ=C:/db/ToastWars.mdb",
+							"", "");
+			return con;
+		} catch (Exception e) {
+			System.out.println(e.getLocalizedMessage());
+		}
+		return null;
+	}
+
+	public void closeConnectionToDB(Connection con) {
 		try {
 			if (!(con.isClosed()))
 				con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
-
-	public Statement getStatement() {
-		try {
-			return con.createStatement();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
 	}
 }
