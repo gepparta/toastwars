@@ -11,7 +11,7 @@ import toastwars.server.datamodel.core.Type;
 public class DAOToaster {
 	ArrayList<Toaster>	toasterList	= new ArrayList<Toaster>();
 
-	public void updateToaster(Toaster toaster, int companyID, DBConnection con) {
+	public void updateToaster(Toaster toaster, int companyID, Connection con) {
 		try {
 			int currentRound = Game.getInstance().getCurrentRound();
 			int toasterID = toaster.getToasterID();
@@ -37,7 +37,7 @@ public class DAOToaster {
 			int marketShare = toaster.getMarketShare();
 			String type = toaster.getType().name();
 
-			Statement stmt = con.getStatement();
+			Statement stmt = con.createStatement();
 			String query = "UPDATE Toaster SET Toaster.price = " + price
 					+ ", Toaster.marketing = " + marketing + ", Toaster.tv = "
 					+ tv + ", Toaster.tvKum = " + tvKum
@@ -59,7 +59,6 @@ public class DAOToaster {
 					+ ") AND ((Toaster.toasterID)=" + toasterID
 					+ ") AND ((Toaster.companyID)=" + companyID + "));";
 			stmt.execute(query);
-			stmt.close();
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -67,7 +66,7 @@ public class DAOToaster {
 	}
 
 	// test
-	public void saveToaster(Toaster toaster, int companyID, DBConnection con) {
+	public void saveToaster(Toaster toaster, int companyID, Connection con) {
 		try {
 			int currentRound = Game.getInstance().getCurrentRound();
 			int toasterID = toaster.getToasterID();
@@ -93,7 +92,7 @@ public class DAOToaster {
 			int marketShare = toaster.getMarketShare();
 			String type = toaster.getType().name();
 
-			Statement stmt = con.getStatement();
+			Statement stmt = con.createStatement();
 			String query = "INSERT INTO Toaster VALUES (" + currentRound + ","
 					+ toasterID + "," + companyID + "," + price + ","
 					+ marketing + "," + tv + "," + tvKum + "," + newspaper
@@ -103,7 +102,6 @@ public class DAOToaster {
 					+ efficiencyKum + "," + index + "," + turnover + "," + cost
 					+ "," + profit + "," + marketShare + ",'" + type + "');";
 			stmt.execute(query);
-			stmt.close();
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -111,7 +109,7 @@ public class DAOToaster {
 	}
 
 	public ArrayList<Toaster> getActualToasterFromCompany(int companyID,
-			DBConnection con) {
+			Connection con) {
 
 		try {
 			toasterList.clear();
@@ -119,7 +117,7 @@ public class DAOToaster {
 			int currentRound = Game.getInstance().getCurrentRound();
 			String query = "SELECT * FROM Toaster WHERE companyID = "
 					+ companyID + " AND Round = " + currentRound + ";";
-			Statement stmt = con.getStatement();
+			Statement stmt = con.createStatement();
 			ResultSet rst = stmt.executeQuery(query);
 
 			// this.toasterID = toasterID;

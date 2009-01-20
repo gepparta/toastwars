@@ -11,7 +11,7 @@ import toastwars.server.datamodel.core.Toaster;
 
 public class DAOCompany {
 
-	public boolean updateCompany(Company company, DBConnection con) {
+	public boolean updateCompany(Company company, Connection con) {
 		try {
 			int currentRound = Game.getInstance().getCurrentRound();
 			int companyID = company.getCompanyID();
@@ -21,16 +21,15 @@ public class DAOCompany {
 			double capital = company.getCapital();
 			int marketShare = company.getMarketShare();
 			boolean extraReport = company.isMarketResearchReportON();
-			Statement stmt = con.getStatement();
+			Statement stmt = con.createStatement();
 			String query = "UPDATE Company SET Company.turnover = " + turnover
 					+ ", Company.cost = " + cost + ", Company.profit = "
 					+ profit + ", Company.capital = " + capital
 					+ ", Company.marketShare = " + marketShare
 					+ ", Company.extraReport = " + extraReport
-					+ " WHERE (((Company.round)=" + currentRound
+					+" WHERE (((Company.round)=" + currentRound
 					+ ") AND ((Company.companyID)=" + companyID + "));";
 			stmt.execute(query);
-			stmt.close();
 			ArrayList<Toaster> toasterList = company.getToasterList();
 			int size = toasterList.size();
 			DAOToaster daoToaster = new DAOToaster();
@@ -46,7 +45,7 @@ public class DAOCompany {
 	}
 
 	// test
-	public boolean saveCompany(Company company, DBConnection con) {
+	public boolean saveCompany(Company company, Connection con) {
 		try {
 			int currentRound = Game.getInstance().getCurrentRound();
 			int companyID = company.getCompanyID();
@@ -56,13 +55,11 @@ public class DAOCompany {
 			double capital = company.getCapital();
 			int marketShare = company.getMarketShare();
 			boolean extraReport = company.isMarketResearchReportON();
-			Statement stmt = con.getStatement();
+			Statement stmt = con.createStatement();
 			String query = "INSERT INTO Company VALUES (" + currentRound + ","
 					+ companyID + "," + turnover + "," + cost + "," + profit
-					+ "," + capital + "," + marketShare + "," + extraReport
-					+ ");";
+					+ "," + capital + "," + marketShare + ","+ extraReport+");";
 			stmt.execute(query);
-			stmt.close();
 			ArrayList<Toaster> toasterList = company.getToasterList();
 			int size = toasterList.size();
 			DAOToaster daoToaster = new DAOToaster();
@@ -77,14 +74,14 @@ public class DAOCompany {
 		return false;
 	}
 
-	public Company getCurrentCompany(DBConnection con, Integer companyID) {
+	public Company getCurrentCompany(Connection con, Integer companyID) {
 
 		try {
 			// Abfrage definieren
 			int currentRound = Game.getInstance().getCurrentRound();
 			String query = "SELECT * FROM Company WHERE companyID = "
 					+ companyID + " AND Round = " + currentRound + ";";
-			Statement stmt = con.getStatement();
+			Statement stmt = con.createStatement();
 			ResultSet rst = stmt.executeQuery(query);
 			boolean extraReport;
 			// Zeileninhalt ermitteln
@@ -110,9 +107,7 @@ public class DAOCompany {
 			return null;
 		}
 	}
-
-	public Company getCompanyByRound(Connection con, Integer companyID,
-			Integer round) {
+	public Company getCompanyByRound(Connection con, Integer companyID, Integer round) {
 
 		try {
 			// Abfrage definieren
