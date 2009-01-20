@@ -96,7 +96,7 @@ public class DecissionForm extends Panel {
 		add(horPanel);
 		add(createStockField());
 
-		if (((Group) Controller.getInstance().getUser()).getStatus() == Status.COMPLETED)
+		if (((Group) Controller.getInstance().getUser()).getStatus() == Status.COMPLETED || ((Group) Controller.getInstance().getUser()).getStatus() == Status.INACTIVE )
 			disableSliders();
 
 		doLayout();
@@ -140,7 +140,7 @@ public class DecissionForm extends Panel {
 				toaster.getType().getMinPrice(), toaster.getType()
 						.getMaxPrice(), true));
 		fields.add(createNumberField("Menge", "amount", toaster
-				.getAmountToProduce(), 0, toaster.getType().getMarketVolume(),
+				.getProduction(), 0, toaster.getType().getMarketVolume(),
 				false));
 		fields.add(createNumberField("Zeitung", "mag", toaster
 				.getNewspaperInvestment(), 0, 0, false));
@@ -315,7 +315,7 @@ public class DecissionForm extends Panel {
 		if (toaster != null) {
 			try {
 				toaster.setPrice(fields.get(0).getValue().doubleValue());
-				toaster.setAmountToProduce(fields.get(1).getValue().intValue());
+				toaster.setProduction(fields.get(1).getValue().intValue());
 				toaster.setNewspaperInvestment(fields.get(2).getValue()
 						.doubleValue());
 				toaster.setRadioInvestment(fields.get(3).getValue()
