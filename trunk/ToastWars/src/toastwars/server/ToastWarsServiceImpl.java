@@ -2,19 +2,24 @@ package toastwars.server;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+
 import javax.servlet.ServletException;
+
 import toastwars.client.ToastWarsService;
 import toastwars.server.dao.DAOGame;
+import toastwars.server.dao.DAOToaster;
 import toastwars.server.dao.DAOUser;
 import toastwars.server.dao.DBConnection;
 import toastwars.server.datamodel.core.Company;
 import toastwars.server.datamodel.core.Game;
 import toastwars.server.datamodel.core.MarketResearchReport;
+import toastwars.server.datamodel.core.Toaster;
 import toastwars.server.datamodel.user.Group;
 import toastwars.server.datamodel.user.IUser;
 import toastwars.server.datamodel.user.Master;
 import toastwars.server.datamodel.user.Status;
 import toastwars.server.datamodel.user.UserFactory;
+
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class ToastWarsServiceImpl extends RemoteServiceServlet implements
@@ -242,6 +247,23 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements
 			grouplist.get(i).getCompany().setCapitalRankingInternList(
 					this.capitalRankingInternList);
 		}
+		return success;
+	}
+
+	public Boolean createNewToaster(ArrayList<Toaster> toasterList,
+			int companyID) {
+		Connection con = DBConnection.getInstance().connectToDB();
+		DAOToaster dao = new DAOToaster();
+
+		boolean success = false;
+		for (Toaster toaster : toasterList) {
+			success = dao.saveToaster(toaster, companyID, con);
+			if (!success)
+				return false;
+		}
+		// close DB connection
+		DBConnection.getInstance().closeConnectionToDB(con);
+
 		return success;
 	}
 }
