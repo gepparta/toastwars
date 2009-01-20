@@ -130,7 +130,7 @@ public class DAOGame {
 
 				stmt.execute(query);
 				query = "INSERT INTO Stock VALUES (" + i
-				+ "1, 0, 0, 0, 0.00);";
+				+ ",1, 0, 0, 0, 0.00);";
 		stmt.execute(query);
 			}
 			stmt.close();
