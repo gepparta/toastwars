@@ -82,7 +82,6 @@ public class DAOStock {
 
 		try {
 			// Abfrage definieren
-			int currentRound = Game.getInstance().getCurrentRound();
 			String query = "SELECT * FROM Stock WHERE companyID = "
 					+ companyID + " AND Round = " + round + ";";
 			Statement stmt = con.createStatement();
