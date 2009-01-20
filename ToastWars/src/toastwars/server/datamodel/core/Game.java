@@ -9,21 +9,12 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 public class Game implements IsSerializable
 {
 	private static Game instance;
-
-	// **********************Methods************************************************************
-	public static Game getInstance()
-	{
-		return instance;
-	}
-
-	public static Game getInstance(int userAmount)
-	{
-		if (instance == null)
-		{
-			instance = new Game(userAmount);
-		}
-		return instance;
-	}
+	// @gwt.typeArgs <Number>
+	private ArrayList<Number> sortedIndexListTyp1 = null;
+	// @gwt.typeArgs <Number>
+	private ArrayList<Number> sortedIndexListTyp2 = null;
+	// @gwt.typeArgs <Number>
+	private ArrayList<Number> sortedIndexListTyp3 = null;
 
 	private int userAmount;
 
@@ -41,6 +32,21 @@ public class Game implements IsSerializable
 	{
 		this.userAmount = userAmount;
 		this.setCurrentRound(1);
+	}
+
+	// **********************Methods************************************************************
+	public static Game getInstance()
+	{
+		return instance;
+	}
+
+	public static Game getInstance(int userAmount)
+	{
+		if (instance == null)
+		{
+			instance = new Game(userAmount);
+		}
+		return instance;
 	}
 
 	// by Alex
@@ -73,6 +79,19 @@ public class Game implements IsSerializable
 		return indexSums;
 	}
 
+	public void completeRound(Group group)
+	{
+
+		for (Group g : groupList)
+		{
+			if (g.getUsername().equals(group.getUsername()))
+			{
+				group.getCompany().accumulateToasterValues();
+				return;
+			}
+		}
+	}
+
 	public int getCurrentRound()
 	{
 		return currentRound;
@@ -81,6 +100,21 @@ public class Game implements IsSerializable
 	public ArrayList<Group> getGroupList()
 	{
 		return groupList;
+	}
+
+	public ArrayList<Number> getSortedIndexListTyp1()
+	{
+		return sortedIndexListTyp1;
+	}
+
+	public ArrayList<Number> getSortedIndexListTyp2()
+	{
+		return sortedIndexListTyp2;
+	}
+
+	public ArrayList<Number> getSortedIndexListTyp3()
+	{
+		return sortedIndexListTyp3;
 	}
 
 	public int getUserAmount()
@@ -99,23 +133,26 @@ public class Game implements IsSerializable
 		this.groupList = groupList;
 	}
 
+	public void setSortedIndexListTyp1(ArrayList<Number> sortedIndexListTyp1)
+	{
+		this.sortedIndexListTyp1 = sortedIndexListTyp1;
+	}
+
+	public void setSortedIndexListTyp2(ArrayList<Number> sortedIndexListTyp2)
+	{
+		this.sortedIndexListTyp2 = sortedIndexListTyp2;
+	}
+
+	public void setSortedIndexListTyp3(ArrayList<Number> sortedIndexListTyp3)
+	{
+		this.sortedIndexListTyp3 = sortedIndexListTyp3;
+	}
+
 	public void setUserAmount(int userAmount)
 	{
 		this.userAmount = userAmount;
 	}
 
-	public void completeRound(Group group)
-	{
-
-		for (Group g : groupList)
-		{
-			if (g.getUsername().equals(group.getUsername()))
-			{
-				group.getCompany().accumulateToasterValues();
-				return;
-			}
-		}
-	}
 	// @by Alex
 	public void simulate()
 	{
@@ -148,4 +185,5 @@ public class Game implements IsSerializable
 		String s = "Game Eigenschaften: \n user amount: \t \t" + this.getUserAmount() + "\n current round: \t" + this.getCurrentRound();
 		return s;
 	}
+	
 }
