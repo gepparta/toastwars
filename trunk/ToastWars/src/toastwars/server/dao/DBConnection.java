@@ -3,12 +3,9 @@ package toastwars.server.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class DBConnection
 {
-
-	private Connection con;
 	private static DBConnection instance;
 
 	private DBConnection()
@@ -29,43 +26,28 @@ public class DBConnection
 		return instance;
 	}
 
-	public void connectToDB()
+	public Connection connectToDB()
 	{
 		try
 		{
-			this.con = DriverManager.getConnection("jdbc:odbc:Driver={Microsoft Access Driver (*.mdb)};DBQ=D:/ToastWars.mdb", "", "");
+			Connection con = DriverManager.getConnection("jdbc:odbc:Driver={Microsoft Access Driver (*.mdb)};DBQ=D:/ToastWars.mdb", "", "");
+			return con;
 		} catch (Exception e)
 		{
 			System.out.println(e.getLocalizedMessage());
 		}
-
+		return null;
 	}
 
-	public void closeConnectionToDB()
+	public void closeConnectionToDB(Connection con)
 	{
 		try
 		{
-			if (!(this.con.isClosed()))
-				this.con.close();
+			if (!(con.isClosed()))
+				con.close();
 		} catch (SQLException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-	}
-
-	public Statement getStatement()
-	{
-		try
-		{
-			Statement stmt = this.con.createStatement();
-//			System.out.println(stmt.toString());
-			return stmt;
-		} catch (SQLException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
 		}
 	}
 }

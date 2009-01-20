@@ -1,18 +1,17 @@
 package toastwars.server.dao;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
 import toastwars.server.datamodel.core.Game;
 import toastwars.server.datamodel.user.Group;
-import toastwars.server.datamodel.user.IUser;
 
 public class DAOGame
 {
 
-	public static ArrayList<Group> getAllUsers(DBConnection con)
+	public static ArrayList<Group> getAllUsers(Connection con)
 	{
 		ArrayList<Group> userList = new ArrayList<Group>();
 		try
@@ -25,6 +24,8 @@ public class DAOGame
 		}
 		return userList;
 	}
+
+	public static void saveAllUsers(ArrayList<Group> grouplist, Connection con)
 	
 	public static ArrayList<Group> getAllUsersByRound(DBConnection con, Integer round)
 	{
@@ -43,26 +44,26 @@ public class DAOGame
 	{
 		try
 		{
-			int size = userList.size();
+			int size = grouplist.size();
 			for (int i = 0; i < size; i++)
 			{
-				Group group = userList.get(i);
+				Group group = grouplist.get(i);
 				DAOUser.saveUser(group, con);
 			}
 			changeCurrentRound(con);
-//			DAOUser.fillUserList(con);
+			DAOUser.fillUserList(con);
 		} catch (RuntimeException e)
 		{
 			e.printStackTrace();
 		}
 	}
 
-	public static Integer getCurrentRound(DBConnection con)
+	public static Integer getCurrentRound(Connection con)
 	{
 		try
 		{
 			String query = "SELECT Game.[CurrentRound]FROM Game;";
-			Statement stmt = con.getStatement();
+			Statement stmt = con.createStatement();
 			ResultSet rst = stmt.executeQuery(query);
 			rst.next();
 			Integer currentRound = rst.getInt(1);
@@ -77,12 +78,12 @@ public class DAOGame
 		}
 	}
 
-	public static Integer getUserAmount(DBConnection con)
+	public static Integer getUserAmount(Connection con)
 	{
 		try
 		{
 			String query = "SELECT Game.[NumberOfUsers]FROM Game;";
-			Statement stmt = con.getStatement();
+			Statement stmt = con.createStatement();
 			ResultSet rst = stmt.executeQuery(query);
 			rst.next();
 			Integer UserAmount = rst.getInt(1);
@@ -96,13 +97,13 @@ public class DAOGame
 		}
 	}
 
-	public static void changeCurrentRound(DBConnection con)
+	public static void changeCurrentRound(Connection con)
 	{
 		int currentRound = Game.getInstance().getCurrentRound() + 1;
-		Statement stmt = con.getStatement();
-		String sql = "UPDATE [Game] SET [Game].CurrentRound = '" + currentRound + "'";
 		try
 		{
+			Statement stmt = con.createStatement();
+			String sql = "UPDATE [Game] SET [Game].CurrentRound = '" + currentRound + "'";
 			stmt.execute(sql);
 			stmt.close();
 		} catch (SQLException e)
@@ -111,11 +112,11 @@ public class DAOGame
 		}
 	}
 
-	public static void createInitialData(Integer userAmount,DBConnection con)
+	public static void createInitialData(Integer userAmount, Connection con)
 	{
 		try
 		{
-			Statement stmt = con.getStatement();
+			Statement stmt = con.createStatement();
 			String query = "DELETE * FROM Game;";
 			stmt.execute(query);
 			query = "DELETE * FROM User;";
@@ -136,8 +137,7 @@ public class DAOGame
 				// price, marketing, tvInvestment, newsPaperInvestment,
 				// radioInvestment, research, quality, design, efficiency,
 				// index, turnover, cost, profit, marketShare, type
-				query = "INSERT INTO Toaster VALUES (1," + i + "," + i
-						+ ", 10, 3.00, 0, 0, 0, 0, 0, 0, 3.00, 0, 0, 0, 0, 0, 0, 9.00, 0.00, 0.00, 0.00, 0,'TYPE1');";
+				query = "INSERT INTO Toaster VALUES (1," + i + "," + i + ", 10, 3.00, 0, 0, 0, 0, 0, 0, 3.00, 0, 0, 0, 0, 0, 0, 9.00, 0.00, 0.00, 0.00, 0,'TYPE1');";
 
 				stmt.execute(query);
 			}
@@ -148,11 +148,11 @@ public class DAOGame
 		}
 	}
 
-	public static boolean resetGame(DBConnection con)
+	public static boolean resetGame(Connection con)
 	{
 		try
 		{
-			Statement stmt = con.getStatement();
+			Statement stmt = con.createStatement();
 			String query = "DELETE * FROM Game;";
 			stmt.execute(query);
 			query = "DELETE * FROM User;";
@@ -171,13 +171,13 @@ public class DAOGame
 		return false;
 	}
 
-	public static boolean isGameStarted(DBConnection con)
+	public static boolean isGameStarted(Connection con)
 	{
 		boolean isGameStarted = false;
 		try
 		{
 			String query = "SELECT Game.[CurrentRound]FROM Game;";
-			Statement stmt = con.getStatement();
+			Statement stmt = con.createStatement();
 			ResultSet rst = stmt.executeQuery(query);
 			if (rst.next())
 				isGameStarted = true;
