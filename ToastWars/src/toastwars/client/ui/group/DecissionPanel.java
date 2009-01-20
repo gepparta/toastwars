@@ -207,7 +207,7 @@ public class DecissionPanel extends Panel {
 	}
 
 	private void disableSlidersAndButtons() {
-		if (group.getStatus() == Status.COMPLETED) {
+		if (group.getStatus() == Status.COMPLETED || group.getStatus() == Status.INACTIVE) {
 			btnSave.setDisabled(true);
 			btnEnd.setDisabled(true);
 			report.setReadOnly(true);
