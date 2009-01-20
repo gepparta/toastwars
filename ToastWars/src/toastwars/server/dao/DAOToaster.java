@@ -36,6 +36,7 @@ public class DAOToaster {
 			double profit = toaster.getProfit();
 			int marketShare = toaster.getMarketShare();
 			String type = toaster.getType().name();
+			int production = toaster.getProduction();
 
 			Statement stmt = con.createStatement();
 			String query = "UPDATE Toaster SET Toaster.price = " + price
@@ -55,7 +56,8 @@ public class DAOToaster {
 					+ ", Toaster.profit = " + profit
 					+ ", Toaster.marketShare = " + marketShare
 					+ ", Toaster.type = '" + type
-					+ "' WHERE (((Toaster.round)=" + currentRound
+					+ "', Toaster.production = " + production
+					+ " WHERE (((Toaster.round)=" + currentRound
 					+ ") AND ((Toaster.toasterID)=" + toasterID
 					+ ") AND ((Toaster.companyID)=" + companyID + "));";
 			stmt.execute(query);
@@ -91,6 +93,7 @@ public class DAOToaster {
 			double profit = toaster.getProfit();
 			int marketShare = toaster.getMarketShare();
 			String type = toaster.getType().name();
+			int production = toaster.getProduction();
 
 			Statement stmt = con.createStatement();
 			String query = "INSERT INTO Toaster VALUES (" + currentRound + ","
@@ -100,7 +103,8 @@ public class DAOToaster {
 					+ research + "," + quality + "," + qualityKum + ","
 					+ design + "," + designKum + "," + efficiency + ","
 					+ efficiencyKum + "," + index + "," + turnover + "," + cost
-					+ "," + profit + "," + marketShare + ",'" + type + "');";
+					+ "," + profit + "," + marketShare + ",'" + type +
+					"'," + production +");";
 			stmt.execute(query);
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -155,6 +159,7 @@ public class DAOToaster {
 								.getDouble(15), rst.getDouble(17), rst
 								.getDouble(14), rst.getDouble(16), rst
 								.getDouble(18));
+				toaster.setProduction(rst.getInt(25));
 				toasterList.add(toaster);
 			}
 			rst.close();
@@ -213,6 +218,7 @@ public class DAOToaster {
 								.getDouble(15), rst.getDouble(17), rst
 								.getDouble(14), rst.getDouble(16), rst
 								.getDouble(18));
+				toaster.setProduction(rst.getInt(25));
 				toasterList.add(toaster);
 			}
 			rst.close();

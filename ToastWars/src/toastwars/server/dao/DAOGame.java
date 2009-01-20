@@ -104,6 +104,8 @@ public class DAOGame {
 			stmt.execute(query);
 			query = "DELETE * FROM Toaster;";
 			stmt.execute(query);
+			query = "DELETE * FROM Stock;";
+			stmt.execute(query);
 			query = "INSERT INTO Game VALUES (1," + userAmount
 					+ ", 'Instruction');";
 			stmt.execute(query);
@@ -123,9 +125,13 @@ public class DAOGame {
 						+ i
 						+ ","
 						+ i
-						+ ", 10, 3.00, 0, 0, 0, 0, 0, 0, 3.00, 0, 0, 0, 0, 0, 0, 9.00, 0.00, 0.00, 0.00, 0,'TYPE1');";
+						+ ", 10, 3.00, 0, 0, 0, 0, 0, 0, 3.00, 0, 0, 0, 0, 0, 0," +
+								" 9.00, 0.00, 0.00, 0.00, 0,'TYPE1',0);";
 
 				stmt.execute(query);
+				query = "INSERT INTO Stock VALUES (" + i
+				+ "1, 0, 0, 0, 0.00);";
+		stmt.execute(query);
 			}
 			stmt.close();
 		} catch (SQLException e) {
@@ -144,6 +150,8 @@ public class DAOGame {
 			stmt.execute(query);
 			query = "DELETE * FROM Toaster;";
 			stmt.execute(query);
+			stmt.execute(query);
+			query = "DELETE * FROM Stock;";
 			stmt.close();
 
 			return true;
