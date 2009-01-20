@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import toastwars.server.datamodel.core.Company;
 import toastwars.server.datamodel.core.Game;
 import toastwars.server.datamodel.core.Toaster;
+import toastwars.server.datamodel.core.Stock;
 
 public class DAOCompany {
 
@@ -37,6 +38,9 @@ public class DAOCompany {
 				Toaster toaster = toasterList.get(i);
 				daoToaster.updateToaster(toaster, companyID, con);
 			}
+			Stock stock = company.getStock();
+			DAOStock daoStock = new DAOStock();
+			daoStock.updateStock(stock, companyID, con);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -67,6 +71,9 @@ public class DAOCompany {
 				Toaster toaster = toasterList.get(i);
 				daoToaster.saveToaster(toaster, companyID, con);
 			}
+			Stock stock = company.getStock();
+			DAOStock daoStock = new DAOStock();
+			daoStock.saveStock(stock, companyID, con);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -87,10 +94,11 @@ public class DAOCompany {
 			// Zeileninhalt ermitteln
 			while (rst.next()) {
 				DAOToaster toaster = new DAOToaster();
+				DAOStock stock = new DAOStock();
 				companyID = rst.getInt(2);
 				Company company = new Company(companyID, rst.getDouble(3), rst
 						.getDouble(4), rst.getDouble(5), rst.getDouble(6), rst
-						.getInt(7), toaster.getActualToasterFromCompany(
+						.getInt(7),stock.getActualStockFromCompany(companyID, con), toaster.getActualToasterFromCompany(
 						companyID, con));
 				extraReport = rst.getBoolean(8);
 				company.setMarketResearchReportON(extraReport);
@@ -119,10 +127,12 @@ public class DAOCompany {
 			// Zeileninhalt ermitteln
 			while (rst.next()) {
 				DAOToaster toaster = new DAOToaster();
+				DAOStock stock = new DAOStock();
 				companyID = rst.getInt(2);
 				Company company = new Company(companyID, rst.getDouble(3), rst
 						.getDouble(4), rst.getDouble(5), rst.getDouble(6), rst
-						.getInt(7), toaster.getToasterFromCompanyByRound(
+						.getInt(7), stock.getStockFromCompanyByRound(companyID, con, round) 
+						,toaster.getToasterFromCompanyByRound(
 						companyID, con, round));
 				extraReport = rst.getBoolean(8);
 				company.setMarketResearchReportON(extraReport);
