@@ -10,9 +10,9 @@ public enum Type implements IsSerializable
 	// qualityInvestmentPlus
 	// designInvestmentPlus ecologyInvestmentPlus
 
-	TYPE1("Der 1. Typ", 10000, 0.05, 10000.00, 1000.00, 3.00, 2000, 20000, 10000, 5000, 5000, 5000, 5000), 
-	TYPE2("Der 2. Typ", 6000, 0.08, 20000.00, 5000.00, 15.00, 1000, 30000, 20000, 10000, 10000, 10000, 10000), 
-	TYPE3("Der 3. Typ", 2500, 0.10, 25000.00, 8000.00, 40.00, 500, 40000, 30000, 20000, 15000, 15000, 15000);
+	TYPE1("Millenniums-Toaster", 10000, 0.05, 10000.00, 1000.00, 3.00, 2000, 20000, 10000, 5000, 5000, 5000, 5000), 
+	TYPE2("TIE-Toaster", 6000, 0.08, 20000.00, 5000.00, 15.00, 1000, 30000, 20000, 10000, 10000, 10000, 10000), 
+	TYPE3("Star-Toaster", 2500, 0.10, 25000.00, 8000.00, 40.00, 500, 40000, 30000, 20000, 15000, 15000, 15000);
 
 	private String description;
 	private int marketVolume;
