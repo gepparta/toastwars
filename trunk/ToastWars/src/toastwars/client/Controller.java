@@ -1,11 +1,14 @@
 package toastwars.client;
 
+import java.util.ArrayList;
+
 import toastwars.client.ui.LoginWindow;
 import toastwars.client.ui.ToastWars;
 import toastwars.client.ui.group.DecissionPanel;
 import toastwars.client.ui.master.MasterPanel;
 import toastwars.client.ui.master.StartGameWindow;
 import toastwars.server.datamodel.core.Game;
+import toastwars.server.datamodel.core.Toaster;
 import toastwars.server.datamodel.user.Group;
 import toastwars.server.datamodel.user.IUser;
 import toastwars.server.datamodel.user.Master;
@@ -170,6 +173,31 @@ public class Controller {
 		};
 
 		service.save((Group) user, callback);
+	}
+
+	public void createNewToaster(ArrayList<Toaster> toasterList)
+			throws Exception {
+		ToastWarsServiceAsync service = ToastWarsService.Util.getInstance();
+
+		AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {
+			public void onFailure(Throwable caught) {
+
+			}
+
+			public void onSuccess(Boolean success) {
+				try {
+					if (success)
+						save();
+					else
+						DecissionPanel.getInstance().createUserMessage(success);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		};
+
+		service.createNewToaster(toasterList, ((Group) user).getCompany()
+				.getCompanyID(), callback);
 	}
 
 	public int getUserType() {
