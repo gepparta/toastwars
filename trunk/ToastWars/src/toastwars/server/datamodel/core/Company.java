@@ -30,6 +30,8 @@ public class Company implements IsSerializable
 	private double capital;
 	private int marketShare;
 	private boolean marketResearchReportON;
+	private Stock stock;
+	
 	// @gwt.typeArgs <Number>
 	private ArrayList<Number> profitRankingList = null;
 	// @gwt.typeArgs <Number>
@@ -46,7 +48,7 @@ public class Company implements IsSerializable
 	{
 	}
 
-	public Company(double turnover, double cost, double profit, double capital, int marketShare, ArrayList<Toaster> toasterList)
+	public Company(double turnover, double cost, double profit, double capital, int marketShare, Stock stock, ArrayList<Toaster> toasterList)
 	{
 		this.companyID = nextCompanyID;
 		nextCompanyID++;
@@ -56,11 +58,12 @@ public class Company implements IsSerializable
 		this.profit = profit;
 		this.capital = capital;
 		this.marketShare = marketShare;
+		this.stock = stock;
 		this.toasterList = toasterList;
 		reportListe = new ArrayList<List<String>>();
 	}
 
-	public Company(int companyID, double turnover, double cost, double profit, double capital, int marketShare, ArrayList<Toaster> toasterList)
+	public Company(int companyID, double turnover, double cost, double profit, double capital, int marketShare, Stock stock, ArrayList<Toaster> toasterList)
 	{
 		this.companyID = companyID;
 
@@ -69,6 +72,7 @@ public class Company implements IsSerializable
 		this.profit = profit;
 		this.capital = capital;
 		this.marketShare = marketShare;
+		this.stock = stock;
 		this.toasterList = toasterList;
 		reportListe = new ArrayList<List<String>>();
 
@@ -88,7 +92,8 @@ public class Company implements IsSerializable
 		{
 
 			toasterList.get(i).calculateCost();
-			this.cost = this.cost + toasterList.get(i).getCost();
+			this.stock.calculateTotalStockCosts();
+			this.cost = this.cost + toasterList.get(i).getCost()+stock.getTotalStockCosts();
 
 		}
 	}
@@ -308,6 +313,14 @@ public class Company implements IsSerializable
 	public void setCapitalRankingInternList(ArrayList<Number> capitalRankingInternList)
 	{
 		this.capitalRankingInternList = capitalRankingInternList;
+	}
+
+	public Stock getStock() {
+		return stock;
+	}
+
+	public void setStock(Stock stock) {
+		this.stock = stock;
 	}
 
 }
