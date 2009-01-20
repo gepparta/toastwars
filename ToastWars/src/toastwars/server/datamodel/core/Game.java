@@ -9,30 +9,6 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 public class Game implements IsSerializable
 {
 	private static Game instance;
-	// @gwt.typeArgs <Number>
-	private ArrayList<Number> sortedIndexListTyp1 = null;
-	// @gwt.typeArgs <Number>
-	private ArrayList<Number> sortedIndexListTyp2 = null;
-	// @gwt.typeArgs <Number>
-	private ArrayList<Number> sortedIndexListTyp3 = null;
-
-	private int userAmount;
-
-	private int currentRound = 1;
-
-	// @gwt.typeArgs <toastwars.server.datamodel.user.Group>
-	private ArrayList<Group> groupList = new ArrayList<Group>();
-
-	// *************************Constructor*****************************************************
-	public Game()
-	{
-	}
-
-	private Game(int userAmount)
-	{
-		this.userAmount = userAmount;
-		this.setCurrentRound(1);
-	}
 
 	// **********************Methods************************************************************
 	public static Game getInstance()
@@ -47,6 +23,31 @@ public class Game implements IsSerializable
 			instance = new Game(userAmount);
 		}
 		return instance;
+	}
+
+	private int userAmount;
+
+	private int currentRound = 1;
+
+	// @gwt.typeArgs <toastwars.server.datamodel.user.Group>
+	private ArrayList<Group> groupList = new ArrayList<Group>();
+	
+	// @gwt.typeArgs <Number>
+	private ArrayList<Number> sortedIndexListTyp1 = null;
+	// @gwt.typeArgs <Number>
+	private ArrayList<Number> sortedIndexListTyp2 = null;
+	// @gwt.typeArgs <Number>
+	private ArrayList<Number> sortedIndexListTyp3 = null;
+
+	// *************************Constructor*****************************************************
+	public Game()
+	{
+	}
+
+	private Game(int userAmount)
+	{
+		this.userAmount = userAmount;
+		this.setCurrentRound(1);
 	}
 
 	// by Alex
@@ -79,19 +80,6 @@ public class Game implements IsSerializable
 		return indexSums;
 	}
 
-	public void completeRound(Group group)
-	{
-
-		for (Group g : groupList)
-		{
-			if (g.getUsername().equals(group.getUsername()))
-			{
-				group.getCompany().accumulateToasterValues();
-				return;
-			}
-		}
-	}
-
 	public int getCurrentRound()
 	{
 		return currentRound;
@@ -100,21 +88,6 @@ public class Game implements IsSerializable
 	public ArrayList<Group> getGroupList()
 	{
 		return groupList;
-	}
-
-	public ArrayList<Number> getSortedIndexListTyp1()
-	{
-		return sortedIndexListTyp1;
-	}
-
-	public ArrayList<Number> getSortedIndexListTyp2()
-	{
-		return sortedIndexListTyp2;
-	}
-
-	public ArrayList<Number> getSortedIndexListTyp3()
-	{
-		return sortedIndexListTyp3;
 	}
 
 	public int getUserAmount()
@@ -133,26 +106,273 @@ public class Game implements IsSerializable
 		this.groupList = groupList;
 	}
 
-	public void setSortedIndexListTyp1(ArrayList<Number> sortedIndexListTyp1)
-	{
-		this.sortedIndexListTyp1 = sortedIndexListTyp1;
-	}
-
-	public void setSortedIndexListTyp2(ArrayList<Number> sortedIndexListTyp2)
-	{
-		this.sortedIndexListTyp2 = sortedIndexListTyp2;
-	}
-
-	public void setSortedIndexListTyp3(ArrayList<Number> sortedIndexListTyp3)
-	{
-		this.sortedIndexListTyp3 = sortedIndexListTyp3;
-	}
-
 	public void setUserAmount(int userAmount)
 	{
 		this.userAmount = userAmount;
 	}
 
+	public void completeRound(Group group)
+	{
+
+		for (Group g : groupList)
+		{
+			if (g.getUsername().equals(group.getUsername()))
+			{
+				group.getCompany().accumulateToasterValues();
+				return;
+			}
+		}
+	}
+	
+	
+	public void correctMarketShares(){
+		boolean again =true;
+		while (again){
+			 again =false;
+		for (int i = 0; i< groupList.size(); i ++)
+		{
+			for (int j = 0; j< groupList.get(i).getCompany().getToasterList().size(); j++){
+				
+				//Bei ‹berproduktion Einlagern
+				if(groupList.get(i).getCompany().getToasterList().get(j).getProduction()>
+				groupList.get(i).getCompany().getToasterList().get(j).getMarketShare())
+				{
+					if(groupList.get(i).getCompany().getToasterList().get(j).getType()==Type.TYPE1)
+					{
+						int differenz = groupList.get(i).getCompany()
+						.getToasterList().get(j).getProduction()-groupList.get(i).getCompany()
+						.getToasterList().get(j).getMarketShare();
+						
+						groupList.get(i).getCompany().getStock().setStockTT1(differenz); 
+						groupList.get(i).getCompany().getToasterList().get(j).setProduction(
+								groupList.get(i).getCompany().getToasterList().get(j).getMarketShare());
+					}
+				
+					if(groupList.get(i).getCompany().getToasterList().get(j).getType()==Type.TYPE2)
+						{groupList.get(i).getCompany().getStock().setStockTT2(groupList.get(i).getCompany()
+								.getToasterList().get(j).getProduction()-groupList.get(i).getCompany()
+								.getToasterList().get(j).getMarketShare());
+						groupList.get(i).getCompany().getToasterList().get(j).setProduction(
+								groupList.get(i).getCompany().getToasterList().get(j).getMarketShare());
+						}
+				
+					if(groupList.get(i).getCompany().getToasterList().get(j).getType()==Type.TYPE3)
+						{groupList.get(i).getCompany().getStock().setStockTT3(groupList.get(i).getCompany()
+								.getToasterList().get(j).getProduction()-groupList.get(i).getCompany()
+								.getToasterList().get(j).getMarketShare()); 
+						groupList.get(i).getCompany().getToasterList().get(j).setProduction(
+								groupList.get(i).getCompany().getToasterList().get(j).getMarketShare());}
+				}//if ‹berproduktion
+				
+				//Wenn Unterproduktion vorliegt
+				
+				if(groupList.get(i).getCompany().getToasterList().get(j).getProduction()<
+				groupList.get(i).getCompany().getToasterList().get(j).getMarketShare())
+				{
+					int missing = 
+					groupList.get(i).getCompany().getToasterList().get(j).getMarketShare() 
+					- groupList.get(i).getCompany().getToasterList().get(j).getProduction();
+					
+					int stock = 0;
+					
+					if(groupList.get(i).getCompany().getToasterList().get(j).getType()==Type.TYPE1)
+					{stock = groupList.get(i).getCompany().getStock().getStockTT1();}
+					if(groupList.get(i).getCompany().getToasterList().get(j).getType()==Type.TYPE2)
+					{stock = groupList.get(i).getCompany().getStock().getStockTT2();}	
+					if(groupList.get(i).getCompany().getToasterList().get(j).getType()==Type.TYPE3)
+					{stock = groupList.get(i).getCompany().getStock().getStockTT3();}
+					
+					if(stock >= missing)	
+						{groupList.get(i).getCompany().getStock().ReduceStock(groupList.get(i).getCompany().getToasterList().get(j).getType(), missing);}
+						
+					
+					
+					
+					if(stock<missing)
+						
+						{
+						int unavailable = missing - stock;
+						
+						groupList.get(i).getCompany().getStock().ReduceStock(groupList.get(i).getCompany().getToasterList().get(j).getType(), stock);
+						//FIXE PROGRAMMIERUNG IN TOASTERLIST
+						if(groupList.get(i).getCompany().getToasterList().get(j).getType()==Type.TYPE1)
+						{groupList.get(i).getCompany().getToasterList().get(j).setMarketShare(groupList.get(i).getCompany().getToasterList().get(j).getMarketShare()- unavailable);}
+						if(groupList.get(i).getCompany().getToasterList().get(j).getType()==Type.TYPE2)
+						{groupList.get(i).getCompany().getToasterList().get(j).setMarketShare(groupList.get(i).getCompany().getToasterList().get(j).getMarketShare()- unavailable);}
+						if(groupList.get(i).getCompany().getToasterList().get(j).getType()==Type.TYPE3)
+						{groupList.get(i).getCompany().getToasterList().get(j).setMarketShare(groupList.get(i).getCompany().getToasterList().get(j).getMarketShare()- unavailable);}
+						
+						if(groupList.get(i).getCompany().getToasterList().get(j).getType()==Type.TYPE1){
+						for (int k=0; k<sortedIndexListTyp1.size();k++)
+						{
+							if(groupList.get(sortedIndexListTyp1.get(k).intValue()-1).getCompany().getStock().getStockTT1()+(
+									groupList.get(sortedIndexListTyp1.get(k).intValue()-1).getCompany().getToasterList().get(j).getProduction() -
+									groupList.get(sortedIndexListTyp1.get(k).intValue()-1).getCompany().getToasterList().get(j).getMarketShare()
+									)>=unavailable){
+								
+								groupList.get(sortedIndexListTyp1.get(k).intValue()-1).getCompany().getToasterList().get(j).setMarketShare(unavailable + groupList.get(sortedIndexListTyp1.get(k).intValue()-1).getCompany().getToasterList().get(j).getMarketShare());
+								unavailable = 0;
+								
+								again=true;
+								break ;
+							}
+							
+							else if(groupList.get(sortedIndexListTyp1.get(k).intValue()-1).getCompany().getStock().getStockTT1()+
+									groupList.get(sortedIndexListTyp1.get(k).intValue()-1).getCompany().getToasterList().get(j).getProduction()-
+									groupList.get(sortedIndexListTyp1.get(k).intValue()-1).getCompany().getToasterList().get(j).getMarketShare()>0
+							
+							)
+							
+							
+							{
+								unavailable = unavailable - (groupList.get(sortedIndexListTyp1.get(k).intValue()-1).getCompany().getStock().getStockTT1()+(
+										groupList.get(sortedIndexListTyp1.get(k).intValue()-1).getCompany().getToasterList().get(j).getProduction() -
+										groupList.get(sortedIndexListTyp1.get(k).intValue()-1).getCompany().getToasterList().get(j).getMarketShare()
+										));
+								
+								 groupList.get(sortedIndexListTyp1.get(k).intValue()-1)
+									.getCompany().getToasterList().get(j).setMarketShare(										
+											groupList.get(sortedIndexListTyp1.get(k).intValue()-1)
+											.getCompany().getToasterList().get(j).getMarketShare()+	(groupList.get(sortedIndexListTyp1.get(k).intValue()-1).getCompany().getStock().getStockTT1()+(
+													groupList.get(sortedIndexListTyp1.get(k).intValue()-1).getCompany().getToasterList().get(j).getProduction() -
+													groupList.get(sortedIndexListTyp1.get(k).intValue()-1).getCompany().getToasterList().get(j).getMarketShare()
+													))
+									);	
+								 	
+									again = true;
+
+
+								
+								
+							}//else
+							
+
+						}//for
+							
+							
+						}//if ToasterTyp
+						
+						if(groupList.get(i).getCompany().getToasterList().get(j).getType()==Type.TYPE2){
+							for (int k=0; k<sortedIndexListTyp2.size();k++)
+							{
+								if(groupList.get(sortedIndexListTyp2.get(k).intValue()-1).getCompany().getStock().getStockTT2()+(
+										groupList.get(sortedIndexListTyp2.get(k).intValue()-1).getCompany().getToasterList().get(j).getProduction() -
+										groupList.get(sortedIndexListTyp2.get(k).intValue()-1).getCompany().getToasterList().get(j).getMarketShare()
+										)>=unavailable){
+									
+									groupList.get(sortedIndexListTyp2.get(k).intValue()-1).getCompany().getToasterList().get(j).setMarketShare(unavailable + groupList.get(sortedIndexListTyp2.get(k).intValue()-1).getCompany().getToasterList().get(j).getMarketShare());
+									unavailable = 0;
+									
+									again=true;
+									break ;
+								}
+								
+								else if(groupList.get(sortedIndexListTyp2.get(k).intValue()-1).getCompany().getStock().getStockTT2()+
+										groupList.get(sortedIndexListTyp2.get(k).intValue()-1).getCompany().getToasterList().get(j).getProduction()-
+										groupList.get(sortedIndexListTyp2.get(k).intValue()-1).getCompany().getToasterList().get(j).getMarketShare()>0
+								
+								)
+								
+								
+								{
+									unavailable = unavailable - (groupList.get(sortedIndexListTyp2.get(k).intValue()-1).getCompany().getStock().getStockTT2()+(
+											groupList.get(sortedIndexListTyp2.get(k).intValue()-1).getCompany().getToasterList().get(j).getProduction() -
+											groupList.get(sortedIndexListTyp2.get(k).intValue()-1).getCompany().getToasterList().get(j).getMarketShare()
+											));
+									
+									 groupList.get(sortedIndexListTyp2.get(k).intValue()-1)
+										.getCompany().getToasterList().get(j).setMarketShare(										
+												groupList.get(sortedIndexListTyp2.get(k).intValue()-1)
+												.getCompany().getToasterList().get(j).getMarketShare()+	(groupList.get(sortedIndexListTyp2.get(k).intValue()-1).getCompany().getStock().getStockTT2()+(
+														groupList.get(sortedIndexListTyp2.get(k).intValue()-1).getCompany().getToasterList().get(j).getProduction() -
+														groupList.get(sortedIndexListTyp2.get(k).intValue()-1).getCompany().getToasterList().get(j).getMarketShare()
+														))
+										);	
+									 	
+										again = true;
+
+
+									
+									
+								}//else
+								
+
+							}//for
+								
+								
+							}//if ToasterTyp
+						
+						if(groupList.get(i).getCompany().getToasterList().get(j).getType()==Type.TYPE3){
+							for (int k=0; k<sortedIndexListTyp3.size();k++)
+							{
+								if(groupList.get(sortedIndexListTyp3.get(k).intValue()-1).getCompany().getStock().getStockTT3()+(
+										groupList.get(sortedIndexListTyp3.get(k).intValue()-1).getCompany().getToasterList().get(j).getProduction() -
+										groupList.get(sortedIndexListTyp3.get(k).intValue()-1).getCompany().getToasterList().get(j).getMarketShare()
+										)>=unavailable){
+									
+									groupList.get(sortedIndexListTyp3.get(k).intValue()-1).getCompany().getToasterList().get(j).setMarketShare(unavailable + groupList.get(sortedIndexListTyp3.get(k).intValue()-1).getCompany().getToasterList().get(j).getMarketShare());
+									unavailable = 0;
+									
+									again=true;
+									break ;
+								}
+								
+								else if(groupList.get(sortedIndexListTyp3.get(k).intValue()-1).getCompany().getStock().getStockTT3()+
+										groupList.get(sortedIndexListTyp3.get(k).intValue()-1).getCompany().getToasterList().get(j).getProduction()-
+										groupList.get(sortedIndexListTyp3.get(k).intValue()-1).getCompany().getToasterList().get(j).getMarketShare()>0
+								
+								)
+								
+								
+								{
+									unavailable = unavailable - (groupList.get(sortedIndexListTyp3.get(k).intValue()-1).getCompany().getStock().getStockTT3()+(
+											groupList.get(sortedIndexListTyp3.get(k).intValue()-1).getCompany().getToasterList().get(j).getProduction() -
+											groupList.get(sortedIndexListTyp3.get(k).intValue()-1).getCompany().getToasterList().get(j).getMarketShare()
+											));
+									
+									 groupList.get(sortedIndexListTyp3.get(k).intValue()-1)
+										.getCompany().getToasterList().get(j).setMarketShare(										
+												groupList.get(sortedIndexListTyp3.get(k).intValue()-1)
+												.getCompany().getToasterList().get(j).getMarketShare()+	(groupList.get(sortedIndexListTyp3.get(k).intValue()-1).getCompany().getStock().getStockTT3()+(
+														groupList.get(sortedIndexListTyp3.get(k).intValue()-1).getCompany().getToasterList().get(j).getProduction() -
+														groupList.get(sortedIndexListTyp3.get(k).intValue()-1).getCompany().getToasterList().get(j).getMarketShare()
+														))
+										);	
+									 	
+										again = true;
+
+
+									
+									
+								}//else
+								
+
+							}//for
+								
+								
+							}//if ToasterTyp
+						
+						
+						
+						}//If Gesamt
+
+						
+					
+						
+					
+				}//if Unterproduktion
+			}//for innen
+			
+			
+		}// for auﬂen
+		
+		
+		}
+	}//calculate MarketShares
+	
+	
+	
+	
 	// @by Alex
 	public void simulate()
 	{
@@ -167,6 +387,15 @@ public class Game implements IsSerializable
 		for (int a = 0; a < groupList.size(); a++)
 		{
 			groupList.get(a).getCompany().calculateMarketShares(indexSums);
+			
+		}
+
+		
+		this.correctMarketShares();
+		
+		
+		for (int a = 0; a < groupList.size(); a++)
+		{
 			groupList.get(a).getCompany().calculateTurnover();
 			groupList.get(a).getCompany().calculateCost();
 			groupList.get(a).getCompany().calculateProfit();
@@ -185,5 +414,28 @@ public class Game implements IsSerializable
 		String s = "Game Eigenschaften: \n user amount: \t \t" + this.getUserAmount() + "\n current round: \t" + this.getCurrentRound();
 		return s;
 	}
-	
+
+	public ArrayList<Number> getSortedIndexListTyp1() {
+		return sortedIndexListTyp1;
+	}
+
+	public void setSortedIndexListTyp1(ArrayList<Number> sortedIndexListTyp1) {
+		this.sortedIndexListTyp1 = sortedIndexListTyp1;
+	}
+
+	public ArrayList<Number> getSortedIndexListTyp2() {
+		return sortedIndexListTyp2;
+	}
+
+	public void setSortedIndexListTyp2(ArrayList<Number> sortedIndexListTyp2) {
+		this.sortedIndexListTyp2 = sortedIndexListTyp2;
+	}
+
+	public ArrayList<Number> getSortedIndexListTyp3() {
+		return sortedIndexListTyp3;
+	}
+
+	public void setSortedIndexListTyp3(ArrayList<Number> sortedIndexListTyp3) {
+		this.sortedIndexListTyp3 = sortedIndexListTyp3;
+	}
 }
