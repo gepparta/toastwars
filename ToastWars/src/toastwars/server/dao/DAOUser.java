@@ -1,5 +1,6 @@
 package toastwars.server.dao;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -15,12 +16,12 @@ public class DAOUser
 
 	private static ArrayList<Group> userList = new ArrayList<Group>();
 
-	public static boolean updateUser(Group group,DBConnection con)
+	public static boolean updateUser(Group group, Connection con)
 	{
 		DAOCompany daoCompany = new DAOCompany();
 		Company company = group.getCompany();
 		String username = group.getUsername();
-		boolean b1 = changeStatus(username, group.getStatus().name(),con);
+		boolean b1 = changeStatus(username, group.getStatus().name(), con);
 		boolean b2 = daoCompany.updateCompany(company, con);
 		fillUserList(con);
 		if (b1 == true && b2 == true)
@@ -31,13 +32,13 @@ public class DAOUser
 
 	// test
 
-	public static boolean saveUser(Group group,DBConnection con)
+	public static boolean saveUser(Group group, Connection con)
 	{
 
 		DAOCompany daoCompany = new DAOCompany();
 		Company company = group.getCompany();
 		String username = group.getUsername();
-		boolean b1 = changeStatus(username, group.getStatus().name(),con);
+		boolean b1 = changeStatus(username, group.getStatus().name(), con);
 		boolean b2 = daoCompany.saveCompany(company, con);
 		fillUserList(con);
 		if (b1 == true && b2 == true)
@@ -46,13 +47,12 @@ public class DAOUser
 			return false;
 	}
 
-	public void saveUser(String name, String password, Integer CompanyID,DBConnection con)
+	public void saveUser(String name, String password, Integer CompanyID, Connection con)
 	{
-		Statement stmt = con.getStatement();
-		String sql = "INSERT INTO User (UserName, Password, CompanyID, Status)VALUES ('" + name + "','" + password + "','" + CompanyID
-				+ "', 'started');";
 		try
 		{
+			Statement stmt = con.createStatement();
+			String sql = "INSERT INTO User (UserName, Password, CompanyID, Status)VALUES ('" + name + "','" + password + "','" + CompanyID + "', 'started');";
 			stmt.execute(sql);
 			stmt.close();
 			fillUserList(con);
@@ -63,12 +63,12 @@ public class DAOUser
 		}
 	}
 
-	public void deleteUsers(DBConnection con)
+	public void deleteUsers(Connection con)
 	{
-		Statement stmt = con.getStatement();
-		String sql = "DELETE * FROM User;";
 		try
 		{
+			Statement stmt = con.createStatement();
+			String sql = "DELETE * FROM User;";
 			stmt.execute(sql);
 			stmt.close();
 			userList.clear();
@@ -79,21 +79,21 @@ public class DAOUser
 		}
 	}
 
-	public static ArrayList<Group> getAllUsers(DBConnection con)
+	public static ArrayList<Group> getAllUsers(Connection con)
 	{
 		try
 		{
 			userList.clear();
 			// Abfrage definieren
 			String query = "SELECT * FROM User;";
-			Statement stmt = con.getStatement();
+			Statement stmt = con.createStatement();
 			ResultSet rst = stmt.executeQuery(query);
 			DAOCompany test = new DAOCompany();
 			// Zeileninhalt ermitteln
 			while (rst.next())
 			{
-				Group group = (Group) UserFactory.createUser("Group", rst.getString(1), rst.getString(2));
 				int companyID = rst.getInt(3);
+				Group group = (Group) UserFactory.createUser("Group", rst.getString(1), rst.getString(2));
 				group.setCompany(test.getCurrentCompany(con, companyID));
 				Status stat = Status.valueOf(rst.getString(4));
 				group.setStatus(stat);
@@ -139,21 +139,21 @@ public class DAOUser
 		}
 	}
 
-	public static void fillUserList(DBConnection con)
+	public static void fillUserList(Connection con)
 	{
 		try
 		{
 			userList.clear();
 			// Abfrage definieren
 			String query = "SELECT * FROM User;";
-			Statement stmt = con.getStatement();
+			Statement stmt = con.createStatement();
 			ResultSet rst = stmt.executeQuery(query);
 			DAOCompany test = new DAOCompany();
 			// Zeileninhalt ermitteln
 			while (rst.next())
 			{
-				Group group = (Group) UserFactory.createUser("Group", rst.getString(1), rst.getString(2));
 				int companyID = rst.getInt(3);
+				Group group = (Group) UserFactory.createUser("Group", rst.getString(1), rst.getString(2));
 				group.setCompany(test.getCurrentCompany(con, companyID));
 				Status stat = Status.valueOf(rst.getString(4));
 				group.setStatus(stat);
@@ -168,17 +168,17 @@ public class DAOUser
 		}
 	}
 
-	public static boolean changeStatus(String username, String status,DBConnection con)
+	public static boolean changeStatus(String username, String status, Connection con)
 	{
 
 		try
 		{
-			Statement stmt = con.getStatement();
+			Statement stmt = con.createStatement();
 			String sql = "UPDATE [User] SET [User].Status = '" + status + "' WHERE (((User.UserName)='" + username + "'));";
 
 			stmt.execute(sql);
 			stmt.close();
-//			userList.clear();
+			// userList.clear();
 			return true;
 		} catch (SQLException e)
 		{
@@ -187,7 +187,7 @@ public class DAOUser
 		return false;
 	}
 
-	public static IUser findUser(String name, String pass,DBConnection con) throws Exception
+	public static IUser findUser(String name, String pass, Connection con) throws Exception
 	{
 		if (userList.size() == 0)
 		{
