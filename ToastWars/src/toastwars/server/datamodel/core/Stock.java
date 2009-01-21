@@ -2,9 +2,9 @@ package toastwars.server.datamodel.core;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
-public class Stock implements IsSerializable
-{
+public class Stock implements IsSerializable {
 
+	// Definition der Attribute
 	private int stockTT1 = 0;
 	private int stockTT2 = 0;
 	private int stockTT3 = 0;
@@ -19,114 +19,146 @@ public class Stock implements IsSerializable
 
 	private double totalStockCosts = 0;
 
-	public Stock()
-	{
+//Konstruktoren
+	public Stock() {
 
 	}
 
-	public Stock(int stockTT1, int stockTT2, int stockTT3, double totalStockCosts)
-	{
+	public Stock(int stockTT1, int stockTT2, int stockTT3,
+			double totalStockCosts) {
 		this.stockTT1 = stockTT1;
 		this.stockTT2 = stockTT2;
 		this.stockTT3 = stockTT3;
 		this.totalStockCosts = totalStockCosts;
 	}
 
-	public double calculateTotalStockCosts()
-	{
+	// Get-Methoden
+	public int getMaxStockTT1() {
+		return maxStockTT1;
+	}
+
+	public int getMaxStockTT2() {
+		return maxStockTT2;
+	}
+
+	public int getMaxStockTT3() {
+		return maxStockTT3;
+	}
+
+	public double getStockCostsTT1() {
+		return stockCostsTT1;
+	}
+
+	public double getStockCostsTT2() {
+		return stockCostsTT2;
+	}
+
+	public double getStockCostsTT3() {
+		return stockCostsTT3;
+	}
+
+	public int getStockTT1() {
+		return stockTT1;
+	}
+
+	public int getStockTT2() {
+		return stockTT2;
+	}
+
+	public int getStockTT3() {
+		return stockTT3;
+	}
+
+	public double getTotalStockCosts() {
+		return totalStockCosts;
+	}
+
+	// Set Methoden
+
+	public void setMaxStockTT1(int maxStockTT1) {
+		this.maxStockTT1 = maxStockTT1;
+	}
+
+	public void setMaxStockTT2(int maxStockTT2) {
+		this.maxStockTT2 = maxStockTT2;
+	}
+
+	public void setMaxStockTT3(int maxStockTT3) {
+		this.maxStockTT3 = maxStockTT3;
+	}
+
+	public void setStockCostsTT1(double stockCostsTT1) {
+		this.stockCostsTT1 = stockCostsTT1;
+	}
+
+	public void setStockCostsTT2(double stockCostsTT2) {
+		this.stockCostsTT2 = stockCostsTT2;
+	}
+
+	public void setStockCostsTT3(double stockCostsTT3) {
+		this.stockCostsTT3 = stockCostsTT3;
+	}
+
+	public void setStockTT1(int stockTT1) {
+		this.stockTT1 = stockTT1;
+	}
+
+	public void setStockTT2(int stockTT2) {
+		this.stockTT2 = stockTT2;
+	}
+
+	public void setStockTT3(int stockTT3) {
+		this.stockTT3 = stockTT3;
+	}
+
+	public void setTotalStockCosts(double stockCostsTotal) {
+		this.totalStockCosts = stockCostsTotal;
+	}
+
+	// Berechnende Methoden
+	
+	
+	// calculateTotalStockCosts berechnet die Gesamten Lagerkosten des Lagers, liefert diesen
+	//Wert als double zurück und setzt auch das entsprechende Attribut totalStockCosts.
+	public double calculateTotalStockCosts() {
 		double total;
-		total = (this.stockCostsTT1 * this.stockTT1) + (this.stockCostsTT2 * this.stockTT2) + (this.stockCostsTT3 * this.stockTT3);
+		total = (this.stockCostsTT1 * this.stockTT1)
+				+ (this.stockCostsTT2 * this.stockTT2)
+				+ (this.stockCostsTT3 * this.stockTT3);
 		this.totalStockCosts = total;
 
 		return total;
 	}
 
-	public int getMaxStockTT1()
-	{
-		return maxStockTT1;
-	}
-
-	public int getMaxStockTT2()
-	{
-		return maxStockTT2;
-	}
-
-	public int getMaxStockTT3()
-	{
-		return maxStockTT3;
-	}
-
-	public double getStockCostsTT1()
-	{
-		return stockCostsTT1;
-	}
-
-	public double getStockCostsTT2()
-	{
-		return stockCostsTT2;
-	}
-
-	public double getStockCostsTT3()
-	{
-		return stockCostsTT3;
-	}
-
-	public int getStockTT1()
-	{
-		return stockTT1;
-	}
-
-	public int getStockTT2()
-	{
-		return stockTT2;
-	}
-
-	public int getStockTT3()
-	{
-		return stockTT3;
-	}
-
-	public double getTotalStockCosts()
-	{
-		return totalStockCosts;
-	}
-
-	public int ReduceStock(Type typ, int amount)
-	{
+	//ReduceStock ist für die Reduzierung des Lagers zuständig abhängig vom Toastertyp zuständig.
+	//Wenn möglich wird die komplette Menge (amount) aus dem Lager entfernt und die Methode gibt 0 zurück.
+	//Falls dies nicht komplett möglich ist, wird das Lager auf 0 reduziert und die Anzahl der fehlenden Toaster zurückgeliefert. 
+	public int ReduceStock(Type typ, int amount) {
 
 		int rest = 0;
-		if (typ == Type.TYPE1)
-		{
-			if (stockTT1 >= amount)
-			{
+		if (typ == Type.TYPE1) {
+			if (stockTT1 >= amount) {
 				stockTT1 = stockTT1 - amount;
-			} else
-			{
+			} else {
 
 				rest = amount - stockTT1;
 				stockTT1 = 0;
 			}
 		}
 
-		else if (typ == Type.TYPE2)
-		{
-			if (stockTT2 >= amount)
-			{
+		else if (typ == Type.TYPE2) {
+			if (stockTT2 >= amount) {
 				stockTT2 = stockTT2 - amount;
-			} else
-			{
+			} else {
 				rest = amount - stockTT2;
 				stockTT2 = 0;
 			}
 		}
 
-		else
-		{
-			if (stockTT3 >= amount)
-			{
+		else {
+			if (stockTT3 >= amount) {
 				stockTT3 = stockTT3 - amount;
-			} else
-			{
+			} else {
 				rest = amount - stockTT3;
 				stockTT3 = 0;
 			}
@@ -135,91 +167,35 @@ public class Stock implements IsSerializable
 		return rest;
 	}
 
-	public void setMaxStockTT1(int maxStockTT1)
-	{
-		this.maxStockTT1 = maxStockTT1;
-	}
+	
+	//StockUP implementiert das Einlagern von Toaster anhand des Typen in das Lager. 
+	//Abhängig von der maximalen Lagermenge wird entweder die gesamte übergebene Menge (amount) eingelagert
+	//oder falls nicht alles eingelagert werden kann, wird bis zum Maximun eingelagert und der Rest einfach verworfen.
+	public void StockUp(Type typ, int amount) {
 
-	public void setMaxStockTT2(int maxStockTT2)
-	{
-		this.maxStockTT2 = maxStockTT2;
-	}
-
-	public void setMaxStockTT3(int maxStockTT3)
-	{
-		this.maxStockTT3 = maxStockTT3;
-	}
-
-	public void setStockCostsTT1(double stockCostsTT1)
-	{
-		this.stockCostsTT1 = stockCostsTT1;
-	}
-
-	public void setStockCostsTT2(double stockCostsTT2)
-	{
-		this.stockCostsTT2 = stockCostsTT2;
-	}
-
-	public void setStockCostsTT3(double stockCostsTT3)
-	{
-		this.stockCostsTT3 = stockCostsTT3;
-	}
-
-	public void setStockTT1(int stockTT1)
-	{
-		this.stockTT1 = stockTT1;
-	}
-
-	public void setStockTT2(int stockTT2)
-	{
-		this.stockTT2 = stockTT2;
-	}
-
-	public void setStockTT3(int stockTT3)
-	{
-		this.stockTT3 = stockTT3;
-	}
-
-	public void setTotalStockCosts(double stockCostsTotal)
-	{
-		this.totalStockCosts = stockCostsTotal;
-	}
-
-	public void StockUp(Type typ, int amount)
-	{
-
-		if (typ == Type.TYPE1)
-		{
-			if (stockTT1 + amount <= maxStockTT1)
-			{
+		if (typ == Type.TYPE1) {
+			if (stockTT1 + amount <= maxStockTT1) {
 				stockTT1 = stockTT1 + amount;
-			} else
-			{
+			} else {
 				stockTT1 = maxStockTT1;
 			}
 		}
 
-		else if (typ == Type.TYPE2)
-		{
-			if (stockTT2 + amount <= maxStockTT2)
-			{
+		else if (typ == Type.TYPE2) {
+			if (stockTT2 + amount <= maxStockTT2) {
 				stockTT2 = stockTT2 + amount;
-			} else
-			{
+			} else {
 				stockTT2 = maxStockTT2;
 			}
 		}
 
-		else if (typ == Type.TYPE3)
-		{
-			if (stockTT3 + amount <= maxStockTT3)
-			{
+		else if (typ == Type.TYPE3) {
+			if (stockTT3 + amount <= maxStockTT3) {
 				stockTT3 = stockTT3 + amount;
-			} else
-			{
+			} else {
 				stockTT3 = maxStockTT3;
 			}
 		}
 	}
 
-}
+}// Stock

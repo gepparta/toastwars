@@ -168,11 +168,11 @@ public class Toaster implements IsSerializable
 		double random = this.getType().getRandom();
 		double priceIndex = 0;
 		if (this.type == Type.TYPE1)
-			priceIndex = (1 / Math.pow((price / 10), 1.2));
+			priceIndex = (1 / Math.pow((price / 10), 1.5));
 		if (this.type == Type.TYPE2)
-			priceIndex = (1 / Math.pow((price / 40), 2.4));
+			priceIndex = (1 / Math.pow((price / 40), 2.0));
 		if (this.type == Type.TYPE3)
-			priceIndex = (1 / Math.pow((price / 150), 5));
+			priceIndex = (1 / Math.pow((price / 150), 3));
 		double i = researchIndex * marketingIndex * priceIndex;
 		// * NumberUtil.roundDouble(Math.random() * (random * 2))+ (1 - random);
 		// runden auf zwei Stellen hinter dem Komma
@@ -195,11 +195,11 @@ public class Toaster implements IsSerializable
 		double random = this.getType().getRandom();
 		double priceIndex = 0;
 		if (this.type == Type.TYPE1)
-			priceIndex = (1 / Math.pow((price / 10), 1.2));
+			priceIndex = (1 / Math.pow((price / 10), 1.5));
 		if (this.type == Type.TYPE2)
-			priceIndex = (1 / Math.pow((price / 40), 2.4));
+			priceIndex = (1 / Math.pow((price / 40), 2.0));
 		if (this.type == Type.TYPE3)
-			priceIndex = (1 / Math.pow((price / 150), 5));
+			priceIndex = (1 / Math.pow((price / 150), 3));
 		double i = researchIndex * marketingIndex * priceIndex;
 		setIndex(NumberUtil.roundDouble(i));
 	}
