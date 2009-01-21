@@ -8,18 +8,9 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 public class Company implements IsSerializable
 {
 
+	//Deklaration der Attribute
+	
 	private static int nextCompanyID = 1;
-
-	public static int getNextCompanyID()
-	{
-		return nextCompanyID;
-	}
-
-	public static void setNextCompanyID(int nextCompanyID)
-	{
-		Company.nextCompanyID = nextCompanyID;
-	}
-
 	private int companyID;
 	private double turnover;
 	private double cost;
@@ -28,19 +19,18 @@ public class Company implements IsSerializable
 	private int marketShare;
 	private boolean marketResearchReportON;
 	private Stock stock;
-	
 	// @gwt.typeArgs <Number>
 	private ArrayList<Number> profitRankingList = null;
 	// @gwt.typeArgs <Number>
 	private ArrayList<Number> capitalRankingInternList = null;
-
 	// @gwt.typeArgs
 	// java.util.ArrayList<java.util.ArrayList<java.util.List<java.lang.String>>>
 	public ArrayList<List<String>> reportListe;
-
 	// @gwt.typeArgs <toastwars.server.datamodel.core.Toaster>
 	private ArrayList<Toaster> toasterList = new ArrayList<Toaster>();
 
+	
+	//Konstruktoren
 	public Company()
 	{
 	}
@@ -75,6 +65,109 @@ public class Company implements IsSerializable
 
 	}
 
+	
+	
+	
+	//Get Methoden
+	
+
+	public static int getNextCompanyID()
+	{
+		return nextCompanyID;
+	}
+	
+	
+	public double getCapital()
+	{
+		return capital;
+	}
+
+	public int getCompanyID()
+	{
+		return companyID;
+	}
+
+	public double getCost()
+	{
+		return cost;
+	}
+
+	public int getMarketShare()
+	{
+		return marketShare;
+	}
+
+	public double getProfit()
+	{
+		return profit;
+	}
+	public Stock getStock() {
+		return stock;
+	}
+	public ArrayList<Toaster> getToasterList()
+	{
+		return toasterList;
+	}
+
+	public double getTurnover()
+	{
+		return turnover;
+	}
+
+	
+	//Set-Methoden
+	
+	public static void setNextCompanyID(int nextCompanyID)
+	{
+		Company.nextCompanyID = nextCompanyID;
+	}
+
+	public void setCapital(double capital)
+	{
+		this.capital = capital;
+	}
+
+	public void setCompanyID(int companyID)
+	{
+		this.companyID = companyID;
+	}
+
+	public void setCost(double cost)
+	{
+		this.cost = cost;
+	}
+
+	public void setMarketResearchReportON(boolean marketResearchReportON)
+	{
+		this.marketResearchReportON = marketResearchReportON;
+	}
+
+	public void setMarketShare(int marketShare)
+	{
+		this.marketShare = marketShare;
+	}
+
+	public void setProfit(double profit)
+	{
+		this.profit = profit;
+	}
+	public void setStock(Stock stock) {
+		this.stock = stock;
+	}
+	public void setToasterList(ArrayList<Toaster> toasterList)
+	{
+		this.toasterList = toasterList;
+	}
+
+	public void setTurnover(double turnover)
+	{
+		this.turnover = turnover;
+	}
+
+	
+	//Berechnende Methoden
+
+	
 	public void calculateCapital()
 	{
 
@@ -95,7 +188,7 @@ public class Company implements IsSerializable
 		}
 	}
 
-	// @by Alex
+
 	public void calculateIndex()
 	{
 		for (int i = 0; i < toasterList.size(); i++)
@@ -104,14 +197,7 @@ public class Company implements IsSerializable
 		}
 	}
 
-	// @by Alex extra for testing
-	public void calculateIndexWithOutRandom()
-	{
-		for (int i = 0; i < toasterList.size(); i++)
-		{
-			toasterList.get(i).calculateIndex();
-		}
-	}
+
 
 	public void calculateMarketShares(double[] indexSums)
 	{
@@ -162,87 +248,11 @@ public class Company implements IsSerializable
 			this.getToasterList().get(i).setTvInvestmentKum();
 		}
 	}
-
-	public double getCapital()
-	{
-		return capital;
-	}
-
-	public int getCompanyID()
-	{
-		return companyID;
-	}
-
-	public double getCost()
-	{
-		return cost;
-	}
-
-	public int getMarketShare()
-	{
-		return marketShare;
-	}
-
-	public double getProfit()
-	{
-		return profit;
-	}
-
-	public ArrayList<Toaster> getToasterList()
-	{
-		return toasterList;
-	}
-
-	public double getTurnover()
-	{
-		return turnover;
-	}
-
-	// //// METHODS ///////
-
+	
+	
 	public boolean isMarketResearchReportON()
 	{
 		return marketResearchReportON;
-	}
-
-	public void setCapital(double capital)
-	{
-		this.capital = capital;
-	}
-
-	public void setCompanyID(int companyID)
-	{
-		this.companyID = companyID;
-	}
-
-	public void setCost(double cost)
-	{
-		this.cost = cost;
-	}
-
-	public void setMarketResearchReportON(boolean marketResearchReportON)
-	{
-		this.marketResearchReportON = marketResearchReportON;
-	}
-
-	public void setMarketShare(int marketShare)
-	{
-		this.marketShare = marketShare;
-	}
-
-	public void setProfit(double profit)
-	{
-		this.profit = profit;
-	}
-
-	public void setToasterList(ArrayList<Toaster> toasterList)
-	{
-		this.toasterList = toasterList;
-	}
-
-	public void setTurnover(double turnover)
-	{
-		this.turnover = turnover;
 	}
 
 	public String toString()
@@ -312,12 +322,8 @@ public class Company implements IsSerializable
 		this.capitalRankingInternList = capitalRankingInternList;
 	}
 
-	public Stock getStock() {
-		return stock;
-	}
 
-	public void setStock(Stock stock) {
-		this.stock = stock;
-	}
+
+
 
 }
