@@ -6,7 +6,6 @@ import toastwars.client.Controller;
 import toastwars.server.datamodel.core.Company;
 import toastwars.server.datamodel.core.Game;
 import toastwars.server.datamodel.core.Toaster;
-import toastwars.server.datamodel.core.Type;
 import toastwars.server.datamodel.user.Group;
 import toastwars.server.datamodel.user.Master;
 import toastwars.server.datamodel.user.Status;
@@ -21,7 +20,6 @@ import com.gwtext.client.data.GroupingStore;
 import com.gwtext.client.data.MemoryProxy;
 import com.gwtext.client.data.RecordDef;
 import com.gwtext.client.data.SortState;
-import com.gwtext.client.data.Store;
 import com.gwtext.client.data.StringFieldDef;
 import com.gwtext.client.widgets.Button;
 import com.gwtext.client.widgets.Panel;
@@ -135,7 +133,7 @@ public class MasterPanel extends Panel {
 		grid.setStore(store);
 
 		GroupingView gridView = new GroupingView();
-		gridView.setForceFit(true);
+		gridView.setForceFit(false);
 		gridView.setGroupTextTpl("{text} ({[values.rs.length]} "
 				+ "{[values.rs.length > 1 ? \"Gruppen\" : \"Gruppe\"]})");
 		gridView.setHideGroupedColumn(true);
@@ -162,7 +160,7 @@ public class MasterPanel extends Panel {
 				new ColumnConfig("&Ouml;kologie", "ecology", 100),
 				new ColumnConfig("Kapital", "capital", 100),
 				new ColumnConfig("Marktforschungsbericht", "report", 150),
-				new ColumnConfig("Status", "status", 100),
+				new ColumnConfig("Status", "status", 170),
 				new ColumnConfig("Typ", "type", 70) };
 		return columns;
 	}
