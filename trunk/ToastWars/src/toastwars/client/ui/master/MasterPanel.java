@@ -150,15 +150,15 @@ public class MasterPanel extends Panel {
 
 	private ColumnConfig[] createColumnConfig() {
 		ColumnConfig[] columns = new ColumnConfig[] {
-				new ColumnConfig("Gruppe", "group", 70),
+				new ColumnConfig("Gruppe", "group", 140),
 				new ColumnConfig("Preis", "price", 50),
-				new ColumnConfig("Zeitung", "magazine", 100),
-				new ColumnConfig("Radio", "radio", 100),
-				new ColumnConfig("TV", "tv", 100),
-				new ColumnConfig("Qualit&auml;t", "quality", 100),
-				new ColumnConfig("Design", "design", 100),
-				new ColumnConfig("&Ouml;kologie", "ecology", 100),
-				new ColumnConfig("Kapital", "capital", 100),
+				new ColumnConfig("Zeitung", "magazine", 90),
+				new ColumnConfig("Radio", "radio", 90),
+				new ColumnConfig("TV", "tv", 90),
+				new ColumnConfig("Qualit&auml;t", "quality", 90),
+				new ColumnConfig("Design", "design", 90),
+				new ColumnConfig("&Ouml;kologie", "ecology", 90),
+				new ColumnConfig("Kapital", "capital", 90),
 				new ColumnConfig("Marktforschungsbericht", "report", 150),
 				new ColumnConfig("Status", "status", 170),
 				new ColumnConfig("Typ", "type", 70) };
@@ -176,7 +176,7 @@ public class MasterPanel extends Panel {
 				Company comp = groupList.get(j).getCompany();
 
 				if (comp.getToasterList().size() <= i)
-					break;
+					continue;
 
 				Object[] data = new Object[12];
 				data[0] = groupList.get(j).getUsername();
@@ -194,7 +194,8 @@ public class MasterPanel extends Panel {
 				data[9] = comp.isMarketResearchReportON();
 				data[10] = groupList.get(j).getStatus().getDescription();
 
-				data[11] = toaster.getType().getDescription();
+				data[11] = "" + (i + 1) + " "
+						+ toaster.getType().getDescription();
 				dataList.add(data);
 			}
 		}

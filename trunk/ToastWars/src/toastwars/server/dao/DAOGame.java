@@ -123,15 +123,13 @@ public class DAOGame {
 				// index, turnover, cost, profit, marketShare, type
 				query = "INSERT INTO Toaster VALUES (1,"
 						+ i
-						+ ","
-						+ i
-						+ ", 10, 3.00, 0, 0, 0, 0, 0, 0, 3.00, 0, 0, 0, 0, 0, 0," +
-								" 9.00, 0.00, 0.00, 0.00, 0,'TYPE1',0);";
+						+ ",'TYPE1', 10, 3.00, 0, 0, 0, 0, 0, 0, 3.00, 0, 0, 0, 0, 0, 0,"
+						+ " 9.00, 0.00, 0.00, 0.00, 0,0);";
 
 				stmt.execute(query);
 				query = "INSERT INTO Stock VALUES (" + i
-				+ ",1, 0, 0, 0, 0.00);";
-		stmt.execute(query);
+						+ ",1, 0, 0, 0, 0.00);";
+				stmt.execute(query);
 			}
 			stmt.close();
 		} catch (SQLException e) {

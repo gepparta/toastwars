@@ -285,7 +285,7 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements
 		return success;
 	}
 
-	public ArrayList<Toaster> createNewToaster(ArrayList<Toaster> toasterList,
+	public Boolean createNewToaster(ArrayList<Toaster> toasterList,
 			int companyID) {
 
 		ArrayList<Toaster> outList = toasterList;
@@ -298,10 +298,11 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return false;
 		}
 		// close DB connection
 		DBConnection.getInstance().closeConnectionToDB(con);
 
-		return outList;
+		return true;
 	}
 }
