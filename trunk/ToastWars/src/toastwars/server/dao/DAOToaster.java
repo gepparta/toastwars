@@ -8,14 +8,11 @@ import toastwars.server.datamodel.core.Game;
 import toastwars.server.datamodel.core.Toaster;
 import toastwars.server.datamodel.core.Type;
 
-public class DAOToaster
-{
-	ArrayList<Toaster> toasterList = new ArrayList<Toaster>();
+public class DAOToaster {
+	ArrayList<Toaster>	toasterList	= new ArrayList<Toaster>();
 
-	public void updateToaster(Toaster toaster, int companyID, Connection con)
-	{
-		try
-		{
+	public void updateToaster(Toaster toaster, int companyID, Connection con) {
+		try {
 			int currentRound = Game.getInstance().getCurrentRound();
 			int toasterID = toaster.getToasterID();
 			double price = toaster.getPrice();
@@ -42,26 +39,36 @@ public class DAOToaster
 			int production = toaster.getProduction();
 
 			Statement stmt = con.createStatement();
-			String query = "UPDATE Toaster SET Toaster.price = " + price + ", Toaster.marketing = " + marketing + ", Toaster.tv = " + tv + ", Toaster.tvKum = " + tvKum
-					+ ", Toaster.newspaper = " + newspaper + ", Toaster.newspaperKum = " + newspaperKum + ", Toaster.radio = " + radio + ", Toaster.radioKum = " + radioKum
-					+ ", Toaster.research = " + research + ", Toaster.quality = " + quality + ", Toaster.qualityKum = " + qualityKum + ", Toaster.design = " + design
-					+ ", Toaster.designKum = " + designKum + ", Toaster.efficiency = " + efficiency + ", Toaster.efficiencyKum = " + efficiencyKum + ", Toaster.[index] = " + index
-					+ ", Toaster.turnover = " + turnover + ", Toaster.cost = " + cost + ", Toaster.profit = " + profit + ", Toaster.marketShare = " + marketShare
-					+ ", Toaster.type = '" + type + "', Toaster.production = " + production + " WHERE (((Toaster.round)=" + currentRound + ") AND ((Toaster.toasterID)="
-					+ toasterID + ") AND ((Toaster.companyID)=" + companyID + "));";
+			String query = "UPDATE Toaster SET Toaster.price = " + price
+					+ ", Toaster.marketing = " + marketing + ", Toaster.tv = "
+					+ tv + ", Toaster.tvKum = " + tvKum
+					+ ", Toaster.newspaper = " + newspaper
+					+ ", Toaster.newspaperKum = " + newspaperKum
+					+ ", Toaster.radio = " + radio + ", Toaster.radioKum = "
+					+ radioKum + ", Toaster.research = " + research
+					+ ", Toaster.quality = " + quality
+					+ ", Toaster.qualityKum = " + qualityKum
+					+ ", Toaster.design = " + design + ", Toaster.designKum = "
+					+ designKum + ", Toaster.efficiency = " + efficiency
+					+ ", Toaster.efficiencyKum = " + efficiencyKum
+					+ ", Toaster.[index] = " + index + ", Toaster.turnover = "
+					+ turnover + ", Toaster.cost = " + cost
+					+ ", Toaster.profit = " + profit
+					+ ", Toaster.marketShare = " + marketShare
+					+ ", Toaster.type = '" + type + "', Toaster.production = "
+					+ production + " WHERE (((Toaster.round)=" + currentRound
+					+ ") AND ((Toaster.toasterID)=" + toasterID
+					+ ") AND ((Toaster.companyID)=" + companyID + "));";
 			stmt.execute(query);
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
 	}
 
 	// test
-	public void saveToaster(Toaster toaster, int companyID, Connection con)
-	{
-		try
-		{
+	public void saveToaster(Toaster toaster, int companyID, Connection con) {
+		try {
 			int currentRound = Game.getInstance().getCurrentRound();
 			int toasterID = toaster.getToasterID();
 			double price = toaster.getPrice();
@@ -88,25 +95,30 @@ public class DAOToaster
 			int production = toaster.getProduction();
 
 			Statement stmt = con.createStatement();
-			String query = "INSERT INTO Toaster VALUES (" + currentRound + "," + toasterID + "," + companyID + "," + price + "," + marketing + "," + tv + "," + tvKum + ","
-					+ newspaper + "," + newspaperKum + "," + radio + "," + radioKum + "," + research + "," + quality + "," + qualityKum + "," + design + "," + designKum + ","
-					+ efficiency + "," + efficiencyKum + "," + index + "," + turnover + "," + cost + "," + profit + "," + marketShare + ",'" + type + "'," + production + ");";
+			String query = "INSERT INTO Toaster VALUES (" + currentRound + ","
+					+ toasterID + "," + companyID + "," + price + ","
+					+ marketing + "," + tv + "," + tvKum + "," + newspaper
+					+ "," + newspaperKum + "," + radio + "," + radioKum + ","
+					+ research + "," + quality + "," + qualityKum + ","
+					+ design + "," + designKum + "," + efficiency + ","
+					+ efficiencyKum + "," + index + "," + turnover + "," + cost
+					+ "," + profit + "," + marketShare + ",'" + type + "',"
+					+ production + ");";
 			stmt.execute(query);
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	public ArrayList<Toaster> getActualToasterFromCompany(int companyID, Connection con)
-	{
+	public ArrayList<Toaster> getActualToasterFromCompany(int companyID,
+			Connection con) {
 
-		try
-		{
+		try {
 			toasterList.clear();
 			// Abfrage definieren
 			int currentRound = Game.getInstance().getCurrentRound();
-			String query = "SELECT * FROM Toaster WHERE companyID = " + companyID + " AND Round = " + currentRound + ";";
+			String query = "SELECT * FROM Toaster WHERE companyID = "
+					+ companyID + " AND Round = " + currentRound + ";";
 			Statement stmt = con.createStatement();
 			ResultSet rst = stmt.executeQuery(query);
 
@@ -133,11 +145,18 @@ public class DAOToaster
 			// this.designInvestmentKum = designInvestmentKum;
 			// this.ecologyInvestmentKum = ecologyInvestmentKum;
 			// Zeileninhalt ermitteln
-			while (rst.next())
-			{
-				Toaster toaster = new Toaster(rst.getInt(2), rst.getDouble(4), rst.getDouble(19), rst.getDouble(20), rst.getDouble(21), rst.getDouble(22), rst.getInt(23), Type
-						.valueOf(rst.getString(24)), rst.getDouble(5), rst.getDouble(6), rst.getDouble(8), rst.getDouble(10), rst.getDouble(7), rst.getDouble(9),
-						rst.getDouble(11), rst.getDouble(12), rst.getDouble(13), rst.getDouble(15), rst.getDouble(17), rst.getDouble(14), rst.getDouble(16), rst.getDouble(18));
+			while (rst.next()) {
+				Toaster toaster = new Toaster(rst.getInt(2), rst.getDouble(4),
+						rst.getDouble(19), rst.getDouble(20),
+						rst.getDouble(21), rst.getDouble(22), rst.getInt(23),
+						Type.valueOf(rst.getString(24)), rst.getDouble(5), rst
+								.getDouble(6), rst.getDouble(8), rst
+								.getDouble(10), rst.getDouble(7), rst
+								.getDouble(9), rst.getDouble(11), rst
+								.getDouble(12), rst.getDouble(13), rst
+								.getDouble(15), rst.getDouble(17), rst
+								.getDouble(14), rst.getDouble(16), rst
+								.getDouble(18));
 				toaster.setProduction(rst.getInt(25));
 				toasterList.add(toaster);
 			}
@@ -145,21 +164,20 @@ public class DAOToaster
 			stmt.close();
 			return toasterList;
 
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
 
-	public ArrayList<Toaster> getToasterFromCompanyByRound(int companyID, Connection con, Integer round)
-	{
-		ArrayList<Toaster>	toasterListByRound	= new ArrayList<Toaster>();
-		try
-		{
+	public ArrayList<Toaster> getToasterFromCompanyByRound(int companyID,
+			Connection con, Integer round) {
+		ArrayList<Toaster> toasterListByRound = new ArrayList<Toaster>();
+		try {
 			toasterListByRound.clear();
 			// Abfrage definieren
-			String query = "SELECT * FROM Toaster WHERE companyID = " + companyID + " AND Round = " + round + ";";
+			String query = "SELECT * FROM Toaster WHERE companyID = "
+					+ companyID + " AND Round = " + round + ";";
 			Statement stmt = con.createStatement();
 			ResultSet rst = stmt.executeQuery(query);
 
@@ -186,11 +204,18 @@ public class DAOToaster
 			// this.designInvestmentKum = designInvestmentKum;
 			// this.ecologyInvestmentKum = ecologyInvestmentKum;
 			// Zeileninhalt ermitteln
-			while (rst.next())
-			{
-				Toaster toaster = new Toaster(rst.getInt(2), rst.getDouble(4), rst.getDouble(19), rst.getDouble(20), rst.getDouble(21), rst.getDouble(22), rst.getInt(23), Type
-						.valueOf(rst.getString(24)), rst.getDouble(5), rst.getDouble(6), rst.getDouble(8), rst.getDouble(10), rst.getDouble(7), rst.getDouble(9),
-						rst.getDouble(11), rst.getDouble(12), rst.getDouble(13), rst.getDouble(15), rst.getDouble(17), rst.getDouble(14), rst.getDouble(16), rst.getDouble(18));
+			while (rst.next()) {
+				Toaster toaster = new Toaster(rst.getInt(2), rst.getDouble(4),
+						rst.getDouble(19), rst.getDouble(20),
+						rst.getDouble(21), rst.getDouble(22), rst.getInt(23),
+						Type.valueOf(rst.getString(24)), rst.getDouble(5), rst
+								.getDouble(6), rst.getDouble(8), rst
+								.getDouble(10), rst.getDouble(7), rst
+								.getDouble(9), rst.getDouble(11), rst
+								.getDouble(12), rst.getDouble(13), rst
+								.getDouble(15), rst.getDouble(17), rst
+								.getDouble(14), rst.getDouble(16), rst
+								.getDouble(18));
 				toaster.setProduction(rst.getInt(25));
 				toasterListByRound.add(toaster);
 			}
@@ -198,10 +223,29 @@ public class DAOToaster
 			stmt.close();
 			return toasterListByRound;
 
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	public int getNextToasterID(Connection con) {
+		try {
+			Statement stmt = con.createStatement();
+			String query = "SELECT Toaster.toasterID FROM Toaster";
+			ResultSet rst = stmt.executeQuery(query);
+			int nextID = 0;
+			while (rst.next()) {
+				int next = rst.getInt(1);
+				if (next > nextID)
+					nextID = next;
+			}
+			rst.close();
+			stmt.close();
+			return nextID + 1;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1;
 	}
 }

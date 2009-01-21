@@ -14,6 +14,7 @@ import toastwars.server.datamodel.core.Company;
 import toastwars.server.datamodel.core.Game;
 import toastwars.server.datamodel.core.MarketResearchReport;
 import toastwars.server.datamodel.core.Toaster;
+import toastwars.server.datamodel.core.Type;
 import toastwars.server.datamodel.user.Group;
 import toastwars.server.datamodel.user.IUser;
 import toastwars.server.datamodel.user.Master;
@@ -43,7 +44,7 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements
 				Game game = Game.getInstance(DAOGame.getUserAmount(con));
 				game.setCurrentRound(DAOGame.getCurrentRound(con));
 				game.setGroupList(DAOGame.getAllUsers(con));
-				
+
 				int round = Game.getInstance().getCurrentRound();
 				if (round > 1)
 					round--;
@@ -269,14 +270,22 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements
 		return success;
 	}
 
-	public void createNewToaster(ArrayList<Toaster> toasterList, int companyID) {
+	public ArrayList<Toaster> createNewToaster(ArrayList<Toaster> toasterList,
+			int companyID) {
+
+		ArrayList<Toaster> outList = toasterList;
 		Connection con = DBConnection.getInstance().connectToDB();
 		DAOToaster dao = new DAOToaster();
+		int nextID = dao.getNextToasterID(con);
 
-		for (Toaster toaster : toasterList) {
+		for (Toaster toaster : outList) {
+			toaster.setToasterID(nextID);
 			dao.saveToaster(toaster, companyID, con);
+			nextID++;
 		}
 		// close DB connection
 		DBConnection.getInstance().closeConnectionToDB(con);
+
+		return outList;
 	}
 }
