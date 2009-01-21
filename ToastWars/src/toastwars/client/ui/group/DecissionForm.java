@@ -134,7 +134,7 @@ public class DecissionForm extends Panel {
 		// add amount field
 		SliderBar amountSlider = new SliderBar(0, type.getMarketVolume());
 		configureSlider(amountSlider, type.getMarketVolume() / 20, 20, 2,
-				" ME", fields.get(1), 0);
+				" ME", fields.get(1), toaster.getProduction());
 		Panel amountPanel = createSliderField(fields.get(1), amountSlider);
 		amountPanel.setMargins(0, 5, 0, 0);
 		topPanel.add(amountPanel);
