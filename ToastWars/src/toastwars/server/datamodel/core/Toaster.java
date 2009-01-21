@@ -177,7 +177,9 @@ public class Toaster implements IsSerializable
 		// * NumberUtil.roundDouble(Math.random() * (random * 2))+ (1 - random);
 		// runden auf zwei Stellen hinter dem Komma
 		setIndex(NumberUtil.roundDouble(i));
-		
+	}
+	
+	public void resetUserInput() {
 		// reset all input parameters for next round
 		tvInvestment = 0;
 		newspaperInvestment = 0;
@@ -185,6 +187,7 @@ public class Toaster implements IsSerializable
 		qualityInvestment = 0;
 		designInvestment = 0;
 		ecologyInvestment = 0;
+		production = 0;
 	}
 
 	// @by Alex extra for testing
