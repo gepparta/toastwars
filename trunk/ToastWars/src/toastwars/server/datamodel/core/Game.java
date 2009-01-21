@@ -477,7 +477,7 @@ public class Game implements IsSerializable
 		{
 			group.getCompany().getToasterList().get(i).setCost(0.0);
 			group.getCompany().getToasterList().get(i).setDesignInvestment(0);
-			group.getCompany().getToasterList().get(i).setEfficiencyInvestment(0.0);
+			group.getCompany().getToasterList().get(i).setEcologyInvestment(0.0);
 			group.getCompany().getToasterList().get(i).setIndex(0.0);
 			group.getCompany().getToasterList().get(i).setMarketing(0.0);
 			group.getCompany().getToasterList().get(i).setMarketShare(0);
