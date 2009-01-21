@@ -109,7 +109,7 @@ public class Company implements IsSerializable
 	{
 		for (int i = 0; i < toasterList.size(); i++)
 		{
-			toasterList.get(i).calculateIndexWithOutRandom();
+			toasterList.get(i).calculateIndex();
 		}
 	}
 
