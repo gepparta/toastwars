@@ -58,7 +58,7 @@ public class DAOToaster
 	}
 
 	// test
-	public boolean saveToaster(Toaster toaster, int companyID, Connection con)
+	public void saveToaster(Toaster toaster, int companyID, Connection con)
 	{
 		try
 		{
@@ -91,11 +91,10 @@ public class DAOToaster
 			String query = "INSERT INTO Toaster VALUES (" + currentRound + "," + toasterID + "," + companyID + "," + price + "," + marketing + "," + tv + "," + tvKum + ","
 					+ newspaper + "," + newspaperKum + "," + radio + "," + radioKum + "," + research + "," + quality + "," + qualityKum + "," + design + "," + designKum + ","
 					+ efficiency + "," + efficiencyKum + "," + index + "," + turnover + "," + cost + "," + profit + "," + marketShare + ",'" + type + "'," + production + ");";
-			return stmt.execute(query);
+			stmt.execute(query);
 		} catch (Exception e)
 		{
 			e.printStackTrace();
-			return false;
 		}
 	}
 
