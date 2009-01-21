@@ -5,21 +5,21 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 public class Stock implements IsSerializable {
 
 	// Definition der Attribute
-	private int stockTT1 = 0;
-	private int stockTT2 = 0;
-	private int stockTT3 = 0;
+	private int		stockTT1		= 0;
+	private int		stockTT2		= 0;
+	private int		stockTT3		= 0;
 
-	private int maxStockTT1 = 2500;
-	private int maxStockTT2 = 1500;
-	private int maxStockTT3 = 700;
+	private int		maxStockTT1		= 2500;
+	private int		maxStockTT2		= 1500;
+	private int		maxStockTT3		= 700;
 
-	private double stockCostsTT1 = 1.25;
-	private double stockCostsTT2 = 6.25;
-	private double stockCostsTT3 = 16.25;
+	private double	stockCostsTT1	= 1.25;
+	private double	stockCostsTT2	= 6.25;
+	private double	stockCostsTT3	= 16.25;
 
-	private double totalStockCosts = 0;
+	private double	totalStockCosts	= 0;
 
-//Konstruktoren
+	// Konstruktoren
 	public Stock() {
 
 	}
@@ -30,6 +30,17 @@ public class Stock implements IsSerializable {
 		this.stockTT2 = stockTT2;
 		this.stockTT3 = stockTT3;
 		this.totalStockCosts = totalStockCosts;
+	}
+
+	public int getStock(Type type) {
+		if (type == Type.TYPE1)
+			return stockTT1;
+		else if (type == Type.TYPE2)
+			return stockTT2;
+		else if (type == Type.TYPE3)
+			return stockTT3;
+
+		return -1;
 	}
 
 	// Get-Methoden
@@ -116,10 +127,11 @@ public class Stock implements IsSerializable {
 	}
 
 	// Berechnende Methoden
-	
-	
-	// calculateTotalStockCosts berechnet die Gesamten Lagerkosten des Lagers, liefert diesen
-	//Wert als double zurück und setzt auch das entsprechende Attribut totalStockCosts.
+
+	// calculateTotalStockCosts berechnet die Gesamten Lagerkosten des Lagers,
+	// liefert diesen
+	// Wert als double zurück und setzt auch das entsprechende Attribut
+	// totalStockCosts.
 	public double calculateTotalStockCosts() {
 		double total;
 		total = (this.stockCostsTT1 * this.stockTT1)
@@ -130,9 +142,12 @@ public class Stock implements IsSerializable {
 		return total;
 	}
 
-	//ReduceStock ist für die Reduzierung des Lagers zuständig abhängig vom Toastertyp zuständig.
-	//Wenn möglich wird die komplette Menge (amount) aus dem Lager entfernt und die Methode gibt 0 zurück.
-	//Falls dies nicht komplett möglich ist, wird das Lager auf 0 reduziert und die Anzahl der fehlenden Toaster zurückgeliefert. 
+	// ReduceStock ist für die Reduzierung des Lagers zuständig abhängig vom
+	// Toastertyp zuständig.
+	// Wenn möglich wird die komplette Menge (amount) aus dem Lager entfernt und
+	// die Methode gibt 0 zurück.
+	// Falls dies nicht komplett möglich ist, wird das Lager auf 0 reduziert und
+	// die Anzahl der fehlenden Toaster zurückgeliefert.
 	public int ReduceStock(Type typ, int amount) {
 
 		int rest = 0;
@@ -167,10 +182,12 @@ public class Stock implements IsSerializable {
 		return rest;
 	}
 
-	
-	//StockUP implementiert das Einlagern von Toaster anhand des Typen in das Lager. 
-	//Abhängig von der maximalen Lagermenge wird entweder die gesamte übergebene Menge (amount) eingelagert
-	//oder falls nicht alles eingelagert werden kann, wird bis zum Maximun eingelagert und der Rest einfach verworfen.
+	// StockUP implementiert das Einlagern von Toaster anhand des Typen in das
+	// Lager.
+	// Abhängig von der maximalen Lagermenge wird entweder die gesamte
+	// übergebene Menge (amount) eingelagert
+	// oder falls nicht alles eingelagert werden kann, wird bis zum Maximun
+	// eingelagert und der Rest einfach verworfen.
 	public void StockUp(Type typ, int amount) {
 
 		if (typ == Type.TYPE1) {

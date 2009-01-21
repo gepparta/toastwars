@@ -25,35 +25,33 @@ import com.rednels.ofcgwt.client.model.elements.BarChart;
 import com.rednels.ofcgwt.client.model.elements.PieChart;
 import com.rednels.ofcgwt.client.model.elements.BarChart.BarStyle;
 
-public class ExtraReportPanel extends Panel
-{
+public class ExtraReportPanel extends Panel {
 
-	private static ExtraReportPanel reportPanel;
-	private ArrayList<List<String>> report;
-	private Game game;
+	private static ExtraReportPanel	reportPanel;
+	private ArrayList<List<String>>	report;
+	private Game					game;
 
-	private static final String COLOR_1 = "#ff0000";
-	private static final String COLOR_2 = "#00ff00";
-	private static final String COLOR_3 = "#0000ff";
-	private static final String COLOR_4 = "#ff9900";
-	private static final String COLOR_5 = "#ff0099";
-	private static final String COLOR_6 = "#99ff00";
-	private static final String COLOR_7 = "#9900ff";
-	private static final String COLOR_8 = "#009900";
-	private static final String COLOR_9 = "#99ffff";
-	private static final String COLOR_10 = "#ffff99";
+	private static final String		COLOR_1		= "#ff0000";
+	private static final String		COLOR_2		= "#00ff00";
+	private static final String		COLOR_3		= "#0000ff";
+	private static final String		COLOR_4		= "#ff9900";
+	private static final String		COLOR_5		= "#ff0099";
+	private static final String		COLOR_6		= "#99ff00";
+	private static final String		COLOR_7		= "#9900ff";
+	private static final String		COLOR_8		= "#009900";
+	private static final String		COLOR_9		= "#99ffff";
+	private static final String		COLOR_10	= "#ffff99";
 
-	public static ExtraReportPanel getInstance()
-	{
+	public static ExtraReportPanel getInstance() {
 		if (reportPanel == null)
 			reportPanel = new ExtraReportPanel();
 		return reportPanel;
 	}
 
-	private ExtraReportPanel()
-	{
+	private ExtraReportPanel() {
 		game = Controller.getInstance().getGame();
-		report = ((Group) Controller.getInstance().getUser()).getCompany().getReportListe();
+		report = ((Group) Controller.getInstance().getUser()).getCompany()
+				.getReportListe();
 
 		setTitle("Marktforschungsbericht");
 		setPaddings(15);
@@ -72,54 +70,59 @@ public class ExtraReportPanel extends Panel
 		add(createGridPanel());
 	}
 
-	private GridPanel createGridPanel()
-	{
+	private GridPanel createGridPanel() {
 		GridPanel grid = new GridPanel();
 		grid.setStyle("text-align: left;");
 		grid.setFrame(true);
 		grid.setStripeRows(true);
 		grid.setHeight(70 + 22 * report.get(1).size());
 		grid.setWidth(700);
-		grid.setTitle("Platzierungen in der Runde " + (game.getCurrentRound() - 1));
+		grid.setTitle("Platzierungen in der Runde "
+				+ (game.getCurrentRound() - 1));
 
-		RecordDef recordDef = new RecordDef(new FieldDef[]
-		{ new StringFieldDef("rank"), new StringFieldDef("magazine"), new StringFieldDef("radio"), new StringFieldDef("tv"), new StringFieldDef("quality"),
-				new StringFieldDef("design"), new StringFieldDef("ecology") });
+		RecordDef recordDef = new RecordDef(new FieldDef[] {
+				new StringFieldDef("rank"), new StringFieldDef("magazine"),
+				new StringFieldDef("radio"), new StringFieldDef("tv"),
+				new StringFieldDef("quality"), new StringFieldDef("design"),
+				new StringFieldDef("ecology") });
 
 		ArrayReader reader = new ArrayReader(recordDef);
 		Store store = new Store(new MemoryProxy(getRanking()), reader);
 		store.load();
 		grid.setStore(store);
 
-		ColumnConfig[] columns = new ColumnConfig[]
-		{ new ColumnConfig("Platz", "rank", 70), new ColumnConfig("Zeitung", "magazine", 100), new ColumnConfig("Radio", "radio", 100), new ColumnConfig("TV", "tv", 100),
-				new ColumnConfig("Qualit&auml;t", "quality", 100), new ColumnConfig("Design", "design", 100), new ColumnConfig("&Ouml;kologie", "ecology", 100) };
+		ColumnConfig[] columns = new ColumnConfig[] {
+				new ColumnConfig("Platz", "rank", 70),
+				new ColumnConfig("Zeitung", "magazine", 100),
+				new ColumnConfig("Radio", "radio", 100),
+				new ColumnConfig("TV", "tv", 100),
+				new ColumnConfig("Qualit&auml;t", "quality", 100),
+				new ColumnConfig("Design", "design", 100),
+				new ColumnConfig("&Ouml;kologie", "ecology", 100) };
 
 		ColumnModel columnModel = new ColumnModel(columns);
 		grid.setColumnModel(columnModel);
 		return grid;
 	}
 
-	private Object[][] getRanking()
-	{
+	private Object[][] getRanking() {
 		Object[][] data = new Object[report.get(1).size()][7];
 
-		for (int i = 0; i < data.length; i++)
-		{
+		for (int i = 0; i < data.length; i++) {
 			data[i][0] = i + 1;
-			for (int j = 1; j < report.size(); j++)
-			{
-				data[i][j] = report.get(j).get(i);
+			for (int j = 0; j < report.size(); j++) {
+				data[i][j + 1] = report.get(j).get(i);
 			}
 		}
 
 		return data;
 	}
 
-	private ChartWidget createPriceBarChart()
-	{
+	private ChartWidget createPriceBarChart() {
 		ChartWidget chart = new ChartWidget();
-		ChartData cd = new ChartData("Preise in der Runde " + (game.getCurrentRound() - 1), "font-size: 14px; font-family: Verdana; text-align: center;");
+		ChartData cd = new ChartData("Preise in der Runde "
+				+ (game.getCurrentRound() - 1),
+				"font-size: 14px; font-family: Verdana; text-align: center;");
 		cd.setBackgroundColour("#ffffff");
 
 		ArrayList<Group> groupList = game.getGroupList();
@@ -128,16 +131,15 @@ public class ExtraReportPanel extends Panel
 		List<String> labels = new ArrayList<String>();
 		List<Number> bchartValues = new ArrayList<Number>();
 		int setMax = 0;
-		for (Group group : groupList)
-		{
+		for (Group group : groupList) {
 			String label = group.getUsername();
 			Number key = group.getCompany().getToasterList().get(0).getPrice();
 
 			labels.add(label);
 			bchartValues.add(key);
-			
-			if(key.intValue()>setMax)
-				setMax=key.intValue();
+
+			if (key.intValue() > setMax)
+				setMax = key.intValue();
 		}
 		xa.setLabels(labels);
 		xa.setMax(groupList.size() - 1);
@@ -145,7 +147,7 @@ public class ExtraReportPanel extends Panel
 
 		YAxis ya = new YAxis();
 		ya.setSteps(4);
-		ya.setMax(10+setMax);
+		ya.setMax(10 + setMax);
 		cd.setYAxis(ya);
 
 		BarChart bchart = new BarChart(BarStyle.GLASS);
@@ -160,12 +162,14 @@ public class ExtraReportPanel extends Panel
 		return chart;
 	}
 
-	private ChartWidget createMarketsharePieChart()
-	{
+	private ChartWidget createMarketsharePieChart() {
 		ChartWidget chart = new ChartWidget();
 
-		ChartData cd = new ChartData("Marktanteile", "filter:Alpha(opacity=100, finishopacity=80, startx=10, " + "finishx=484, style=1); -moz-opacity: 0.9 ; font-size: 14px; "
-				+ "font-family: Verdana; text-align: center;");
+		ChartData cd = new ChartData(
+				"Marktanteile",
+				"filter:Alpha(opacity=100, finishopacity=80, startx=10, "
+						+ "finishx=484, style=1); -moz-opacity: 0.9 ; font-size: 14px; "
+						+ "font-family: Verdana; text-align: center;");
 		cd.setBackgroundColour("#ffffff");
 
 		PieChart pie = new PieChart();
@@ -174,11 +178,12 @@ public class ExtraReportPanel extends Panel
 		pie.setTooltip("#label#<br>#val# Toaster<br>#percent#");
 		pie.setAnimate(false);
 		pie.setGradientFill(true);
-		pie.setColours(COLOR_1, COLOR_2, COLOR_3, COLOR_4, COLOR_5, COLOR_6, COLOR_7, COLOR_8, COLOR_9, COLOR_10);
+		pie.setColours(COLOR_1, COLOR_2, COLOR_3, COLOR_4, COLOR_5, COLOR_6,
+				COLOR_7, COLOR_8, COLOR_9, COLOR_10);
 
-		for (Group group : game.getGroupList())
-		{
-			Number value = group.getCompany().getToasterList().get(0).getMarketShare();
+		for (Group group : game.getGroupList()) {
+			Number value = group.getCompany().getToasterList().get(0)
+					.getMarketShare();
 			String label = group.getUsername();
 			pie.addSlices(new PieChart.Slice(value, label));
 		}

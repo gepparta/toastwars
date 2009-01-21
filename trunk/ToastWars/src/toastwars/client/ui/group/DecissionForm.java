@@ -298,7 +298,7 @@ public class DecissionForm extends Panel {
 		form.setPaddings(7);
 
 		NumberField stockField = new NumberField("Lagerbestand", "stock", 55,
-				1000);
+				company.getStock().getStock(type));
 		stockField.setStyle("text-align: right;");
 		stockField.setReadOnly(true);
 		stockField.setAllowDecimals(false);
