@@ -189,7 +189,7 @@ public enum Type implements IsSerializable {
 	}
 
 	public void setMarketVolumeTT1(int user){
-		this.setMarketVolume((int)(Math.pow((user*15000),(1/1.4))));
+		this.setMarketVolume((int)(Math.pow((user*150000),(1/1.4))));
 	}
 	
 	public void setMarketVolumeTT2(int user){
