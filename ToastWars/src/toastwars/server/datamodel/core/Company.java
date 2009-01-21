@@ -273,34 +273,6 @@ public class Company implements IsSerializable
 		this.reportListe = reportListe;
 	}
 
-
-
-	/*
-	 * Diese Methode bereitet die Daten für die Kapitalanzeige im Analysebericht
-	 * vor Dabei wird der Gruppenname durch "Ihre Gruppe" ersetzt
-	 */
-	public ArrayList<Number> getProfitOverview(Game game)
-	{
-		ArrayList<Number> liste = new ArrayList<Number>();
-		ArrayList<Group> grListe = game.getGroupList();
-		for (int i = 0; i < grListe.size(); i++)
-		{
-			liste = this.getProfitRankingList();
-		}
-		return liste;
-	}
-
-	public ArrayList<Number> getCapitalOverview(Game game)
-	{
-		ArrayList<Number> liste = new ArrayList<Number>();
-		ArrayList<Group> grListe = game.getGroupList();
-		for (int i = 0; i < grListe.size(); i++)
-		{
-			liste = this.getCapitalRankingInternList();
-		}
-		return liste;
-	}
-
 	// @gwt.typeArgs <Number>
 	public ArrayList<Number> getProfitRankingList()
 	{
