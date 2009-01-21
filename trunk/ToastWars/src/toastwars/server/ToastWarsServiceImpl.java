@@ -139,6 +139,9 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements
 		if (!DAOGame.isGameStarted(con)) {
 			try {
 				Game.getInstance(userAmount);
+				Type.TYPE1.setMarketVolumeTT1(userAmount);
+				Type.TYPE2.setMarketVolumeTT2(userAmount);
+				Type.TYPE3.setMarketVolumeTT3(userAmount);
 				DAOGame.createInitialData(userAmount, con);
 				Game.getInstance().setUserAmount(userAmount);
 				Game.getInstance().setCurrentRound(1);
