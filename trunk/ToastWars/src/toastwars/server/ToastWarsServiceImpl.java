@@ -231,6 +231,11 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements ToastW
 				Game.getInstance().setSortedIndexListTyp3(report.getSortedIndexListTyp3());
 
 				Master.getInstance().simulate();
+//				erhöhe die Runde auf Objektebene
+				Game.getInstance().setCurrentRound(Game.getInstance().getCurrentRound()+1);
+//				erhöhe die Runde auf DB-Ebene
+				DAOGame.changeCurrentRound(con);
+//				Speichere die Startwerte für die gestartete Runde
 				DAOGame.saveAllUsers(grouplist, con);
 				ArrayList<Group> groupList4Report = DAOGame.getAllUsersByRound(con, Game.getInstance().getCurrentRound());
 				// close DB connection
