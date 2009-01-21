@@ -43,9 +43,12 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements
 				Game game = Game.getInstance(DAOGame.getUserAmount(con));
 				game.setCurrentRound(DAOGame.getCurrentRound(con));
 				game.setGroupList(DAOGame.getAllUsers(con));
-				// TODO: gibt eine Liste mit Companys = null zurück!!!
+				
+				int round = Game.getInstance().getCurrentRound();
+				if (round > 1)
+					round--;
 				ArrayList<Group> groupList4Report = DAOGame.getAllUsersByRound(
-						con, Game.getInstance().getCurrentRound() - 1);
+						con, round);
 
 				// close DB connection
 				DBConnection.getInstance().closeConnectionToDB(con);
