@@ -11,6 +11,8 @@ public class Test_Toaster_Type1 extends TestCase
 {
 
 	private Toaster toaster1;
+	private Toaster toaster2;
+	private Toaster toaster3;
 
 	@Before
 	protected void setUp() throws Exception
@@ -91,8 +93,8 @@ public class Test_Toaster_Type1 extends TestCase
 	@Test
 	public void testGetEfficiency()
 	{
-		assertNotNull(toaster1.getEfficiencyInvestment());
-		assertEquals(5000.0, toaster1.getEfficiencyInvestment());
+		assertNotNull(toaster1.getEcologyInvestment());
+		assertEquals(5000.0, toaster1.getEcologyInvestment());
 	}
 
 	@Test

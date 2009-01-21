@@ -91,8 +91,8 @@ public class Test_Toaster_Type3 extends TestCase
 	@Test
 	public void testGetEfficiency()
 	{
-		assertNotNull(toaster1.getEfficiencyInvestment());
-		assertEquals(15000.0, toaster1.getEfficiencyInvestment());
+		assertNotNull(toaster1.getEcologyInvestment());
+		assertEquals(15000.0, toaster1.getEcologyInvestment());
 	}
 
 	@Test
