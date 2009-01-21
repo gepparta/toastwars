@@ -5,19 +5,20 @@ import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
 import toastwars.server.datamodel.core.Stock;
 import toastwars.server.datamodel.core.Type;
+
 public class Test_Stock extends TestCase {
-	
+
+//Definition der Testobjekte
 private Stock stock1;
 	
-	
+//Setup	
 	@Before
 	public void setUp() throws Exception {
-		stock1= new Stock(1000,100,10,1000,1000,1000,1.00, 10.00, 100.00, 0);
+		stock1= new Stock(1000,100,10, 0);
 	}
-
+//TearDown
 	@After
 	public void tearDown() throws Exception {
 		
@@ -25,7 +26,7 @@ private Stock stock1;
 		System.gc();
 	}
 	
-///////////GET //////////////////////	
+//Test der Get-Methoden
 	
 	@Test
 	public void testGetStockTT1()
@@ -51,51 +52,51 @@ private Stock stock1;
 	public void testGetMaxStockTT1()
 	{
 		assertNotNull(stock1.getMaxStockTT1());
-		assertEquals(1000, stock1.getMaxStockTT1());
+		assertEquals(2500, stock1.getMaxStockTT1());
 	}
 	
 	@Test
 	public void testGetMaxStockTT2()
 	{
 		assertNotNull(stock1.getMaxStockTT2());
-		assertEquals(1000, stock1.getMaxStockTT2());
+		assertEquals(1500, stock1.getMaxStockTT2());
 	}
 	@Test
 	public void testGetMaxStockTT3()
 	{
 		assertNotNull(stock1.getMaxStockTT3());
-		assertEquals(1000, stock1.getMaxStockTT3());
+		assertEquals(700, stock1.getMaxStockTT3());
 	}
 	@Test
 	public void testGetStockCostsTT1()
 	{
 		assertNotNull(stock1.getStockCostsTT1());
-		assertEquals(1.00, stock1.getStockCostsTT1());
+		assertEquals(1.25, stock1.getStockCostsTT1());
 	}
 	
 	@Test
 	public void testGetStockCostsTT2()
 	{
 		assertNotNull(stock1.getStockCostsTT2());
-		assertEquals(10.00, stock1.getStockCostsTT2());
+		assertEquals(6.25, stock1.getStockCostsTT2());
 	}
 	
 	@Test
 	public void testGetStockCostsTT3()
 	{
 		assertNotNull(stock1.getStockCostsTT3());
-		assertEquals(100.00, stock1.getStockCostsTT3());
+		assertEquals(16.25, stock1.getStockCostsTT3());
 	}
 	
 	@Test
 	public void testGetTotalStockCosts()
 	{
-		assertNotNull(stock1.getStockCostsTT3());
-		assertEquals(100.00, stock1.getStockCostsTT3());
+		assertNotNull(stock1.getTotalStockCosts());
+		assertEquals(0.00, stock1.getTotalStockCosts());
 	}
 	
 	
-////////////////////SETTER////////////////////////////	
+//Test der Set Methoden
 	
 	
 	@Test
@@ -172,13 +173,11 @@ private Stock stock1;
 		assertEquals(200.00, stock1.getTotalStockCosts());
 	}
 	
-	////////////METHODS///////////////////////////////
+//Test der berechnenden Methoden
 	@Test
 	
 	public void testStockUp(){
-		boolean boolTT1=false;
-		boolean boolTT2=false;
-		boolean boolTT3=false;
+
 		
 		
 		stock1.setStockTT1(100);
@@ -189,75 +188,52 @@ private Stock stock1;
 		stock1.setMaxStockTT2(200);
 		stock1.setMaxStockTT3(200);
 		
-		
-		try{stock1.StockUp( Type.TYPE1, 100);}
-		catch (Exception e){System.err.println(e);boolTT1 = true;}
-		try{stock1.StockUp( Type.TYPE2, 100);}
-		catch (Exception e){System.err.println(e);boolTT2 = true;}
-		try{stock1.StockUp( Type.TYPE3, 100);}
-		catch (Exception e){System.err.println(e);boolTT3 = true;}
+		stock1.StockUp(Type.TYPE1, 200);
+		stock1.StockUp(Type.TYPE2, 200);
+		stock1.StockUp(Type.TYPE3, 200);
+
 		assertEquals(200, stock1.getStockTT1());
 		assertEquals(200, stock1.getStockTT2());
 		assertEquals(200, stock1.getStockTT3());
-		assertEquals(false, boolTT1);
-		assertEquals(false, boolTT2);
-		assertEquals(false, boolTT3);
 
-		try{stock1.StockUp( Type.TYPE1, 1);}
-		catch (Exception e){System.err.println(e);boolTT1 = true;}
-		try{stock1.StockUp( Type.TYPE2, 1);}
-		catch (Exception e){System.err.println(e);boolTT2 = true;}
-		try{stock1.StockUp( Type.TYPE3, 1);}
-		catch (Exception e){System.err.println(e);boolTT3 = true;}
+
+		stock1.StockUp(Type.TYPE1, 200);
+		stock1.StockUp(Type.TYPE2, 200);
+		stock1.StockUp(Type.TYPE3, 200);
+
 		assertEquals(200, stock1.getStockTT1());
 		assertEquals(200, stock1.getStockTT2());
 		assertEquals(200, stock1.getStockTT3());	
-		assertEquals(true, boolTT1);
-		assertEquals(true, boolTT2);
-		assertEquals(true, boolTT3);
+
 		
 		
 	}
 	
 	public void testReduceStock(){
-		boolean boolTT1=false;
-		boolean boolTT2=false;
-		boolean boolTT3=false;
-		
-		
-		stock1.setStockTT1(100);
-		stock1.setStockTT2(100);
-		stock1.setStockTT3(100);
-		try{stock1.ReduceStock( Type.TYPE1, 100);}
-		catch (Exception e){System.err.println(e);boolTT1 = true;}
-		try{stock1.ReduceStock( Type.TYPE2, 100);}
-		catch (Exception e){System.err.println(e);boolTT2 = true;}
-		try{stock1.ReduceStock( Type.TYPE3, 100);}
-		catch (Exception e){System.err.println(e);boolTT3 = true;}
-		assertEquals(0, stock1.getStockTT1());
-		assertEquals(0, stock1.getStockTT2());
-		assertEquals(0, stock1.getStockTT3());
-		assertEquals(false, boolTT1);
-		assertEquals(false, boolTT2);
-		assertEquals(false, boolTT3);
 
+		stock1.setStockTT1(200);
+		stock1.setStockTT2(200);
+		stock1.setStockTT3(200);
 		
-		stock1.setStockTT1(100);
-		stock1.setStockTT2(100);
-		stock1.setStockTT3(100);
-		try{stock1.ReduceStock( Type.TYPE1, 101);}
-		catch (Exception e){System.err.println(e);boolTT1 = true;}
-		try{stock1.ReduceStock( Type.TYPE2, 101);}
-		catch (Exception e){System.err.println(e);boolTT2 = true;}
-		try{stock1.ReduceStock( Type.TYPE3, 101);}
-		catch (Exception e){System.err.println(e);boolTT3 = true;}
-		assertEquals(true, boolTT1);
-		assertEquals(true, boolTT2);
-		assertEquals(true, boolTT3);
+		stock1.ReduceStock(Type.TYPE1,100);
+		stock1.ReduceStock(Type.TYPE2,100);
+		stock1.ReduceStock(Type.TYPE3,100);
+		
+
+
 		assertEquals(100, stock1.getStockTT1());
 		assertEquals(100, stock1.getStockTT2());
 		assertEquals(100, stock1.getStockTT3());
-		
+
+
+		assertEquals(100, stock1.ReduceStock(Type.TYPE1,200));
+		assertEquals(100, stock1.ReduceStock(Type.TYPE2,200));
+		assertEquals(100, stock1.ReduceStock(Type.TYPE3,200));
+
+
+		assertEquals(0, stock1.getStockTT1());
+		assertEquals(0, stock1.getStockTT2());
+		assertEquals(0, stock1.getStockTT3());
 	}
 	
 	@Test
@@ -276,4 +252,4 @@ private Stock stock1;
 	
 	
 
-}
+}//Test Stock
