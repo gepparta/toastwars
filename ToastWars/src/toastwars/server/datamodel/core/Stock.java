@@ -13,9 +13,9 @@ public class Stock implements IsSerializable
 	private int maxStockTT2 = 1500;
 	private int maxStockTT3 = 700;
 
-	private double stockCostsTT1 = 1;
-	private double stockCostsTT2 = 10;
-	private double stockCostsTT3 = 100;
+	private double stockCostsTT1 = 1.25;
+	private double stockCostsTT2 = 6.25;
+	private double stockCostsTT3 = 16.25;
 
 	private double totalStockCosts = 0;
 
