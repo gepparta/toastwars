@@ -127,7 +127,7 @@ public class ExtraReportPanel extends Panel
 		XAxis xa = new XAxis();
 		List<String> labels = new ArrayList<String>();
 		List<Number> bchartValues = new ArrayList<Number>();
-
+		int setMax = 0;
 		for (Group group : groupList)
 		{
 			String label = group.getUsername();
@@ -135,6 +135,9 @@ public class ExtraReportPanel extends Panel
 
 			labels.add(label);
 			bchartValues.add(key);
+			
+			if(key.intValue()>setMax)
+				setMax=key.intValue();
 		}
 		xa.setLabels(labels);
 		xa.setMax(groupList.size() - 1);
@@ -142,7 +145,7 @@ public class ExtraReportPanel extends Panel
 
 		YAxis ya = new YAxis();
 		ya.setSteps(4);
-		ya.setMax(20);
+		ya.setMax(10+setMax);
 		cd.setYAxis(ya);
 
 		BarChart bchart = new BarChart(BarStyle.GLASS);
