@@ -140,35 +140,44 @@ public class Game implements IsSerializable
 				{
 
 					// Bei Überproduktion Einlagern
-					if (groupList.get(i).getCompany().getToasterList().get(j).getProduction() > groupList.get(i).getCompany().getToasterList().get(j).getMarketShare())
+					if (groupList.get(i).getCompany().getToasterList().get(j).getProduction() > groupList.get(i).getCompany().getToasterList().get(j)
+							.getMarketShare())
 					{
 						if (groupList.get(i).getCompany().getToasterList().get(j).getType() == Type.TYPE1)
 						{
 							int differenz = groupList.get(i).getCompany().getToasterList().get(j).getProduction()
 									- groupList.get(i).getCompany().getToasterList().get(j).getMarketShare();
 
-							groupList.get(i).getCompany().getStock().setStockTT1(differenz);
-							groupList.get(i).getCompany().getToasterList().get(j).setProduction(groupList.get(i).getCompany().getToasterList().get(j).getMarketShare());
+							groupList.get(i).getCompany().getStock().StockUp(Type.TYPE1, differenz);
+							groupList.get(i).getCompany().getToasterList().get(j).setProduction(
+									groupList.get(i).getCompany().getToasterList().get(j).getMarketShare());
 						}
 
 						if (groupList.get(i).getCompany().getToasterList().get(j).getType() == Type.TYPE2)
 						{
-							groupList.get(i).getCompany().getStock().setStockTT2(
-									groupList.get(i).getCompany().getToasterList().get(j).getProduction() - groupList.get(i).getCompany().getToasterList().get(j).getMarketShare());
-							groupList.get(i).getCompany().getToasterList().get(j).setProduction(groupList.get(i).getCompany().getToasterList().get(j).getMarketShare());
+							int differenz = groupList.get(i).getCompany().getToasterList().get(j).getProduction()
+									- groupList.get(i).getCompany().getToasterList().get(j).getMarketShare();
+
+							groupList.get(i).getCompany().getStock().StockUp(Type.TYPE2, differenz);
+							groupList.get(i).getCompany().getToasterList().get(j).setProduction(
+									groupList.get(i).getCompany().getToasterList().get(j).getMarketShare());
 						}
 
 						if (groupList.get(i).getCompany().getToasterList().get(j).getType() == Type.TYPE3)
 						{
-							groupList.get(i).getCompany().getStock().setStockTT3(
-									groupList.get(i).getCompany().getToasterList().get(j).getProduction() - groupList.get(i).getCompany().getToasterList().get(j).getMarketShare());
-							groupList.get(i).getCompany().getToasterList().get(j).setProduction(groupList.get(i).getCompany().getToasterList().get(j).getMarketShare());
+							int differenz = groupList.get(i).getCompany().getToasterList().get(j).getProduction()
+									- groupList.get(i).getCompany().getToasterList().get(j).getMarketShare();
+
+							groupList.get(i).getCompany().getStock().StockUp(Type.TYPE3, differenz);
+							groupList.get(i).getCompany().getToasterList().get(j).setProduction(
+									groupList.get(i).getCompany().getToasterList().get(j).getMarketShare());
 						}
 					}// if Überproduktion
 
 					// Wenn Unterproduktion vorliegt
 
-					if (groupList.get(i).getCompany().getToasterList().get(j).getProduction() < groupList.get(i).getCompany().getToasterList().get(j).getMarketShare())
+					if (groupList.get(i).getCompany().getToasterList().get(j).getProduction() < groupList.get(i).getCompany().getToasterList().get(j)
+							.getMarketShare())
 					{
 						int missing = groupList.get(i).getCompany().getToasterList().get(j).getMarketShare()
 								- groupList.get(i).getCompany().getToasterList().get(j).getProduction();
@@ -190,7 +199,8 @@ public class Game implements IsSerializable
 
 						if (stock >= missing)
 						{
-							groupList.get(i).getCompany().getStock().ReduceStock(groupList.get(i).getCompany().getToasterList().get(j).getType(), missing);
+							groupList.get(i).getCompany().getStock().ReduceStock(groupList.get(i).getCompany().getToasterList().get(j).getType(),
+									missing);
 						}
 
 						if (stock < missing)
@@ -198,7 +208,8 @@ public class Game implements IsSerializable
 						{
 							int unavailable = missing - stock;
 
-							groupList.get(i).getCompany().getStock().ReduceStock(groupList.get(i).getCompany().getToasterList().get(j).getType(), stock);
+							groupList.get(i).getCompany().getStock().ReduceStock(groupList.get(i).getCompany().getToasterList().get(j).getType(),
+									stock);
 							// FIXE PROGRAMMIERUNG IN TOASTERLIST
 							if (groupList.get(i).getCompany().getToasterList().get(j).getType() == Type.TYPE1)
 							{
@@ -221,12 +232,15 @@ public class Game implements IsSerializable
 								for (int k = 0; k < sortedIndexListTyp1.size(); k++)
 								{
 									if (groupList.get(sortedIndexListTyp1.get(k).intValue() - 1).getCompany().getStock().getStockTT1()
-											+ (groupList.get(sortedIndexListTyp1.get(k).intValue() - 1).getCompany().getToasterList().get(j).getProduction() - groupList.get(
-													sortedIndexListTyp1.get(k).intValue() - 1).getCompany().getToasterList().get(j).getMarketShare()) >= unavailable)
+											+ (groupList.get(sortedIndexListTyp1.get(k).intValue() - 1).getCompany().getToasterList().get(j)
+													.getProduction() - groupList.get(sortedIndexListTyp1.get(k).intValue() - 1).getCompany()
+													.getToasterList().get(j).getMarketShare()) >= unavailable)
 									{
 
 										groupList.get(sortedIndexListTyp1.get(k).intValue() - 1).getCompany().getToasterList().get(j).setMarketShare(
-												unavailable + groupList.get(sortedIndexListTyp1.get(k).intValue() - 1).getCompany().getToasterList().get(j).getMarketShare());
+												unavailable
+														+ groupList.get(sortedIndexListTyp1.get(k).intValue() - 1).getCompany().getToasterList().get(
+																j).getMarketShare());
 										unavailable = 0;
 
 										again = true;
@@ -234,22 +248,28 @@ public class Game implements IsSerializable
 									}
 
 									else if (groupList.get(sortedIndexListTyp1.get(k).intValue() - 1).getCompany().getStock().getStockTT1()
-											+ groupList.get(sortedIndexListTyp1.get(k).intValue() - 1).getCompany().getToasterList().get(j).getProduction()
-											- groupList.get(sortedIndexListTyp1.get(k).intValue() - 1).getCompany().getToasterList().get(j).getMarketShare() > 0
+											+ groupList.get(sortedIndexListTyp1.get(k).intValue() - 1).getCompany().getToasterList().get(j)
+													.getProduction()
+											- groupList.get(sortedIndexListTyp1.get(k).intValue() - 1).getCompany().getToasterList().get(j)
+													.getMarketShare() > 0
 
 									)
 
 									{
 										unavailable = unavailable
-												- (groupList.get(sortedIndexListTyp1.get(k).intValue() - 1).getCompany().getStock().getStockTT1() + (groupList.get(
-														sortedIndexListTyp1.get(k).intValue() - 1).getCompany().getToasterList().get(j).getProduction() - groupList.get(
-														sortedIndexListTyp1.get(k).intValue() - 1).getCompany().getToasterList().get(j).getMarketShare()));
+												- (groupList.get(sortedIndexListTyp1.get(k).intValue() - 1).getCompany().getStock().getStockTT1() + (groupList
+														.get(sortedIndexListTyp1.get(k).intValue() - 1).getCompany().getToasterList().get(j)
+														.getProduction() - groupList.get(sortedIndexListTyp1.get(k).intValue() - 1).getCompany()
+														.getToasterList().get(j).getMarketShare()));
 
 										groupList.get(sortedIndexListTyp1.get(k).intValue() - 1).getCompany().getToasterList().get(j).setMarketShare(
-												groupList.get(sortedIndexListTyp1.get(k).intValue() - 1).getCompany().getToasterList().get(j).getMarketShare()
-														+ (groupList.get(sortedIndexListTyp1.get(k).intValue() - 1).getCompany().getStock().getStockTT1() + (groupList.get(
-																sortedIndexListTyp1.get(k).intValue() - 1).getCompany().getToasterList().get(j).getProduction() - groupList.get(
-																sortedIndexListTyp1.get(k).intValue() - 1).getCompany().getToasterList().get(j).getMarketShare())));
+												groupList.get(sortedIndexListTyp1.get(k).intValue() - 1).getCompany().getToasterList().get(j)
+														.getMarketShare()
+														+ (groupList.get(sortedIndexListTyp1.get(k).intValue() - 1).getCompany().getStock()
+																.getStockTT1() + (groupList.get(sortedIndexListTyp1.get(k).intValue() - 1)
+																.getCompany().getToasterList().get(j).getProduction() - groupList.get(
+																sortedIndexListTyp1.get(k).intValue() - 1).getCompany().getToasterList().get(j)
+																.getMarketShare())));
 
 										again = true;
 
@@ -264,12 +284,15 @@ public class Game implements IsSerializable
 								for (int k = 0; k < sortedIndexListTyp2.size(); k++)
 								{
 									if (groupList.get(sortedIndexListTyp2.get(k).intValue() - 1).getCompany().getStock().getStockTT2()
-											+ (groupList.get(sortedIndexListTyp2.get(k).intValue() - 1).getCompany().getToasterList().get(j).getProduction() - groupList.get(
-													sortedIndexListTyp2.get(k).intValue() - 1).getCompany().getToasterList().get(j).getMarketShare()) >= unavailable)
+											+ (groupList.get(sortedIndexListTyp2.get(k).intValue() - 1).getCompany().getToasterList().get(j)
+													.getProduction() - groupList.get(sortedIndexListTyp2.get(k).intValue() - 1).getCompany()
+													.getToasterList().get(j).getMarketShare()) >= unavailable)
 									{
 
 										groupList.get(sortedIndexListTyp2.get(k).intValue() - 1).getCompany().getToasterList().get(j).setMarketShare(
-												unavailable + groupList.get(sortedIndexListTyp2.get(k).intValue() - 1).getCompany().getToasterList().get(j).getMarketShare());
+												unavailable
+														+ groupList.get(sortedIndexListTyp2.get(k).intValue() - 1).getCompany().getToasterList().get(
+																j).getMarketShare());
 										unavailable = 0;
 
 										again = true;
@@ -277,22 +300,28 @@ public class Game implements IsSerializable
 									}
 
 									else if (groupList.get(sortedIndexListTyp2.get(k).intValue() - 1).getCompany().getStock().getStockTT2()
-											+ groupList.get(sortedIndexListTyp2.get(k).intValue() - 1).getCompany().getToasterList().get(j).getProduction()
-											- groupList.get(sortedIndexListTyp2.get(k).intValue() - 1).getCompany().getToasterList().get(j).getMarketShare() > 0
+											+ groupList.get(sortedIndexListTyp2.get(k).intValue() - 1).getCompany().getToasterList().get(j)
+													.getProduction()
+											- groupList.get(sortedIndexListTyp2.get(k).intValue() - 1).getCompany().getToasterList().get(j)
+													.getMarketShare() > 0
 
 									)
 
 									{
 										unavailable = unavailable
-												- (groupList.get(sortedIndexListTyp2.get(k).intValue() - 1).getCompany().getStock().getStockTT2() + (groupList.get(
-														sortedIndexListTyp2.get(k).intValue() - 1).getCompany().getToasterList().get(j).getProduction() - groupList.get(
-														sortedIndexListTyp2.get(k).intValue() - 1).getCompany().getToasterList().get(j).getMarketShare()));
+												- (groupList.get(sortedIndexListTyp2.get(k).intValue() - 1).getCompany().getStock().getStockTT2() + (groupList
+														.get(sortedIndexListTyp2.get(k).intValue() - 1).getCompany().getToasterList().get(j)
+														.getProduction() - groupList.get(sortedIndexListTyp2.get(k).intValue() - 1).getCompany()
+														.getToasterList().get(j).getMarketShare()));
 
 										groupList.get(sortedIndexListTyp2.get(k).intValue() - 1).getCompany().getToasterList().get(j).setMarketShare(
-												groupList.get(sortedIndexListTyp2.get(k).intValue() - 1).getCompany().getToasterList().get(j).getMarketShare()
-														+ (groupList.get(sortedIndexListTyp2.get(k).intValue() - 1).getCompany().getStock().getStockTT2() + (groupList.get(
-																sortedIndexListTyp2.get(k).intValue() - 1).getCompany().getToasterList().get(j).getProduction() - groupList.get(
-																sortedIndexListTyp2.get(k).intValue() - 1).getCompany().getToasterList().get(j).getMarketShare())));
+												groupList.get(sortedIndexListTyp2.get(k).intValue() - 1).getCompany().getToasterList().get(j)
+														.getMarketShare()
+														+ (groupList.get(sortedIndexListTyp2.get(k).intValue() - 1).getCompany().getStock()
+																.getStockTT2() + (groupList.get(sortedIndexListTyp2.get(k).intValue() - 1)
+																.getCompany().getToasterList().get(j).getProduction() - groupList.get(
+																sortedIndexListTyp2.get(k).intValue() - 1).getCompany().getToasterList().get(j)
+																.getMarketShare())));
 
 										again = true;
 
@@ -307,12 +336,15 @@ public class Game implements IsSerializable
 								for (int k = 0; k < sortedIndexListTyp3.size(); k++)
 								{
 									if (groupList.get(sortedIndexListTyp3.get(k).intValue() - 1).getCompany().getStock().getStockTT3()
-											+ (groupList.get(sortedIndexListTyp3.get(k).intValue() - 1).getCompany().getToasterList().get(j).getProduction() - groupList.get(
-													sortedIndexListTyp3.get(k).intValue() - 1).getCompany().getToasterList().get(j).getMarketShare()) >= unavailable)
+											+ (groupList.get(sortedIndexListTyp3.get(k).intValue() - 1).getCompany().getToasterList().get(j)
+													.getProduction() - groupList.get(sortedIndexListTyp3.get(k).intValue() - 1).getCompany()
+													.getToasterList().get(j).getMarketShare()) >= unavailable)
 									{
 
 										groupList.get(sortedIndexListTyp3.get(k).intValue() - 1).getCompany().getToasterList().get(j).setMarketShare(
-												unavailable + groupList.get(sortedIndexListTyp3.get(k).intValue() - 1).getCompany().getToasterList().get(j).getMarketShare());
+												unavailable
+														+ groupList.get(sortedIndexListTyp3.get(k).intValue() - 1).getCompany().getToasterList().get(
+																j).getMarketShare());
 										unavailable = 0;
 
 										again = true;
@@ -320,22 +352,28 @@ public class Game implements IsSerializable
 									}
 
 									else if (groupList.get(sortedIndexListTyp3.get(k).intValue() - 1).getCompany().getStock().getStockTT3()
-											+ groupList.get(sortedIndexListTyp3.get(k).intValue() - 1).getCompany().getToasterList().get(j).getProduction()
-											- groupList.get(sortedIndexListTyp3.get(k).intValue() - 1).getCompany().getToasterList().get(j).getMarketShare() > 0
+											+ groupList.get(sortedIndexListTyp3.get(k).intValue() - 1).getCompany().getToasterList().get(j)
+													.getProduction()
+											- groupList.get(sortedIndexListTyp3.get(k).intValue() - 1).getCompany().getToasterList().get(j)
+													.getMarketShare() > 0
 
 									)
 
 									{
 										unavailable = unavailable
-												- (groupList.get(sortedIndexListTyp3.get(k).intValue() - 1).getCompany().getStock().getStockTT3() + (groupList.get(
-														sortedIndexListTyp3.get(k).intValue() - 1).getCompany().getToasterList().get(j).getProduction() - groupList.get(
-														sortedIndexListTyp3.get(k).intValue() - 1).getCompany().getToasterList().get(j).getMarketShare()));
+												- (groupList.get(sortedIndexListTyp3.get(k).intValue() - 1).getCompany().getStock().getStockTT3() + (groupList
+														.get(sortedIndexListTyp3.get(k).intValue() - 1).getCompany().getToasterList().get(j)
+														.getProduction() - groupList.get(sortedIndexListTyp3.get(k).intValue() - 1).getCompany()
+														.getToasterList().get(j).getMarketShare()));
 
 										groupList.get(sortedIndexListTyp3.get(k).intValue() - 1).getCompany().getToasterList().get(j).setMarketShare(
-												groupList.get(sortedIndexListTyp3.get(k).intValue() - 1).getCompany().getToasterList().get(j).getMarketShare()
-														+ (groupList.get(sortedIndexListTyp3.get(k).intValue() - 1).getCompany().getStock().getStockTT3() + (groupList.get(
-																sortedIndexListTyp3.get(k).intValue() - 1).getCompany().getToasterList().get(j).getProduction() - groupList.get(
-																sortedIndexListTyp3.get(k).intValue() - 1).getCompany().getToasterList().get(j).getMarketShare())));
+												groupList.get(sortedIndexListTyp3.get(k).intValue() - 1).getCompany().getToasterList().get(j)
+														.getMarketShare()
+														+ (groupList.get(sortedIndexListTyp3.get(k).intValue() - 1).getCompany().getStock()
+																.getStockTT3() + (groupList.get(sortedIndexListTyp3.get(k).intValue() - 1)
+																.getCompany().getToasterList().get(j).getProduction() - groupList.get(
+																sortedIndexListTyp3.get(k).intValue() - 1).getCompany().getToasterList().get(j)
+																.getMarketShare())));
 
 										again = true;
 
@@ -383,8 +421,7 @@ public class Game implements IsSerializable
 				{
 					groupList.get(a).setStatus(Status.INACTIVE);
 					this.killGroup(groupList.get(a));
-				}
-				else
+				} else
 					groupList.get(a).setStatus(Status.STARTED);
 			}
 		}
@@ -429,14 +466,14 @@ public class Game implements IsSerializable
 	{
 		this.sortedIndexListTyp3 = sortedIndexListTyp3;
 	}
-	
+
 	public void killGroup(Group group)
 	{
 		group.getCompany().setTurnover(0.0);
 		group.getCompany().setProfit(0.0);
 		group.getCompany().setCost(0.0);
 		group.getCompany().setMarketShare(0);
-		for(int i= 0; i<group.getCompany().getToasterList().size();i++)
+		for (int i = 0; i < group.getCompany().getToasterList().size(); i++)
 		{
 			group.getCompany().getToasterList().get(i).setCost(0.0);
 			group.getCompany().getToasterList().get(i).setDesignInvestment(0);
