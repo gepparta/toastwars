@@ -14,8 +14,7 @@ public class DAOToaster {
 
 	public void updateToaster(Toaster toaster, int companyID, Connection con) {
 		try {
-			int currentRound = Game.getInstance().getCurrentRound();
-			double price = toaster.getPrice();
+			int currentRound = Game.getInstance().getCurrentRound();			double price = toaster.getPrice();
 			double marketing = toaster.getMarketing();
 			double tv = toaster.getTvInvestment();
 			double newspaper = toaster.getNewspaperInvestment();
@@ -61,12 +60,37 @@ public class DAOToaster {
 					+ " AND Toaster.type='" + type + "');";
 			stmt.execute(query);
 			stmt.close();
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception e) {			e.printStackTrace();
 		}
 	}
 
 	// test
+	public void saveToaster(Toaster toaster, int companyID, Connection con) {
+		try {
+			int currentRound = Game.getInstance().getCurrentRound();
+			int toasterID = toaster.getToasterID();
+			double price = toaster.getPrice();
+			double marketing = toaster.getMarketing();
+			double tv = toaster.getTvInvestment();
+			double newspaper = toaster.getNewspaperInvestment();
+			double radio = toaster.getRadioInvestment();
+			double tvKum = toaster.getTvInvestmentKum();
+			double newspaperKum = toaster.getNewspaperInvestmentKum();
+			double radioKum = toaster.getRadioInvestmentKum();
+			double research = toaster.getResearch();
+			double quality = toaster.getQualityInvestment();
+			double design = toaster.getDesignInvestment();
+			double efficiency = toaster.getEcologyInvestment();
+			double qualityKum = toaster.getQualityInvestmentKum();
+			double designKum = toaster.getDesignInvestmentKum();
+			double efficiencyKum = toaster.getEcologyInvestmentKum();
+			double index = toaster.getIndex();
+			double turnover = toaster.getTurnover();
+			double cost = toaster.getCost();
+			double profit = toaster.getProfit();
+			int marketShare = toaster.getMarketShare();
+			String type = toaster.getType().name();
+			int production = toaster.getProduction();
 	public void saveToaster(Toaster toaster, int companyID, Connection con)
 			throws SQLException {
 		int currentRound = Game.getInstance().getCurrentRound();
@@ -157,7 +181,7 @@ public class DAOToaster {
 			Statement stmt = con.createStatement();
 			ResultSet rst = stmt.executeQuery(query);
 
-			// Zeileninhalt ermitteln
+					// Zeileninhalt ermitteln
 			while (rst.next()) {
 				Toaster toaster = new Toaster(rst.getDouble("price"), rst
 						.getDouble("index"), rst.getDouble("turnover"), rst
