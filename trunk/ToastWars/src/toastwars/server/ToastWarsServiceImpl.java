@@ -1,6 +1,7 @@
 package toastwars.server;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -225,6 +226,8 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements
 						con, Game.getInstance().getCurrentRound());
 				// close DB connection
 				DBConnection.getInstance().closeConnectionToDB(con);
+
+				// extra report
 				report.generateMarketResearchReport(groupList4Report);
 				this.capitalRankingInternList = report
 						.getCapitalRankingInternList();
@@ -240,6 +243,15 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements
 					if (company.isMarketResearchReportON())
 						company.setReportListe(report.getReports());
 					company.setMarketResearchReportON(false);
+				}
+
+				// reset user input parameters
+				for (Group group : grouplist) {
+					ArrayList<Toaster> toasterList = group.getCompany()
+							.getToasterList();
+					for (Toaster toaster : toasterList) {
+						toaster.resetUserInput();
+					}
 				}
 
 				return Game.getInstance();
@@ -279,12 +291,13 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements
 		ArrayList<Toaster> outList = toasterList;
 		Connection con = DBConnection.getInstance().connectToDB();
 		DAOToaster dao = new DAOToaster();
-		int nextID = dao.getNextToasterID(con);
 
-		for (Toaster toaster : outList) {
-			toaster.setToasterID(nextID);
-			dao.saveToaster(toaster, companyID, con);
-			nextID++;
+		try {
+			for (Toaster toaster : outList) {
+				dao.saveToaster(toaster, companyID, con);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		// close DB connection
 		DBConnection.getInstance().closeConnectionToDB(con);
