@@ -66,7 +66,6 @@ public class DecissionForm extends Panel {
 						super.onClick(button, e);
 						toaster = new Toaster();
 						toaster.setType(type);
-						toaster.setToasterID(type.ordinal() + 1);
 						try {
 							toaster.setPrice((type.getMinPrice() + type
 									.getMaxPrice()) / 2);
@@ -103,8 +102,9 @@ public class DecissionForm extends Panel {
 		add(horPanel);
 		add(createStockField());
 
-		if (((Group) Controller.getInstance().getUser()).getStatus() == Status.COMPLETED
-				|| ((Group) Controller.getInstance().getUser()).getStatus() == Status.INACTIVE)
+		Status status = ((Group) Controller.getInstance().getUser())
+				.getStatus();
+		if (status == Status.COMPLETED || status == Status.INACTIVE)
 			disableSliders();
 
 		doLayout();

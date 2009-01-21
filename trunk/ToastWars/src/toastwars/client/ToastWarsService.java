@@ -41,6 +41,6 @@ public interface ToastWarsService extends RemoteService {
 
 	public Boolean save(Group group);
 
-	public Boolean createNewToaster(ArrayList<Toaster> toasterList,
+	public ArrayList<Toaster> createNewToaster(ArrayList<Toaster> toasterList,
 			int companyID);
 }
