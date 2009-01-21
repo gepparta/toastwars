@@ -49,7 +49,6 @@ public class DAOGame
 				Group group = grouplist.get(i);
 				DAOUser.saveUser(group, con);
 			}
-			changeCurrentRound(con);
 			DAOUser.fillUserList(con);
 		} catch (RuntimeException e)
 		{
@@ -98,7 +97,8 @@ public class DAOGame
 
 	public static void changeCurrentRound(Connection con)
 	{
-		int currentRound = Game.getInstance().getCurrentRound() + 1;
+		
+		int currentRound = Game.getInstance().getCurrentRound();
 		try
 		{
 			Statement stmt = con.createStatement();
