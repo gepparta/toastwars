@@ -150,8 +150,8 @@ public class DAOGame {
 			stmt.execute(query);
 			query = "DELETE * FROM Toaster;";
 			stmt.execute(query);
-			stmt.execute(query);
 			query = "DELETE * FROM Stock;";
+			stmt.execute(query);
 			stmt.close();
 
 			return true;
