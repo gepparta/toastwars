@@ -425,10 +425,6 @@ public class Game implements IsSerializable
 					groupList.get(a).setStatus(Status.STARTED);
 			}
 		}
-
-		int round = Game.getInstance().getCurrentRound();
-		Game.getInstance().setCurrentRound(round + 1);
-
 	}
 
 	public String toString()
