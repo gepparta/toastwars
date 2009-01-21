@@ -188,7 +188,17 @@ public enum Type implements IsSerializable {
 		this.variableCosts = variableCosts;
 	}
 
+	public void setMarketVolumeTT1(int user){
+		this.setMarketVolume((int)(Math.pow((user*15000),(1/1.4))));
+	}
 	
+	public void setMarketVolumeTT2(int user){
+		this.setMarketVolume((int)(Math.pow((user*12000),(1/1.22))));
+	}
+	
+	public void setMarketVolumeTT3(int user){
+		this.setMarketVolume((int)(Math.pow((user*6000),(1/1.29))));
+	}
 	//Methoden nur für die JUNIT Tests
 	
 	public String toString() {
