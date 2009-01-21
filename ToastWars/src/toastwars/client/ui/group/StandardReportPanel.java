@@ -112,8 +112,8 @@ public class StandardReportPanel extends Panel
 		XAxis xa = new XAxis();
 		List<String> labels = new ArrayList<String>();
 		List<Number> bchartValues = new ArrayList<Number>();
-
-		ArrayList<Number> capitalList = group.getCompany().getCapitalOverview(game);
+		
+		ArrayList<Number> capitalList = group.getCompany().getCapitalRankingInternList();
 		int setMax = 0;
 		for (int i = 0; i < capitalList.size(); i++)
 		{
@@ -157,7 +157,7 @@ public class StandardReportPanel extends Panel
 		List<String> labels = new ArrayList<String>();
 		List<Number> bchartValues = new ArrayList<Number>();
 
-		ArrayList<Number> profitList = group.getCompany().getProfitOverview(game);
+		ArrayList<Number> profitList = group.getCompany().getProfitRankingList();
 		int setMax = 0;
 		for (int i = 0; i < profitList.size(); i++)
 		{
