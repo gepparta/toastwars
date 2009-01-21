@@ -5,11 +5,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import toastwars.client.Controller;
 import toastwars.server.datamodel.core.Game;
+import toastwars.server.datamodel.core.Type;
 import toastwars.server.datamodel.user.Group;
-
 import com.gwtext.client.widgets.Panel;
 import com.gwtext.client.widgets.layout.HorizontalLayout;
 import com.rednels.ofcgwt.client.ChartWidget;
@@ -63,8 +62,8 @@ public class StandardReportPanel extends Panel
 	{
 		ChartWidget chart = new ChartWidget();
 
-		ChartData cd = new ChartData("Marktanteile", "filter:Alpha(opacity=100, finishopacity=80, startx=10, "
-				+ "finishx=484, style=1); -moz-opacity: 0.9 ; font-size: 14px; " + "font-family: Verdana; text-align: center;");
+		ChartData cd = new ChartData("Marktanteile", "filter:Alpha(opacity=100, finishopacity=80, startx=10, " + "finishx=484, style=1); -moz-opacity: 0.9 ; font-size: 14px; "
+				+ "font-family: Verdana; text-align: center;");
 		cd.setBackgroundColour("#ffffff");
 
 		PieChart pie = new PieChart();
@@ -73,13 +72,27 @@ public class StandardReportPanel extends Panel
 		pie.setTooltip("#label#<br>#val# Toaster<br>#percent#");
 		pie.setAnimate(false);
 		pie.setGradientFill(true);
-		pie.setColours(COLOR_1, COLOR_2);
-		pie.addSlices(new PieChart.Slice(group.getCompany().getMarketShare(), Controller.getInstance().getUser().getUsername()));
+		pie.setColours(COLOR_1, COLOR_2, COLOR_3);
+		// TODO: 4ALEX-->  "Ungesättigt" Teil hinzufügen + Evtl. fÜr 3 ToasterTypen ein eigenes Chart anzeigen
+		int marktGesamt = Type.TYPE1.getMarketVolume()+Type.TYPE2.getMarketVolume()+Type.TYPE3.getMarketVolume();
+		int meinMarketShare = group.getCompany().getMarketShare();
+		pie.addSlices(new PieChart.Slice(meinMarketShare, Controller.getInstance().getUser().getUsername()));
 		int restMarketShare = 0;
+		int sumMarketshare = 0;
+		int ungesaettigterTeil = 0;
 		for (int i = 0; i < group.getCompany().getToasterList().size(); i++)
-			restMarketShare += group.getCompany().getToasterList().get(i).getType().getMarketVolume();
-		restMarketShare -= group.getCompany().getMarketShare();
+		{
+			sumMarketshare += group.getCompany().getToasterList().get(i).getType().getMarketVolume();
+		}
+		restMarketShare = sumMarketshare - meinMarketShare;
 		pie.addSlices(new PieChart.Slice(restMarketShare, "Rest"));
+//		wenn es noch ungesättigte Teile am Markt gibt
+//		stelle den ungesättigten Teil dar
+		if(marktGesamt>sumMarketshare)
+		{
+			ungesaettigterTeil = marktGesamt-sumMarketshare;
+			pie.addSlices(new PieChart.Slice(ungesaettigterTeil, "Ungesaettigter Teil"));
+		}
 
 		cd.addElements(pie);
 
@@ -93,8 +106,7 @@ public class StandardReportPanel extends Panel
 		Game game = Controller.getInstance().getGame();
 
 		ChartWidget chart = new ChartWidget();
-		ChartData cd = new ChartData("Kapital in &#8364; nach Runde " + (game.getCurrentRound() - 1),
-				"font-size: 14px; font-family: Verdana; text-align: center;");
+		ChartData cd = new ChartData("Kapital in &#8364; nach Runde " + (game.getCurrentRound() - 1), "font-size: 14px; font-family: Verdana; text-align: center;");
 		cd.setBackgroundColour("#ffffff");
 
 		XAxis xa = new XAxis();
@@ -110,8 +122,8 @@ public class StandardReportPanel extends Panel
 			String value = game.getGroupList().get(i).getUsername();
 			labels.add(value);
 			bchartValues.add(key);
-			if(key.intValue()>setMax)
-				setMax=key.intValue();
+			if (key.intValue() > setMax)
+				setMax = key.intValue();
 		}
 		xa.setLabels(labels);
 		xa.setMax(capitalList.size() - 1);
@@ -119,7 +131,7 @@ public class StandardReportPanel extends Panel
 
 		YAxis ya = new YAxis();
 		ya.setSteps(40000);
-		ya.setMax(20000+setMax);
+		ya.setMax(20000 + setMax);
 		cd.setYAxis(ya);
 
 		BarChart bchart = new BarChart(BarStyle.GLASS);
@@ -138,8 +150,7 @@ public class StandardReportPanel extends Panel
 	{
 		Game game = Controller.getInstance().getGame();
 		ChartWidget chart = new ChartWidget();
-		ChartData cd = new ChartData("Gewinn in &#8364; nach Runde " + (game.getCurrentRound() - 1),
-				"font-size: 14px; font-family: Verdana; text-align: center;");
+		ChartData cd = new ChartData("Gewinn in &#8364; nach Runde " + (game.getCurrentRound() - 1), "font-size: 14px; font-family: Verdana; text-align: center;");
 		cd.setBackgroundColour("#ffffff");
 
 		XAxis xa = new XAxis();
@@ -155,8 +166,8 @@ public class StandardReportPanel extends Panel
 			String value = game.getGroupList().get(i).getUsername();
 			labels.add(value);
 			bchartValues.add(key);
-			if(key.intValue()>setMax)
-				setMax=key.intValue();
+			if (key.intValue() > setMax)
+				setMax = key.intValue();
 		}
 		xa.setLabels(labels);
 		xa.setMax(profitList.size() - 1);
@@ -164,7 +175,7 @@ public class StandardReportPanel extends Panel
 
 		YAxis ya = new YAxis();
 		ya.setSteps(20000);
-		ya.setMax(20000+setMax);
+		ya.setMax(20000 + setMax);
 		cd.setYAxis(ya);
 
 		BarChart bchart = new BarChart(BarStyle.GLASS);
