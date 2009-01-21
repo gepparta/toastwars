@@ -2,6 +2,7 @@ package toastwars.server.dao;
 
 import java.sql.Connection;
 import java.sql.ResultSet; //import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import toastwars.server.datamodel.core.Game;
@@ -14,7 +15,6 @@ public class DAOToaster {
 	public void updateToaster(Toaster toaster, int companyID, Connection con) {
 		try {
 			int currentRound = Game.getInstance().getCurrentRound();
-			int toasterID = toaster.getToasterID();
 			double price = toaster.getPrice();
 			double marketing = toaster.getMarketing();
 			double tv = toaster.getTvInvestment();
@@ -26,10 +26,10 @@ public class DAOToaster {
 			double research = toaster.getResearch();
 			double quality = toaster.getQualityInvestment();
 			double design = toaster.getDesignInvestment();
-			double efficiency = toaster.getEfficiencyInvestment();
+			double ecology = toaster.getEcologyInvestment();
 			double qualityKum = toaster.getQualityInvestmentKum();
 			double designKum = toaster.getDesignInvestmentKum();
-			double efficiencyKum = toaster.getEcologyInvestmentKum();
+			double ecologyKum = toaster.getEcologyInvestmentKum();
 			double index = toaster.getIndex();
 			double turnover = toaster.getTurnover();
 			double cost = toaster.getCost();
@@ -49,65 +49,61 @@ public class DAOToaster {
 					+ ", Toaster.quality = " + quality
 					+ ", Toaster.qualityKum = " + qualityKum
 					+ ", Toaster.design = " + design + ", Toaster.designKum = "
-					+ designKum + ", Toaster.efficiency = " + efficiency
-					+ ", Toaster.efficiencyKum = " + efficiencyKum
+					+ designKum + ", Toaster.ecology = " + ecology
+					+ ", Toaster.ecologyKum = " + ecologyKum
 					+ ", Toaster.[index] = " + index + ", Toaster.turnover = "
 					+ turnover + ", Toaster.cost = " + cost
 					+ ", Toaster.profit = " + profit
 					+ ", Toaster.marketShare = " + marketShare
-					+ ", Toaster.type = '" + type + "', Toaster.production = "
-					+ production + " WHERE (((Toaster.round)=" + currentRound
-					+ ") AND ((Toaster.toasterID)=" + toasterID
-					+ ") AND ((Toaster.companyID)=" + companyID + "));";
+					+ ", Toaster.production = " + production
+					+ " WHERE (Toaster.round=" + currentRound
+					+ " AND Toaster.companyID=" + companyID
+					+ " AND Toaster.type='" + type + "');";
 			stmt.execute(query);
+			stmt.close();
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 	}
 
 	// test
-	public void saveToaster(Toaster toaster, int companyID, Connection con) {
-		try {
-			int currentRound = Game.getInstance().getCurrentRound();
-			int toasterID = toaster.getToasterID();
-			double price = toaster.getPrice();
-			double marketing = toaster.getMarketing();
-			double tv = toaster.getTvInvestment();
-			double newspaper = toaster.getNewspaperInvestment();
-			double radio = toaster.getRadioInvestment();
-			double tvKum = toaster.getTvInvestmentKum();
-			double newspaperKum = toaster.getNewspaperInvestmentKum();
-			double radioKum = toaster.getRadioInvestmentKum();
-			double research = toaster.getResearch();
-			double quality = toaster.getQualityInvestment();
-			double design = toaster.getDesignInvestment();
-			double efficiency = toaster.getEfficiencyInvestment();
-			double qualityKum = toaster.getQualityInvestmentKum();
-			double designKum = toaster.getDesignInvestmentKum();
-			double efficiencyKum = toaster.getEcologyInvestmentKum();
-			double index = toaster.getIndex();
-			double turnover = toaster.getTurnover();
-			double cost = toaster.getCost();
-			double profit = toaster.getProfit();
-			int marketShare = toaster.getMarketShare();
-			String type = toaster.getType().name();
-			int production = toaster.getProduction();
+	public void saveToaster(Toaster toaster, int companyID, Connection con)
+			throws SQLException {
+		int currentRound = Game.getInstance().getCurrentRound();
+		double price = toaster.getPrice();
+		double marketing = toaster.getMarketing();
+		double tv = toaster.getTvInvestment();
+		double newspaper = toaster.getNewspaperInvestment();
+		double radio = toaster.getRadioInvestment();
+		double tvKum = toaster.getTvInvestmentKum();
+		double newspaperKum = toaster.getNewspaperInvestmentKum();
+		double radioKum = toaster.getRadioInvestmentKum();
+		double research = toaster.getResearch();
+		double quality = toaster.getQualityInvestment();
+		double design = toaster.getDesignInvestment();
+		double ecology = toaster.getEcologyInvestment();
+		double qualityKum = toaster.getQualityInvestmentKum();
+		double designKum = toaster.getDesignInvestmentKum();
+		double ecologyKum = toaster.getEcologyInvestmentKum();
+		double index = toaster.getIndex();
+		double turnover = toaster.getTurnover();
+		double cost = toaster.getCost();
+		double profit = toaster.getProfit();
+		int marketShare = toaster.getMarketShare();
+		String type = toaster.getType().name();
+		int production = toaster.getProduction();
 
-			Statement stmt = con.createStatement();
-			String query = "INSERT INTO Toaster VALUES (" + currentRound + ","
-					+ toasterID + "," + companyID + "," + price + ","
-					+ marketing + "," + tv + "," + tvKum + "," + newspaper
-					+ "," + newspaperKum + "," + radio + "," + radioKum + ","
-					+ research + "," + quality + "," + qualityKum + ","
-					+ design + "," + designKum + "," + efficiency + ","
-					+ efficiencyKum + "," + index + "," + turnover + "," + cost
-					+ "," + profit + "," + marketShare + ",'" + type + "',"
-					+ production + ");";
-			stmt.execute(query);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		Statement stmt = con.createStatement();
+		String query = "INSERT INTO Toaster VALUES (" + currentRound + ","
+				+ companyID + ",'" + type + "'," + price + "," + marketing
+				+ "," + tv + "," + tvKum + "," + newspaper + "," + newspaperKum
+				+ "," + radio + "," + radioKum + "," + research + "," + quality
+				+ "," + qualityKum + "," + design + "," + designKum + ","
+				+ ecology + "," + ecologyKum + "," + index + "," + turnover
+				+ "," + cost + "," + profit + "," + marketShare + ","
+				+ production + ");";
+		stmt.execute(query);
+		stmt.close();
 	}
 
 	public ArrayList<Toaster> getActualToasterFromCompany(int companyID,
@@ -122,42 +118,22 @@ public class DAOToaster {
 			Statement stmt = con.createStatement();
 			ResultSet rst = stmt.executeQuery(query);
 
-			// this.toasterID = toasterID;
-			// this.price = price;
-			// this.index = index;
-			// // this.turnover = turnover;
-			// this.cost = cost;
-			// this.profit = profit;
-			// this.marketShare = marketShare;
-			// this.type = type;
-			// this.marketing = marketing;
-			// this.tvInvestment = tvInvestment;
-			// this.newspaperInvestment = newspaperInvestment;
-			// this.radioInvestment = radioInvestment;
-			// this.tvInvestmentKum = tvInvestmentKum;
-			// this.newspaperInvestmentKum = newspaperInvestmentKum;
-			// this.radioInvestmentKum = radioInvestmentKum;
-			// this.research = research;
-			// this.qualityInvestment = qualityInvestment;
-			// this.designInvestment = designInvestment;
-			// this.ecologyInvestment = ecologyInvestment;
-			// this.qualityInvestmentKum = qualityInvestmentKum;
-			// this.designInvestmentKum = designInvestmentKum;
-			// this.ecologyInvestmentKum = ecologyInvestmentKum;
 			// Zeileninhalt ermitteln
 			while (rst.next()) {
-				Toaster toaster = new Toaster(rst.getInt(2), rst.getDouble(4),
-						rst.getDouble(19), rst.getDouble(20),
-						rst.getDouble(21), rst.getDouble(22), rst.getInt(23),
-						Type.valueOf(rst.getString(24)), rst.getDouble(5), rst
-								.getDouble(6), rst.getDouble(8), rst
-								.getDouble(10), rst.getDouble(7), rst
-								.getDouble(9), rst.getDouble(11), rst
-								.getDouble(12), rst.getDouble(13), rst
-								.getDouble(15), rst.getDouble(17), rst
-								.getDouble(14), rst.getDouble(16), rst
-								.getDouble(18));
-				toaster.setProduction(rst.getInt(25));
+				Toaster toaster = new Toaster(rst.getDouble("price"), rst
+						.getDouble("index"), rst.getDouble("turnover"), rst
+						.getDouble("cost"), rst.getDouble("profit"), rst
+						.getInt("marketShare"), Type.valueOf(rst
+						.getString("type")), rst.getDouble("marketing"), rst
+						.getDouble("tv"), rst.getDouble("newspaper"), rst
+						.getDouble("radio"), rst.getDouble("tvKum"), rst
+						.getDouble("newspaperKum"), rst.getDouble("radioKum"),
+						rst.getDouble("research"), rst.getDouble("quality"),
+						rst.getDouble("design"), rst.getDouble("ecology"), rst
+								.getDouble("qualityKum"), rst
+								.getDouble("designKum"), rst
+								.getDouble("ecologyKum"));
+				toaster.setProduction(rst.getInt("production"));
 				toasterList.add(toaster);
 			}
 			rst.close();
@@ -181,42 +157,22 @@ public class DAOToaster {
 			Statement stmt = con.createStatement();
 			ResultSet rst = stmt.executeQuery(query);
 
-			// this.toasterID = toasterID;
-			// this.price = price;
-			// this.index = index;
-			// // this.turnover = turnover;
-			// this.cost = cost;
-			// this.profit = profit;
-			// this.marketShare = marketShare;
-			// this.type = type;
-			// this.marketing = marketing;
-			// this.tvInvestment = tvInvestment;
-			// this.newspaperInvestment = newspaperInvestment;
-			// this.radioInvestment = radioInvestment;
-			// this.tvInvestmentKum = tvInvestmentKum;
-			// this.newspaperInvestmentKum = newspaperInvestmentKum;
-			// this.radioInvestmentKum = radioInvestmentKum;
-			// this.research = research;
-			// this.qualityInvestment = qualityInvestment;
-			// this.designInvestment = designInvestment;
-			// this.ecologyInvestment = ecologyInvestment;
-			// this.qualityInvestmentKum = qualityInvestmentKum;
-			// this.designInvestmentKum = designInvestmentKum;
-			// this.ecologyInvestmentKum = ecologyInvestmentKum;
 			// Zeileninhalt ermitteln
 			while (rst.next()) {
-				Toaster toaster = new Toaster(rst.getInt(2), rst.getDouble(4),
-						rst.getDouble(19), rst.getDouble(20),
-						rst.getDouble(21), rst.getDouble(22), rst.getInt(23),
-						Type.valueOf(rst.getString(24)), rst.getDouble(5), rst
-								.getDouble(6), rst.getDouble(8), rst
-								.getDouble(10), rst.getDouble(7), rst
-								.getDouble(9), rst.getDouble(11), rst
-								.getDouble(12), rst.getDouble(13), rst
-								.getDouble(15), rst.getDouble(17), rst
-								.getDouble(14), rst.getDouble(16), rst
-								.getDouble(18));
-				toaster.setProduction(rst.getInt(25));
+				Toaster toaster = new Toaster(rst.getDouble("price"), rst
+						.getDouble("index"), rst.getDouble("turnover"), rst
+						.getDouble("cost"), rst.getDouble("profit"), rst
+						.getInt("marketShare"), Type.valueOf(rst
+						.getString("type")), rst.getDouble("marketing"), rst
+						.getDouble("tv"), rst.getDouble("newspaper"), rst
+						.getDouble("radio"), rst.getDouble("tvKum"), rst
+						.getDouble("newspaperKum"), rst.getDouble("radioKum"),
+						rst.getDouble("research"), rst.getDouble("quality"),
+						rst.getDouble("design"), rst.getDouble("ecology"), rst
+								.getDouble("qualityKum"), rst
+								.getDouble("designKum"), rst
+								.getDouble("ecologyKum"));
+				toaster.setProduction(rst.getInt("production"));
 				toasterListByRound.add(toaster);
 			}
 			rst.close();
@@ -227,25 +183,5 @@ public class DAOToaster {
 			e.printStackTrace();
 			return null;
 		}
-	}
-
-	public int getNextToasterID(Connection con) {
-		try {
-			Statement stmt = con.createStatement();
-			String query = "SELECT Toaster.toasterID FROM Toaster";
-			ResultSet rst = stmt.executeQuery(query);
-			int nextID = 0;
-			while (rst.next()) {
-				int next = rst.getInt(1);
-				if (next > nextID)
-					nextID = next;
-			}
-			rst.close();
-			stmt.close();
-			return nextID + 1;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return -1;
 	}
 }

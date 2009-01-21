@@ -161,7 +161,7 @@ public class DecissionForm extends Panel {
 		fields.add(createNumberField("Design", "design", toaster
 				.getDesignInvestment(), 0, 0, false));
 		fields.add(createNumberField("&Ouml;kologie", "ecology", toaster
-				.getEfficiencyInvestment(), 0, 0, false));
+				.getEcologyInvestment(), 0, 0, false));
 	}
 
 	private FieldSet createMarketingFieldSet() {
@@ -204,7 +204,7 @@ public class DecissionForm extends Panel {
 
 		SliderBar ecoSlider = new SliderBar(0, 100000);
 		configureSlider(ecoSlider, 5000, 20, 2, " &euro;", fields.get(7),
-				toaster.getEfficiencyInvestment());
+				toaster.getEcologyInvestment());
 		researchFS.add(createSliderField(fields.get(7), ecoSlider));
 
 		return researchFS;
@@ -333,7 +333,7 @@ public class DecissionForm extends Panel {
 						.doubleValue());
 				toaster.setDesignInvestment(fields.get(6).getValue()
 						.doubleValue());
-				toaster.setEfficiencyInvestment(fields.get(7).getValue()
+				toaster.setEcologyInvestment(fields.get(7).getValue()
 						.doubleValue());
 			} catch (Exception e) {
 				e.printStackTrace();
