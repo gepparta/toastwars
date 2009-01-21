@@ -269,20 +269,14 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements
 		return success;
 	}
 
-	public Boolean createNewToaster(ArrayList<Toaster> toasterList,
-			int companyID) {
+	public void createNewToaster(ArrayList<Toaster> toasterList, int companyID) {
 		Connection con = DBConnection.getInstance().connectToDB();
 		DAOToaster dao = new DAOToaster();
 
-		boolean success = false;
 		for (Toaster toaster : toasterList) {
-			success = dao.saveToaster(toaster, companyID, con);
-			if (!success)
-				return false;
+			dao.saveToaster(toaster, companyID, con);
 		}
 		// close DB connection
 		DBConnection.getInstance().closeConnectionToDB(con);
-
-		return success;
 	}
 }
