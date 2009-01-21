@@ -118,6 +118,7 @@ public class MasterPanel extends Panel {
 
 		RecordDef recordDef = new RecordDef(new FieldDef[] {
 				new StringFieldDef("group"), new FloatFieldDef("price"),
+				new StringFieldDef("amount"), new StringFieldDef("stock"),
 				new StringFieldDef("magazine"), new StringFieldDef("radio"),
 				new StringFieldDef("tv"), new StringFieldDef("quality"),
 				new StringFieldDef("design"), new StringFieldDef("ecology"),
@@ -152,14 +153,16 @@ public class MasterPanel extends Panel {
 		ColumnConfig[] columns = new ColumnConfig[] {
 				new ColumnConfig("Gruppe", "group", 140),
 				new ColumnConfig("Preis", "price", 50),
-				new ColumnConfig("Zeitung", "magazine", 90),
-				new ColumnConfig("Radio", "radio", 90),
-				new ColumnConfig("TV", "tv", 90),
-				new ColumnConfig("Qualit&auml;t", "quality", 90),
-				new ColumnConfig("Design", "design", 90),
-				new ColumnConfig("&Ouml;kologie", "ecology", 90),
-				new ColumnConfig("Kapital", "capital", 90),
-				new ColumnConfig("Marktforschungsbericht", "report", 150),
+				new ColumnConfig("Menge", "amount", 50),
+				new ColumnConfig("Lager", "stock", 50),
+				new ColumnConfig("Zeitung", "magazine", 80),
+				new ColumnConfig("Radio", "radio", 80),
+				new ColumnConfig("TV", "tv", 80),
+				new ColumnConfig("Qualit&auml;t", "quality", 80),
+				new ColumnConfig("Design", "design", 80),
+				new ColumnConfig("&Ouml;kologie", "ecology", 80),
+				new ColumnConfig("Kapital", "capital", 80),
+				new ColumnConfig("Bericht", "report", 50),
 				new ColumnConfig("Status", "status", 170),
 				new ColumnConfig("Typ", "type", 70) };
 		return columns;
@@ -178,29 +181,31 @@ public class MasterPanel extends Panel {
 				if (comp.getToasterList().size() <= i)
 					continue;
 
-				Object[] data = new Object[12];
+				Object[] data = new Object[14];
 				data[0] = groupList.get(j).getUsername();
 
 				Toaster toaster = comp.getToasterList().get(i);
 				data[1] = toaster.getPrice();
-				data[2] = toaster.getNewspaperInvestment();
-				data[3] = toaster.getRadioInvestment();
-				data[4] = toaster.getTvInvestment();
-				data[5] = toaster.getQualityInvestment();
-				data[6] = toaster.getDesignInvestment();
-				data[7] = toaster.getEcologyInvestment();
+				data[2] = toaster.getProduction();
+				data[3] = comp.getStock().getStock(toaster.getType());
+				data[4] = toaster.getNewspaperInvestment();
+				data[5] = toaster.getRadioInvestment();
+				data[6] = toaster.getTvInvestment();
+				data[7] = toaster.getQualityInvestment();
+				data[8] = toaster.getDesignInvestment();
+				data[9] = toaster.getEcologyInvestment();
 
-				data[8] = comp.getCapital();
-				data[9] = comp.isMarketResearchReportON();
-				data[10] = groupList.get(j).getStatus().getDescription();
+				data[10] = comp.getCapital();
+				data[11] = comp.isMarketResearchReportON();
+				data[12] = groupList.get(j).getStatus().getDescription();
 
-				data[11] = "" + (i + 1) + " "
+				data[13] = "" + (i + 1) + " "
 						+ toaster.getType().getDescription();
 				dataList.add(data);
 			}
 		}
 
-		Object[][] dataArray = new Object[dataList.size()][12];
+		Object[][] dataArray = new Object[dataList.size()][14];
 		for (int i = 0; i < dataArray.length; i++) {
 			dataArray[i] = dataList.get(i);
 		}
