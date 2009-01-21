@@ -174,7 +174,7 @@ public Toaster(int toasterID, double price, double index, double turnover, doubl
 		return ecologyInvestmentKum;
 	}
 
-	public double getEfficiencyInvestment()
+	public double getEcologyInvestment()
 	{
 		return ecologyInvestment;
 	}
@@ -296,10 +296,10 @@ public Toaster(int toasterID, double price, double index, double turnover, doubl
 		this.ecologyInvestmentKum += this.ecologyInvestment;
 	}
 
-	public void setEfficiencyInvestment(double efficiency) 
+	public void setEcologyInvestment(double ecology) 
 	{
 
-		this.ecologyInvestment = efficiency;
+		this.ecologyInvestment = ecology;
 
 	}
 
@@ -503,20 +503,23 @@ public Toaster(int toasterID, double price, double index, double turnover, doubl
 		this.setMarketing(NumberUtil.roundDouble(d));
 		return NumberUtil.roundDouble(d);
 	}
-
+// In der folgenden Methode werden die Marktanteile der einzelen Toaster berechnet. Hierzu wird der Gesamtindex aller Toaster 
+// eines Types benötigt. Dieser wird als Parameter übergeben. Nach der Berechnung wird das entsprechende Objektattribut gesetzt.
 	public void calculateMarketShare(double IndexSum)
 	{
 
 		this.setMarketShare((int) Math.round(this.type.getMarketVolume() / IndexSum * this.index));
 
 	}
-
+// In dieser Methode wird der Profit/Gewinn errechnet und das entsprechende Objektattribut gesetzt.
 	public void calculateProfit()
 	{
 		this.setProfit(this.getTurnover() - this.getCost());
 	}
 
-	// @by Alex
+	// In dieser Methode wird der neue Forschungsindex abhängig vom Type ermittelt und gesetzt.
+	// Hierzu werden zunächst die eingegebenen Investitionen der drei Faktoren quality, design, efficiency verarbeitet und eingerechnet.
+	// Daraus wird anhand von Formeln der Index berechnet und das eigene Objektattribut gesetzt.
 	public double calculateResearch()
 	{
 		double qualityIndex = 0;
@@ -565,15 +568,16 @@ public Toaster(int toasterID, double price, double index, double turnover, doubl
 		this.setResearch(NumberUtil.roundDouble(d));
 		return NumberUtil.roundDouble(d);
 	}
-
+	// In dieser Methode wird der Umsatz errechnet und das entsprechende Objektattribut gesetzt.
 	public void calculateTurnover()
 	{
 
 		this.setTurnover(this.getMarketShare() * this.getPrice());
 	}
 
+	// In dieser Methode werden alle Attribute in denen Investitionen getätigt wurden auf 0 zurückgesetzt.
 public void resetUserInput() {
-		// reset all input parameters for next round
+		
 		tvInvestment = 0;
 		newspaperInvestment = 0;
 		radioInvestment = 0;
@@ -594,7 +598,7 @@ public void resetUserInput() {
 				+ this.getType().name() + "\n Marketingfaktoren: \t" + "\n marketing: \t" + this.getMarketing() + "\n TV Investment: \t" + this.getTvInvestment()
 				+ "\n Newspaper Investment: \t" + this.getNewspaperInvestment() + "\n Radio Investment: \t" + this.getRadioInvestment() + "\n Forschungsfaktoren: \t"
 				+ "\n research: \t" + this.getResearch() + "\n quality: \t" + this.getQualityInvestment() + "\n design: \t" + this.getDesignInvestment() + "\n efficiency: \t"
-				+ this.getEfficiencyInvestment();
+				+ this.getEcologyInvestment();
 		return s;
 	}
 	}//Toaster
