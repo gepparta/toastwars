@@ -179,17 +179,32 @@ public class Controller {
 			throws Exception {
 		ToastWarsServiceAsync service = ToastWarsService.Util.getInstance();
 
-		AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {
+		AsyncCallback<ArrayList<Toaster>> callback = new AsyncCallback<ArrayList<Toaster>>() {
 			public void onFailure(Throwable caught) {
 
 			}
 
-			public void onSuccess(Boolean success) {
+			public void onSuccess(ArrayList<Toaster> inList) {
 				try {
-					if (success)
-						save();
-					else
-						DecissionPanel.getInstance().createUserMessage(success);
+					if (inList == null || inList.size() < 1) {
+						DecissionPanel.getInstance().createUserMessage(false);
+						throw new Exception(
+								"Waldi: Keine Liste mit neuen Toastern zurueck gekommen");
+					}
+
+					// set correct ID for new toasters
+					ArrayList<Toaster> toasterList = ((Group) user)
+							.getCompany().getToasterList();
+					for (Toaster in : inList) {
+						for (Toaster old : toasterList) {
+							if (old.getType() == in.getType()) {
+								old.setToasterID(in.getToasterID());
+								break;
+							}
+						}
+					}
+
+					save();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
