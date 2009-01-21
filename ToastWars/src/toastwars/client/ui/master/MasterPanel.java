@@ -188,7 +188,7 @@ public class MasterPanel extends Panel {
 				data[4] = toaster.getTvInvestment();
 				data[5] = toaster.getQualityInvestment();
 				data[6] = toaster.getDesignInvestment();
-				data[7] = toaster.getEfficiencyInvestment();
+				data[7] = toaster.getEcologyInvestment();
 
 				data[8] = comp.getCapital();
 				data[9] = comp.isMarketResearchReportON();
