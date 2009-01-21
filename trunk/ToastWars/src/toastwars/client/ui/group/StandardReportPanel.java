@@ -93,7 +93,7 @@ public class StandardReportPanel extends Panel
 		Game game = Controller.getInstance().getGame();
 
 		ChartWidget chart = new ChartWidget();
-		ChartData cd = new ChartData("Kapital in Euro nach Runde " + (game.getCurrentRound() - 1),
+		ChartData cd = new ChartData("Kapital in &#8364; nach Runde " + (game.getCurrentRound() - 1),
 				"font-size: 14px; font-family: Verdana; text-align: center;");
 		cd.setBackgroundColour("#ffffff");
 
@@ -138,7 +138,7 @@ public class StandardReportPanel extends Panel
 	{
 		Game game = Controller.getInstance().getGame();
 		ChartWidget chart = new ChartWidget();
-		ChartData cd = new ChartData("Gewinn in Euro nach Runde " + (game.getCurrentRound() - 1),
+		ChartData cd = new ChartData("Gewinn in &#8364; nach Runde " + (game.getCurrentRound() - 1),
 				"font-size: 14px; font-family: Verdana; text-align: center;");
 		cd.setBackgroundColour("#ffffff");
 
@@ -147,6 +147,7 @@ public class StandardReportPanel extends Panel
 		List<Number> bchartValues = new ArrayList<Number>();
 
 		ArrayList<Number> profitList = group.getCompany().getProfitOverview(game);
+		int setMax = 0;
 		for (int i = 0; i < profitList.size(); i++)
 		{
 
@@ -154,14 +155,16 @@ public class StandardReportPanel extends Panel
 			String value = game.getGroupList().get(i).getUsername();
 			labels.add(value);
 			bchartValues.add(key);
+			if(key.intValue()>setMax)
+				setMax=key.intValue();
 		}
 		xa.setLabels(labels);
 		xa.setMax(profitList.size() - 1);
 		cd.setXAxis(xa);
 
 		YAxis ya = new YAxis();
-		ya.setSteps(40000);
-		ya.setMax(200000);
+		ya.setSteps(20000);
+		ya.setMax(20000+setMax);
 		cd.setYAxis(ya);
 
 		BarChart bchart = new BarChart(BarStyle.GLASS);
