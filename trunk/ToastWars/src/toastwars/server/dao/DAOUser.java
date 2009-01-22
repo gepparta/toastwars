@@ -63,21 +63,6 @@ public class DAOUser
 		}
 	}
 
-	public void deleteUsers(Connection con)
-	{
-		try
-		{
-			Statement stmt = con.createStatement();
-			String sql = "DELETE * FROM User;";
-			stmt.execute(sql);
-			stmt.close();
-			userList.clear();
-		} catch (SQLException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 
 	public static ArrayList<Group> getAllUsers(Connection con)
 	{
@@ -175,7 +160,7 @@ public class DAOUser
 		try
 		{
 			Statement stmt = con.createStatement();
-			String sql = "UPDATE [User] SET [User].Status = '" + status + "' WHERE (((User.UserName)='" + username + "'));";
+			String sql = "UPDATE User SET User.Status = '" + status + "' WHERE (((User.UserName)='" + username + "'));";
 
 			stmt.execute(sql);
 			stmt.close();
