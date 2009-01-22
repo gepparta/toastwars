@@ -57,6 +57,22 @@ public class DAOGame
 		}
 	}
 
+	public static void archiveAllUsers(ArrayList<Group> grouplist, Connection con)
+	{
+		try
+		{
+			int size = grouplist.size();
+			for (int i = 0; i < size; i++)
+			{
+				Group group = grouplist.get(i);
+				DAOUser.archiveUser(group, con);
+			}
+		} catch (RuntimeException e)
+		{
+			e.printStackTrace();
+		}
+	}
+
 	public static Integer getCurrentRound(Connection con)
 	{
 		try
@@ -98,7 +114,7 @@ public class DAOGame
 
 	public static void changeCurrentRound(Connection con)
 	{
-		
+
 		int currentRound = Game.getInstance().getCurrentRound();
 		try
 		{
@@ -131,24 +147,26 @@ public class DAOGame
 			stmt.execute(query);
 			for (int i = 1; i <= userAmount; i++)
 			{
+
 				query = "INSERT INTO User VALUES ('Gruppe " + i + "','pass" + i + "'," + i + ",'STARTED');";
 				stmt.execute(query);
-				// turnover, cost, profit, capital, marketShare
-				query = "INSERT INTO Company VALUES (1," + i + ", 0, 0, 0, 100000.00, " + Type.TYPE1.getMarketVolume() / userAmount + ",FALSE);";
-				stmt.execute(query);
-				// price, marketing, tvInvestment, newsPaperInvestment,
-				// radioInvestment, research, quality, design, efficiency,
-				// index, turnover, cost, profit, marketShare, type
-				query = "INSERT INTO Toaster VALUES (1,"
-						+ i
-						+ ",'TYPE1', 10, 3.00, 0, 0, 0, 0, 0, 0, 3.00, 0, 0, 0, 0, 0, 0,"
-						+ " 9.00, 0.00, 0.00, 0.00, "+Type.TYPE1.getMarketVolume() / userAmount+",0);";
 
-				stmt.execute(query);
-			
-				query = "INSERT INTO Stock VALUES (" + i
-						+ ",1, 0, 0, 0, 0.00);";
-				stmt.execute(query);
+				for (int j = 0; j <= 1; j++)
+				{
+					// turnover, cost, profit, capital, marketShare
+					query = "INSERT INTO Company VALUES (" + j + "," + i + ", 0, 0, 0, 100000.00, " + Type.TYPE1.getMarketVolume() / userAmount + ",FALSE);";
+					stmt.execute(query);
+					// price, marketing, tvInvestment, newsPaperInvestment,
+					// radioInvestment, research, quality, design, efficiency,
+					// index, turnover, cost, profit, marketShare, type
+					query = "INSERT INTO Toaster VALUES (" + j + "," + i + ",'TYPE1', 10, 3.00, 0, 0, 0, 0, 0, 0, 3.00, 0, 0, 0, 0, 0, 0," + " 9.00, 0.00, 0.00, 0.00, "
+							+ Type.TYPE1.getMarketVolume() / userAmount + ",0);";
+
+					stmt.execute(query);
+
+					query = "INSERT INTO Stock VALUES (" + i + "," + j + ", 0, 0, 0, 0.00);";
+					stmt.execute(query);
+				}
 			}
 			stmt.close();
 		} catch (SQLException e)
