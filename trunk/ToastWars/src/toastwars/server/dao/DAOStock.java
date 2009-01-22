@@ -20,8 +20,8 @@ public class DAOStock
 			double totalStockCosts = stock.getTotalStockCosts();
 
 			Statement stmt = con.createStatement();
-			String query = "UPDATE Stock SET Stock.stockTT1 = " + stockTT1 + ", Stock.stockTT2 = " + stockTT2 + ", Stock.stockTT3 = " + stockTT3 + ", Stock.totalCosts = "
-					+ totalStockCosts + " WHERE (((Stock.round)=" + currentRound + ") AND ((Stock.companyID)=" + companyID + "));";
+			String query = "UPDATE Stock SET stockTT1 = " + stockTT1 + ", stockTT2 = " + stockTT2 + ", stockTT3 = " + stockTT3 + ", totalCosts = "
+					+ totalStockCosts + " WHERE (((round)=" + currentRound + ") AND ((companyID)=" + companyID + "));";
 			stmt.execute(query);
 		} catch (Exception e)
 		{
