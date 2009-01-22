@@ -9,7 +9,7 @@ public class DBConnection {
 
 	private DBConnection() {
 		try {
-			Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -21,12 +21,11 @@ public class DBConnection {
 		return instance;
 	}
 
-	public Connection connectToDB() {
+	public static Connection connectToDB() {
 		try {
 			Connection con = DriverManager
 					.getConnection(
-							"jdbc:odbc:Driver={Microsoft Access Driver (*.mdb)};DBQ=C:/db/ToastWars.mdb",
-							"", "");
+						"jdbc:mysql://localhost/ToastWars?user=root&password=toastwars");
 			return con;
 		} catch (Exception e) {
 			System.out.println(e.getLocalizedMessage());
@@ -34,12 +33,21 @@ public class DBConnection {
 		return null;
 	}
 
-	public void closeConnectionToDB(Connection con) {
+	public static void closeConnectionToDB(Connection con) {
 		try {
 			if (!(con.isClosed()))
 				con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static void main ( String[] args ) {
+		Connection con = connectToDB();
+		DAOGame.getUserAmount(con);
+		DAOGame.getCurrentRound(con);
+		DAOGame.changeCurrentRound(con);
+		DAOGame.getCurrentRound(con);
+		closeConnectionToDB(con);
 	}
 }

@@ -60,7 +60,7 @@ public class DAOGame
 	{
 		try
 		{
-			String query = "SELECT Game.[CurrentRound]FROM Game;";
+			String query = "SELECT Game.CurrentRound FROM Game;";
 			Statement stmt = con.createStatement();
 			ResultSet rst = stmt.executeQuery(query);
 			rst.next();
@@ -80,7 +80,7 @@ public class DAOGame
 	{
 		try
 		{
-			String query = "SELECT Game.[NumberOfUsers]FROM Game;";
+			String query = "SELECT Game.NumberOfUsers FROM Game;";
 			Statement stmt = con.createStatement();
 			ResultSet rst = stmt.executeQuery(query);
 			rst.next();
@@ -102,7 +102,7 @@ public class DAOGame
 		try
 		{
 			Statement stmt = con.createStatement();
-			String sql = "UPDATE [Game] SET [Game].CurrentRound = '" + currentRound + "'";
+			String sql = "UPDATE Game SET Game.CurrentRound = '" + currentRound + "'";
 			stmt.execute(sql);
 			stmt.close();
 		} catch (SQLException e)
@@ -186,7 +186,7 @@ public class DAOGame
 		boolean isGameStarted = false;
 		try
 		{
-			String query = "SELECT Game.[CurrentRound]FROM Game;";
+			String query = "SELECT Game.CurrentRound FROM Game;";
 			Statement stmt = con.createStatement();
 			ResultSet rst = stmt.executeQuery(query);
 			if (rst.next())
