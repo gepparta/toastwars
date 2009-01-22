@@ -7,7 +7,7 @@ import toastwars.util.NumberUtil;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class Game implements IsSerializable {
-	private static Game instance;
+	private static Game	instance;
 
 	// **********************Methods************************************************************
 	public static Game getInstance() {
@@ -21,19 +21,19 @@ public class Game implements IsSerializable {
 		return instance;
 	}
 
-	private int userAmount;
+	private int					userAmount;
 
-	private int currentRound = 1;
+	private int					currentRound		= 1;
 
 	// @gwt.typeArgs <toastwars.server.datamodel.user.Group>
-	private ArrayList<Group> groupList = new ArrayList<Group>();
+	private ArrayList<Group>	groupList			= new ArrayList<Group>();
 
 	// @gwt.typeArgs <Number>
-	private ArrayList<Number> sortedIndexListTyp1 = null;
+	private ArrayList<Number>	sortedIndexListTyp1	= null;
 	// @gwt.typeArgs <Number>
-	private ArrayList<Number> sortedIndexListTyp2 = null;
+	private ArrayList<Number>	sortedIndexListTyp2	= null;
 	// @gwt.typeArgs <Number>
-	private ArrayList<Number> sortedIndexListTyp3 = null;
+	private ArrayList<Number>	sortedIndexListTyp3	= null;
 
 	// *************************Constructor*****************************************************
 	public Game() {
@@ -82,7 +82,6 @@ public class Game implements IsSerializable {
 		return userAmount;
 	}
 
-
 	public void setCurrentRound(int currentRound) {
 		this.currentRound = currentRound;
 	}
@@ -114,20 +113,16 @@ public class Game implements IsSerializable {
 
 		boolean again = true;
 		Toaster toaster;
-		Toaster toaster2;
 		Company company;
-		Company company2;
-		ArrayList<Number> sortedIndexListTyp = null;
-		int stockValue = 0;
-		
+
 		while (again) {
 			again = false;
 			// Schleife über alle Companies
 			for (int i = 0; i < groupList.size(); i++) {
+				company = groupList.get(i).getCompany();
+
 				// Schleife über alle Toaster der Company
-				for (int j = 0; j < groupList.get(i).getCompany()
-						.getToasterList().size(); j++) {
-					company = groupList.get(i).getCompany();
+				for (int j = 0; j < company.getToasterList().size(); j++) {
 					toaster = company.getToasterList().get(j);
 
 					// Wenn weniger produziert wurde als abgesetzt werden kann,
@@ -143,15 +138,8 @@ public class Game implements IsSerializable {
 
 						int stock = 0;
 
-						if (toaster.getType() == Type.TYPE1) {
-							stock = company.getStock().getStockTT1();
-						}
-						if (toaster.getType() == Type.TYPE2) {
-							stock = company.getStock().getStockTT2();
-						}
-						if (toaster.getType() == Type.TYPE3) {
-							stock = company.getStock().getStockTT3();
-						}
+						// edited by Waldi
+						stock = company.getStock().getStock(toaster.getType());
 
 						// Wenn der Lagerbestand ausreicht um den Bedarf zu
 						// decken, wird das benötigte aus dem Lager entfernt
@@ -176,6 +164,8 @@ public class Game implements IsSerializable {
 						if (stock < missing)
 
 						{
+							ArrayList<Number> sortedIndexListTyp = null;
+							
 							int unavailable = missing - stock;
 
 							company.getStock().ReduceStock(toaster.getType(),
@@ -189,75 +179,67 @@ public class Game implements IsSerializable {
 							// (sortedIndexList).
 							// Nun muss zwischen Typen differenziert werden.
 
-							
-							if (toaster.getType() == Type.TYPE1) {sortedIndexListTyp=sortedIndexListTyp1;}
-							if (toaster.getType() == Type.TYPE2) {sortedIndexListTyp=sortedIndexListTyp2;}
-							if (toaster.getType() == Type.TYPE3) {sortedIndexListTyp=sortedIndexListTyp3;}
-							
-							
+							if (toaster.getType() == Type.TYPE1) {
+								sortedIndexListTyp = sortedIndexListTyp1;
+							}
+							if (toaster.getType() == Type.TYPE2) {
+								sortedIndexListTyp = sortedIndexListTyp2;
+							}
+							if (toaster.getType() == Type.TYPE3) {
+								sortedIndexListTyp = sortedIndexListTyp3;
+							}
 
-								// Schleife über alle Companies
-								for (int k = 0; k < sortedIndexListTyp.size(); k++) {
+							// Schleife über alle Companies
+							for (int k = 0; k < sortedIndexListTyp.size(); k++) {
 
-									// TODO
-									company2 = groupList.get(
-											sortedIndexListTyp.get(k)
-													.intValue() - 1)
-											.getCompany();
-									toaster2 = groupList.get(
-											sortedIndexListTyp.get(k)
-													.intValue() - 1)
-											.getCompany().getToasterList().get(
-													j);
-									
-									if (toaster.getType() == Type.TYPE1) {stockValue = company2.getStock().getStockTT1();}
-									if (toaster.getType() == Type.TYPE2) {stockValue = company2.getStock().getStockTT2();}
-									if (toaster.getType() == Type.TYPE3) {stockValue = company2.getStock().getStockTT3();}
+								// TODO
+								Company	company2 = groupList
+										.get(
+												sortedIndexListTyp.get(k)
+														.intValue() - 1)
+										.getCompany();
+								Toaster	toaster2 = groupList
+										.get(
+												sortedIndexListTyp.get(k)
+														.intValue() - 1)
+										.getCompany().getToasterList().get(j);
 
-									// Wenn die folgende Company alle Toaster
-									// die noch fehlen zusätzlich absetzten
-									// kann.
-									if (stockValue
-											+ (toaster2.getProduction() - toaster2
-													.getMarketShare()) >= unavailable) {
+								// edited by Waldi
+								int stockValue = company2.getStock().getStock(
+										toaster.getType());
+								int marketShare = toaster2.getMarketShare();
+								int production = toaster2.getProduction();
 
-										toaster2.setMarketShare(unavailable
-												+ toaster2.getMarketShare());
-										unavailable = 0;
+								// Wenn die folgende Company alle Toaster
+								// die noch fehlen zusätzlich absetzten
+								// kann.
+								if (stockValue + (production - marketShare) >= unavailable) {
 
-										again = true;
-										break;
-									}
-									// Falls diese einen Teil übernehmen kann.
-									else if (stockValue
-											+ toaster2.getProduction()
-											- toaster2.getMarketShare() > 0)
+									toaster2.setMarketShare(unavailable
+											+ marketShare);
+									unavailable = 0;
 
-									{
-										unavailable = unavailable
-												- (stockValue + (toaster2
-														.getProduction() - toaster2
-														.getMarketShare()));
+									again = true;
+									break;
+								}
+								// Falls diese einen Teil übernehmen kann.
+								else if (stockValue + production - marketShare > 0) {
+									unavailable = unavailable
+											- (stockValue + (production - marketShare));
+									toaster2.setMarketShare(stockValue
+											+ production);
+									// Wenn eine derartige Umverteilung des
+									// Marketshares statt findet, muss
+									// garantiert werden, dass
+									// die Company die den erhöhten
+									// MarketShare hat und die Toaster
+									// gegebenenfalls auf Lager noch einmal
+									// von diesem Algortihmus geprüft wird.
+									again = true;
 
-										toaster2
-												.setMarketShare(toaster2
-														.getMarketShare()
-														+ (stockValue + (toaster2
-																.getProduction() - toaster2
-																.getMarketShare())));
-										// Wenn eine derartige Umverteilung des
-										// Marketshares statt findet, muss
-										// garantiert werden, dass
-										// die Company die den erhöhten
-										// MarketShare hat und die Toaster
-										// gegebenenfalls auf Lager noch einmal
-										// von diesem Algortihmus geprüft wird.
-										again = true;
+								}// else
 
-									}// else
-
-								}// for
-
+							}// for
 
 						}// If Gesamt
 					}// if Unterproduktion
@@ -288,7 +270,6 @@ public class Game implements IsSerializable {
 			}// for innen
 		}// for außen
 	}// calculate MarketShares
-
 
 	public void simulate() {
 		double[] indexSums = new double[3];
