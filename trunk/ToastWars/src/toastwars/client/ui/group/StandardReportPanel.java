@@ -40,6 +40,7 @@ public class StandardReportPanel extends Panel {
 	private final String				COLOR_10	= "#ffff99";
 
 	private Group						group;
+	private Game						game;
 
 	public static StandardReportPanel getInstance() {
 		if (reportPanel == null)
@@ -48,6 +49,7 @@ public class StandardReportPanel extends Panel {
 	}
 
 	private StandardReportPanel() {
+		game = Controller.getInstance().getGame();
 		group = (Group) Controller.getInstance().getUser();
 
 		setTitle("Analyse-Bericht");
@@ -87,12 +89,12 @@ public class StandardReportPanel extends Panel {
 		DecissionPanel dPanel = DecissionPanel.getInstance();
 
 		// add type 1
-		horizPanel.add(createPieChart(toasterList.get(0)));
+		horizPanel.add(createMarketShareChart(toasterList.get(0)));
 
 		// add type 2 or empty
 		if (toasterList.size() > 1) {
 			if (!dPanel.isNewToaster(toasterList.get(1).getType()))
-				horizPanel.add(createPieChart(toasterList.get(1)));
+				horizPanel.add(createMarketShareChart(toasterList.get(1)));
 			else
 				horizPanel.add(emptyPanel);
 		} else
@@ -101,7 +103,7 @@ public class StandardReportPanel extends Panel {
 		// add type 3 or empty
 		if (toasterList.size() > 2) {
 			if (!dPanel.isNewToaster(toasterList.get(2).getType()))
-				horizPanel.add(createPieChart(toasterList.get(2)));
+				horizPanel.add(createMarketShareChart(toasterList.get(2)));
 			else
 				horizPanel.add(emptyPanel);
 		} else
@@ -110,7 +112,7 @@ public class StandardReportPanel extends Panel {
 		return horizPanel;
 	}
 
-	private ChartWidget createPieChart(Toaster toaster) {
+	private ChartWidget createMarketShareChart(Toaster toaster) {
 		ChartWidget chart = new ChartWidget();
 
 		ChartData cd = new ChartData(
@@ -130,30 +132,35 @@ public class StandardReportPanel extends Panel {
 				COLOR_7, COLOR_8, COLOR_9, COLOR_10);
 
 		// Slice 1: my own market share
-		int marktGesamt = Type.TYPE1.getMarketVolume()
-				+ Type.TYPE2.getMarketVolume() + Type.TYPE3.getMarketVolume();
-		int meinMarketShare = toaster.getMarketShare();
-		pie.addSlices(new PieChart.Slice(meinMarketShare, Controller
-				.getInstance().getUser().getUsername()));
+		int myMarketShare = toaster.getMarketShare();
+		if (myMarketShare > 0)
+			pie.addSlices(new PieChart.Slice(myMarketShare, Controller
+					.getInstance().getUser().getUsername()));
 
 		// Slice 2: rest market share
 		int restMarketShare = 0;
-		int sumMarketshare = 0;
-		ArrayList<Toaster> toasterList = group.getCompany().getToasterList();
-		for (Toaster toaster2 : toasterList) {
-			sumMarketshare += toaster2.getMarketShare();
+		ArrayList<Group> groupList = game.getGroupList();
+		for (Group group : groupList) {
+			ArrayList<Toaster> list = group.getCompany().getToasterList();
+			if (!group.getUsername().equals(this.group.getUsername()))
+				if (toaster.getType().ordinal() < list.size())
+					restMarketShare += list.get(toaster.getType().ordinal())
+							.getMarketShare();
 		}
-		restMarketShare = sumMarketshare - meinMarketShare;
-		pie.addSlices(new PieChart.Slice(restMarketShare, "Rest"));
+		if (restMarketShare > 0)
+			pie.addSlices(new PieChart.Slice(restMarketShare, "Rest"));
 
 		// Slice 3: not saturated
+		int sumMarketshare = toaster.getType().getMarketVolume();
 		int ungesaettigterTeil = 0;
 		// wenn es noch ungesättigte Teile am Markt gibt
 		// stelle den ungesättigten Teil dar
-		if (marktGesamt > sumMarketshare) {
-			ungesaettigterTeil = marktGesamt - sumMarketshare;
-			pie.addSlices(new PieChart.Slice(ungesaettigterTeil,
-					"Unges&#228;ttigter Teil"));
+		if (sumMarketshare > restMarketShare + myMarketShare) {
+			ungesaettigterTeil = sumMarketshare - restMarketShare
+					- myMarketShare;
+			if (ungesaettigterTeil > 0)
+				pie.addSlices(new PieChart.Slice(ungesaettigterTeil,
+						"Unges&#228;ttigter Teil"));
 		}
 
 		cd.addElements(pie);
