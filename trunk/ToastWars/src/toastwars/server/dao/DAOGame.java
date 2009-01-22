@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import toastwars.server.datamodel.core.Game;
+import toastwars.server.datamodel.core.Type;
 import toastwars.server.datamodel.user.Group;
 
 public class DAOGame
@@ -102,7 +103,7 @@ public class DAOGame
 		try
 		{
 			Statement stmt = con.createStatement();
-			String sql = "UPDATE Game SET Game.CurrentRound = '" + currentRound + "'";
+			String sql = "UPDATE Game SET CurrentRound = '" + currentRound + "'";
 			stmt.execute(sql);
 			stmt.close();
 		} catch (SQLException e)
@@ -133,7 +134,7 @@ public class DAOGame
 				query = "INSERT INTO User VALUES ('Gruppe " + i + "','pass" + i + "'," + i + ",'STARTED');";
 				stmt.execute(query);
 				// turnover, cost, profit, capital, marketShare
-				query = "INSERT INTO Company VALUES (1," + i + ", 0, 0, 0, 100000.00, " + 10000 / userAmount + ",FALSE);";
+				query = "INSERT INTO Company VALUES (1," + i + ", 0, 0, 0, 100000.00, " + Type.TYPE1.getMarketVolume() / userAmount + ",FALSE);";
 				stmt.execute(query);
 				// price, marketing, tvInvestment, newsPaperInvestment,
 				// radioInvestment, research, quality, design, efficiency,
@@ -141,7 +142,7 @@ public class DAOGame
 				query = "INSERT INTO Toaster VALUES (1,"
 						+ i
 						+ ",'TYPE1', 10, 3.00, 0, 0, 0, 0, 0, 0, 3.00, 0, 0, 0, 0, 0, 0,"
-						+ " 9.00, 0.00, 0.00, 0.00, 0,0);";
+						+ " 9.00, 0.00, 0.00, 0.00, "+Type.TYPE1.getMarketVolume() / userAmount+",0);";
 
 				stmt.execute(query);
 			
