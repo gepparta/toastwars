@@ -3,24 +3,23 @@ package toastwars.server.datamodel.core;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 public enum Type implements IsSerializable {
-	
-	
-	// description, marketVolume, random, fixCost, stepCosts, variableCost,capacity,
+
+	// description, random, fixCost, stepCosts,
+	// variableCost,capacity,
 	// tvInvestmentPlus, radioInvestmentPlus, newspaperInvestmentPlus
 	// qualityInvestmentPlus, designInvestmentPlus, ecologyInvestmentPlus
 
-	
-	//Definition  der drei verschiedenen Toastertypen und deren Eigenschaften.
-	
-	TYPE1("Millenniums-Toaster", 10000, 0.05, 10000.00, 1000.00, 2.00, 4000,
-			20000, 10000, 5000, 5000, 5000, 5000, 5, 20),
-	TYPE2("TIE-Toaster", 6000, 0.08, 20000.00, 5000.00, 10.00, 2000, 30000,
-			20000, 10000, 10000, 10000, 10000, 30, 60),
-	TYPE3("Star-Toaster", 2500, 0.10, 25000.00, 8000.00, 40.00, 500, 40000,
-			30000, 20000, 15000, 15000, 15000, 130, 200);
+	// Definition der drei verschiedenen Toastertypen und deren Eigenschaften.
 
-	//Definition der Attribute
-	
+	TYPE1("Millenniums-Toaster", 0.05, 10000.00, 1000.00, 2.00, 4000, 20000,
+			10000, 5000, 5000, 5000, 5000, 5, 20),
+	TYPE2("TIE-Toaster", 0.08, 20000.00, 5000.00, 10.00, 2000, 30000, 20000,
+			10000, 10000, 10000, 10000, 30, 60),
+	TYPE3("Star-Toaster", 0.10, 25000.00, 8000.00, 40.00, 500, 40000, 30000,
+			20000, 15000, 15000, 15000, 130, 200);
+
+	// Definition der Attribute
+
 	private String	description;
 	private int		marketVolume;
 	private double	random;
@@ -37,17 +36,15 @@ public enum Type implements IsSerializable {
 	private int		minPrice;
 	private int		maxPrice;
 
-	
-	//Konstruktoren
-	
-	private Type(String description, int marketVolume, double random,
-			double fixCosts, double stepCosts, double variableCosts,
-			int capacity, double tvInvestmentPlus, double radioInvestmentPlus,
+	// Konstruktoren
+
+	private Type(String description, double random, double fixCosts,
+			double stepCosts, double variableCosts, int capacity,
+			double tvInvestmentPlus, double radioInvestmentPlus,
 			double newspaperInvestmentPlus, double qualityInvestmentPlus,
 			double designInvestmentPlus, double ecologyInvestmentPlus,
 			int minPrice, int maxPrice) {
 		this.description = description;
-		this.marketVolume = marketVolume;
 		this.random = random;
 		this.fixCosts = fixCosts;
 		this.stepCosts = stepCosts;
@@ -63,9 +60,8 @@ public enum Type implements IsSerializable {
 		this.maxPrice = maxPrice;
 	}
 
-	
-	//GET Methoden
-	
+	// GET Methoden
+
 	public int getCapacity() {
 		return capacity;
 	}
@@ -126,8 +122,8 @@ public enum Type implements IsSerializable {
 		return variableCosts;
 	}
 
-	//Set-Methoden
-	
+	// Set-Methoden
+
 	public void setCapacity(int capacity) {
 		this.capacity = capacity;
 	}
@@ -188,19 +184,20 @@ public enum Type implements IsSerializable {
 		this.variableCosts = variableCosts;
 	}
 
-	public void setMarketVolumeTT1(int user){
-		this.setMarketVolume((int)(Math.pow((user*150000),(1/1.4))));
+	public void setMarketVolumeTT1(int user) {
+		this.setMarketVolume((int) (Math.pow((user * 150000), (1 / 1.4))));
 	}
-	
-	public void setMarketVolumeTT2(int user){
-		this.setMarketVolume((int)(Math.pow((user*12000),(1/1.22))));
+
+	public void setMarketVolumeTT2(int user) {
+		this.setMarketVolume((int) (Math.pow((user * 12000), (1 / 1.22))));
 	}
-	
-	public void setMarketVolumeTT3(int user){
-		this.setMarketVolume((int)(Math.pow((user*6000),(1/1.29))));
+
+	public void setMarketVolumeTT3(int user) {
+		this.setMarketVolume((int) (Math.pow((user * 6000), (1 / 1.29))));
 	}
-	//Methoden nur für die JUNIT Tests
-	
+
+	// Methoden nur für die JUNIT Tests
+
 	public String toString() {
 
 		String s = "Type Eigenschaften: " + "\n description \t \t"
