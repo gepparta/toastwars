@@ -116,15 +116,15 @@ public class DAOGame
 		try
 		{
 			Statement stmt = con.createStatement();
-			String query = "DELETE * FROM Game;";
+			String query = "DELETE FROM Game;";
 			stmt.execute(query);
-			query = "DELETE * FROM User;";
+			query = "DELETE FROM User;";
 			stmt.execute(query);
-			query = "DELETE * FROM Company;";
+			query = "DELETE FROM Company;";
 			stmt.execute(query);
-			query = "DELETE * FROM Toaster;";
+			query = "DELETE FROM Toaster;";
 			stmt.execute(query);
-			query = "DELETE * FROM Stock;";
+			query = "DELETE FROM Stock;";
 			stmt.execute(query);
 			query = "INSERT INTO Game VALUES (1," + userAmount + ", 'Instruction');";
 			stmt.execute(query);
@@ -161,15 +161,15 @@ public class DAOGame
 		try
 		{
 			Statement stmt = con.createStatement();
-			String query = "DELETE * FROM Game;";
+			String query = "DELETE FROM Game;";
 			stmt.execute(query);
-			query = "DELETE * FROM User;";
+			query = "DELETE FROM User;";
 			stmt.execute(query);
-			query = "DELETE * FROM Company;";
+			query = "DELETE FROM Company;";
 			stmt.execute(query);
-			query = "DELETE * FROM Toaster;";
+			query = "DELETE FROM Toaster;";
 			stmt.execute(query);
-			query = "DELETE * FROM Stock;";
+			query = "DELETE FROM Stock;";
 			stmt.execute(query);
 			stmt.close();
 
