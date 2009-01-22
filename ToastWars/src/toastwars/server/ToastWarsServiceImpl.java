@@ -47,9 +47,7 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements
 				game.setGroupList(DAOGame.getAllUsers(con));
 				ArrayList<Group> grouplist = Game.getInstance().getGroupList();
 
-				int round = Game.getInstance().getCurrentRound();
-				if (round > 1)
-					round--;
+				int round = Game.getInstance().getCurrentRound()-1;
 				ArrayList<Group> groupList4Report = DAOGame.getAllUsersByRound(
 						con, round);
 
@@ -221,7 +219,8 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements
 						report.getSortedIndexListTyp2());
 				Game.getInstance().setSortedIndexListTyp3(
 						report.getSortedIndexListTyp3());
-
+		
+				Game.getInstance().considerInvestments();
 				Master.getInstance().simulate();
 
 				// reset user input parameters
@@ -232,7 +231,8 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements
 						toaster.resetUserInput();
 					}
 				}
-
+				// Speichere die Endwerte für die beendete Runde
+				DAOGame.archiveAllUsers(grouplist, con);
 				// erhöhe die Runde auf Objektebene
 				Game.getInstance().setCurrentRound(
 						Game.getInstance().getCurrentRound() + 1);
