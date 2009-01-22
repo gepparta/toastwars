@@ -3,8 +3,6 @@ package toastwars.server.dao;
 import java.sql.Connection;
 import java.sql.ResultSet; //import java.sql.ResultSetMetaData;
 import java.sql.Statement;
-import toastwars.server.datamodel.core.Game;
-import toastwars.server.datamodel.core.Stock;
 
 public class DAOScenario
 {
