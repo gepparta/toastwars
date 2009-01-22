@@ -23,13 +23,13 @@ public class DAOCompany {
 			int marketShare = company.getMarketShare();
 			boolean extraReport = company.isMarketResearchReportON();
 			Statement stmt = con.createStatement();
-			String query = "UPDATE Company SET Company.turnover = " + turnover
-					+ ", Company.cost = " + cost + ", Company.profit = "
-					+ profit + ", Company.capital = " + capital
-					+ ", Company.marketShare = " + marketShare
-					+ ", Company.extraReport = " + extraReport
-					+" WHERE (((Company.round)=" + currentRound
-					+ ") AND ((Company.companyID)=" + companyID + "));";
+			String query = "UPDATE Company SET turnover = " + turnover
+					+ ", cost = " + cost + ", profit = "
+					+ profit + ", capital = " + capital
+					+ ", marketShare = " + marketShare
+					+ ", extraReport = " + extraReport
+					+" WHERE (((round)=" + currentRound
+					+ ") AND ((companyID)=" + companyID + "));";
 			stmt.execute(query);
 			ArrayList<Toaster> toasterList = company.getToasterList();
 			int size = toasterList.size();
