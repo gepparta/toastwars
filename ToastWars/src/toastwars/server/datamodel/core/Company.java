@@ -177,15 +177,16 @@ public class Company implements IsSerializable
 
 	public void calculateCost()
 	{
-		this.cost = 0;
+		double tmpCost=0;
+		this.stock.calculateTotalStockCosts();
 		for (int i = 0; i < this.toasterList.size(); i++)
 		{
 
 			toasterList.get(i).calculateCost();
-			this.stock.calculateTotalStockCosts();
-			this.cost = this.cost + toasterList.get(i).getCost()+stock.getTotalStockCosts();
+			tmpCost += toasterList.get(i).getCost();
 
 		}
+		this.setCost(this.cost+ tmpCost+stock.getTotalStockCosts());
 	}
 
 
@@ -212,26 +213,28 @@ public class Company implements IsSerializable
 
 	public void calculateProfit()
 	{
-		this.profit = 0;
-		for (int i = 0; i < this.toasterList.size(); i++)
-		{
-
-			toasterList.get(i).calculateProfit();
-			this.profit = this.profit + toasterList.get(i).getProfit();
-
-		}
-
+//		@Michi : Ist nicht nötig da bereits berechnet worden in Game.simulate
+//		double tmpProfit = 0;
+//		for (int i = 0; i < this.toasterList.size(); i++)
+//		{
+//
+//			toasterList.get(i).calculateProfit();
+//			tmpProfit = tmpProfit + toasterList.get(i).getProfit();
+//
+//		}
+		this.setProfit(this.getTurnover()-this.getCost());
 	}
 
 	public void calculateTurnover()
 	{
-		this.turnover = 0;
+		double tmpTurnover = 0;
 		for (int i = 0; i < this.toasterList.size(); i++)
 		{
 
 			toasterList.get(i).calculateTurnover();
-			this.turnover = this.turnover + toasterList.get(i).getTurnover();
+			tmpTurnover = tmpTurnover + toasterList.get(i).getTurnover();
 		}
+		this.setTurnover(tmpTurnover);
 	}
 
 	public void accumulateToasterValues()
