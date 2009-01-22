@@ -31,6 +31,19 @@ public class DAOUser
 			return false;
 	}
 
+	
+	public static boolean archiveUser(Group group, Connection con)
+	{
+		DAOCompany daoCompany = new DAOCompany();
+		Company company = group.getCompany();
+		String username = group.getUsername();
+		boolean b1 = changeStatus(username, group.getStatus().name(), con);
+		boolean b2 = daoCompany.updateCompany(company, con);
+		if (b1 == true && b2 == true)
+			return true;
+		else
+			return false;
+	}
 	// test
 
 	public static boolean saveUser(Group group, Connection con)
@@ -160,7 +173,7 @@ public class DAOUser
 		try
 		{
 			Statement stmt = con.createStatement();
-			String sql = "UPDATE User SET User.Status = '" + status + "' WHERE (((User.UserName)='" + username + "'));";
+			String sql = "UPDATE User SET Status = '" + status + "' WHERE (((UserName)='" + username + "'));";
 
 			stmt.execute(sql);
 			stmt.close();
