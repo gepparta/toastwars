@@ -117,7 +117,9 @@ public class Game implements IsSerializable {
 		Toaster toaster2;
 		Company company;
 		Company company2;
-
+		ArrayList<Number> sortedIndexListTyp = null;
+		int stockValue = 0;
+		
 		while (again) {
 			again = false;
 			// Schleife über alle Companies
@@ -187,25 +189,35 @@ public class Game implements IsSerializable {
 							// (sortedIndexList).
 							// Nun muss zwischen Typen differenziert werden.
 
-							if (toaster.getType() == Type.TYPE1) {
+							
+							if (toaster.getType() == Type.TYPE1) {sortedIndexListTyp=sortedIndexListTyp1;}
+							if (toaster.getType() == Type.TYPE2) {sortedIndexListTyp=sortedIndexListTyp2;}
+							if (toaster.getType() == Type.TYPE3) {sortedIndexListTyp=sortedIndexListTyp3;}
+							
+							
+
 								// Schleife über alle Companies
-								for (int k = 0; k < sortedIndexListTyp1.size(); k++) {
+								for (int k = 0; k < sortedIndexListTyp.size(); k++) {
 
 									// TODO
 									company2 = groupList.get(
-											sortedIndexListTyp1.get(k)
+											sortedIndexListTyp.get(k)
 													.intValue() - 1)
 											.getCompany();
 									toaster2 = groupList.get(
-											sortedIndexListTyp1.get(k)
+											sortedIndexListTyp.get(k)
 													.intValue() - 1)
 											.getCompany().getToasterList().get(
 													j);
+									
+									if (toaster.getType() == Type.TYPE1) {stockValue = company2.getStock().getStockTT1();}
+									if (toaster.getType() == Type.TYPE2) {stockValue = company2.getStock().getStockTT2();}
+									if (toaster.getType() == Type.TYPE3) {stockValue = company2.getStock().getStockTT3();}
 
 									// Wenn die folgende Company alle Toaster
 									// die noch fehlen zusätzlich absetzten
 									// kann.
-									if (company2.getStock().getStockTT1()
+									if (stockValue
 											+ (toaster2.getProduction() - toaster2
 													.getMarketShare()) >= unavailable) {
 
@@ -217,22 +229,20 @@ public class Game implements IsSerializable {
 										break;
 									}
 									// Falls diese einen Teil übernehmen kann.
-									else if (company2.getStock().getStockTT1()
+									else if (stockValue
 											+ toaster2.getProduction()
 											- toaster2.getMarketShare() > 0)
 
 									{
 										unavailable = unavailable
-												- (company2.getStock()
-														.getStockTT1() + (toaster2
+												- (stockValue + (toaster2
 														.getProduction() - toaster2
 														.getMarketShare()));
 
 										toaster2
 												.setMarketShare(toaster2
 														.getMarketShare()
-														+ (company2.getStock()
-																.getStockTT1() + (toaster2
+														+ (stockValue + (toaster2
 																.getProduction() - toaster2
 																.getMarketShare())));
 										// Wenn eine derartige Umverteilung des
@@ -248,131 +258,7 @@ public class Game implements IsSerializable {
 
 								}// for
 
-							}// if ToasterTyp
 
-							if (toaster.getType() == Type.TYPE2) {
-								// Schleife über alle Companies
-								for (int k = 0; k < sortedIndexListTyp2.size(); k++) {
-
-									// TODO
-									company2 = groupList.get(
-											sortedIndexListTyp2.get(k)
-													.intValue() - 1)
-											.getCompany();
-									toaster2 = groupList.get(
-											sortedIndexListTyp2.get(k)
-													.intValue() - 1)
-											.getCompany().getToasterList().get(
-													j);
-
-									// Wenn die folgende Company alle Toaster
-									// die noch fehlen zusätzlich absetzten
-									// kann.
-									if (company2.getStock().getStockTT2()
-											+ (toaster2.getProduction() - toaster2
-													.getMarketShare()) >= unavailable) {
-
-										toaster2.setMarketShare(unavailable
-												+ toaster2.getMarketShare());
-										unavailable = 0;
-
-										again = true;
-										break;
-									}
-									// Falls diese einen Teil übernehmen kann.
-									else if (company2.getStock().getStockTT2()
-											+ toaster2.getProduction()
-											- toaster2.getMarketShare() > 0)
-
-									{
-										unavailable = unavailable
-												- (company2.getStock()
-														.getStockTT2() + (toaster2
-														.getProduction() - toaster2
-														.getMarketShare()));
-
-										toaster2
-												.setMarketShare(toaster2
-														.getMarketShare()
-														+ (company2.getStock()
-																.getStockTT2() + (toaster2
-																.getProduction() - toaster2
-																.getMarketShare())));
-										// Wenn eine derartige Umverteilung des
-										// Marketshares statt findet, muss
-										// garantiert werden, dass
-										// die Company die den erhöhten
-										// MarketShare hat und die Toaster
-										// gegebenenfalls auf Lager noch einmal
-										// von diesem Algortihmus geprüft wird.
-										again = true;
-
-									}// else
-
-								}// for
-
-							}// if ToasterTyp
-
-							if (toaster.getType() == Type.TYPE3) {
-								// Schleife über alle Companies
-								for (int k = 0; k < sortedIndexListTyp3.size(); k++) {
-
-									// TODO
-									company2 = groupList.get(
-											sortedIndexListTyp3.get(k)
-													.intValue() - 1)
-											.getCompany();
-									toaster2 = groupList.get(
-											sortedIndexListTyp3.get(k)
-													.intValue() - 1)
-											.getCompany().getToasterList().get(
-													j);
-
-									// Wenn die folgende Company alle Toaster
-									// die noch fehlen zusätzlich absetzten
-									// kann.
-									if (company2.getStock().getStockTT3()
-											+ (toaster2.getProduction() - toaster2
-													.getMarketShare()) >= unavailable) {
-
-										toaster2.setMarketShare(unavailable
-												+ toaster2.getMarketShare());
-										unavailable = 0;
-
-										again = true;
-										break;
-									}
-									// Falls diese einen Teil übernehmen kann.
-									else if (company2.getStock().getStockTT3()
-											+ toaster2.getProduction()
-											- toaster2.getMarketShare() > 0)
-
-									{
-										unavailable = unavailable
-												- (company2.getStock()
-														.getStockTT3() + (toaster2
-														.getProduction() - toaster2
-														.getMarketShare()));
-
-										toaster2
-												.setMarketShare(toaster2
-														.getMarketShare()
-														+ (company2.getStock()
-																.getStockTT3() + (toaster2
-																.getProduction() - toaster2
-																.getMarketShare())));
-										// Wenn eine derartige Umverteilung des
-										// Marketshares statt findet, muss
-										// garantiert werden, dass
-										// die Company die den erhöhten
-										// MarketShare hat und die Toaster
-										// gegebenenfalls auf Lager noch einmal
-										// von diesem Algortihmus geprüft wird.
-										again = true;
-
-									}// else
-								}// for
-							}// if ToasterTyp
 						}// If Gesamt
 					}// if Unterproduktion
 				}// for innen
