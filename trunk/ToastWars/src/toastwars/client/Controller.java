@@ -25,6 +25,7 @@ public class Controller {
 
 	private IUser				user;
 	private Game				game;
+	private ArrayList<Toaster>	newToasterList;
 
 	// Benutzer-Parameter
 	public static final int		SPIELLEITER	= 1;
@@ -55,8 +56,10 @@ public class Controller {
 				if (result != null) {
 					if (result instanceof Group)
 						getCurrentGame();
-					else if (result instanceof Master)
+					else if (result instanceof Master) {
+						game = ((Master) result).getCurrentGame();
 						loginWindow.loginSuccess(result);
+					}
 				} else
 					loginWindow.loginFailure();
 
@@ -181,6 +184,7 @@ public class Controller {
 
 	public void createNewToaster(ArrayList<Toaster> toasterList)
 			throws Exception {
+		newToasterList = toasterList;
 		ToastWarsServiceAsync service = ToastWarsService.Util.getInstance();
 
 		AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {
@@ -195,7 +199,7 @@ public class Controller {
 						throw new Exception(
 								"Waldi: Toaster konnte nicht erzeugt werden");
 					}
-
+					newToasterList.clear();
 					save();
 				} catch (Exception e) {
 					e.printStackTrace();

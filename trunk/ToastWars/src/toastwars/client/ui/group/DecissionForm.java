@@ -34,14 +34,14 @@ public class DecissionForm extends Panel {
 	private Toaster					toaster;
 	private Type					type;
 	private Panel					newPanel;
-	private ArrayList<Toaster>		toasterList;
+	private ArrayList<Toaster>		newToasterList;
 
 	public DecissionForm(Button[] buttons, NumberField capital, Object o,
-			ArrayList<Toaster> toasterList) {
+			ArrayList<Toaster> newToasterList) {
 
 		setBorder(false);
 
-		this.toasterList = toasterList;
+		this.newToasterList = newToasterList;
 		company = ((Group) Controller.getInstance().getUser()).getCompany();
 
 		this.buttons = buttons;
@@ -73,7 +73,7 @@ public class DecissionForm extends Panel {
 							e1.printStackTrace();
 						}
 						company.getToasterList().add(toaster);
-						toasterList.add(toaster);
+						newToasterList.add(toaster);
 						createContent();
 					}
 				}));
