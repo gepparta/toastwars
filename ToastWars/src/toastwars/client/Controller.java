@@ -9,6 +9,7 @@ import toastwars.client.ui.master.MasterPanel;
 import toastwars.client.ui.master.StartGameWindow;
 import toastwars.server.datamodel.core.Game;
 import toastwars.server.datamodel.core.Toaster;
+import toastwars.server.datamodel.core.Type;
 import toastwars.server.datamodel.user.Group;
 import toastwars.server.datamodel.user.IUser;
 import toastwars.server.datamodel.user.Master;
@@ -75,9 +76,12 @@ public class Controller {
 			public void onSuccess(Game result) {
 				game = result;
 
-				if (game != null)
+				if (game != null) {
+					Type.TYPE1.setMarketVolumeTT1(game.getUserAmount());
+					Type.TYPE2.setMarketVolumeTT2(game.getUserAmount());
+					Type.TYPE3.setMarketVolumeTT3(game.getUserAmount());
 					loginWindow.loginSuccess(user);
-				else
+				} else
 					loginWindow.loginFailure();
 			}
 		};
@@ -151,7 +155,7 @@ public class Controller {
 			}
 
 			public void onSuccess(Game result) {
-				((Master) user).setGame(result);
+				game = result;
 				MasterPanel.getInstance().simulate(result);
 			}
 		};

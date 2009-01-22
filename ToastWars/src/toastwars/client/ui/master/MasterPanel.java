@@ -53,7 +53,7 @@ public class MasterPanel extends Panel {
 
 	private MasterPanel() {
 
-		game = ((Master) Controller.getInstance().getUser()).getCurrentGame();
+		game = Controller.getInstance().getGame();
 		if (game != null) {
 			groupList = game.getGroupList();
 			round = " in der Runde " + game.getCurrentRound();
