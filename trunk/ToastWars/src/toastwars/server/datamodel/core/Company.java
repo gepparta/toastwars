@@ -213,15 +213,10 @@ public class Company implements IsSerializable
 
 	public void calculateProfit()
 	{
-//		@Michi : Ist nicht nötig da bereits berechnet worden in Game.simulate
-//		double tmpProfit = 0;
-//		for (int i = 0; i < this.toasterList.size(); i++)
-//		{
-//
-//			toasterList.get(i).calculateProfit();
-//			tmpProfit = tmpProfit + toasterList.get(i).getProfit();
-//
-//		}
+		for (Toaster toaster : this.getToasterList())
+		{
+			toaster.calculateProfit();
+		} 
 		this.setProfit(this.getTurnover()-this.getCost());
 	}
 
