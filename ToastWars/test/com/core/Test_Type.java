@@ -50,7 +50,7 @@ public class Test_Type extends TestCase {
 	@Test
 	public void testGetMarketVolume() {
 		assertNotNull(type1.getMarketVolume());
-		assertEquals(10000, type1.getMarketVolume());
+		assertEquals(0, type1.getMarketVolume());
 
 	}
 
@@ -64,7 +64,7 @@ public class Test_Type extends TestCase {
 	@Test
 	public void testGetVariableCost() {
 		assertNotNull(type1.getVariableCosts());
-		assertEquals(3.00, type1.getVariableCosts());
+		assertEquals(2.00, type1.getVariableCosts());
 
 	}
 
@@ -78,9 +78,67 @@ public class Test_Type extends TestCase {
 	@Test
 	public void testGetCapacity() {
 		assertNotNull(type1.getCapacity());
-		assertEquals(2000, type1.getCapacity());
+		assertEquals(4000, type1.getCapacity());
 
 	}
+	
+	@Test
+	public void testGetMinPrice() {
+		assertNotNull(type1.getMinPrice());
+		assertEquals(5, type1.getMinPrice());
+
+	}
+	
+	@Test
+	public void testGetMaxPrice() {
+		assertNotNull(type1.getMaxPrice());
+		assertEquals(20, type1.getMaxPrice());
+
+	}
+	
+	@Test
+	public void testGetTvInvestmentPlus() {
+		assertNotNull(type1.getTvInvestmentPlus());
+		assertEquals(20000.00, type1.getTvInvestmentPlus());
+
+	}
+	
+	@Test
+	public void testGetRadioInvestmentPlus() {
+		assertNotNull(type1.getRadioInvestmentPlus());
+		assertEquals(10000.00, type1.getRadioInvestmentPlus());
+
+	}
+	
+	@Test
+	public void testGetNewspaperInvestmentPlus() {
+		assertNotNull(type1.getNewspaperInvestmentPlus());
+		assertEquals(5000.00, type1.getNewspaperInvestmentPlus());
+
+	}
+	
+	@Test
+	public void testGetQualityInvestmentPlus() {
+		assertNotNull(type1.getQualityInvestmentPlus());
+		assertEquals(5000.00, type1.getQualityInvestmentPlus());
+
+	}
+	
+	@Test
+	public void testGetDesignInvestmentPlus() {
+		assertNotNull(type1.getDesignInvestmentPlus());
+		assertEquals(5000.00, type1.getDesignInvestmentPlus());
+
+	}
+	
+	@Test
+	public void testGetEcologyInvestmentPlus() {
+		assertNotNull(type1.getEcologyInvestmentPlus());
+		assertEquals(5000.00, type1.getEcologyInvestmentPlus());
+
+	}
+	
+
 
 	// Test der Klassenwerte
 	@Test
@@ -102,25 +160,60 @@ public class Test_Type extends TestCase {
 		assertEquals(0.08, type2.getRandom());
 		assertEquals(0.1, type3.getRandom());
 
-		assertEquals(10000, type1.getMarketVolume());
-		assertEquals(6000, type2.getMarketVolume());
-		assertEquals(2500, type3.getMarketVolume());
+		assertEquals(0, type1.getMarketVolume());
+		assertEquals(0, type2.getMarketVolume());
+		assertEquals(0, type3.getMarketVolume());
 
 		assertEquals(10000.00, type1.getFixCosts());
 		assertEquals(20000.00, type2.getFixCosts());
 		assertEquals(25000.00, type3.getFixCosts());
 
-		assertEquals(3.00, type1.getVariableCosts());
-		assertEquals(15.00, type2.getVariableCosts());
+		assertEquals(2.00, type1.getVariableCosts());
+		assertEquals(10.00, type2.getVariableCosts());
 		assertEquals(40.00, type3.getVariableCosts());
 
 		assertEquals(1000.00, type1.getStepCosts());
 		assertEquals(5000.00, type2.getStepCosts());
 		assertEquals(8000.00, type3.getStepCosts());
 
-		assertEquals(2000, type1.getCapacity());
-		assertEquals(1000, type2.getCapacity());
+		assertEquals(4000, type1.getCapacity());
+		assertEquals(2000, type2.getCapacity());
 		assertEquals(500, type3.getCapacity());
+		
+		assertEquals(5, type1.getMinPrice());
+		assertEquals(30, type2.getMinPrice());
+		assertEquals(130, type3.getMinPrice());
+		
+		assertEquals(20, type1.getMaxPrice());
+		assertEquals(60, type2.getMaxPrice());
+		assertEquals(200, type3.getMaxPrice());
+		
+		
+		assertEquals(20000.00, type1.getTvInvestmentPlus());
+		assertEquals(30000.00, type2.getTvInvestmentPlus());
+		assertEquals(40000.00, type3.getTvInvestmentPlus());
+		
+		assertEquals(10000.00, type1.getRadioInvestmentPlus());
+		assertEquals(20000.00, type2.getRadioInvestmentPlus());
+		assertEquals(30000.00, type3.getRadioInvestmentPlus());
+		
+		assertEquals(5000.00, type1.getNewspaperInvestmentPlus());
+		assertEquals(10000.00, type2.getNewspaperInvestmentPlus());
+		assertEquals(20000.00, type3.getNewspaperInvestmentPlus());
+		
+		assertEquals(5000.00, type1.getQualityInvestmentPlus());
+		assertEquals(10000.00, type2.getQualityInvestmentPlus());
+		assertEquals(15000.00, type3.getQualityInvestmentPlus());
+		
+		assertEquals(5000.00, type1.getDesignInvestmentPlus());
+		assertEquals(10000.00, type2.getDesignInvestmentPlus());
+		assertEquals(15000.00, type3.getDesignInvestmentPlus());
+		
+		assertEquals(5000.00, type1.getEcologyInvestmentPlus());
+		assertEquals(10000.00, type2.getEcologyInvestmentPlus());
+		assertEquals(15000.00, type3.getEcologyInvestmentPlus());
+		
+
 	}
 
 	// Test der Set-Methoden
@@ -173,5 +266,77 @@ public class Test_Type extends TestCase {
 		type1.setCapacity(8000);
 		assertEquals(8000, type1.getCapacity());
 	}
+	
+	@Test
+	public void testSetMinPrice() {
+		assertNotSame(10, type1.getMinPrice());
+		type1.setMinPrice(10);
+		assertEquals(10, type1.getMinPrice());
+	}
+	@Test
+	public void testSetMaxPrice() {
+		assertNotSame(100, type1.getMaxPrice());
+		type1.setMaxPrice(100);
+		assertEquals(100, type1.getMaxPrice());
+	}
+	@Test
+	public void testSetTvInvestmentPlus() {
+		assertNotSame(100.00, type1.getTvInvestmentPlus());
+		type1.setTvInvestmentPlus(100.00);
+		assertEquals(100.00, type1.getTvInvestmentPlus());
+	}
+	
+	@Test
+	public void testSetRadioInvestmentPlus() {
+		assertNotSame(100.00, type1.getRadioInvestmentPlus());
+		type1.setRadioInvestmentPlus(100.00);
+		assertEquals(100.00, type1.getRadioInvestmentPlus());
+	}
+	@Test
+	public void testSetNewspaperInvestmentPlus() {
+		assertNotSame(100.00, type1.getNewspaperInvestmentPlus());
+		type1.setNewspaperInvestmentPlus(100.00);
+		assertEquals(100.00, type1.getNewspaperInvestmentPlus());
+	}
+	@Test
+	public void testSetQualityInvestmentPlus() {
+		assertNotSame(100.00, type1.getQualityInvestmentPlus());
+		type1.setQualityInvestmentPlus(100.00);
+		assertEquals(100.00, type1.getQualityInvestmentPlus());
+	}
+
+	@Test
+	public void testSetDesignInvestmentPlus() {
+		assertNotSame(100.00, type1.getDesignInvestmentPlus());
+		type1.setDesignInvestmentPlus(100.00);
+		assertEquals(100.00, type1.getDesignInvestmentPlus());
+	}
+	@Test
+	public void testSetEcologyInvestmentPlus() {
+		assertNotSame(100.00, type1.getEcologyInvestmentPlus());
+		type1.setEcologyInvestmentPlus(100.00);
+		assertEquals(100.00, type1.getEcologyInvestmentPlus());
+	}
+	
+	@Test
+	public void testsetMarketVolumeTT1() {
+		assertNotSame(10914, type1.getMarketVolume());
+		type1.setMarketVolumeTT1(3);
+		assertEquals(10914, type1.getMarketVolume());
+	}
+	@Test
+	public void testSetMarketVolumeTT2() {
+		assertNotSame(5428, type2.getMarketVolume());
+		type2.setMarketVolumeTT2(3);
+		assertEquals(5428, type2.getMarketVolume());
+	}
+	@Test
+	public void testSetMarketVolumeTT3() {
+		assertNotSame(1989, type3.getMarketVolume());
+		type3.setMarketVolumeTT3(3);
+		assertEquals(1989, type3.getMarketVolume());
+	}
+	
+
 
 }// Test Type
