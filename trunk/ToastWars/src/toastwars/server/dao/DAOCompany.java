@@ -24,11 +24,10 @@ public class DAOCompany {
 			boolean extraReport = company.isMarketResearchReportON();
 			Statement stmt = con.createStatement();
 			String query = "UPDATE Company SET turnover = " + turnover
-					+ ", cost = " + cost + ", profit = "
-					+ profit + ", capital = " + capital
-					+ ", marketShare = " + marketShare
-					+ ", extraReport = " + extraReport
-					+" WHERE (((round)=" + currentRound
+					+ ", cost = " + cost + ", profit = " + profit
+					+ ", capital = " + capital + ", marketShare = "
+					+ marketShare + ", extraReport = " + extraReport
+					+ " WHERE (((round)=" + currentRound
 					+ ") AND ((companyID)=" + companyID + "));";
 			stmt.execute(query);
 			ArrayList<Toaster> toasterList = company.getToasterList();
@@ -62,7 +61,8 @@ public class DAOCompany {
 			Statement stmt = con.createStatement();
 			String query = "INSERT INTO Company VALUES (" + currentRound + ","
 					+ companyID + "," + turnover + "," + cost + "," + profit
-					+ "," + capital + "," + marketShare + ","+ extraReport+");";
+					+ "," + capital + "," + marketShare + "," + extraReport
+					+ ");";
 			stmt.execute(query);
 			ArrayList<Toaster> toasterList = company.getToasterList();
 			int size = toasterList.size();
@@ -85,7 +85,8 @@ public class DAOCompany {
 
 		try {
 			// Abfrage definieren
-			int currentRound = Game.getInstance().getCurrentRound();
+			int currentRound = 1;
+			// Game.getInstance().getCurrentRound();
 			String query = "SELECT * FROM Company WHERE companyID = "
 					+ companyID + " AND Round = " + currentRound + ";";
 			Statement stmt = con.createStatement();
@@ -98,8 +99,9 @@ public class DAOCompany {
 				companyID = rst.getInt(2);
 				Company company = new Company(companyID, rst.getDouble(3), rst
 						.getDouble(4), rst.getDouble(5), rst.getDouble(6), rst
-						.getInt(7),stock.getActualStockFromCompany(companyID, con), toaster.getActualToasterFromCompany(
-						companyID, con));
+						.getInt(7), stock.getActualStockFromCompany(companyID,
+						con), toaster.getActualToasterFromCompany(companyID,
+						con));
 				extraReport = rst.getBoolean(8);
 				company.setMarketResearchReportON(extraReport);
 				rst.close();
@@ -115,7 +117,9 @@ public class DAOCompany {
 			return null;
 		}
 	}
-	public Company getCompanyByRound(Connection con, Integer companyID, Integer round) {
+
+	public Company getCompanyByRound(Connection con, Integer companyID,
+			Integer round) {
 
 		try {
 			// Abfrage definieren
@@ -131,8 +135,8 @@ public class DAOCompany {
 				companyID = rst.getInt(2);
 				Company company = new Company(companyID, rst.getDouble(3), rst
 						.getDouble(4), rst.getDouble(5), rst.getDouble(6), rst
-						.getInt(7), stock.getStockFromCompanyByRound(companyID, con, round) 
-						,toaster.getToasterFromCompanyByRound(
+						.getInt(7), stock.getStockFromCompanyByRound(companyID,
+						con, round), toaster.getToasterFromCompanyByRound(
 						companyID, con, round));
 				extraReport = rst.getBoolean(8);
 				company.setMarketResearchReportON(extraReport);
