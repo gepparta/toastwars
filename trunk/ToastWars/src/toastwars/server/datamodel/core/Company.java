@@ -254,11 +254,16 @@ public class Company implements IsSerializable
 	// und anschlieﬂend das eigene Company Attribut gesetzt.
 	public void calculateProfit()
 	{
-		for (Toaster toaster : this.getToasterList())
+
+		double tmpProfit = 0;
+		for (int i = 0; i < this.toasterList.size(); i++)
 		{
-			toaster.calculateProfit();
-		} 
-		this.setProfit(this.getTurnover()-this.getCost());
+
+			toasterList.get(i).calculateProfit();
+			tmpProfit = tmpProfit + toasterList.get(i).getProfit();
+		}
+		this.setProfit(tmpProfit);
+
 	}
 
 	// In dieser Methode wird f¸r jeden Toaster dieser Company die Errechnung des Umsatzes ausgef¸hrt
@@ -273,6 +278,7 @@ public class Company implements IsSerializable
 			tmpTurnover = tmpTurnover + toasterList.get(i).getTurnover();
 		}
 		this.setTurnover(tmpTurnover);
+
 	}
 // In dieser Methode werden die Investitionen dieser Company f¸r alle Toaster kumuliert.
 	public void accumulateToasterValues()
