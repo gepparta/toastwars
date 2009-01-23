@@ -33,29 +33,7 @@ public class Toaster implements IsSerializable {
 	// Konstruktoren
 	public Toaster() {
 	}
-	//	@deprecated
-//	use for tests only for tests
-	public Toaster(double price, double marketing, double tvInvestment, double newsPaperInvestment, double radioInvestment, double research, double quality, double design,
-			double efficiency, double index, double turnover, double cost, double profit, int marketShare, Type type)
-	{
 
-		this.price = price;
-		this.marketing = marketing;
-		this.tvInvestment = tvInvestment;
-		this.newspaperInvestment = newsPaperInvestment;
-		this.radioInvestment = radioInvestment;
-		this.research = research;
-		this.qualityInvestment = quality;
-		this.designInvestment = design;
-		this.ecologyInvestment = efficiency;
-		this.index = index;
-		this.turnover = turnover;
-		this.cost = cost;
-		this.profit = profit;
-		this.marketShare = marketShare;
-		this.type = type;
-
-	}
 
 	public Toaster(double price, double index, double turnover, double cost,
 			double profit, int marketShare, Type type, double marketing,
@@ -87,33 +65,8 @@ public class Toaster implements IsSerializable {
 		this.designInvestmentKum = designInvestmentKum;
 		this.ecologyInvestmentKum = ecologyInvestmentKum;
 	}
-
-	// Konstruktoren zum Testen
-
-	// @deprecated
-	// use for tests only for tests
-	public Toaster(int toasterID, double price, double marketing,
-			double tvInvestment, double newsPaperInvestment,
-			double radioInvestment, double research, double quality,
-			double design, double efficiency, double index, double turnover,
-			double cost, double profit, int marketShare, Type type) {
-		this.price = price;
-		this.marketing = marketing;
-		this.tvInvestment = tvInvestment;
-		this.newspaperInvestment = newsPaperInvestment;
-		this.radioInvestment = radioInvestment;
-		this.research = research;
-		this.qualityInvestment = quality;
-		this.designInvestment = design;
-		this.ecologyInvestment = efficiency;
-		this.index = index;
-		this.turnover = turnover;
-		this.cost = cost;
-		this.profit = profit;
-		this.marketShare = marketShare;
-		this.type = type;
-	}
-
+	
+	
 	public Toaster(int toasterID, double price, double index, double turnover,
 			double cost, double profit, int marketShare, Type type,
 			double marketing, double tvInvestment, double newspaperInvestment,
@@ -144,6 +97,58 @@ public class Toaster implements IsSerializable {
 		this.designInvestmentKum = designInvestmentKum;
 		this.ecologyInvestmentKum = ecologyInvestmentKum;
 	}
+
+
+	// Konstruktoren zum Testen
+
+	// @deprecated
+	// use for tests only for tests
+//	public Toaster(int toasterID, double price, double marketing,
+//			double tvInvestment, double newsPaperInvestment,
+//			double radioInvestment, double research, double quality,
+//			double design, double efficiency, double index, double turnover,
+//			double cost, double profit, int marketShare, Type type) {
+//		this.price = price;
+//		this.marketing = marketing;
+//		this.tvInvestment = tvInvestment;
+//		this.newspaperInvestment = newsPaperInvestment;
+//		this.radioInvestment = radioInvestment;
+//		this.research = research;
+//		this.qualityInvestment = quality;
+//		this.designInvestment = design;
+//		this.ecologyInvestment = efficiency;
+//		this.index = index;
+//		this.turnover = turnover;
+//		this.cost = cost;
+//		this.profit = profit;
+//		this.marketShare = marketShare;
+//		this.type = type;
+//	}
+//	
+//	//	@deprecated
+////	use for tests only for tests
+//	public Toaster(double price, double marketing, double tvInvestment, double newsPaperInvestment, double radioInvestment, double research, double quality, double design,
+//			double efficiency, double index, double turnover, double cost, double profit, int marketShare, Type type)
+//	{
+//
+//		this.price = price;
+//		this.marketing = marketing;
+//		this.tvInvestment = tvInvestment;
+//		this.newspaperInvestment = newsPaperInvestment;
+//		this.radioInvestment = radioInvestment;
+//		this.research = research;
+//		this.qualityInvestment = quality;
+//		this.designInvestment = design;
+//		this.ecologyInvestment = efficiency;
+//		this.index = index;
+//		this.turnover = turnover;
+//		this.cost = cost;
+//		this.profit = profit;
+//		this.marketShare = marketShare;
+//		this.type = type;
+//
+//	}
+
 
 
 
