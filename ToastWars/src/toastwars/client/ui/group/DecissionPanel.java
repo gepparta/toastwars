@@ -12,12 +12,14 @@ import toastwars.server.datamodel.user.Status;
 import com.gwtext.client.core.EventObject;
 import com.gwtext.client.core.Position;
 import com.gwtext.client.widgets.Button;
+import com.gwtext.client.widgets.Component;
 import com.gwtext.client.widgets.MessageBox;
 import com.gwtext.client.widgets.Panel;
 import com.gwtext.client.widgets.TabPanel;
 import com.gwtext.client.widgets.event.ButtonListenerAdapter;
 import com.gwtext.client.widgets.form.Checkbox;
 import com.gwtext.client.widgets.form.FormPanel;
+import com.gwtext.client.widgets.form.Label;
 import com.gwtext.client.widgets.form.NumberField;
 import com.gwtext.client.widgets.layout.HorizontalLayout;
 import com.gwtext.client.widgets.layout.VerticalLayout;
@@ -53,6 +55,11 @@ public class DecissionPanel extends Panel {
 		setButtonAlign(Position.CENTER);
 		setLayout(new VerticalLayout(5));
 
+		if (group.getStatus() == Status.INACTIVE) {
+			createBurntPanel();
+			return;
+		}
+
 		createButtons();
 
 		Panel middlePanel = createMiddlePanel();
@@ -63,6 +70,27 @@ public class DecissionPanel extends Panel {
 		addButton(btnEnd);
 
 		disableSlidersAndButtons();
+	}
+
+	private void createBurntPanel() {
+		Panel burntPanel = new Panel();
+		burntPanel.setLayout(new VerticalLayout(15));
+		burntPanel.setStyle("text-align: center;");
+		burntPanel.setWidth(965);
+
+		Panel imagePanel = new Panel();
+		imagePanel.setStyle("background: url(images/toast_transparent.gif) "
+				+ "width: 300px;");
+		imagePanel.setSize(300, 300);
+		burntPanel.add(imagePanel);
+
+		Label label = new Label("Sie sind abgebrannt!");
+		label.setStyle("font:bold 14px tahoma,arial,verdana,sans-serif;"
+				+ "text-align: center;");
+		label.setWidth(300);
+		burntPanel.add(label);
+
+		add(burntPanel);
 	}
 
 	private TabPanel createDecissionForms() {
