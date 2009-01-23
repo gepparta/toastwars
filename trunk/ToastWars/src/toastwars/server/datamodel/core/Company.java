@@ -114,6 +114,24 @@ public class Company implements IsSerializable
 		return turnover;
 	}
 
+	public ArrayList<List<String>> getReportListe()
+	{
+		return reportListe;
+	}
+	// @gwt.typeArgs <Number>
+	public ArrayList<Number> getProfitRankingList()
+	{
+		return profitRankingList;
+	}
+	public ArrayList<Number> getCapitalRankingInternList()
+	{
+		return capitalRankingInternList;
+	}
+	
+	public boolean isMarketResearchReportON()
+	{
+		return marketResearchReportON;
+	}
 	
 	//Set-Methoden
 	
@@ -164,17 +182,37 @@ public class Company implements IsSerializable
 		this.turnover = turnover;
 	}
 
+	public void setReportListe(ArrayList<List<String>> reportListe)
+	{
+		this.reportListe = reportListe;
+	}
+
+
+	public void setProfitRankingList(ArrayList<Number> profitRankingList)
+	{
+		this.profitRankingList = profitRankingList;
+	}
+
+
+	public void setCapitalRankingInternList(ArrayList<Number> capitalRankingInternList)
+	{
+		this.capitalRankingInternList = capitalRankingInternList;
+	}
+	
 	
 	//Berechnende Methoden
 
 	
+	
+	// In dieser Methode wird der Gewinn zum Kapital addiert.
 	public void calculateCapital()
 	{
 
 		this.capital = this.capital + this.profit;
 
 	}
-
+	// In dieser Methode werden alle Kosten der einzelnen Toaster ermittelt, diese addiert und das 
+	// Attribut der Company gesetzt.
 	public void calculateCost()
 	{
 		double tmpCost=0;
@@ -189,7 +227,7 @@ public class Company implements IsSerializable
 		this.setCost(this.cost+ tmpCost+stock.getTotalStockCosts());
 	}
 
-
+	// In dieser Methode wird die Indexberechnung aller Toaster dieser Company ausgeführt.
 	public void calculateIndex()
 	{
 		for (int i = 0; i < toasterList.size(); i++)
@@ -199,7 +237,8 @@ public class Company implements IsSerializable
 	}
 
 
-
+	// In dieser Methode wird der Marktanteil aller Toaster dieser Company errechnet, anschließend
+	// addiert und das entsprechende Company Attribut gesetzt.
 	public void calculateMarketShares(double[] indexSums)
 	{
 		this.marketShare = 0;
@@ -211,6 +250,8 @@ public class Company implements IsSerializable
 		}
 	}
 
+	// In dieser Methode wird für jeden Toaster dieser Company die Errechnung des Gewinns ausgeführt
+	// und anschließend das eigene Company Attribut gesetzt.
 	public void calculateProfit()
 	{
 		for (Toaster toaster : this.getToasterList())
@@ -220,6 +261,8 @@ public class Company implements IsSerializable
 		this.setProfit(this.getTurnover()-this.getCost());
 	}
 
+	// In dieser Methode wird für jeden Toaster dieser Company die Errechnung des Umsatzes ausgeführt
+	// und anschließend das eigene Company Attribut gesetzt.
 	public void calculateTurnover()
 	{
 		double tmpTurnover = 0;
@@ -231,11 +274,10 @@ public class Company implements IsSerializable
 		}
 		this.setTurnover(tmpTurnover);
 	}
-
+// In dieser Methode werden die Investitionen dieser Company für alle Toaster kumuliert.
 	public void accumulateToasterValues()
 	{
-		// kommulieren der investitionen des users
-		// wird für die exakte berechnung beim simulieren benötigt
+		
 		for (int i = 0; i < this.getToasterList().size(); i++)
 		{
 			this.getToasterList().get(i).setDesignInvestmentKum();
@@ -248,11 +290,9 @@ public class Company implements IsSerializable
 	}
 	
 	
-	public boolean isMarketResearchReportON()
-	{
-		return marketResearchReportON;
-	}
 
+
+// Methoden für das Testen der anderen Methoden
 	public String toString()
 	{
 
@@ -261,36 +301,9 @@ public class Company implements IsSerializable
 		return s;
 	}
 
-	public ArrayList<List<String>> getReportListe()
-	{
-		return reportListe;
-	}
 
-	public void setReportListe(ArrayList<List<String>> reportListe)
-	{
-		this.reportListe = reportListe;
-	}
 
-	// @gwt.typeArgs <Number>
-	public ArrayList<Number> getProfitRankingList()
-	{
-		return profitRankingList;
-	}
 
-	public void setProfitRankingList(ArrayList<Number> profitRankingList)
-	{
-		this.profitRankingList = profitRankingList;
-	}
-
-	public ArrayList<Number> getCapitalRankingInternList()
-	{
-		return capitalRankingInternList;
-	}
-
-	public void setCapitalRankingInternList(ArrayList<Number> capitalRankingInternList)
-	{
-		this.capitalRankingInternList = capitalRankingInternList;
-	}
 
 
 
