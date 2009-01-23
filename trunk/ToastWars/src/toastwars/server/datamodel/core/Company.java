@@ -9,8 +9,9 @@ public class Company implements IsSerializable
 {
 
 	//Deklaration der Attribute
-	
+
 	private static int nextCompanyID = 1;
+
 	private int companyID;
 	private double turnover;
 	private double cost;
@@ -29,7 +30,6 @@ public class Company implements IsSerializable
 	// @gwt.typeArgs <toastwars.server.datamodel.core.Toaster>
 	private ArrayList<Toaster> toasterList = new ArrayList<Toaster>();
 
-	
 	//Konstruktoren
 	public Company()
 	{
@@ -50,7 +50,8 @@ public class Company implements IsSerializable
 		reportListe = new ArrayList<List<String>>();
 	}
 
-	public Company(int companyID, double turnover, double cost, double profit, double capital, int marketShare, Stock stock, ArrayList<Toaster> toasterList)
+	public Company(int companyID, double turnover, double cost, double profit, double capital, int marketShare, Stock stock,
+			ArrayList<Toaster> toasterList)
 	{
 		this.companyID = companyID;
 
@@ -65,18 +66,13 @@ public class Company implements IsSerializable
 
 	}
 
-	
-	
-	
 	//Get Methoden
-	
 
 	public static int getNextCompanyID()
 	{
 		return nextCompanyID;
 	}
-	
-	
+
 	public double getCapital()
 	{
 		return capital;
@@ -101,9 +97,12 @@ public class Company implements IsSerializable
 	{
 		return profit;
 	}
-	public Stock getStock() {
+
+	public Stock getStock()
+	{
 		return stock;
 	}
+
 	public ArrayList<Toaster> getToasterList()
 	{
 		return toasterList;
@@ -118,23 +117,25 @@ public class Company implements IsSerializable
 	{
 		return reportListe;
 	}
+
 	// @gwt.typeArgs <Number>
 	public ArrayList<Number> getProfitRankingList()
 	{
 		return profitRankingList;
 	}
+
 	public ArrayList<Number> getCapitalRankingInternList()
 	{
 		return capitalRankingInternList;
 	}
-	
+
 	public boolean isMarketResearchReportON()
 	{
 		return marketResearchReportON;
 	}
-	
+
 	//Set-Methoden
-	
+
 	public static void setNextCompanyID(int nextCompanyID)
 	{
 		Company.nextCompanyID = nextCompanyID;
@@ -169,9 +170,12 @@ public class Company implements IsSerializable
 	{
 		this.profit = profit;
 	}
-	public void setStock(Stock stock) {
+
+	public void setStock(Stock stock)
+	{
 		this.stock = stock;
 	}
+
 	public void setToasterList(ArrayList<Toaster> toasterList)
 	{
 		this.toasterList = toasterList;
@@ -187,23 +191,18 @@ public class Company implements IsSerializable
 		this.reportListe = reportListe;
 	}
 
-
 	public void setProfitRankingList(ArrayList<Number> profitRankingList)
 	{
 		this.profitRankingList = profitRankingList;
 	}
 
-
 	public void setCapitalRankingInternList(ArrayList<Number> capitalRankingInternList)
 	{
 		this.capitalRankingInternList = capitalRankingInternList;
 	}
-	
-	
+
 	//Berechnende Methoden
 
-	
-	
 	// In dieser Methode wird der Gewinn zum Kapital addiert.
 	public void calculateCapital()
 	{
@@ -211,11 +210,12 @@ public class Company implements IsSerializable
 		this.capital = this.capital + this.profit;
 
 	}
+
 	// In dieser Methode werden alle Kosten der einzelnen Toaster ermittelt, diese addiert und das 
 	// Attribut der Company gesetzt.
 	public void calculateCost()
 	{
-		double tmpCost=0;
+		double tmpCost = 0;
 		this.stock.calculateTotalStockCosts();
 		for (int i = 0; i < this.toasterList.size(); i++)
 		{
@@ -224,7 +224,7 @@ public class Company implements IsSerializable
 			tmpCost += toasterList.get(i).getCost();
 
 		}
-		this.setCost(tmpCost+stock.getTotalStockCosts());
+		this.setCost(tmpCost + stock.getTotalStockCosts());
 	}
 
 	// In dieser Methode wird die Indexberechnung aller Toaster dieser Company ausgeführt.
@@ -235,7 +235,6 @@ public class Company implements IsSerializable
 			toasterList.get(i).calculateIndex();
 		}
 	}
-
 
 	// In dieser Methode wird der Marktanteil aller Toaster dieser Company errechnet, anschließend
 	// addiert und das entsprechende Company Attribut gesetzt.
@@ -254,16 +253,11 @@ public class Company implements IsSerializable
 	// und anschließend das eigene Company Attribut gesetzt.
 	public void calculateProfit()
 	{
-
-		double tmpProfit = 0;
-		for (int i = 0; i < this.toasterList.size(); i++)
+		for (Toaster toaster : this.getToasterList())
 		{
-
-			toasterList.get(i).calculateProfit();
-			tmpProfit = tmpProfit + toasterList.get(i).getProfit();
+			toaster.calculateProfit();
 		}
-		this.setProfit(tmpProfit);
-
+		this.setProfit(this.getTurnover() - this.getCost());
 	}
 
 	// In dieser Methode wird für jeden Toaster dieser Company die Errechnung des Umsatzes ausgeführt
@@ -278,12 +272,12 @@ public class Company implements IsSerializable
 			tmpTurnover = tmpTurnover + toasterList.get(i).getTurnover();
 		}
 		this.setTurnover(tmpTurnover);
-
 	}
+
 // In dieser Methode werden die Investitionen dieser Company für alle Toaster kumuliert.
 	public void accumulateToasterValues()
 	{
-		
+
 		for (int i = 0; i < this.getToasterList().size(); i++)
 		{
 			this.getToasterList().get(i).setDesignInvestmentKum();
@@ -294,25 +288,15 @@ public class Company implements IsSerializable
 			this.getToasterList().get(i).setTvInvestmentKum();
 		}
 	}
-	
-	
-
 
 // Methoden für das Testen der anderen Methoden
 	public String toString()
 	{
 
-		String s = "Company Eigenschaften: \n companyID \t \t" + this.getCompanyID() + "\n turnover: \t" + this.getTurnover() + "\n cost: \t" + this.getCost() + "\n profit: \t"
-				+ this.getProfit() + "\n capital: \t" + this.getCapital() + "\n market share: \t" + this.getMarketShare();
+		String s = "Company Eigenschaften: \n companyID \t \t" + this.getCompanyID() + "\n turnover: \t" + this.getTurnover() + "\n cost: \t"
+				+ this.getCost() + "\n profit: \t" + this.getProfit() + "\n capital: \t" + this.getCapital() + "\n market share: \t"
+				+ this.getMarketShare();
 		return s;
 	}
-
-
-
-
-
-
-
-
 
 }
