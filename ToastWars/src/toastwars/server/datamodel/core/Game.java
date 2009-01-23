@@ -8,22 +8,9 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class Game implements IsSerializable
 {
+	// Attribute
+	
 	private static Game instance;
-
-	// **********************Methods************************************************************
-	public static Game getInstance()
-	{
-		return instance;
-	}
-
-	public static Game getInstance(int userAmount)
-	{
-		if (instance == null)
-		{
-			instance = new Game(userAmount);
-		}
-		return instance;
-	}
 
 	private int userAmount;
 
@@ -43,20 +30,103 @@ public class Game implements IsSerializable
 	public Game()
 	{
 	}
-
+	
+	public static Game getInstance()
+	{
+		return instance;
+	}
+	
 	private Game(int userAmount)
 	{
 		this.userAmount = userAmount;
 		this.setCurrentRound(1);
 	}
+	
+	
+	//Getter
 
-	// by Alex
+	public static Game getInstance(int userAmount)
+	{
+		if (instance == null)
+		{
+			instance = new Game(userAmount);
+		}
+		return instance;
+	}
+
+	public int getCurrentRound()
+	{
+		return currentRound;
+	}
+
+	public ArrayList<Group> getGroupList()
+	{
+		return groupList;
+	}
+
+	public int getUserAmount()
+	{
+		return userAmount;
+	}
+	public ArrayList<Number> getSortedIndexListTyp1()
+	{
+		return sortedIndexListTyp1;
+	}
+
+
+
+	public ArrayList<Number> getSortedIndexListTyp2()
+	{
+		return sortedIndexListTyp2;
+	}
+	
+	public ArrayList<Number> getSortedIndexListTyp3()
+	{
+		return sortedIndexListTyp3;
+	}
+	
+	//Setter
+	public void setCurrentRound(int currentRound)
+	{
+		this.currentRound = currentRound;
+	}
+
+	public void setGroupList(ArrayList<Group> groupList)
+	{
+		this.groupList = groupList;
+	}
+
+	public void setUserAmount(int userAmount)
+	{
+		this.userAmount = userAmount;
+	}
+	public void setSortedIndexListTyp1(ArrayList<Number> sortedIndexListTyp1)
+	{
+		this.sortedIndexListTyp1 = sortedIndexListTyp1;
+	}
+	public void setSortedIndexListTyp2(ArrayList<Number> sortedIndexListTyp2)
+	{
+		this.sortedIndexListTyp2 = sortedIndexListTyp2;
+	}
+
+
+
+	public void setSortedIndexListTyp3(ArrayList<Number> sortedIndexListTyp3)
+	{
+		this.sortedIndexListTyp3 = sortedIndexListTyp3;
+	}
+	
+	// Other Methods
+
+	
+	//Hinzufügen einer Gruppe zum Spiel
 	public void addGroup(Group gr)
 	{
 		groupList.add(gr);
 	}
 
-	// by Alex
+// In dieser Methode werden die Indexsummen der einzelnen Toaster berechnet. Diese werden zur 
+	// der einzelnen Marktanteile benötigt.
 	public double[] calculateIndexSums()
 	{
 		double[] indexSums = new double[3];
@@ -80,36 +150,9 @@ public class Game implements IsSerializable
 		return indexSums;
 	}
 
-	public int getCurrentRound()
-	{
-		return currentRound;
-	}
 
-	public ArrayList<Group> getGroupList()
-	{
-		return groupList;
-	}
 
-	public int getUserAmount()
-	{
-		return userAmount;
-	}
-
-	public void setCurrentRound(int currentRound)
-	{
-		this.currentRound = currentRound;
-	}
-
-	public void setGroupList(ArrayList<Group> groupList)
-	{
-		this.groupList = groupList;
-	}
-
-	public void setUserAmount(int userAmount)
-	{
-		this.userAmount = userAmount;
-	}
-
+// Hier wird die Runde eines Spiels abgeschlossen.
 	public void completeRound(Group group)
 	{
 
@@ -287,6 +330,9 @@ public class Game implements IsSerializable
 		}// for außen
 	}// calculate MarketShares
 
+	
+	// Hier wird eine Spielrunde simuliert. Hierzu werden alle Berechnungen angestoßen
+	// und alle erforderlichen Objektattribute der Toaster und Companys gesetzt.
 	public void simulate()
 	{
 		double[] indexSums = new double[3];
@@ -320,42 +366,10 @@ public class Game implements IsSerializable
 		}
 	}
 
-	public String toString()
-	{
-		String s = "Game Eigenschaften: \n user amount: \t \t" + this.getUserAmount() + "\n current round: \t" + this.getCurrentRound();
-		return s;
-	}
-
-	public ArrayList<Number> getSortedIndexListTyp1()
-	{
-		return sortedIndexListTyp1;
-	}
-
-	public void setSortedIndexListTyp1(ArrayList<Number> sortedIndexListTyp1)
-	{
-		this.sortedIndexListTyp1 = sortedIndexListTyp1;
-	}
-
-	public ArrayList<Number> getSortedIndexListTyp2()
-	{
-		return sortedIndexListTyp2;
-	}
-
-	public void setSortedIndexListTyp2(ArrayList<Number> sortedIndexListTyp2)
-	{
-		this.sortedIndexListTyp2 = sortedIndexListTyp2;
-	}
-
-	public ArrayList<Number> getSortedIndexListTyp3()
-	{
-		return sortedIndexListTyp3;
-	}
-
-	public void setSortedIndexListTyp3(ArrayList<Number> sortedIndexListTyp3)
-	{
-		this.sortedIndexListTyp3 = sortedIndexListTyp3;
-	}
-
+	
+	//Diese Methode setzt die Objektattribute einer Gruppe so, dass deren Attribute
+	//keine Einfluss auf die Berechnung Einfluss nehmen. Dies ist notwendig, falls eine Gruppe
+	//ausscheidet.
 	public void killGroup(Group group)
 	{
 		group.getCompany().setTurnover(0.0);
@@ -400,5 +414,11 @@ public class Game implements IsSerializable
 			group.getCompany().setCapital(group.getCompany().getCapital()+totalInvestmentCosts);
 			group.getCompany().setCost(group.getCompany().getCost()+totalInvestmentCosts);
 		}
+	}
+	//Methoden für die Tests
+	public String toString()
+	{
+		String s = "Game Eigenschaften: \n user amount: \t \t" + this.getUserAmount() + "\n current round: \t" + this.getCurrentRound();
+		return s;
 	}
 }
