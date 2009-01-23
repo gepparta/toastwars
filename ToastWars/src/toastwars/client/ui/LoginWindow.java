@@ -20,6 +20,7 @@ public class LoginWindow extends Window {
 	private TextField	userPass;
 	private ToastWars	toastWars;
 	private Controller	controller;
+	private Button		loginBtn;
 
 	public LoginWindow(ToastWars tw) {
 
@@ -54,14 +55,16 @@ public class LoginWindow extends Window {
 		loginPanel.add(userName);
 		loginPanel.add(userPass);
 
-		loginPanel.addButton(new Button("Anmelden",
-				new ButtonListenerAdapter() {
-					public void onClick(Button button, EventObject e) {
-						// User und Passwort checken
-						Controller.getInstance().login(userName.getText(),
-								userPass.getText(), loginWindow);
-					}
-				}));
+		loginBtn = new Button("Anmelden", new ButtonListenerAdapter() {
+			public void onClick(Button button, EventObject e) {
+				// disable login button
+				button.setDisabled(true);
+				// User und Passwort checken
+				Controller.getInstance().login(userName.getText(),
+						userPass.getText(), loginWindow);
+			}
+		});
+		loginPanel.addButton(loginBtn);
 
 		loginPanel.addButton(new Button("Master", new ButtonListenerAdapter() {
 			public void onClick(Button button, EventObject e) {
@@ -98,5 +101,6 @@ public class LoginWindow extends Window {
 
 	public void loginFailure() {
 		MessageBox.alert("Anmeldung fehlgeschlagen!");
+		loginBtn.setDisabled(false);
 	}
 }
