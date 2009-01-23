@@ -1,5 +1,7 @@
 package toastwars.server.datamodel.core;
 
+import toastwars.util.NumberUtil;
+
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 public enum Type implements IsSerializable {
@@ -185,15 +187,21 @@ public enum Type implements IsSerializable {
 	}
 
 	public void setMarketVolumeTT1(int user) {
-		this.setMarketVolume((int) (Math.pow((user * 150000), (1 / 1.4))));
+		int volume = (int) (Math.pow((user * 150000), (1 / 1.4)));
+		volume = NumberUtil.roundIntUp(volume, 50);
+		this.setMarketVolume(volume);
 	}
 
 	public void setMarketVolumeTT2(int user) {
-		this.setMarketVolume((int) (Math.pow((user * 12000), (1 / 1.22))));
+		int volume = (int) (Math.pow((user * 12000), (1 / 1.22)));
+		volume = NumberUtil.roundIntUp(volume, 50);
+		this.setMarketVolume(volume);
 	}
 
 	public void setMarketVolumeTT3(int user) {
-		this.setMarketVolume((int) (Math.pow((user * 6000), (1 / 1.29))));
+		int volume = (int) (Math.pow((user * 6000), (1 / 1.29)));
+		volume = NumberUtil.roundIntUp(volume, 50);
+		this.setMarketVolume(volume);
 	}
 
 	// Methoden nur für die JUNIT Tests
