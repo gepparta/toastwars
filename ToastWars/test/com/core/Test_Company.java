@@ -50,7 +50,7 @@ public class Test_Company extends TestCase
 		stock2 = new Stock(0,0,0,0.00);
 		
 		company1 = new Company(100000.00,20000.00, 60000.00,100000.00, 10000,stock1,toasterList1);
-		company2 = new Company(100000.00, 20000.00, 60000.00,100000.00,10000,stock2,toasterList2);
+		company2 = new Company(100000.00, 30000.00, 60000.00,100000.00,10000,stock2,toasterList2);
 	}
 
 	@After
@@ -251,6 +251,7 @@ public class Test_Company extends TestCase
 		
 		//Test für die erste Company mit einem Toaster
 		assertNotSame(5000, company1.getToasterList().get(0).getMarketShare());
+		assertNotSame(5000, company1.getMarketShare());
 		company1.calculateMarketShares(d);
 		assertEquals(5000, company1.getToasterList().get(0).getMarketShare());
 		assertEquals(5000, company1.getMarketShare());
@@ -260,6 +261,7 @@ public class Test_Company extends TestCase
 		assertNotSame(5000, company2.getToasterList().get(0).getMarketShare());
 		assertNotSame(5000, company2.getToasterList().get(1).getMarketShare());
 		assertNotSame(5000, company2.getToasterList().get(2).getMarketShare());
+		assertNotSame(15000, company2.getMarketShare());
 		company2.calculateMarketShares(d);
 		assertEquals(5000, company2.getToasterList().get(0).getMarketShare());
 		assertEquals(5000, company2.getToasterList().get(1).getMarketShare());
@@ -273,6 +275,7 @@ public class Test_Company extends TestCase
 	{
 		//Test für eine Company mit einem Toaster
 		assertNotSame(100000.00, company1.getToasterList().get(0).getTurnover());
+		assertNotSame(100000.00, company1.getTurnover());
 		company1.calculateTurnover();
 		assertEquals(100000.00, company1.getToasterList().get(0).getTurnover());
 		assertEquals(100000.00, company1.getTurnover());
@@ -281,6 +284,7 @@ public class Test_Company extends TestCase
 		assertNotSame(100000.00, company2.getToasterList().get(0).getTurnover());
 		assertNotSame(100000.00, company2.getToasterList().get(1).getTurnover());
 		assertNotSame(100000.00, company2.getToasterList().get(2).getTurnover());
+		assertNotSame(300000.00, company2.getTurnover());
 		company2.calculateTurnover();
 		assertEquals(100000.00, company2.getToasterList().get(0).getTurnover());
 		assertEquals(100000.00, company2.getToasterList().get(1).getTurnover());
@@ -293,6 +297,7 @@ public class Test_Company extends TestCase
 	{
 		//Test für eine Company mit einem Toaster
 		assertNotSame(33000.00, company1.getToasterList().get(0).getCost());
+		assertNotSame(33000.00, company1.getCost());
 		company1.calculateCost();
 		assertEquals(33000.00, company1.getToasterList().get(0).getCost());
 		assertEquals(33000.00, company1.getCost());
@@ -301,6 +306,7 @@ public class Test_Company extends TestCase
 		assertNotSame(330000.00, company2.getToasterList().get(0).getCost());
 		assertNotSame(330000.00, company2.getToasterList().get(1).getCost());
 		assertNotSame(330000.00, company2.getToasterList().get(2).getCost());
+		assertNotSame(99000.00, company2.getCost());
 		company2.calculateCost();
 		assertEquals(33000.00, company2.getToasterList().get(0).getCost());
 		assertEquals(33000.00, company2.getToasterList().get(1).getCost());
@@ -313,11 +319,13 @@ public class Test_Company extends TestCase
 	{
 		//Test für eine Company mit einem Toaster
 		assertNotSame(50000.00, company1.getToasterList().get(0).getProfit());
+		assertNotSame(80000.00, company1.getProfit());
 		company1.calculateProfit();
 		assertEquals(50000.00, company1.getToasterList().get(0).getProfit());
-		assertEquals(50000.00, company1.getProfit());
+		assertEquals(80000.00, company1.getProfit());
 		
 		//Test für eine Company mit drei Toastern
+		assertNotSame(70000.00, company2.getProfit());
 		assertNotSame(50000.00, company2.getToasterList().get(0).getProfit());
 		assertNotSame(50000.00, company2.getToasterList().get(1).getProfit());
 		assertNotSame(50000.00, company2.getToasterList().get(2).getProfit());
@@ -326,7 +334,7 @@ public class Test_Company extends TestCase
 		assertEquals(50000.00, company2.getToasterList().get(1).getProfit());
 		assertEquals(50000.00, company2.getToasterList().get(2).getProfit());
 
-		assertEquals(150000.00, company2.getProfit());
+		assertEquals(70000.00, company2.getProfit());
 	}
 
 	public void testCalculateCapital()
