@@ -86,13 +86,13 @@ public class DAOUser
 			String query = "SELECT * FROM User;";
 			Statement stmt = con.createStatement();
 			ResultSet rst = stmt.executeQuery(query);
-			DAOCompany test = new DAOCompany();
+			DAOCompany daocompany = new DAOCompany();
 			// Zeileninhalt ermitteln
 			while (rst.next())
 			{
 				int companyID = rst.getInt(3);
 				Group group = (Group) UserFactory.createUser("Group", rst.getString(1), rst.getString(2));
-				group.setCompany(test.getCurrentCompany(con, companyID));
+				group.setCompany(daocompany.getCurrentCompany(con, companyID));
 				Status stat = Status.valueOf(rst.getString(4));
 				group.setStatus(stat);
 				userList.add(group);
@@ -117,13 +117,13 @@ public class DAOUser
 			String query = "SELECT * FROM User;";
 			Statement stmt = con.createStatement();
 			ResultSet rst = stmt.executeQuery(query);
-			DAOCompany test = new DAOCompany();
+			DAOCompany daocompany = new DAOCompany();
 			// Zeileninhalt ermitteln
 			while (rst.next())
 			{
 				Group group = (Group) UserFactory.createUser("Group", rst.getString(1), rst.getString(2));
 				int companyID = rst.getInt(3);
-				group.setCompany(test.getCompanyByRound(con, companyID, round));
+				group.setCompany(daocompany.getCompanyByRound(con, companyID, round));
 				Status stat = Status.valueOf(rst.getString(4));
 				group.setStatus(stat);
 				userListByRound.add(group);
@@ -147,13 +147,13 @@ public class DAOUser
 			String query = "SELECT * FROM User;";
 			Statement stmt = con.createStatement();
 			ResultSet rst = stmt.executeQuery(query);
-			DAOCompany test = new DAOCompany();
+			DAOCompany daocompany = new DAOCompany();
 			// Zeileninhalt ermitteln
 			while (rst.next())
 			{
 				Group group = (Group) UserFactory.createUser("Group", rst.getString(1), rst.getString(2));
 				int companyID = rst.getInt(3);
-				group.setCompany(test.getCurrentCompany(con, companyID));
+				group.setCompany(daocompany.getCurrentCompany(con, companyID));
 				Status stat = Status.valueOf(rst.getString(4));
 				group.setStatus(stat);
 				userList.add(group);

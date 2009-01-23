@@ -6,6 +6,7 @@ import java.sql.Statement;
 import toastwars.server.datamodel.core.Game;
 import toastwars.server.datamodel.core.Stock;
 
+
 public class DAOStock
 {
 
