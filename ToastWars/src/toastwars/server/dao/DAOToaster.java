@@ -17,7 +17,7 @@ public class DAOToaster
 	{
 		try
 		{
-			int currentRound = 	Game.getInstance().getCurrentRound();
+			int currentRound = Game.getInstance().getCurrentRound();
 			double price = toaster.getPrice();
 			double marketing = toaster.getMarketing();
 			double tv = toaster.getTvInvestment();
@@ -120,8 +120,7 @@ public class DAOToaster
 				Toaster toaster = new Toaster(rst.getDouble("price"), rst.getDouble("index"), rst.getDouble("turnover"), rst.getDouble("cost"), rst.getDouble("profit"), rst
 						.getInt("marketShare"), Type.valueOf(rst.getString("type")), rst.getDouble("marketing"), rst.getDouble("tv"), rst.getDouble("newspaper"), rst
 						.getDouble("radio"), rst.getDouble("tvKum"), rst.getDouble("newspaperKum"), rst.getDouble("radioKum"), rst.getDouble("research"), rst.getDouble("quality"),
-						rst.getDouble("design"), rst.getDouble("ecology"), rst.getDouble("qualityKum"), rst.getDouble("designKum"), rst.getDouble("ecologyKum"));
-				toaster.setProduction(rst.getInt("production"));
+						rst.getDouble("design"), rst.getDouble("ecology"), rst.getDouble("qualityKum"), rst.getDouble("designKum"), rst.getDouble("ecologyKum"), rst.getInt("production"));
 				toasterList.add(toaster);
 			}
 			rst.close();
@@ -152,8 +151,7 @@ public class DAOToaster
 				Toaster toaster = new Toaster(rst.getDouble("price"), rst.getDouble("index"), rst.getDouble("turnover"), rst.getDouble("cost"), rst.getDouble("profit"), rst
 						.getInt("marketShare"), Type.valueOf(rst.getString("type")), rst.getDouble("marketing"), rst.getDouble("tv"), rst.getDouble("newspaper"), rst
 						.getDouble("radio"), rst.getDouble("tvKum"), rst.getDouble("newspaperKum"), rst.getDouble("radioKum"), rst.getDouble("research"), rst.getDouble("quality"),
-						rst.getDouble("design"), rst.getDouble("ecology"), rst.getDouble("qualityKum"), rst.getDouble("designKum"), rst.getDouble("ecologyKum"));
-				toaster.setProduction(rst.getInt("production"));
+						rst.getDouble("design"), rst.getDouble("ecology"), rst.getDouble("qualityKum"), rst.getDouble("designKum"), rst.getDouble("ecologyKum"), rst.getInt("production"));
 				toasterListByRound.add(toaster);
 			}
 			rst.close();
@@ -166,5 +164,4 @@ public class DAOToaster
 			return null;
 		}
 	}
-
 }
