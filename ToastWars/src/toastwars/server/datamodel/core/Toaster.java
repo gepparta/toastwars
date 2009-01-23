@@ -34,6 +34,7 @@ public class Toaster implements IsSerializable {
 	public Toaster() {
 	}
 
+	
 
 	public Toaster(double price, double index, double turnover, double cost,
 			double profit, int marketShare, Type type, double marketing,
@@ -42,7 +43,7 @@ public class Toaster implements IsSerializable {
 			double newspaperInvestmentKum, double radioInvestmentKum,
 			double research, double qualityInvestment, double designInvestment,
 			double ecologyInvestment, double qualityInvestmentKum,
-			double designInvestmentKum, double ecologyInvestmentKum) {
+			double designInvestmentKum, double ecologyInvestmentKum,int production) {
 		this.price = price;
 		this.index = index;
 		this.turnover = turnover;
@@ -64,94 +65,8 @@ public class Toaster implements IsSerializable {
 		this.qualityInvestmentKum = qualityInvestmentKum;
 		this.designInvestmentKum = designInvestmentKum;
 		this.ecologyInvestmentKum = ecologyInvestmentKum;
+		this.production = production;
 	}
-	
-	
-	public Toaster(int toasterID, double price, double index, double turnover,
-			double cost, double profit, int marketShare, Type type,
-			double marketing, double tvInvestment, double newspaperInvestment,
-			double radioInvestment, double tvInvestmentKum,
-			double newspaperInvestmentKum, double radioInvestmentKum,
-			double research, double qualityInvestment, double designInvestment,
-			double ecologyInvestment, double qualityInvestmentKum,
-			double designInvestmentKum, double ecologyInvestmentKum) {
-		this.price = price;
-		this.index = index;
-		this.turnover = turnover;
-		this.cost = cost;
-		this.profit = profit;
-		this.marketShare = marketShare;
-		this.type = type;
-		this.marketing = marketing;
-		this.tvInvestment = tvInvestment;
-		this.newspaperInvestment = newspaperInvestment;
-		this.radioInvestment = radioInvestment;
-		this.tvInvestmentKum = tvInvestmentKum;
-		this.newspaperInvestmentKum = newspaperInvestmentKum;
-		this.radioInvestmentKum = radioInvestmentKum;
-		this.research = research;
-		this.qualityInvestment = qualityInvestment;
-		this.designInvestment = designInvestment;
-		this.ecologyInvestment = ecologyInvestment;
-		this.qualityInvestmentKum = qualityInvestmentKum;
-		this.designInvestmentKum = designInvestmentKum;
-		this.ecologyInvestmentKum = ecologyInvestmentKum;
-	}
-
-
-	// Konstruktoren zum Testen
-
-	// @deprecated
-	// use for tests only for tests
-//	public Toaster(int toasterID, double price, double marketing,
-//			double tvInvestment, double newsPaperInvestment,
-//			double radioInvestment, double research, double quality,
-//			double design, double efficiency, double index, double turnover,
-//			double cost, double profit, int marketShare, Type type) {
-//		this.price = price;
-//		this.marketing = marketing;
-//		this.tvInvestment = tvInvestment;
-//		this.newspaperInvestment = newsPaperInvestment;
-//		this.radioInvestment = radioInvestment;
-//		this.research = research;
-//		this.qualityInvestment = quality;
-//		this.designInvestment = design;
-//		this.ecologyInvestment = efficiency;
-//		this.index = index;
-//		this.turnover = turnover;
-//		this.cost = cost;
-//		this.profit = profit;
-//		this.marketShare = marketShare;
-//		this.type = type;
-//	}
-//	
-//	//	@deprecated
-////	use for tests only for tests
-//	public Toaster(double price, double marketing, double tvInvestment, double newsPaperInvestment, double radioInvestment, double research, double quality, double design,
-//			double efficiency, double index, double turnover, double cost, double profit, int marketShare, Type type)
-//	{
-//
-//		this.price = price;
-//		this.marketing = marketing;
-//		this.tvInvestment = tvInvestment;
-//		this.newspaperInvestment = newsPaperInvestment;
-//		this.radioInvestment = radioInvestment;
-//		this.research = research;
-//		this.qualityInvestment = quality;
-//		this.designInvestment = design;
-//		this.ecologyInvestment = efficiency;
-//		this.index = index;
-//		this.turnover = turnover;
-//		this.cost = cost;
-//		this.profit = profit;
-//		this.marketShare = marketShare;
-//		this.type = type;
-//
-//	}
-
-
-
-
 
 //Get Methoden
 
