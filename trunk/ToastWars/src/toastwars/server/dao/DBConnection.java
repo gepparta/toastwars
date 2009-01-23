@@ -41,13 +41,4 @@ public class DBConnection {
 			e.printStackTrace();
 		}
 	}
-	
-	public static void main ( String[] args ) {
-		Connection con = connectToDB();
-		DAOGame.getUserAmount(con);
-		DAOGame.getCurrentRound(con);
-		DAOGame.changeCurrentRound(con);
-		DAOGame.getCurrentRound(con);
-		closeConnectionToDB(con);
-	}
 }
