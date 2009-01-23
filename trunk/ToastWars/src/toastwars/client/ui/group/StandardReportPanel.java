@@ -117,8 +117,7 @@ public class StandardReportPanel extends Panel {
 
 		ChartData cd = new ChartData(
 				"Marktanteile f&#252;r " + toaster.getType().getDescription(),
-				"filter:Alpha(opacity=100, finishopacity=80, startx=10, "
-						+ "finishx=484, style=1); -moz-opacity: 0.9 ; font-size: 14px; "
+				"font-size: 14px; "
 						+ "font-family: Verdana; text-align: center;");
 		cd.setBackgroundColour("#ffffff");
 
@@ -259,6 +258,8 @@ public class StandardReportPanel extends Panel {
 		int steps = (ya.getMax().intValue() + Math.abs(ya.getMin().intValue())) / 5;
 		ya.setSteps(steps);
 		cd.setYAxis(ya);
+		
+		
 
 		BarChart bchart = new BarChart(BarStyle.GLASS);
 		bchart.setColour("#00aa00");
