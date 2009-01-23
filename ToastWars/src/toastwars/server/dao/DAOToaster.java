@@ -17,7 +17,7 @@ public class DAOToaster
 	{
 		try
 		{
-			int currentRound = Game.getInstance().getCurrentRound();
+			int currentRound = 	Game.getInstance().getCurrentRound();
 			double price = toaster.getPrice();
 			double marketing = toaster.getMarketing();
 			double tv = toaster.getTvInvestment();
@@ -45,7 +45,7 @@ public class DAOToaster
 			String query = "UPDATE Toaster SET Toaster.price = " + price + ", Toaster.marketing = " + marketing + ", Toaster.tv = " + tv + ", Toaster.tvKum = " + tvKum
 					+ ", Toaster.newspaper = " + newspaper + ", Toaster.newspaperKum = " + newspaperKum + ", Toaster.radio = " + radio + ", Toaster.radioKum = " + radioKum
 					+ ", Toaster.research = " + research + ", Toaster.quality = " + quality + ", Toaster.qualityKum = " + qualityKum + ", Toaster.design = " + design
-					+ ", Toaster.designKum = " + designKum + ", Toaster.ecology = " + ecology + ", Toaster.ecologyKum = " + ecologyKum + ", Toaster.[index] = " + index
+					+ ", Toaster.designKum = " + designKum + ", Toaster.ecology = " + ecology + ", Toaster.ecologyKum = " + ecologyKum + ", Toaster.index = " + index
 					+ ", Toaster.turnover = " + turnover + ", Toaster.cost = " + cost + ", Toaster.profit = " + profit + ", Toaster.marketShare = " + marketShare
 					+ ", Toaster.production = " + production + " WHERE (Toaster.round=" + currentRound + " AND Toaster.companyID=" + companyID + " AND Toaster.type='" + type
 					+ "');";
@@ -60,36 +60,46 @@ public class DAOToaster
 	// test
 	public void saveToaster(Toaster toaster, int companyID, Connection con) throws SQLException
 	{
-		int currentRound = Game.getInstance().getCurrentRound();
-		double price = toaster.getPrice();
-		double marketing = toaster.getMarketing();
-		double tv = toaster.getTvInvestment();
-		double newspaper = toaster.getNewspaperInvestment();
-		double radio = toaster.getRadioInvestment();
-		double tvKum = toaster.getTvInvestmentKum();
-		double newspaperKum = toaster.getNewspaperInvestmentKum();
-		double radioKum = toaster.getRadioInvestmentKum();
-		double research = toaster.getResearch();
-		double quality = toaster.getQualityInvestment();
-		double design = toaster.getDesignInvestment();
-		double ecology = toaster.getEcologyInvestment();
-		double qualityKum = toaster.getQualityInvestmentKum();
-		double designKum = toaster.getDesignInvestmentKum();
-		double ecologyKum = toaster.getEcologyInvestmentKum();
-		double index = toaster.getIndex();
-		double turnover = toaster.getTurnover();
-		double cost = toaster.getCost();
-		double profit = toaster.getProfit();
-		int marketShare = toaster.getMarketShare();
-		String type = toaster.getType().name();
-		int production = toaster.getProduction();
-
-		Statement stmt = con.createStatement();
-		String query = "INSERT INTO Toaster VALUES (" + currentRound + "," + companyID + ",'" + type + "'," + price + "," + marketing + "," + tv + "," + tvKum + "," + newspaper
-				+ "," + newspaperKum + "," + radio + "," + radioKum + "," + research + "," + quality + "," + qualityKum + "," + design + "," + designKum + "," + ecology + ","
-				+ ecologyKum + "," + index + "," + turnover + "," + cost + "," + profit + "," + marketShare + "," + production + ");";
-		stmt.execute(query);
-		stmt.close();
+		try {
+			int currentRound = Game.getInstance().getCurrentRound();
+			double price = toaster.getPrice();
+			double marketing = toaster.getMarketing();
+			double tv = toaster.getTvInvestment();
+			double newspaper = toaster.getNewspaperInvestment();
+			double radio = toaster.getRadioInvestment();
+			double tvKum = toaster.getTvInvestmentKum();
+			double newspaperKum = toaster.getNewspaperInvestmentKum();
+			double radioKum = toaster.getRadioInvestmentKum();
+			double research = toaster.getResearch();
+			double quality = toaster.getQualityInvestment();
+			double design = toaster.getDesignInvestment();
+			double ecology = toaster.getEcologyInvestment();
+			double qualityKum = toaster.getQualityInvestmentKum();
+			double designKum = toaster.getDesignInvestmentKum();
+			double ecologyKum = toaster.getEcologyInvestmentKum();
+			double index = toaster.getIndex();
+			double turnover = toaster.getTurnover();
+			double cost = toaster.getCost();
+			double profit = toaster.getProfit();
+			int marketShare = toaster.getMarketShare();
+			String type = toaster.getType().name();
+			int production = toaster.getProduction();
+			Statement stmt = con.createStatement();
+			String query = "INSERT INTO Toaster VALUES (" + currentRound + ","
+					+ companyID + ",'" + type + "'," + price + "," + marketing
+					+ "," + tv + "," + tvKum + "," + newspaper + ","
+					+ newspaperKum + "," + radio + "," + radioKum + ","
+					+ research + "," + quality + "," + qualityKum + ","
+					+ design + "," + designKum + "," + ecology + ","
+					+ ecologyKum + "," + index + "," + turnover + "," + cost
+					+ "," + profit + "," + marketShare + "," + production
+					+ ");";
+			stmt.execute(query);
+			stmt.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 	}
 
 	public ArrayList<Toaster> getActualToasterFromCompany(int companyID, Connection con)
