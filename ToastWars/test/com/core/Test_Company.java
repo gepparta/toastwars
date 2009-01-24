@@ -30,6 +30,8 @@ public class Test_Company extends TestCase
 	private Company company1;
 	private Company company2;
 
+	
+
 	@Before
 	public void setUp() throws Exception
 	{
@@ -51,6 +53,8 @@ public class Test_Company extends TestCase
 		
 		company1 = new Company(100000.00,20000.00, 60000.00,100000.00, 10000,stock1,toasterList1);
 		company2 = new Company(100000.00, 30000.00, 60000.00,100000.00,10000,stock2,toasterList2);
+
+
 	}
 
 	@After
@@ -65,6 +69,7 @@ public class Test_Company extends TestCase
 		stock2 = null;
 		company1 = null;
 		company2 = null;
+
 		System.gc();
 	}
 
@@ -115,7 +120,7 @@ public class Test_Company extends TestCase
 	public void testGetCompanyID()
 	{
 		assertNotNull(company1.getCompanyID());
-		assertEquals(13, company1.getCompanyID());
+		// an dieser Stelle kann nicht mehr überprüft werden, weil nicht absehbar ist wieviel ID bisher beim Testen vergeben wurden.
 	}
 	
 	@Test
@@ -131,6 +136,9 @@ public class Test_Company extends TestCase
 		assertNotNull(company1.getStock());
 		assertEquals(stock1, company1.getStock());
 	}
+	
+
+	
 
 	
 	// Tests der Set-Methoden
