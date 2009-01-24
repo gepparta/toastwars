@@ -545,7 +545,7 @@ public class Test_Toaster extends TestCase
 	
 	public void testResetUserInput()
 	{
-		//Typ 1
+	
 		
 		
 		assertEquals(1.00,toaster1.getTvInvestment());
@@ -566,46 +566,7 @@ public class Test_Toaster extends TestCase
 		assertEquals(0.00,toaster1.getEcologyInvestment());
 		assertEquals(0,toaster1.getProduction());
 		
-		//Typ 2
-		assertEquals(1.00,toaster2.getTvInvestment());
-		assertEquals(1.00,toaster2.getNewspaperInvestment());
-		assertEquals(1.00,toaster2.getRadioInvestment());
-		assertEquals(1.00,toaster2.getQualityInvestment());
-		assertEquals(1.00,toaster2.getDesignInvestment());
-		assertEquals(1.00,toaster2.getEcologyInvestment());
-		assertEquals(1000,toaster2.getProduction());
-		
-		toaster2.resetUserInput();
-		
-		assertEquals(0.00,toaster2.getTvInvestment());
-		assertEquals(0.00,toaster2.getNewspaperInvestment());
-		assertEquals(0.00,toaster2.getRadioInvestment());
-		assertEquals(0.00,toaster2.getQualityInvestment());
-		assertEquals(0.00,toaster2.getDesignInvestment());
-		assertEquals(0.00,toaster2.getEcologyInvestment());
-		assertEquals(0,toaster2.getProduction());
-		
-		//Typ 3
-		assertEquals(1.00,toaster3.getTvInvestment());
-		assertEquals(1.00,toaster3.getNewspaperInvestment());
-		assertEquals(1.00,toaster3.getRadioInvestment());
-		assertEquals(1.00,toaster3.getQualityInvestment());
-		assertEquals(1.00,toaster3.getDesignInvestment());
-		assertEquals(1.00,toaster3.getEcologyInvestment());
-		assertEquals(1000,toaster3.getProduction());
-		
-		toaster3.resetUserInput();
-		
-		assertEquals(0.00,toaster3.getTvInvestment());
-		assertEquals(0.00,toaster3.getNewspaperInvestment());
-		assertEquals(0.00,toaster3.getRadioInvestment());
-		assertEquals(0.00,toaster3.getQualityInvestment());
-		assertEquals(0.00,toaster3.getDesignInvestment());
-		assertEquals(0.00,toaster3.getEcologyInvestment());
-		assertEquals(0,toaster3.getProduction());
-		
 
-		
 		
 	}
 }
