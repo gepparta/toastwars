@@ -2,7 +2,6 @@ package toastwars.server.datamodel.core;
 
 import java.util.ArrayList;
 import java.util.List;
-import toastwars.server.datamodel.user.Group;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class Company implements IsSerializable
