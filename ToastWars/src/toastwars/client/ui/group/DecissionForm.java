@@ -320,7 +320,7 @@ public class DecissionForm extends Panel {
 	}
 
 	public void updateToasterData() {
-		if (toaster != null) {
+		if (toaster != null && fields.get(0).getValue() != null) {
 			try {
 				toaster.setPrice(fields.get(0).getValue().doubleValue());
 				toaster.setProduction(fields.get(1).getValue().intValue());

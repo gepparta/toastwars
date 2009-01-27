@@ -10,6 +10,7 @@ import toastwars.server.datamodel.user.Group;
 import toastwars.server.datamodel.user.Status;
 
 import com.gwtext.client.core.EventObject;
+import com.gwtext.client.core.Function;
 import com.gwtext.client.core.Position;
 import com.gwtext.client.widgets.Button;
 import com.gwtext.client.widgets.Component;
@@ -17,10 +18,17 @@ import com.gwtext.client.widgets.MessageBox;
 import com.gwtext.client.widgets.Panel;
 import com.gwtext.client.widgets.TabPanel;
 import com.gwtext.client.widgets.event.ButtonListenerAdapter;
+import com.gwtext.client.widgets.event.ComponentListener;
+import com.gwtext.client.widgets.event.ComponentListenerAdapter;
 import com.gwtext.client.widgets.form.Checkbox;
+import com.gwtext.client.widgets.form.Field;
 import com.gwtext.client.widgets.form.FormPanel;
 import com.gwtext.client.widgets.form.Label;
 import com.gwtext.client.widgets.form.NumberField;
+import com.gwtext.client.widgets.form.event.CheckboxListener;
+import com.gwtext.client.widgets.form.event.CheckboxListenerAdapter;
+import com.gwtext.client.widgets.form.event.TextFieldListener;
+import com.gwtext.client.widgets.form.event.TextFieldListenerAdapter;
 import com.gwtext.client.widgets.layout.HorizontalLayout;
 import com.gwtext.client.widgets.layout.VerticalLayout;
 
@@ -153,6 +161,18 @@ public class DecissionPanel extends Panel {
 		report = new Checkbox("Marktforschungsbericht");
 		report.setHeight(20);
 		report.setValue(group.getCompany().isMarketResearchReportON());
+		report.addListener(new CheckboxListenerAdapter() {
+			@Override
+			public void onCheck(Checkbox field, boolean checked) {
+				super.onCheck(field, checked);
+
+				double value = capital.getValue().doubleValue();
+				if (checked) {
+					capital.setValue(value - 5000);
+				} else
+					capital.setValue(value + 5000);
+			}
+		});
 
 		Panel reportForm = new Panel();
 		reportForm.setBorder(false);
@@ -166,6 +186,20 @@ public class DecissionPanel extends Panel {
 		capital.setReadOnly(true);
 		capital.setDecimalSeparator(",");
 		capital.setStyle("text-align: right");
+		capital.addListener("change", new Function() {
+			public void execute() {
+				double value = capital.getValue().doubleValue();
+				if (value < 5000)
+					report.setDisabled(true);
+				else
+					report.setDisabled(false);
+
+				if (value == 0)
+					capital.setStyle("background: red");
+				else
+					capital.setStyle("background: white");
+			}
+		});
 
 		FormPanel capitalForm = new FormPanel();
 		capitalForm.setBorder(false);
