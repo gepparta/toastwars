@@ -1,6 +1,8 @@
 package toastwars.client.ui.master;
 
 import java.util.ArrayList;
+import java.util.Formatter;
+import java.util.Locale;
 
 import toastwars.client.Controller;
 import toastwars.server.datamodel.core.Company;
@@ -9,6 +11,7 @@ import toastwars.server.datamodel.core.Toaster;
 import toastwars.server.datamodel.user.Group;
 import toastwars.server.datamodel.user.Master;
 import toastwars.server.datamodel.user.Status;
+import toastwars.util.NumberUtil;
 
 import com.gwtext.client.core.EventObject;
 import com.gwtext.client.core.Position;
@@ -117,7 +120,7 @@ public class MasterPanel extends Panel {
 		grid.setEnableColumnMove(false);
 
 		RecordDef recordDef = new RecordDef(new FieldDef[] {
-				new StringFieldDef("group"), new FloatFieldDef("price"),
+				new StringFieldDef("group"), new StringFieldDef("price"),
 				new StringFieldDef("amount"), new StringFieldDef("stock"),
 				new StringFieldDef("magazine"), new StringFieldDef("radio"),
 				new StringFieldDef("tv"), new StringFieldDef("quality"),
@@ -152,7 +155,7 @@ public class MasterPanel extends Panel {
 	private ColumnConfig[] createColumnConfig() {
 		ColumnConfig[] columns = new ColumnConfig[] {
 				new ColumnConfig("Gruppe", "group", 140),
-				new ColumnConfig("Preis", "price", 50),
+				new ColumnConfig("Preis", "price", 60),
 				new ColumnConfig("Menge", "amount", 50),
 				new ColumnConfig("Lager", "stock", 50),
 				new ColumnConfig("Zeitung", "magazine", 80),
@@ -185,18 +188,26 @@ public class MasterPanel extends Panel {
 				data[0] = groupList.get(j).getUsername();
 
 				Toaster toaster = comp.getToasterList().get(i);
-				data[1] = toaster.getPrice();
+				data[1] = NumberUtil.formatToEuro(toaster.getPrice());
 				data[2] = toaster.getProduction();
 				data[3] = comp.getStock().getStock(toaster.getType());
-				data[4] = toaster.getNewspaperInvestment();
-				data[5] = toaster.getRadioInvestment();
-				data[6] = toaster.getTvInvestment();
-				data[7] = toaster.getQualityInvestment();
-				data[8] = toaster.getDesignInvestment();
-				data[9] = toaster.getEcologyInvestment();
+				data[4] = NumberUtil.formatToEuro(toaster
+						.getNewspaperInvestment());
+				data[5] = NumberUtil.formatToEuro(toaster.getRadioInvestment());
+				data[6] = NumberUtil.formatToEuro(toaster.getTvInvestment());
+				data[7] = NumberUtil.formatToEuro(toaster
+						.getQualityInvestment());
+				data[8] = NumberUtil
+						.formatToEuro(toaster.getDesignInvestment());
+				data[9] = NumberUtil.formatToEuro(toaster
+						.getEcologyInvestment());
 
-				data[10] = comp.getCapital();
-				data[11] = comp.isMarketResearchReportON();
+				data[10] = NumberUtil.formatToEuro(comp.getCapital());
+
+				if (comp.isMarketResearchReportON())
+					data[11] = "ja";
+				else
+					data[11] = "nein";
 				data[12] = groupList.get(j).getStatus().getDescription();
 
 				data[13] = "" + (i + 1) + " "
