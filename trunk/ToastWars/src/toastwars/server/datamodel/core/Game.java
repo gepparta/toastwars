@@ -1,6 +1,9 @@
 package toastwars.server.datamodel.core;
 
 import java.util.ArrayList;
+
+import javax.swing.GroupLayout;
+
 import toastwars.server.datamodel.user.Group;
 import toastwars.server.datamodel.user.Status;
 import toastwars.util.NumberUtil;
@@ -31,6 +34,10 @@ public class Game implements IsSerializable
 	{
 	}
 	
+	public static void destroyGame()
+	{
+		instance = null;
+	}
 	public static Game getInstance()
 	{
 		return instance;
