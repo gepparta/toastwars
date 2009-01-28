@@ -43,6 +43,7 @@ public class New_Game_Test extends TestCase {
 	private Group group1;
 	private Group group2;
 	private Group group3;
+	private Group group4;
 
 	@Before
 	protected void setUp() throws Exception {
@@ -76,6 +77,7 @@ public class New_Game_Test extends TestCase {
 		group1 = new Group();
 		group2 = new Group();
 		group3 = new Group();
+		group4 = new Group();
 
 		groupList1 = new ArrayList<Group>();
 		groupList1.add(group1);
@@ -128,14 +130,72 @@ public class New_Game_Test extends TestCase {
 	group1= null;
 	group2= null;
 	group3= null;
+	group4 = null;
 	
 	master = null;
+	
+	Game.destroyGame();
 	System.gc();
 	}
 
 
+
+	
+	
 	@Test
-	public void testCorrectMarketshares_1() {
+	public void testGetCurrentRound()
+	{
+		assertNotNull(Game.getInstance().getCurrentRound());
+		assertEquals(1, Game.getInstance().getCurrentRound());
+	}
+
+	@Test
+	public void testSetCurrentRound()
+	{
+
+		assertEquals(1, Game.getInstance().getCurrentRound());
+		Game.getInstance().setCurrentRound(2);
+		assertEquals(2, Game.getInstance().getCurrentRound());	
+		Game.getInstance().setCurrentRound(1);
+	}
+	
+	@Test
+	public void testGetUserAmount()
+	{
+		assertNotNull(Game.getInstance().getUserAmount());
+		assertEquals(3, Game.getInstance().getUserAmount());
+	}
+
+	@Test
+	public void testSetUserAmount()
+	{
+		assertNotSame(5,Game.getInstance().getUserAmount());
+		Game.getInstance().setUserAmount(5);
+		assertEquals(5,Game.getInstance().getUserAmount());
+	}
+	
+
+	@Test
+	public void testSetCompanyList()
+	{
+		assertNotSame(groupList1, Game.getInstance().getGroupList());
+		Game.getInstance().setGroupList(groupList1);
+		assertEquals(groupList1, Game.getInstance().getGroupList());
+	}
+	
+	@Test
+	public void testGetCompanyList()
+	{
+		Game.getInstance().setGroupList(groupList2);
+		assertNotNull(Game.getInstance().getGroupList());
+		assertEquals(groupList2, Game.getInstance().getGroupList());
+	}
+
+	//Berechnende Methoden
+	
+	
+	@Test
+	public void testCorrectMarketshares() {
 		
 	//Test für den ersten Toastertyp	
 		//Indizes passend zu der vorher erzeugten ArrayList setzen
@@ -213,67 +273,10 @@ public class New_Game_Test extends TestCase {
 		
 	}
 	
-	
-	@Test
-	public void testGetCurrentRound()
-	{
-		assertNotNull(Game.getInstance().getCurrentRound());
-		assertEquals(1, Game.getInstance().getCurrentRound());
-	}
-
-	@Test
-	public void testSetCurrentRound()
-	{
-
-		assertEquals(1, Game.getInstance().getCurrentRound());
-		Game.getInstance().setCurrentRound(2);
-		assertEquals(2, Game.getInstance().getCurrentRound());	
-		Game.getInstance().setCurrentRound(1);
-	}
-	
-	@Test
-	public void testGetUserAmount()
-	{
-		assertNotNull(Game.getInstance().getUserAmount());
-		assertEquals(3, Game.getInstance().getUserAmount());
-	}
-
-	@Test
-	public void testSetUserAmount()
-	{
-		assertNotSame(5,Game.getInstance().getUserAmount());
-		Game.getInstance().setUserAmount(5);
-		assertEquals(5,Game.getInstance().getUserAmount());
-	}
-	
-
-	@Test
-	public void testSetCompanyList()
-	{
-		assertNotSame(groupList1, Game.getInstance().getGroupList());
-		Game.getInstance().setGroupList(groupList1);
-		assertEquals(groupList1, Game.getInstance().getGroupList());
-	}
-	
-	@Test
-	public void testGetCompanyList()
-	{
-		Game.getInstance().setGroupList(groupList2);
-		assertNotNull(Game.getInstance().getGroupList());
-		assertEquals(groupList2, Game.getInstance().getGroupList());
-	}
-	
-	
-	
-	
-	
 	@Test
 	public void testCalculateIndexSums()
 	{
 		
-
-
-
 
 		double[] indexSums = Game.getInstance().calculateIndexSums();
 		assertEquals(27.00, indexSums[0]);
@@ -281,6 +284,36 @@ public class New_Game_Test extends TestCase {
 		assertEquals(0.0, indexSums[2]);
 	}
 
+	
+	@Test
+	public void testCompleteRound()
+	{
+		double design = group1.getCompany().getToasterList().get(0).getDesignInvestmentKum();
+		group1.getCompany().getToasterList().get(0).setDesignInvestment(1.00);
+		group1.completeRound();
+		assertEquals((design+1),group1.getCompany().getToasterList().get(0).getDesignInvestmentKum());
+
+		
+	}
+	
+	
+	@Test
+	public void testAddGroup()
+	{
+		assertEquals(3, Game.getInstance().getGroupList().size());
+		Game.getInstance().addGroup(group4);
+		assertEquals(4, Game.getInstance().getGroupList().size());
+		
+	}
+	
+	@Test
+	public void testDestroyGame()
+	{
+		assertNotNull(Game.getInstance());
+		Game.destroyGame();
+		assertNull(Game.getInstance());
+		
+	}
 }//Test Game
 		
 		

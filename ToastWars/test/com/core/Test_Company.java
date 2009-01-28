@@ -1,14 +1,11 @@
 
 
-//TODO
-//@Alex...
-//bitte Teste die accumulate Methode und die getter und setter für die 3 ArrayLists
-
-
 
 package com.core;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;
@@ -29,6 +26,8 @@ public class Test_Company extends TestCase
 	private Stock stock2;
 	private Company company1;
 	private Company company2;
+	private ArrayList<Number> list1 = null;
+	private ArrayList<List<String>> list2 = null;
 
 	
 
@@ -54,6 +53,9 @@ public class Test_Company extends TestCase
 		company1 = new Company(100000.00,20000.00, 60000.00,100000.00, 10000,stock1,toasterList1);
 		company2 = new Company(100000.00, 30000.00, 60000.00,100000.00,10000,stock2,toasterList2);
 
+		list1 = new ArrayList<Number>();
+		list2 = new ArrayList<List<String>>();
+
 
 	}
 
@@ -69,6 +71,10 @@ public class Test_Company extends TestCase
 		stock2 = null;
 		company1 = null;
 		company2 = null;
+		list1 = null;
+		list2 = null;
+
+		
 
 		System.gc();
 	}
@@ -136,9 +142,6 @@ public class Test_Company extends TestCase
 		assertNotNull(company1.getStock());
 		assertEquals(stock1, company1.getStock());
 	}
-	
-
-	
 
 	
 	// Tests der Set-Methoden
@@ -214,11 +217,38 @@ public class Test_Company extends TestCase
 		company1.setCompanyID(200);
 		assertEquals(200, company1.getCompanyID());
 	}
-	
-	
-	
-	
 
+// Get&Set Test
+	@Test
+	public void testGetSetProfitRankingList()
+	{
+		assertNull(company1.getProfitRankingList());
+		company1.setProfitRankingList(list1);
+		assertNotNull(company1.getProfitRankingList());
+		assertEquals(list1, company1.getProfitRankingList());
+	}
+	
+	@Test
+	public void testGetSetCapitalRankingInternList()
+	{
+		assertNull(company1.getCapitalRankingInternList());
+		company1.setCapitalRankingInternList(list1);
+		assertNotNull(company1.getCapitalRankingInternList());
+		assertEquals(list1, company1.getCapitalRankingInternList());
+	}
+	
+	@Test
+	public void testGetSetReportListe()
+	{
+		assertNull(company1.getReportListe());
+		company1.setReportListe(list2);
+		assertNotNull(company1.getReportListe());
+		assertEquals(list2, company1.getReportListe());
+	}
+	
+	
+	
+// Test der berechnenden Methoden
 	@Test
 	public void testCalaculateIndex()
 	{
@@ -300,7 +330,7 @@ public class Test_Company extends TestCase
 
 		assertEquals(300000.00, company2.getTurnover());
 	}
-
+	@Test
 	public void testCalculateCost()
 	{
 		//Test für eine Company mit einem Toaster
@@ -308,21 +338,24 @@ public class Test_Company extends TestCase
 		assertNotSame(33000.00, company1.getCost());
 		company1.calculateCost();
 		assertEquals(33000.00, company1.getToasterList().get(0).getCost());
-		assertEquals(33000.00, company1.getCost());
+		assertEquals(33006.00, company1.getCost());
 
 		//Test für eine Company mit drei Toastern
 		assertNotSame(330000.00, company2.getToasterList().get(0).getCost());
 		assertNotSame(330000.00, company2.getToasterList().get(1).getCost());
 		assertNotSame(330000.00, company2.getToasterList().get(2).getCost());
 		assertNotSame(99000.00, company2.getCost());
+		company2.setMarketResearchReportON(true);
+		company2.getStock().setTotalStockCosts(1000.00);
 		company2.calculateCost();
 		assertEquals(33000.00, company2.getToasterList().get(0).getCost());
 		assertEquals(33000.00, company2.getToasterList().get(1).getCost());
 		assertEquals(33000.00, company2.getToasterList().get(2).getCost());
 
-		assertEquals(99000.00, company2.getCost());
+		//1000€ Lagerkosten + 3 * 6 Euro für die Investitionen, 5000 für den MArketresearchreport und 99000 für die Toaster
+		assertEquals(105018.00, company2.getCost());
 	}
-
+	@Test
 	public void testCalculateProfit()
 	{
 		//Test für eine Company mit einem Toaster
@@ -344,12 +377,45 @@ public class Test_Company extends TestCase
 
 		assertEquals(70000.00, company2.getProfit());
 	}
-
+	@Test
 	public void testCalculateCapital()
 	{
 		double buffer = company2.getCapital() + company2.getProfit();
 		company2.calculateCapital();
 		assertEquals(buffer, company2.getCapital());
+	}
+	
+	@Test
+	public void testAccumulateToasterValues()
+	{
+		double design = company1.getToasterList().get(0).getDesignInvestmentKum();
+		company1.getToasterList().get(0).setDesignInvestment(1000);
+		double ecology = company1.getToasterList().get(0).getEcologyInvestmentKum();
+		company1.getToasterList().get(0).setEcologyInvestment(1000);
+		double newspaper = company1.getToasterList().get(0).getNewspaperInvestmentKum();
+		company1.getToasterList().get(0).setNewspaperInvestment(1000);
+		double quality = company1.getToasterList().get(0).getQualityInvestmentKum();
+		company1.getToasterList().get(0).setQualityInvestment(1000);
+		double radio = company1.getToasterList().get(0).getRadioInvestmentKum();
+		company1.getToasterList().get(0).setRadioInvestment(1000);
+		double tv = company1.getToasterList().get(0).getTvInvestmentKum();
+		company1.getToasterList().get(0).setTvInvestment(1000);
+		
+		assertNotSame(design+1000.00,company1.getToasterList().get(0).getDesignInvestmentKum());
+		assertNotSame(ecology+1000.00,company1.getToasterList().get(0).getEcologyInvestmentKum());
+		assertNotSame(newspaper+1000.00,company1.getToasterList().get(0).getNewspaperInvestmentKum());
+		assertNotSame(quality+1000.00,company1.getToasterList().get(0).getQualityInvestmentKum());
+		assertNotSame(radio+1000.00,company1.getToasterList().get(0).getRadioInvestmentKum());
+		assertNotSame(tv+1000.00,company1.getToasterList().get(0).getTvInvestmentKum());
+		
+		company1.accumulateToasterValues();
+		
+		assertEquals(design+1000.00,company1.getToasterList().get(0).getDesignInvestmentKum());
+		assertEquals(ecology+1000.00,company1.getToasterList().get(0).getEcologyInvestmentKum());
+		assertEquals(newspaper+1000.00,company1.getToasterList().get(0).getNewspaperInvestmentKum());
+		assertEquals(quality+1000.00,company1.getToasterList().get(0).getQualityInvestmentKum());
+		assertEquals(radio+1000.00,company1.getToasterList().get(0).getRadioInvestmentKum());
+		assertEquals(tv+1000.00,company1.getToasterList().get(0).getTvInvestmentKum());
 	}
 
 
