@@ -44,6 +44,8 @@ public class New_Game_Test extends TestCase {
 	private Group group2;
 	private Group group3;
 	private Group group4;
+	
+	private ArrayList<Number> list1 = null;
 
 	@Before
 	protected void setUp() throws Exception {
@@ -74,7 +76,7 @@ public class New_Game_Test extends TestCase {
 		sortedIndexListTyp2 = sortedIndexListTyp1;	
 		sortedIndexListTyp3 =  sortedIndexListTyp1;
 
-		group1 = new Group();
+		group1 = (Group)UserFactory.createUser("Group", "group1","group1" );
 		group2 = new Group();
 		group3 = new Group();
 		group4 = new Group();
@@ -102,6 +104,8 @@ public class New_Game_Test extends TestCase {
 		Game.getInstance().setSortedIndexListTyp1(sortedIndexListTyp1);
 		Game.getInstance().setSortedIndexListTyp2(sortedIndexListTyp2);
 		Game.getInstance().setSortedIndexListTyp3(sortedIndexListTyp3);
+		
+		list1 = new ArrayList<Number>();
 	}
 
 	@After
@@ -135,6 +139,9 @@ public class New_Game_Test extends TestCase {
 	master = null;
 	
 	Game.destroyGame();
+	
+	list1 = null;
+	
 	System.gc();
 	}
 
@@ -190,7 +197,34 @@ public class New_Game_Test extends TestCase {
 		assertNotNull(Game.getInstance().getGroupList());
 		assertEquals(groupList2, Game.getInstance().getGroupList());
 	}
-
+	
+	
+	// Get&Set Test
+	@Test
+	public void testGetSetSortedIndexListTyp1()
+	{  
+		Game.getInstance().setSortedIndexListTyp1(list1);
+		assertNotNull(Game.getInstance().getSortedIndexListTyp1());
+		assertEquals(list1, Game.getInstance().getSortedIndexListTyp1());
+	}
+	
+	@Test
+	public void testGetSetSortedIndexListTyp2()
+	{  
+		Game.getInstance().setSortedIndexListTyp2(list1);
+		assertNotNull(Game.getInstance().getSortedIndexListTyp2());
+		assertEquals(list1, Game.getInstance().getSortedIndexListTyp2());
+	}
+	
+	@Test
+	public void testGetSetSortedIndexListTyp3()
+	{  
+		Game.getInstance().setSortedIndexListTyp3(list1);
+		assertNotNull(Game.getInstance().getSortedIndexListTyp3());
+		assertEquals(list1, Game.getInstance().getSortedIndexListTyp3());
+	}
+	
+	
 	//Berechnende Methoden
 	
 	
@@ -290,7 +324,7 @@ public class New_Game_Test extends TestCase {
 	{
 		double design = group1.getCompany().getToasterList().get(0).getDesignInvestmentKum();
 		group1.getCompany().getToasterList().get(0).setDesignInvestment(1.00);
-		group1.completeRound();
+		Game.getInstance().completeRound(group1);
 		assertEquals((design+1),group1.getCompany().getToasterList().get(0).getDesignInvestmentKum());
 
 		
@@ -313,6 +347,39 @@ public class New_Game_Test extends TestCase {
 		Game.destroyGame();
 		assertNull(Game.getInstance());
 		
+	}
+	@Test
+	public void testKillGroup()
+	{
+
+	Game.getInstance().killGroup(group1);
+	
+	
+	assertEquals(0.0, group1.getCompany().getTurnover());
+	assertEquals(0.0, group1.getCompany().getProfit());
+	assertEquals(0.0, group1.getCompany().getCost());
+	assertEquals(0, group1.getCompany().getMarketShare());
+	for (int i = 0; i < group1.getCompany().getToasterList().size(); i++)
+	{
+		assertEquals(0.0, group1.getCompany().getToasterList().get(i).getCost());
+		assertEquals(0.0, group1.getCompany().getToasterList().get(i).getDesignInvestment());
+		assertEquals(0.0, group1.getCompany().getToasterList().get(i).getEcologyInvestment());
+		assertEquals(0.0, group1.getCompany().getToasterList().get(i).getIndex());
+		assertEquals(0.0, group1.getCompany().getToasterList().get(i).getMarketing());
+		assertEquals(0, group1.getCompany().getToasterList().get(i).getMarketShare());
+		assertEquals(0.0, group1.getCompany().getToasterList().get(i).getNewspaperInvestment());
+		assertEquals(0, group1.getCompany().getToasterList().get(i).getProduction());
+		assertEquals(0.0, group1.getCompany().getToasterList().get(i).getProfit());
+		assertEquals(0.0, group1.getCompany().getToasterList().get(i).getQualityInvestment());
+		assertEquals(0.0, group1.getCompany().getToasterList().get(i).getRadioInvestment());
+		assertEquals(0.0, group1.getCompany().getToasterList().get(i).getResearch());
+		assertEquals(0.0, group1.getCompany().getToasterList().get(i).getTurnover());
+		assertEquals(0.0, group1.getCompany().getToasterList().get(i).getTvInvestment());
+	}
+	}
+	@Test
+	public void testSimulate()
+	{
 	}
 }//Test Game
 		

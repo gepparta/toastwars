@@ -222,7 +222,7 @@ public class Test_Company extends TestCase
 	@Test
 	public void testGetSetProfitRankingList()
 	{
-		assertNull(company1.getProfitRankingList());
+
 		company1.setProfitRankingList(list1);
 		assertNotNull(company1.getProfitRankingList());
 		assertEquals(list1, company1.getProfitRankingList());
@@ -231,7 +231,7 @@ public class Test_Company extends TestCase
 	@Test
 	public void testGetSetCapitalRankingInternList()
 	{
-		assertNull(company1.getCapitalRankingInternList());
+
 		company1.setCapitalRankingInternList(list1);
 		assertNotNull(company1.getCapitalRankingInternList());
 		assertEquals(list1, company1.getCapitalRankingInternList());
@@ -240,7 +240,7 @@ public class Test_Company extends TestCase
 	@Test
 	public void testGetSetReportListe()
 	{
-		assertNull(company1.getReportListe());
+
 		company1.setReportListe(list2);
 		assertNotNull(company1.getReportListe());
 		assertEquals(list2, company1.getReportListe());
@@ -346,14 +346,14 @@ public class Test_Company extends TestCase
 		assertNotSame(330000.00, company2.getToasterList().get(2).getCost());
 		assertNotSame(99000.00, company2.getCost());
 		company2.setMarketResearchReportON(true);
-		company2.getStock().setTotalStockCosts(1000.00);
+		company2.getStock().setStockTT1(1000);
 		company2.calculateCost();
 		assertEquals(33000.00, company2.getToasterList().get(0).getCost());
 		assertEquals(33000.00, company2.getToasterList().get(1).getCost());
 		assertEquals(33000.00, company2.getToasterList().get(2).getCost());
 
-		//1000€ Lagerkosten + 3 * 6 Euro für die Investitionen, 5000 für den MArketresearchreport und 99000 für die Toaster
-		assertEquals(105018.00, company2.getCost());
+		//1250€ Lagerkosten + 3 * 6 Euro für die Investitionen, 5000 für den MArketresearchreport und 99000 für die Toaster
+		assertEquals(105268.00, company2.getCost());
 	}
 	@Test
 	public void testCalculateProfit()
