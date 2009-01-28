@@ -320,15 +320,15 @@ public class Test_Type extends TestCase {
 	
 	@Test
 	public void testsetMarketVolumeTT1() {
-		assertNotSame(10950, type1.getMarketVolume());
+		assertNotSame(10920, type1.getMarketVolume());
 		type1.setMarketVolumeTT1(3);
-		assertEquals(10950, type1.getMarketVolume());
+		assertEquals(10920, type1.getMarketVolume());
 	}
 	@Test
 	public void testSetMarketVolumeTT2() {
-		assertNotSame(5450, type2.getMarketVolume());
+		assertNotSame(5440, type2.getMarketVolume());
 		type2.setMarketVolumeTT2(3);
-		assertEquals(5450, type2.getMarketVolume());
+		assertEquals(5440, type2.getMarketVolume());
 	}
 	@Test
 	public void testSetMarketVolumeTT3() {
