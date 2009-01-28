@@ -232,7 +232,7 @@ public class Company implements IsSerializable
 		}
 		
 		this.setCapital(this.getCapital()+totalInvestmentCosts);
-		this.setCost(+tmpCost+totalInvestmentCosts+ stock.getTotalStockCosts());
+		this.setCost(tmpCost+totalInvestmentCosts+ stock.getTotalStockCosts());
 	}
 
 	// In dieser Methode wird die Indexberechnung aller Toaster dieser Company ausgeführt.

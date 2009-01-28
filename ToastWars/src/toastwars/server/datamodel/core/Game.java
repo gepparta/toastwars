@@ -402,35 +402,8 @@ public class Game implements IsSerializable
 		}
 	}
 
-	/*
-	 * Hier werden die Invetsitionen des User (Tv, Ökologie usw), welche vom UI
-	 * wegen der Slider bereits dort vom Kapital abgezogen werden wieder zum
-	 * Kapital und gleichzeitig auch zu den Kosten addiert. Hiermit erreicht man
-	 * die korrekte Berechnung der Gesamtkosten sowie des tatsächlichen Gewinns.
-	 */
-	public void considerInvestments()
-	{
-		double totalInvestmentCosts = 0.0;
-		for (Group group : groupList)
-		{
-			ArrayList<Toaster> toasterList = group.getCompany().getToasterList();
-			for (Toaster toaster : toasterList)
-			{
-				totalInvestmentCosts += toaster.getDesignInvestment()+toaster.getEcologyInvestment()+toaster.getNewspaperInvestment()+toaster.getQualityInvestment()+toaster.getRadioInvestment()+toaster.getTvInvestment();
-			}
-			Company company = group.getCompany();
-//			wenn ein Markforschungsbericht angefordert wurde, müssen hier die 
-//			Kosten dafür richtig gebucht werden
-			if (company.isMarketResearchReportON())
-			{
-				totalInvestmentCosts += 5000.0;
-			}
-				
-			company.setCapital(company.getCapital()+totalInvestmentCosts);
-			company.setCost(company.getCost()+totalInvestmentCosts);
-		}
-	}
-	//Methoden für die Tests
+
+
 	public String toString()
 	{
 		String s = "Game Eigenschaften: \n user amount: \t \t" + this.getUserAmount() + "\n current round: \t" + this.getCurrentRound();
