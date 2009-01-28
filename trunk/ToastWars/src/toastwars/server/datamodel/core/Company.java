@@ -220,10 +220,9 @@ public class Company implements IsSerializable
 		this.stock.calculateTotalStockCosts();
 		for (Toaster toaster : toasterList)
 		{
-
 			toaster.calculateCost();
 			tmpCost += toaster.getCost();
-			totalInvestmentCosts = toaster.getDesignInvestment()+toaster.getEcologyInvestment()+toaster.getNewspaperInvestment()+toaster.getQualityInvestment()+toaster.getRadioInvestment()+toaster.getTvInvestment();
+			totalInvestmentCosts += toaster.getDesignInvestment()+toaster.getEcologyInvestment()+toaster.getNewspaperInvestment()+toaster.getQualityInvestment()+toaster.getRadioInvestment()+toaster.getTvInvestment();
 		}
 //		wenn ein Markforschungsbericht angefordert wurde, müssen hier die 
 //		Kosten dafür richtig gebucht werden

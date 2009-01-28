@@ -409,7 +409,7 @@ public class Game implements IsSerializable
 			ArrayList<Toaster> toasterList = group.getCompany().getToasterList();
 			for (Toaster toaster : toasterList)
 			{
-				totalInvestmentCosts = toaster.getDesignInvestment()+toaster.getEcologyInvestment()+toaster.getNewspaperInvestment()+toaster.getQualityInvestment()+toaster.getRadioInvestment()+toaster.getTvInvestment();
+				totalInvestmentCosts += toaster.getDesignInvestment()+toaster.getEcologyInvestment()+toaster.getNewspaperInvestment()+toaster.getQualityInvestment()+toaster.getRadioInvestment()+toaster.getTvInvestment();
 			}
 			Company company = group.getCompany();
 //			wenn ein Markforschungsbericht angefordert wurde, müssen hier die 
