@@ -9,6 +9,7 @@ import toastwars.server.datamodel.core.Type;
 import toastwars.server.datamodel.user.Group;
 import toastwars.server.datamodel.user.Status;
 
+import com.google.gwt.core.client.JavaScriptObject;
 import com.gwtext.client.core.EventObject;
 import com.gwtext.client.core.Function;
 import com.gwtext.client.core.Position;
@@ -171,6 +172,7 @@ public class DecissionPanel extends Panel {
 					capital.setValue(value - 5000);
 				} else
 					capital.setValue(value + 5000);
+				capital.fireEvent("change");
 			}
 		});
 
@@ -189,7 +191,7 @@ public class DecissionPanel extends Panel {
 		capital.addListener("change", new Function() {
 			public void execute() {
 				double value = capital.getValue().doubleValue();
-				if (value < 5000)
+				if (value < 5000 && !report.getValue())
 					report.setDisabled(true);
 				else
 					report.setDisabled(false);
