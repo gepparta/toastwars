@@ -203,7 +203,10 @@ public class Toaster implements IsSerializable {
 
 	public void setEcologyInvestment(double ecology) 
 	{
-
+//		an dieser Stelle wird wie in dem Szenario beschrieben
+//		eine Invetsition in Ökologie in Runde 2 mit 20% bezuschusst
+		if(Game.getInstance().getCurrentRound()==2)
+			ecology *= 1.2;
 		this.ecologyInvestment = ecology;
 
 	}
@@ -347,10 +350,6 @@ public class Toaster implements IsSerializable {
 
 		// Runden auf zwei Stellen hinter dem Komma und setzen des eigenen Objektattributs auf errechneten Wert.
 		setIndex(NumberUtil.roundDouble(i));
-		
-
-
-
 	}
 
 
@@ -424,17 +423,17 @@ public class Toaster implements IsSerializable {
 	{
 		double qualityIndex = 0;
 		double designIndex = 0;
-		double efficiencyIndex = 0;
+		double ecologyIndex = 0;
 		if (this.type == Type.TYPE1)
 		{
 
 			double quality = this.qualityInvestmentKum + Type.TYPE1.getQualityInvestmentPlus();
 			double design = this.designInvestmentKum + Type.TYPE1.getDesignInvestmentPlus();
-			double efficiency = this.ecologyInvestmentKum + Type.TYPE1.getEcologyInvestmentPlus();
+			double ecology = this.ecologyInvestmentKum + Type.TYPE1.getEcologyInvestmentPlus();
 					
 			qualityIndex = NumberUtil.roundDouble((Math.log(quality / 3000)) * (quality / Math.pow(quality, 1.04)) + 0.635);
 			designIndex = NumberUtil.roundDouble((Math.log(design / 2000)) * (design / Math.pow(design, 1.0658)) + 0.48);
-			efficiencyIndex = NumberUtil.roundDouble((Math.log(efficiency / 1000)) * (efficiency / Math.pow(efficiency, 1.0992)) + 0.31);
+			ecologyIndex = NumberUtil.roundDouble((Math.log(ecology / 1000)) * (ecology / Math.pow(ecology, 1.0992)) + 0.31);
 
 		}
 		if (this.type == Type.TYPE2)
@@ -442,11 +441,11 @@ public class Toaster implements IsSerializable {
 
 			double quality = this.qualityInvestmentKum + Type.TYPE2.getQualityInvestmentPlus();
 			double design = this.designInvestmentKum + Type.TYPE2.getDesignInvestmentPlus();
-			double efficiency = this.ecologyInvestmentKum + Type.TYPE2.getEcologyInvestmentPlus();
+			double ecology = this.ecologyInvestmentKum + Type.TYPE2.getEcologyInvestmentPlus();
 			
 			qualityIndex = NumberUtil.roundDouble((Math.log(quality / 3000)) * (quality / Math.pow(quality, 1.04)) + 0.165);
 			designIndex = NumberUtil.roundDouble((Math.log(design / 2000)) * (design / Math.pow(design, 1.0658)) + 0.12);
-			efficiencyIndex = NumberUtil.roundDouble((Math.log(efficiency / 1000)) * (efficiency / Math.pow(efficiency, 1.0992)) + 0.08);
+			ecologyIndex = NumberUtil.roundDouble((Math.log(ecology / 1000)) * (ecology / Math.pow(ecology, 1.0992)) + 0.08);
 
 		}
 
@@ -455,13 +454,13 @@ public class Toaster implements IsSerializable {
 
 			double quality = this.qualityInvestmentKum + Type.TYPE3.getQualityInvestmentPlus();
 			double design = this.designInvestmentKum + Type.TYPE3.getDesignInvestmentPlus();
-			double efficiency = this.ecologyInvestmentKum + Type.TYPE3.getEcologyInvestmentPlus();
+			double ecology = this.ecologyInvestmentKum + Type.TYPE3.getEcologyInvestmentPlus();
 			
 			qualityIndex = NumberUtil.roundDouble((Math.log(quality / 3000)) * (quality / Math.pow(quality, 1.04)) - 0.1);
 			designIndex = NumberUtil.roundDouble((Math.log(design / 2000)) * (design / Math.pow(design, 1.0658)) - 0.07);
-			efficiencyIndex = NumberUtil.roundDouble((Math.log(efficiency / 1000)) * (efficiency / Math.pow(efficiency, 1.0992)) - 0.04);
+			ecologyIndex = NumberUtil.roundDouble((Math.log(ecology / 1000)) * (ecology / Math.pow(ecology, 1.0992)) - 0.04);
 		}
-		double d = qualityIndex + designIndex + efficiencyIndex;
+		double d = qualityIndex + designIndex + ecologyIndex;
 		
 
 		
