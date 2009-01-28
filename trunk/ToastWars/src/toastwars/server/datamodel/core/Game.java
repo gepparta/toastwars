@@ -411,8 +411,16 @@ public class Game implements IsSerializable
 			{
 				totalInvestmentCosts = toaster.getDesignInvestment()+toaster.getEcologyInvestment()+toaster.getNewspaperInvestment()+toaster.getQualityInvestment()+toaster.getRadioInvestment()+toaster.getTvInvestment();
 			}
-			group.getCompany().setCapital(group.getCompany().getCapital()+totalInvestmentCosts);
-			group.getCompany().setCost(group.getCompany().getCost()+totalInvestmentCosts);
+			Company company = group.getCompany();
+//			wenn ein Markforschungsbericht angefordert wurde, müssen hier die 
+//			Kosten dafür richtig gebucht werden
+			if (company.isMarketResearchReportON())
+			{
+				totalInvestmentCosts += 5000.0;
+			}
+				
+			company.setCapital(company.getCapital()+totalInvestmentCosts);
+			company.setCost(company.getCost()+totalInvestmentCosts);
 		}
 	}
 	//Methoden für die Tests
