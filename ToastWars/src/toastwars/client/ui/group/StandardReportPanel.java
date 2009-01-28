@@ -5,6 +5,7 @@ import java.util.List;
 import toastwars.client.Controller;
 import toastwars.server.datamodel.core.Game;
 import toastwars.server.datamodel.core.Toaster;
+import toastwars.server.datamodel.core.Type;
 import toastwars.server.datamodel.user.Group;
 import toastwars.util.NumberUtil;
 import com.gwtext.client.widgets.Panel;
@@ -265,5 +266,48 @@ public class StandardReportPanel extends Panel
 		chart.setJsonData(cd.toString());
 
 		return chart;
+	}
+	
+	private double getVariableCost4Company(Group group)
+	{
+		double variableCost = 0.0;
+		for (Toaster toaster : group.getCompany().getToasterList())
+		{
+			Type type = toaster.getType();
+			variableCost += (toaster.getProduction()* type.getVariableCosts());
+		}
+		return variableCost;
+	}
+	
+	private double getFixCost4Company(Group group)
+	{
+		double fixCost = 0.0;
+		for (Toaster toaster : group.getCompany().getToasterList())
+		{
+			Type type = toaster.getType();
+			fixCost += type.getFixCosts();
+		}
+		return fixCost;
+	}
+	
+	private double getStepCost4Company(Group group)
+	{
+		double stepCost = 0.0;
+		for (Toaster toaster : group.getCompany().getToasterList())
+		{
+			Type type = toaster.getType();
+			stepCost += (Math.ceil((double) toaster.getProduction() / type.getCapacity()) * type.getStepCosts());
+		}
+		return stepCost;
+	}
+	
+	private double getIndex4Company(Group group)
+	{
+		double index = 0.0;
+		for (Toaster toaster : group.getCompany().getToasterList())
+		{
+			index += toaster.getIndex();
+		}
+		return index;
 	}
 }
