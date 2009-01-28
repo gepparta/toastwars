@@ -222,12 +222,12 @@ public class DecissionForm extends Panel {
 
 	private Panel createSliderField(NumberField field, SliderBar slider) {
 		Panel panel = new Panel();
-		panel.setLayout(new HorizontalLayout(13));
+		panel.setLayout(new HorizontalLayout(3));
 		panel.setPaddings(0);
 
 		FormPanel form = new FormPanel();
 		form.setBorder(false);
-		form.setWidth(110);
+		form.setWidth(130);
 		form.setLabelWidth(50);
 		form.add(field);
 
@@ -289,7 +289,7 @@ public class DecissionForm extends Panel {
 			}
 		});
 
-		if (!name.equals("price"))
+		if (!name.equals("price") && !name.equals("amount"))
 			numField.setReadOnly(true);
 
 		return numField;
