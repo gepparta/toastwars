@@ -165,22 +165,27 @@ public class DecissionForm extends Panel {
 	}
 
 	private FieldSet createMarketingFieldSet() {
+		type = toaster.getType();
+
 		// add marketing fields
 		FieldSet marketingFS = new FieldSet("Marketing");
 		marketingFS.setPaddings(5, 5, 5, 0);
 
-		SliderBar magSlider = new SliderBar(0, 100000);
-		configureSlider(magSlider, 5000, 20, 2, " &euro;", fields.get(2),
+		int value = (int) type.getNewspaperInvestmentPlus();
+		SliderBar magSlider = new SliderBar(0, 20 * value);
+		configureSlider(magSlider, value, 20, 2, " &euro;", fields.get(2),
 				toaster.getNewspaperInvestment());
 		marketingFS.add(createSliderField(fields.get(2), magSlider));
 
-		SliderBar radioSlider = new SliderBar(0, 100000);
-		configureSlider(radioSlider, 10000, 10, 2, " &euro;", fields.get(3),
+		value = (int) type.getRadioInvestmentPlus();
+		SliderBar radioSlider = new SliderBar(0, 20 * value);
+		configureSlider(radioSlider, value, 20, 2, " &euro;", fields.get(3),
 				toaster.getRadioInvestment());
 		marketingFS.add(createSliderField(fields.get(3), radioSlider));
 
-		SliderBar tvSlider = new SliderBar(0, 120000);
-		configureSlider(tvSlider, 20000, 6, 2, " &euro;", fields.get(4),
+		value = (int) type.getTvInvestmentPlus();
+		SliderBar tvSlider = new SliderBar(0, 20 * value);
+		configureSlider(tvSlider, value, 20, 2, " &euro;", fields.get(4),
 				toaster.getTvInvestment());
 		marketingFS.add(createSliderField(fields.get(4), tvSlider));
 
@@ -188,22 +193,27 @@ public class DecissionForm extends Panel {
 	}
 
 	private FieldSet createResearchFieldSet() {
+		type = toaster.getType();
+
 		// add research fields
 		FieldSet researchFS = new FieldSet("Forschung und Entwicklung");
 		researchFS.setPaddings(5, 5, 5, 0);
 
-		SliderBar qSlider = new SliderBar(0, 100000);
-		configureSlider(qSlider, 5000, 20, 2, " &euro;", fields.get(5), toaster
-				.getQualityInvestment());
+		int value = (int) type.getQualityInvestmentPlus();
+		SliderBar qSlider = new SliderBar(0, 20 * value);
+		configureSlider(qSlider, value, 20, 2, " &euro;", fields.get(5),
+				toaster.getQualityInvestment());
 		researchFS.add(createSliderField(fields.get(5), qSlider));
 
-		SliderBar designSlider = new SliderBar(0, 100000);
-		configureSlider(designSlider, 5000, 20, 2, " &euro;", fields.get(6),
+		value = (int) type.getDesignInvestmentPlus();
+		SliderBar designSlider = new SliderBar(0, 20 * value);
+		configureSlider(designSlider, value, 20, 2, " &euro;", fields.get(6),
 				toaster.getDesignInvestment());
 		researchFS.add(createSliderField(fields.get(6), designSlider));
 
-		SliderBar ecoSlider = new SliderBar(0, 100000);
-		configureSlider(ecoSlider, 5000, 20, 2, " &euro;", fields.get(7),
+		value = (int) type.getEcologyInvestmentPlus();
+		SliderBar ecoSlider = new SliderBar(0, 20 * value);
+		configureSlider(ecoSlider, value, 20, 2, " &euro;", fields.get(7),
 				toaster.getEcologyInvestment());
 		researchFS.add(createSliderField(fields.get(7), ecoSlider));
 
