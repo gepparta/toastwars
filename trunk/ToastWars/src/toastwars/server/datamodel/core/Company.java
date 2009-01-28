@@ -215,21 +215,25 @@ public class Company implements IsSerializable
 	public void calculateCost()
 	{
 		double tmpCost = 0;
-		if (this.marketResearchReportON==true){tmpCost = 5000;}
-		
-		
+		double totalInvestmentCosts = 0.0;
+
 		this.stock.calculateTotalStockCosts();
-		for (int i = 0; i < this.toasterList.size(); i++)
+		for (Toaster toaster : toasterList)
 		{
 
-			toasterList.get(i).calculateCost();
-			tmpCost += toasterList.get(i).getCost() + toasterList.get(i).getDesignInvestment()
-			+toasterList.get(i).getEcologyInvestment() + toasterList.get(i).getNewspaperInvestment()
-			+ toasterList.get(i).getQualityInvestment() + toasterList.get(i).getTvInvestment()
-			+ toasterList.get(i).getRadioInvestment();
-
+			toaster.calculateCost();
+			tmpCost += toaster.getCost();
+			totalInvestmentCosts = toaster.getDesignInvestment()+toaster.getEcologyInvestment()+toaster.getNewspaperInvestment()+toaster.getQualityInvestment()+toaster.getRadioInvestment()+toaster.getTvInvestment();
 		}
-		this.setCost(tmpCost + stock.getTotalStockCosts());
+//		wenn ein Markforschungsbericht angefordert wurde, müssen hier die 
+//		Kosten dafür richtig gebucht werden
+		if (this.isMarketResearchReportON())
+		{
+			totalInvestmentCosts += 5000.0;
+		}
+		
+		this.setCapital(this.getCapital()+totalInvestmentCosts);
+		this.setCost(+tmpCost+totalInvestmentCosts+ stock.getTotalStockCosts());
 	}
 
 	// In dieser Methode wird die Indexberechnung aller Toaster dieser Company ausgeführt.
