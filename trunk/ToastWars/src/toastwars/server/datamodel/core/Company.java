@@ -215,12 +215,18 @@ public class Company implements IsSerializable
 	public void calculateCost()
 	{
 		double tmpCost = 0;
+		if (this.marketResearchReportON==true){tmpCost = 5000;}
+		
+		
 		this.stock.calculateTotalStockCosts();
 		for (int i = 0; i < this.toasterList.size(); i++)
 		{
 
 			toasterList.get(i).calculateCost();
-			tmpCost += toasterList.get(i).getCost();
+			tmpCost += toasterList.get(i).getCost() + toasterList.get(i).getDesignInvestment()
+			+toasterList.get(i).getEcologyInvestment() + toasterList.get(i).getNewspaperInvestment()
+			+ toasterList.get(i).getQualityInvestment() + toasterList.get(i).getTvInvestment()
+			+ toasterList.get(i).getRadioInvestment();
 
 		}
 		this.setCost(this.getCost()+tmpCost + stock.getTotalStockCosts());
