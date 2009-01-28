@@ -230,7 +230,7 @@ public class Company implements IsSerializable
 		{
 			totalInvestmentCosts += 5000.0;
 		}
-		
+		//Die Investmentcosts müssen wegen dem UI addiert werden, da im UI das Kapital verändert wird.
 		this.setCapital(this.getCapital()+totalInvestmentCosts);
 		this.setCost(tmpCost+totalInvestmentCosts+ stock.getTotalStockCosts());
 	}
