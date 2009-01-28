@@ -223,7 +223,7 @@ public class Company implements IsSerializable
 			tmpCost += toasterList.get(i).getCost();
 
 		}
-		this.setCost(tmpCost + stock.getTotalStockCosts());
+		this.setCost(this.getCost()+tmpCost + stock.getTotalStockCosts());
 	}
 
 	// In dieser Methode wird die Indexberechnung aller Toaster dieser Company ausgeführt.
