@@ -170,7 +170,7 @@ public class DAOToaster
 			int round = Game.getInstance().getCurrentRound()- 1;
 			String type = toaster.getType().name();
 			String query = "SELECT * FROM Toaster WHERE companyID = "
-					+ companyID + " AND Round = " + round + " AND type = "+ type + ";";
+					+ companyID + " AND Round = " + round + " AND type = '"+ type + "';";
 			Statement stmt = con.createStatement();
 			ResultSet rst = stmt.executeQuery(query);
 			if (rst.wasNull()) {
