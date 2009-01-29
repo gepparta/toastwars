@@ -230,7 +230,20 @@ public class Company implements IsSerializable
 		{
 			totalInvestmentCosts += 5000.0;
 		}
-		//Die Investmentcosts müssen wegen dem UI addiert werden, da im UI das Kapital verändert wird.
+		
+//		wenn ein Toaster Typ 2 erzeugt wurde, findet hier die Umbuchung der Kosten statt
+		for (Toaster toaster : toasterList)
+		{
+//			TODO: DAO von Merx aufrufen
+			if(true == false)
+			{
+				if(toaster.getType()==Type.TYPE2)
+					totalInvestmentCosts+=15000;
+				if(toaster.getType()==Type.TYPE3)
+					totalInvestmentCosts+=25000;
+			}
+		}
+		
 		this.setCapital(this.getCapital()+totalInvestmentCosts);
 		this.setCost(tmpCost+totalInvestmentCosts+ stock.getTotalStockCosts());
 	}
