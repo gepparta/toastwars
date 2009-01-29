@@ -220,7 +220,7 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements
 				Game.getInstance().setSortedIndexListTyp3(
 						report.getSortedIndexListTyp3());
 		
-				Game.getInstance().considerInvestments();
+//				Game.getInstance().considerInvestments();
 				Master.getInstance().simulate();
 
 				// reset user input parameters
