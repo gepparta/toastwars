@@ -164,4 +164,28 @@ public class DAOToaster
 			return null;
 		}
 	}
+	public static boolean isThisToasterNew(Toaster toaster,  int companyID, Connection con){
+		
+		try {
+			int round = Game.getInstance().getCurrentRound()- 1;
+			String type = toaster.getType().name();
+			String query = "SELECT * FROM Toaster WHERE companyID = "
+					+ companyID + " AND Round = " + round + " AND type = "+ type + ";";
+			Statement stmt = con.createStatement();
+			ResultSet rst = stmt.executeQuery(query);
+			if (rst.wasNull()) {
+				rst.close();
+				stmt.close();
+				return true;
+			}
+			else {
+				rst.close();
+				stmt.close();
+				return false;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return true;
+		}
+	}
 }
