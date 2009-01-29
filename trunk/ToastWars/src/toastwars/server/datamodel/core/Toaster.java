@@ -205,8 +205,9 @@ public class Toaster implements IsSerializable {
 	{
 //		an dieser Stelle wird wie in dem Szenario beschrieben
 //		eine Invetsition in Ökologie in Runde 2 mit 20% bezuschusst
-		if(Game.getInstance().getCurrentRound()==2)
-			ecology *= 1.2;
+//		TODO: nullpointer aufm UI lösen
+//		if(Game.getInstance().getCurrentRound()==2)
+//			ecology *= 1.2;
 		this.ecologyInvestment = ecology;
 
 	}
