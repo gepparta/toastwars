@@ -173,7 +173,7 @@ public class DAOToaster
 					+ companyID + " AND Round = " + round + " AND type = '"+ type + "';";
 			Statement stmt = con.createStatement();
 			ResultSet rst = stmt.executeQuery(query);
-			if (rst.wasNull()) {
+			if (rst.next()==false) {
 				rst.close();
 				stmt.close();
 				return true;
