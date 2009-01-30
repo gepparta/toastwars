@@ -10,9 +10,11 @@ import toastwars.server.datamodel.core.Type;
 import toastwars.server.datamodel.user.Group;
 import toastwars.util.NumberUtil;
 
+import com.gwtext.client.widgets.Component;
 import com.gwtext.client.widgets.Panel;
-import com.gwtext.client.widgets.chart.yui.Axis;
+import com.gwtext.client.widgets.form.FormPanel;
 import com.gwtext.client.widgets.form.Label;
+import com.gwtext.client.widgets.form.NumberField;
 import com.gwtext.client.widgets.layout.HorizontalLayout;
 import com.gwtext.client.widgets.layout.VerticalLayout;
 import com.rednels.ofcgwt.client.ChartWidget;
@@ -59,6 +61,7 @@ public class StandardReportPanel extends Panel {
 		Panel topPanel = new Panel();
 		topPanel.setStyle("text-align: center;");
 		topPanel.setLayout(new HorizontalLayout(3));
+		topPanel.add(createCostForm());
 		topPanel.add(createCapitalBarChart());
 		topPanel.add(createProfitBarChart());
 
@@ -66,6 +69,51 @@ public class StandardReportPanel extends Panel {
 
 		add(topPanel);
 		add(bottomPanel);
+	}
+
+	private Panel createCostForm() {
+		Panel p = new Panel();
+		p.setPaddings(15);
+		p.setSize(230, 250);
+		p.setBorder(false);
+
+		FormPanel formTop = new FormPanel();
+		formTop.setBorder(false);
+		formTop.setLabelWidth(120);
+
+		formTop.add(createCostField("Variable Kosten", "varCosts", 70,
+				(float) getVariableCost4Company(group)));
+
+		formTop.add(createCostField("Fixe Kosten", "fixCosts", 70,
+				(float) getFixCost4Company(group)));
+
+		formTop.add(createCostField("Sprungfixe Kosten", "stepCosts", 70,
+				(float) getStepCost4Company(group)));
+
+		FormPanel formBottom = new FormPanel();
+		formBottom.setBorder(false);
+		formBottom.setStyle("border-top: 1px solid gold;");
+		formBottom.setPaddings(10, 0, 0, 0);
+		formBottom.setLabelWidth(120);
+
+		formBottom.add(createCostField("Gesamte Kosten", "sumCosts", 70,
+				(float) getStepCost4Company(group)));
+
+		p.add(formTop);
+		p.add(formBottom);
+
+		return p;
+	}
+
+	private NumberField createCostField(String text, String name, int width,
+			float value) {
+		NumberField field = new NumberField(text, name, width, value);
+		field.setStyle("text-align:right");
+		field.setDecimalPrecision(2);
+		field.setDecimalSeparator(",");
+		field.setAllowDecimals(true);
+		field.setReadOnly(true);
+		return field;
 	}
 
 	private Panel createPieCharts() {
@@ -118,7 +166,7 @@ public class StandardReportPanel extends Panel {
 				"filter:Alpha(opacity=100, finishopacity=80, startx=10, "
 						+ "finishx=484, style=1); -moz-opacity: 0.9 ; font-size: 14px; "
 						+ "font-family: Verdana; text-align: center; color: #FDD017;");
-//		cd.setBackgroundColour("-1");
+		// cd.setBackgroundColour("-1");
 
 		PieChart pie = new PieChart();
 		pie.setAlpha(1f);
@@ -176,7 +224,7 @@ public class StandardReportPanel extends Panel {
 		ChartData cd = new ChartData("Kapital in &#8364; nach Runde "
 				+ (game.getCurrentRound() - 1),
 				"font-size: 14px; font-family: Verdana; text-align: center; color: #FDD017;");
-//		cd.setBackgroundColour("-1");
+		// cd.setBackgroundColour("-1");
 
 		XAxis xa = new XAxis();
 		List<String> labels = new ArrayList<String>();
@@ -197,7 +245,7 @@ public class StandardReportPanel extends Panel {
 			// setMin = key.intValue();
 		}
 		xa.setLabels(labels);
-//		xa.getLabels().setColour("#FDD017");
+		// xa.getLabels().setColour("#FDD017");
 		xa.setMax(capitalList.size() - 1);
 		xa.setTickHeight(10);
 		cd.setXAxis(xa);
@@ -207,7 +255,7 @@ public class StandardReportPanel extends Panel {
 		ya.setMin(0);
 		int steps = (ya.getMax().intValue() + Math.abs(ya.getMin().intValue())) / 5;
 		ya.setSteps(steps);
-//		ya.getLabels().setColour("#FDD017");
+		// ya.getLabels().setColour("#FDD017");
 		cd.setYAxis(ya);
 
 		BarChart bchart = new BarChart(BarStyle.GLASS);
@@ -229,7 +277,7 @@ public class StandardReportPanel extends Panel {
 		ChartData cd = new ChartData("Gewinn in &#8364; nach Runde "
 				+ (game.getCurrentRound() - 1),
 				"font-size: 14px; font-family: Verdana; text-align: center; color: #FDD017;");
-//		cd.setBackgroundColour("-1");
+		// cd.setBackgroundColour("-1");
 
 		XAxis xa = new XAxis();
 		List<String> labels = new ArrayList<String>();
@@ -251,7 +299,7 @@ public class StandardReportPanel extends Panel {
 			// setMin = key.intValue();
 		}
 		xa.setLabels(labels);
-//		xa.getLabels().setColour("#FDD017");
+		// xa.getLabels().setColour("#FDD017");
 		xa.setMax(profitList.size() - 1);
 		cd.setXAxis(xa);
 
@@ -278,45 +326,38 @@ public class StandardReportPanel extends Panel {
 
 		return chart;
 	}
-	
-	private double getVariableCost4Company(Group group)
-	{
+
+	private double getVariableCost4Company(Group group) {
 		double variableCost = 0.0;
-		for (Toaster toaster : group.getCompany().getToasterList())
-		{
+		for (Toaster toaster : group.getCompany().getToasterList()) {
 			Type type = toaster.getType();
-			variableCost += (toaster.getProduction()* type.getVariableCosts());
+			variableCost += (toaster.getProduction() * type.getVariableCosts());
 		}
 		return variableCost;
 	}
-	
-	private double getFixCost4Company(Group group)
-	{
+
+	private double getFixCost4Company(Group group) {
 		double fixCost = 0.0;
-		for (Toaster toaster : group.getCompany().getToasterList())
-		{
+		for (Toaster toaster : group.getCompany().getToasterList()) {
 			Type type = toaster.getType();
 			fixCost += type.getFixCosts();
 		}
 		return fixCost;
 	}
-	
-	private double getStepCost4Company(Group group)
-	{
+
+	private double getStepCost4Company(Group group) {
 		double stepCost = 0.0;
-		for (Toaster toaster : group.getCompany().getToasterList())
-		{
+		for (Toaster toaster : group.getCompany().getToasterList()) {
 			Type type = toaster.getType();
-			stepCost += (Math.ceil((double) toaster.getProduction() / type.getCapacity()) * type.getStepCosts());
+			stepCost += (Math.ceil((double) toaster.getProduction()
+					/ type.getCapacity()) * type.getStepCosts());
 		}
 		return stepCost;
 	}
-	
-	private double getIndex4Company(Group group)
-	{
+
+	private double getIndex4Company(Group group) {
 		double index = 0.0;
-		for (Toaster toaster : group.getCompany().getToasterList())
-		{
+		for (Toaster toaster : group.getCompany().getToasterList()) {
 			index += toaster.getIndex();
 		}
 		return index;
