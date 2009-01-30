@@ -13,56 +13,154 @@ public class MarketResearchReport implements Comparator
 {
 	private static MarketResearchReport instance;
 
+	// *********For Standard Report
 	// @gwt.typeArgs <java.lang.Number>
-	private ArrayList<Number> capitalRankingInternList = new ArrayList<Number>();
+	private ArrayList<Number> capitalList = new ArrayList<Number>();
 	// @gwt.typeArgs <java.lang.Number>
-	private ArrayList<Number> profitRankingInternList = new ArrayList<Number>();
+	private ArrayList<Number> profitList = new ArrayList<Number>();
+
+	// ****************************************************
+	// *********For Extra Report
+	// @gwt.typeArgs <java.lang.String>
+	private ArrayList<String> priceType1List = new ArrayList<String>();
+	// @gwt.typeArgs <java.lang.String>
+	private ArrayList<String> priceType2List = new ArrayList<String>();
+	// @gwt.typeArgs <java.lang.String>
+	private ArrayList<String> priceType3List = new ArrayList<String>();
 
 	// @gwt.typeArgs <java.lang.Number,java.lang.String>
-	private Map<Number, String> radioRankingInternList;
+	private Map<Number, String> radioRankingInternListType1;
 	// @gwt.typeArgs <java.lang.Number,java.lang.String>
-	private Map<Number, String> tvRankingInternList;
+	private Map<Number, String> radioRankingInternListType2;
 	// @gwt.typeArgs <java.lang.Number,java.lang.String>
-	private Map<Number, String> newspaperRankingInternList;
+	private Map<Number, String> radioRankingInternListType3;
+
 	// @gwt.typeArgs <java.lang.Number,java.lang.String>
-	private Map<Number, String> designRankingInternList;
+	private Map<Number, String> tvRankingInternListType1;
 	// @gwt.typeArgs <java.lang.Number,java.lang.String>
-	private Map<Number, String> ecologyRankingInternList;
+	private Map<Number, String> tvRankingInternListType2;
 	// @gwt.typeArgs <java.lang.Number,java.lang.String>
-	private Map<Number, String> qualityRankingInternList;
+	private Map<Number, String> tvRankingInternListType3;
+
+	// @gwt.typeArgs <java.lang.Number,java.lang.String>
+	private Map<Number, String> newspaperRankingInternListType1;
+	// @gwt.typeArgs <java.lang.Number,java.lang.String>
+	private Map<Number, String> newspaperRankingInternListType2;
+	// @gwt.typeArgs <java.lang.Number,java.lang.String>
+	private Map<Number, String> newspaperRankingInternListType3;
+
+	// @gwt.typeArgs <java.lang.Number,java.lang.String>
+	private Map<Number, String> designRankingInternListType1;
+	// @gwt.typeArgs <java.lang.Number,java.lang.String>
+	private Map<Number, String> designRankingInternListType2;
+	// @gwt.typeArgs <java.lang.Number,java.lang.String>
+	private Map<Number, String> designRankingInternListType3;
+
+	// @gwt.typeArgs <java.lang.Number,java.lang.String>
+	private Map<Number, String> ecologyRankingInternListType1;
+	// @gwt.typeArgs <java.lang.Number,java.lang.String>
+	private Map<Number, String> ecologyRankingInternListType2;
+	// @gwt.typeArgs <java.lang.Number,java.lang.String>
+	private Map<Number, String> ecologyRankingInternListType3;
+
+	// @gwt.typeArgs <java.lang.Number,java.lang.String>
+	private Map<Number, String> qualityRankingInternListType1;
+	// @gwt.typeArgs <java.lang.Number,java.lang.String>
+	private Map<Number, String> qualityRankingInternListType2;
+	// @gwt.typeArgs <java.lang.Number,java.lang.String>
+	private Map<Number, String> qualityRankingInternListType3;
+
 	// @gwt.typeArgs <java.lang.String>
 	private Collection<String> values;
 	// @gwt.typeArgs <java.lang.Number>
 	private Collection<Number> numberValues;
-	// // @gwt.typeArgs <java.lang.String>
-	// private List<String> capitalRankingList;
-	// @gwt.typeArgs <java.lang.String>
-	private List<String> radioRankingList;
-	// @gwt.typeArgs <java.lang.String>
-	private List<String> tvRankingList;
-	// @gwt.typeArgs <java.lang.String>
-	private List<String> newspaperRankingList;
-	// @gwt.typeArgs <java.lang.String>
-	private List<String> designRankingList;
-	// @gwt.typeArgs <java.lang.String>
-	private List<String> ecologyRankingList;
-	// @gwt.typeArgs <java.lang.String>
-	private List<String> qualityRankingList;
 
+	// @gwt.typeArgs <java.lang.String>
+	private List<String> radioRankingListType1;
+	// @gwt.typeArgs <java.lang.String>
+	private List<String> tvRankingListType1;
+	// @gwt.typeArgs <java.lang.String>
+	private List<String> newspaperRankingListType1;
+	// @gwt.typeArgs <java.lang.String>
+	private List<String> designRankingListType1;
+	// @gwt.typeArgs <java.lang.String>
+	private List<String> ecologyRankingListType1;
+	// @gwt.typeArgs <java.lang.String>
+	private List<String> qualityRankingListType1;
+
+	// @gwt.typeArgs <java.lang.String>
+	private List<String> radioRankingListType2;
+	// @gwt.typeArgs <java.lang.String>
+	private List<String> tvRankingListType2;
+	// @gwt.typeArgs <java.lang.String>
+	private List<String> newspaperRankingListType2;
+	// @gwt.typeArgs <java.lang.String>
+	private List<String> designRankingListType2;
+	// @gwt.typeArgs <java.lang.String>
+	private List<String> ecologyRankingListType2;
+	// @gwt.typeArgs <java.lang.String>
+	private List<String> qualityRankingListType2;
+
+	// @gwt.typeArgs <java.lang.String>
+	private List<String> radioRankingListType3;
+	// @gwt.typeArgs <java.lang.String>
+	private List<String> tvRankingListType3;
+	// @gwt.typeArgs <java.lang.String>
+	private List<String> newspaperRankingListType3;
+	// @gwt.typeArgs <java.lang.String>
+	private List<String> designRankingListType3;
+	// @gwt.typeArgs <java.lang.String>
+	private List<String> ecologyRankingListType3;
+	// @gwt.typeArgs <java.lang.String>
+	private List<String> qualityRankingListType3;
+
+	// ****************************************************
 	private MarketResearchReport()
 	{
-		radioRankingInternList = new TreeMap<Number, String>(this);
-		tvRankingInternList = new TreeMap<Number, String>(this);
-		newspaperRankingInternList = new TreeMap<Number, String>(this);
-		designRankingInternList = new TreeMap<Number, String>(this);
-		ecologyRankingInternList = new TreeMap<Number, String>(this);
-		qualityRankingInternList = new TreeMap<Number, String>(this);
-		radioRankingList = new ArrayList<String>();
-		tvRankingList = new ArrayList<String>();
-		newspaperRankingList = new ArrayList<String>();
-		designRankingList = new ArrayList<String>();
-		ecologyRankingList = new ArrayList<String>();
-		qualityRankingList = new ArrayList<String>();
+		radioRankingInternListType1 = new TreeMap<Number, String>(this);
+		tvRankingInternListType1 = new TreeMap<Number, String>(this);
+		newspaperRankingInternListType1 = new TreeMap<Number, String>(this);
+		designRankingInternListType1 = new TreeMap<Number, String>(this);
+		ecologyRankingInternListType1 = new TreeMap<Number, String>(this);
+		qualityRankingInternListType1 = new TreeMap<Number, String>(this);
+
+		radioRankingInternListType2 = new TreeMap<Number, String>(this);
+		tvRankingInternListType2 = new TreeMap<Number, String>(this);
+		newspaperRankingInternListType2 = new TreeMap<Number, String>(this);
+		designRankingInternListType2 = new TreeMap<Number, String>(this);
+		ecologyRankingInternListType2 = new TreeMap<Number, String>(this);
+		qualityRankingInternListType2 = new TreeMap<Number, String>(this);
+
+		radioRankingInternListType3 = new TreeMap<Number, String>(this);
+		tvRankingInternListType3 = new TreeMap<Number, String>(this);
+		newspaperRankingInternListType3 = new TreeMap<Number, String>(this);
+		designRankingInternListType3 = new TreeMap<Number, String>(this);
+		ecologyRankingInternListType3 = new TreeMap<Number, String>(this);
+		qualityRankingInternListType3 = new TreeMap<Number, String>(this);
+
+		radioRankingListType1 = new ArrayList<String>();
+		radioRankingListType2 = new ArrayList<String>();
+		radioRankingListType3 = new ArrayList<String>();
+
+		tvRankingListType1 = new ArrayList<String>();
+		tvRankingListType2 = new ArrayList<String>();
+		tvRankingListType3 = new ArrayList<String>();
+
+		newspaperRankingListType1 = new ArrayList<String>();
+		newspaperRankingListType2 = new ArrayList<String>();
+		newspaperRankingListType3 = new ArrayList<String>();
+
+		designRankingListType1 = new ArrayList<String>();
+		designRankingListType2 = new ArrayList<String>();
+		designRankingListType3 = new ArrayList<String>();
+
+		ecologyRankingListType1 = new ArrayList<String>();
+		ecologyRankingListType2 = new ArrayList<String>();
+		ecologyRankingListType3 = new ArrayList<String>();
+
+		qualityRankingListType1 = new ArrayList<String>();
+		qualityRankingListType2 = new ArrayList<String>();
+		qualityRankingListType3 = new ArrayList<String>();
 	}
 
 	public static MarketResearchReport getInstance()
@@ -84,174 +182,298 @@ public class MarketResearchReport implements Comparator
 	public void generateMarketResearchReport(ArrayList<Group> grouplist)
 	{
 
-		capitalRankingInternList.clear();
-		profitRankingInternList.clear();
-		radioRankingInternList.clear();
-		tvRankingInternList.clear();
-		newspaperRankingInternList.clear();
-		designRankingInternList.clear();
-		ecologyRankingInternList.clear();
-		qualityRankingInternList.clear();
+		capitalList.clear();
+		profitList.clear();
 
-		radioRankingList.clear();
-		tvRankingList.clear();
-		newspaperRankingList.clear();
-		designRankingList.clear();
-		ecologyRankingList.clear();
-		qualityRankingList.clear();
+		priceType1List.clear();
+		priceType2List.clear();
+		priceType3List.clear();
 
-		double radioInvestment = 0;
-		double tvInvestment = 0;
-		double newspaperInvestment = 0;
-		double qualityInvestment = 0;
-		double designInvestment = 0;
-		double ecologyInvestment = 0;
+		radioRankingInternListType1.clear();
+		tvRankingInternListType1.clear();
+		newspaperRankingInternListType1.clear();
+		designRankingInternListType1.clear();
+		ecologyRankingInternListType1.clear();
+		qualityRankingInternListType1.clear();
+
+		radioRankingInternListType2.clear();
+		tvRankingInternListType2.clear();
+		newspaperRankingInternListType2.clear();
+		designRankingInternListType2.clear();
+		ecologyRankingInternListType2.clear();
+		qualityRankingInternListType2.clear();
+
+		radioRankingInternListType3.clear();
+		tvRankingInternListType3.clear();
+		newspaperRankingInternListType3.clear();
+		designRankingInternListType3.clear();
+		ecologyRankingInternListType3.clear();
+		qualityRankingInternListType3.clear();
+
+		radioRankingListType1.clear();
+		radioRankingListType2.clear();
+		radioRankingListType3.clear();
+
+		tvRankingListType1.clear();
+		tvRankingListType2.clear();
+		tvRankingListType3.clear();
+
+		newspaperRankingListType1.clear();
+		newspaperRankingListType2.clear();
+		newspaperRankingListType3.clear();
+
+		designRankingListType1.clear();
+		designRankingListType2.clear();
+		designRankingListType3.clear();
+
+		ecologyRankingListType1.clear();
+		ecologyRankingListType2.clear();
+		ecologyRankingListType3.clear();
+
+		qualityRankingListType1.clear();
+		qualityRankingListType2.clear();
+		qualityRankingListType3.clear();
+
 		for (int i = 0; i < grouplist.size(); i++)
 		{
-
-			ArrayList<Toaster> tList = grouplist.get(i).getCompany().getToasterList();
-			capitalRankingInternList.add(grouplist.get(i).getCompany().getCapital());
-			profitRankingInternList.add(grouplist.get(i).getCompany().getProfit());
-			for (int a = 0; a < tList.size(); a++)
-			{
-				// Investments einer Company zusammenrechnen
-				radioInvestment += tList.get(a).getRadioInvestmentKum();
-				tvInvestment += tList.get(a).getTvInvestmentKum();
-				newspaperInvestment += tList.get(a).getNewspaperInvestmentKum();
-				qualityInvestment += tList.get(a).getQualityInvestmentKum();
-				designInvestment += tList.get(a).getDesignInvestmentKum();
-				ecologyInvestment += tList.get(a).getEcologyInvestmentKum();
-			}
-
 			String groupName = grouplist.get(i).getUsername();
+			ArrayList<Toaster> toasterList = grouplist.get(i).getCompany().getToasterList();
+			capitalList.add(grouplist.get(i).getCompany().getCapital());
+			profitList.add(grouplist.get(i).getCompany().getProfit());
+			for (int a = 0; a < toasterList.size(); a++)
+			{
+				if (toasterList.get(a).getType() == Type.TYPE1)
+				{
+					priceType1List.add(String.valueOf(toasterList.get(a).getPrice()));
+					radioRankingInternListType1.put(toasterList.get(a).getRadioInvestmentKum(), groupName);
+					tvRankingInternListType1.put(toasterList.get(a).getTvInvestmentKum(), groupName);
+					newspaperRankingInternListType1.put(toasterList.get(a).getNewspaperInvestmentKum(), groupName);
+					qualityRankingInternListType1.put(toasterList.get(a).getQualityInvestmentKum(), groupName);
+					designRankingInternListType1.put(toasterList.get(a).getDesignInvestmentKum(), groupName);
+					ecologyRankingInternListType1.put(toasterList.get(a).getEcologyInvestmentKum(), groupName);
+				} else if (toasterList.get(a).getType() == Type.TYPE2)
+				{
+					priceType2List.add(String.valueOf(toasterList.get(a).getPrice()));
+					priceType2List.add(String.valueOf(toasterList.get(a).getPrice()));
+					radioRankingInternListType2.put(toasterList.get(a).getRadioInvestmentKum(), groupName);
+					tvRankingInternListType2.put(toasterList.get(a).getTvInvestmentKum(), groupName);
+					newspaperRankingInternListType2.put(toasterList.get(a).getNewspaperInvestmentKum(), groupName);
+					qualityRankingInternListType2.put(toasterList.get(a).getQualityInvestmentKum(), groupName);
+					designRankingInternListType2.put(toasterList.get(a).getDesignInvestmentKum(), groupName);
+					ecologyRankingInternListType2.put(toasterList.get(a).getEcologyInvestmentKum(), groupName);
+				} else if (toasterList.get(a).getType() == Type.TYPE3)
+				{
+					priceType3List.add(String.valueOf(toasterList.get(a).getPrice()));
+					priceType3List.add(String.valueOf(toasterList.get(a).getPrice()));
+					radioRankingInternListType3.put(toasterList.get(a).getRadioInvestmentKum(), groupName);
+					tvRankingInternListType3.put(toasterList.get(a).getTvInvestmentKum(), groupName);
+					newspaperRankingInternListType3.put(toasterList.get(a).getNewspaperInvestmentKum(), groupName);
+					qualityRankingInternListType3.put(toasterList.get(a).getQualityInvestmentKum(), groupName);
+					designRankingInternListType3.put(toasterList.get(a).getDesignInvestmentKum(), groupName);
+					ecologyRankingInternListType3.put(toasterList.get(a).getEcologyInvestmentKum(), groupName);
+				}
 
-			radioRankingInternList.put(radioInvestment, groupName);
-			tvRankingInternList.put(tvInvestment, groupName);
-			newspaperRankingInternList.put(newspaperInvestment, groupName);
-			designRankingInternList.put(designInvestment, groupName);
-			ecologyRankingInternList.put(ecologyInvestment, groupName);
-			qualityRankingInternList.put(qualityInvestment, groupName);
-
-			radioInvestment = 0;
-			tvInvestment = 0;
-			newspaperInvestment = 0;
-			qualityInvestment = 0;
-			designInvestment = 0;
-			ecologyInvestment = 0;
+			}
 		}
 
-		values = radioRankingInternList.values();
-		radioRankingList = new ArrayList<String>(values);
+		values = radioRankingInternListType1.values();
+		radioRankingListType1 = new ArrayList<String>(values);
+		values = radioRankingInternListType2.values();
+		radioRankingListType2 = new ArrayList<String>(values);
+		values = radioRankingInternListType3.values();
+		radioRankingListType3 = new ArrayList<String>(values);
 
-		values = tvRankingInternList.values();
-		tvRankingList = new ArrayList<String>(values);
+		values = tvRankingInternListType1.values();
+		tvRankingListType1 = new ArrayList<String>(values);
+		values = tvRankingInternListType2.values();
+		tvRankingListType2 = new ArrayList<String>(values);
+		values = tvRankingInternListType3.values();
+		tvRankingListType3 = new ArrayList<String>(values);
 
-		values = newspaperRankingInternList.values();
-		newspaperRankingList = new ArrayList<String>(values);
+		values = newspaperRankingInternListType1.values();
+		newspaperRankingListType1 = new ArrayList<String>(values);
+		values = newspaperRankingInternListType2.values();
+		newspaperRankingListType2 = new ArrayList<String>(values);
+		values = newspaperRankingInternListType3.values();
+		newspaperRankingListType3 = new ArrayList<String>(values);
 
-		values = designRankingInternList.values();
-		designRankingList = new ArrayList<String>(values);
+		values = qualityRankingInternListType1.values();
+		qualityRankingListType1 = new ArrayList<String>(values);
+		values = qualityRankingInternListType2.values();
+		qualityRankingListType2 = new ArrayList<String>(values);
+		values = qualityRankingInternListType3.values();
+		qualityRankingListType3 = new ArrayList<String>(values);
 
-		values = ecologyRankingInternList.values();
-		ecologyRankingList = new ArrayList<String>(values);
+		values = designRankingInternListType1.values();
+		designRankingListType1 = new ArrayList<String>(values);
+		values = designRankingInternListType2.values();
+		designRankingListType2 = new ArrayList<String>(values);
+		values = designRankingInternListType3.values();
+		designRankingListType3 = new ArrayList<String>(values);
 
-		values = qualityRankingInternList.values();
-		qualityRankingList = new ArrayList<String>(values);
-	}
+		values = ecologyRankingInternListType1.values();
+		ecologyRankingListType1 = new ArrayList<String>(values);
+		values = ecologyRankingInternListType2.values();
+		ecologyRankingListType2 = new ArrayList<String>(values);
+		values = ecologyRankingInternListType3.values();
+		ecologyRankingListType3 = new ArrayList<String>(values);
 
-//	private String[] generateStringArray(Map map)
-//	{
-//		String[] werte = new String[map.size()];
-//		Iterator it = map.entrySet().iterator();
-//		int i = 0;
-//		while (it.hasNext())
-//		{
-//			Map.Entry me = (Map.Entry) it.next();
-//			werte[i] = me.getValue().toString() + " " + me.getKey();
-//			i++;
-//		}
-//		return werte;
-//	}
-
-	// @gwt.typeArgs <java.lang.String>
-	public List<String> getDesignRankingList()
-	{
-		return designRankingList;
-	}
-
-	// @gwt.typeArgs <java.lang.String>
-	public List<String> getEcologyRankingList()
-	{
-		return ecologyRankingList;
-	}
-
-	// @gwt.typeArgs <java.lang.String>
-	public List<String> getNewspaperRankingList()
-	{
-		return newspaperRankingList;
-	}
-
-	public ArrayList<Number> getProfitRankingInternList()
-	{
-		return profitRankingInternList;
-	}
-
-	// @gwt.typeArgs <java.lang.String>
-	public List<String> getQualityRankingList()
-	{
-		return qualityRankingList;
-	}
-
-	// @gwt.typeArgs <java.lang.String>
-	public List<String> getRadioRankingList()
-	{
-		return radioRankingList;
-	}
-
-	// @gwt.typeArgs
-	// java.util.ArrayList<java.util.ArrayList<java.util.List<java.lang.String>>>
-	public ArrayList<List<String>> getReports()
-	{
-		ArrayList<List<String>> liste = new ArrayList<List<String>>();
-		liste.add(getNewspaperRankingList());
-		liste.add(getRadioRankingList());
-		liste.add(getTvRankingList());
-		liste.add(getQualityRankingList());
-		liste.add(getDesignRankingList());
-		liste.add(getEcologyRankingList());
-		return liste;
-	}
-
-	// @gwt.typeArgs <java.lang.String>
-	public List<String> getTvRankingList()
-	{
-		return tvRankingList;
-	}
-
-	public void setProfitRankingInternList(ArrayList<Number> profitRankingInternList)
-	{
-		this.profitRankingInternList = profitRankingInternList;
-	}
-
-	public String toString()
-	{
-
-		String a;
-
-		a = "Radio \t" + getRadioRankingList().toString() + "\n" + "Tv \t" + getTvRankingList().toString() + "\n" + "Newspaper \t" + getNewspaperRankingList().toString() + "\n"
-				+ "Design \t" + getDesignRankingList().toString() + "\n" + "Ökologie \t" + getEcologyRankingList().toString() + "\n" + "Qualität \t"
-				+ getQualityRankingList().toString() + "\n";
-		return a;
 	}
 
 	public ArrayList<Number> getCapitalRankingInternList()
 	{
-		return capitalRankingInternList;
+		return capitalList;
 	}
 
-	public void setCapitalRankingInternList(ArrayList<Number> capitalRankingInternList)
+	public List<String> getDesignRankingListType1()
 	{
-		this.capitalRankingInternList = capitalRankingInternList;
+		return designRankingListType1;
+	}
+
+	public List<String> getDesignRankingListType2()
+	{
+		return designRankingListType2;
+	}
+
+	public List<String> getDesignRankingListType3()
+	{
+		return designRankingListType3;
+	}
+
+	public List<String> getEcologyRankingListType1()
+	{
+		return ecologyRankingListType1;
+	}
+
+	public List<String> getEcologyRankingListType2()
+	{
+		return ecologyRankingListType2;
+	}
+
+	public List<String> getEcologyRankingListType3()
+	{
+		return ecologyRankingListType3;
+	}
+
+	public List<String> getNewspaperRankingListType1()
+	{
+		return newspaperRankingListType1;
+	}
+
+	public List<String> getNewspaperRankingListType2()
+	{
+		return newspaperRankingListType2;
+	}
+
+	public List<String> getNewspaperRankingListType3()
+	{
+		return newspaperRankingListType3;
+	}
+
+	public ArrayList<String> getPriceType1List()
+	{
+		return priceType1List;
+	}
+
+	public ArrayList<String> getPriceType2List()
+	{
+		return priceType2List;
+	}
+
+	public ArrayList<String> getPriceType3List()
+	{
+		return priceType3List;
+	}
+
+	public ArrayList<Number> getProfitRankingInternList()
+	{
+		return profitList;
+	}
+
+	public List<String> getQualityRankingListType1()
+	{
+		return qualityRankingListType1;
+	}
+
+	public List<String> getQualityRankingListType2()
+	{
+		return qualityRankingListType2;
+	}
+
+	public List<String> getQualityRankingListType3()
+	{
+		return qualityRankingListType3;
+	}
+
+	public List<String> getRadioRankingListType1()
+	{
+		return radioRankingListType1;
+	}
+
+	public List<String> getRadioRankingListType2()
+	{
+		return radioRankingListType2;
+	}
+
+	public List<String> getRadioRankingListType3()
+	{
+		return radioRankingListType3;
+	}
+
+	// @gwt.typeArgs
+	// java.util.ArrayList<java.util.ArrayList<java.util.ArrayList<java.util.List<java.lang.String>>>>
+	public ArrayList<ArrayList<List<String>>>  getReports()
+	{
+		ArrayList<ArrayList<List<String>>> liste = new ArrayList<ArrayList<List<String>>> ();
+		liste.add(getReports4Type1());
+		liste.add(getReports4Type2());
+		liste.add(getReports4Type3());
+		return liste;
+	}
+
+	// @gwt.typeArgs
+	// java.util.ArrayList<java.util.ArrayList<java.util.List<java.lang.String>>>
+	public ArrayList<List<String>> getReports4Type1()
+	{
+		ArrayList<List<String>> liste = new ArrayList<List<String>>();
+		liste.add(getNewspaperRankingListType1());
+		liste.add(getRadioRankingListType1());
+		liste.add(getTvRankingListType1());
+		liste.add(getQualityRankingListType1());
+		liste.add(getDesignRankingListType1());
+		liste.add(getEcologyRankingListType1());
+		liste.add(getPriceType1List());
+		return liste;
+	}
+
+	// @gwt.typeArgs
+	// java.util.ArrayList<java.util.ArrayList<java.util.List<java.lang.String>>>
+	public ArrayList<List<String>> getReports4Type2()
+	{
+		ArrayList<List<String>> liste = new ArrayList<List<String>>();
+		liste.add(getNewspaperRankingListType2());
+		liste.add(getRadioRankingListType2());
+		liste.add(getTvRankingListType2());
+		liste.add(getQualityRankingListType2());
+		liste.add(getDesignRankingListType2());
+		liste.add(getEcologyRankingListType2());
+		liste.add(getPriceType2List());
+		return liste;
+	}
+
+	// @gwt.typeArgs
+	// java.util.ArrayList<java.util.ArrayList<java.util.List<java.lang.String>>>
+	public ArrayList<List<String>> getReports4Type3()
+	{
+		ArrayList<List<String>> liste = new ArrayList<List<String>>();
+		liste.add(getNewspaperRankingListType3());
+		liste.add(getRadioRankingListType3());
+		liste.add(getTvRankingListType3());
+		liste.add(getQualityRankingListType3());
+		liste.add(getDesignRankingListType3());
+		liste.add(getEcologyRankingListType3());
+		liste.add(getPriceType3List());
+		return liste;
 	}
 
 	// @gwt.typeArgs <java.lang.Number>
@@ -314,4 +536,133 @@ public class MarketResearchReport implements Comparator
 		return new ArrayList<Number>(numberValues);
 	}
 
+	public List<String> getTvRankingListType1()
+	{
+		return tvRankingListType1;
+	}
+
+	public List<String> getTvRankingListType2()
+	{
+		return tvRankingListType2;
+	}
+
+	public List<String> getTvRankingListType3()
+	{
+		return tvRankingListType3;
+	}
+
+	public void setCapitalRankingInternList(ArrayList<Number> capitalRankingInternList)
+	{
+		this.capitalList = capitalRankingInternList;
+	}
+
+	public void setDesignRankingListType1(List<String> designRankingListType1)
+	{
+		this.designRankingListType1 = designRankingListType1;
+	}
+
+	public void setDesignRankingListType2(List<String> designRankingListType2)
+	{
+		this.designRankingListType2 = designRankingListType2;
+	}
+
+	public void setDesignRankingListType3(List<String> designRankingListType3)
+	{
+		this.designRankingListType3 = designRankingListType3;
+	}
+
+	public void setEcologyRankingListType1(List<String> ecologyRankingListType1)
+	{
+		this.ecologyRankingListType1 = ecologyRankingListType1;
+	}
+
+	public void setEcologyRankingListType2(List<String> ecologyRankingListType2)
+	{
+		this.ecologyRankingListType2 = ecologyRankingListType2;
+	}
+
+	public void setEcologyRankingListType3(List<String> ecologyRankingListType3)
+	{
+		this.ecologyRankingListType3 = ecologyRankingListType3;
+	}
+
+	public void setNewspaperRankingListType1(List<String> newspaperRankingListType1)
+	{
+		this.newspaperRankingListType1 = newspaperRankingListType1;
+	}
+
+	public void setNewspaperRankingListType2(List<String> newspaperRankingListType2)
+	{
+		this.newspaperRankingListType2 = newspaperRankingListType2;
+	}
+
+	public void setNewspaperRankingListType3(List<String> newspaperRankingListType3)
+	{
+		this.newspaperRankingListType3 = newspaperRankingListType3;
+	}
+
+	public void setPriceType1List(ArrayList<String> priceType1List)
+	{
+		this.priceType1List = priceType1List;
+	}
+
+	public void setPriceType2List(ArrayList<String> priceType2List)
+	{
+		this.priceType2List = priceType2List;
+	}
+
+	public void setPriceType3List(ArrayList<String> priceType3List)
+	{
+		this.priceType3List = priceType3List;
+	}
+
+	public void setProfitRankingInternList(ArrayList<Number> profitRankingInternList)
+	{
+		this.profitList = profitRankingInternList;
+	}
+
+	public void setQualityRankingListType1(List<String> qualityRankingListType1)
+	{
+		this.qualityRankingListType1 = qualityRankingListType1;
+	}
+
+	public void setQualityRankingListType2(List<String> qualityRankingListType2)
+	{
+		this.qualityRankingListType2 = qualityRankingListType2;
+	}
+
+	public void setQualityRankingListType3(List<String> qualityRankingListType3)
+	{
+		this.qualityRankingListType3 = qualityRankingListType3;
+	}
+
+	public void setRadioRankingListType1(List<String> radioRankingListType1)
+	{
+		this.radioRankingListType1 = radioRankingListType1;
+	}
+
+	public void setRadioRankingListType2(List<String> radioRankingListType2)
+	{
+		this.radioRankingListType2 = radioRankingListType2;
+	}
+
+	public void setRadioRankingListType3(List<String> radioRankingListType3)
+	{
+		this.radioRankingListType3 = radioRankingListType3;
+	}
+
+	public void setTvRankingListType1(List<String> tvRankingListType1)
+	{
+		this.tvRankingListType1 = tvRankingListType1;
+	}
+
+	public void setTvRankingListType2(List<String> tvRankingListType2)
+	{
+		this.tvRankingListType2 = tvRankingListType2;
+	}
+
+	public void setTvRankingListType3(List<String> tvRankingListType3)
+	{
+		this.tvRankingListType3 = tvRankingListType3;
+	}
 }
