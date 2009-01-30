@@ -24,8 +24,8 @@ public class Company implements IsSerializable
 	// @gwt.typeArgs <Number>
 	private ArrayList<Number> capitalRankingInternList = null;
 	// @gwt.typeArgs
-	// java.util.ArrayList<java.util.ArrayList<java.util.List<java.lang.String>>>
-	public ArrayList<List<String>> reportListe;
+	// java.util.ArrayList<java.util.ArrayList<java.util.ArrayList<java.util.List<java.lang.String>>>>
+	public ArrayList<ArrayList<List<String>>> reportListe;
 	// @gwt.typeArgs <toastwars.server.datamodel.core.Toaster>
 	private ArrayList<Toaster> toasterList = new ArrayList<Toaster>();
 
@@ -46,7 +46,7 @@ public class Company implements IsSerializable
 		this.marketShare = marketShare;
 		this.stock = stock;
 		this.toasterList = toasterList;
-		reportListe = new ArrayList<List<String>>();
+		reportListe = new ArrayList<ArrayList<List<String>>>();
 	}
 
 	public Company(int companyID, double turnover, double cost, double profit, double capital, int marketShare, Stock stock,
@@ -61,7 +61,7 @@ public class Company implements IsSerializable
 		this.marketShare = marketShare;
 		this.stock = stock;
 		this.toasterList = toasterList;
-		reportListe = new ArrayList<List<String>>();
+		reportListe = new ArrayList<ArrayList<List<String>>>();
 
 	}
 
@@ -112,7 +112,7 @@ public class Company implements IsSerializable
 		return turnover;
 	}
 
-	public ArrayList<List<String>> getReportListe()
+	public ArrayList<ArrayList<List<String>>> getReportListe()
 	{
 		return reportListe;
 	}
@@ -185,7 +185,7 @@ public class Company implements IsSerializable
 		this.turnover = turnover;
 	}
 
-	public void setReportListe(ArrayList<List<String>> reportListe)
+	public void setReportListe(ArrayList<ArrayList<List<String>>> reportListe)
 	{
 		this.reportListe = reportListe;
 	}
