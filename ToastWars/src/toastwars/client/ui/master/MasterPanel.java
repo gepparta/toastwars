@@ -1,24 +1,19 @@
 package toastwars.client.ui.master;
 
 import java.util.ArrayList;
-import java.util.Formatter;
-import java.util.Locale;
-
 import toastwars.client.Controller;
+import toastwars.client.comet.CometController;
 import toastwars.server.datamodel.core.Company;
 import toastwars.server.datamodel.core.Game;
 import toastwars.server.datamodel.core.Toaster;
 import toastwars.server.datamodel.user.Group;
-import toastwars.server.datamodel.user.Master;
 import toastwars.server.datamodel.user.Status;
 import toastwars.util.NumberUtil;
-
 import com.gwtext.client.core.EventObject;
 import com.gwtext.client.core.Position;
 import com.gwtext.client.core.SortDir;
 import com.gwtext.client.data.ArrayReader;
 import com.gwtext.client.data.FieldDef;
-import com.gwtext.client.data.FloatFieldDef;
 import com.gwtext.client.data.GroupingStore;
 import com.gwtext.client.data.MemoryProxy;
 import com.gwtext.client.data.RecordDef;
@@ -69,6 +64,7 @@ public class MasterPanel extends Panel {
 		createControlFieldSet();
 		createGrid();
 		createSimulateButton();
+		
 	}
 
 	private void createControlFieldSet() {
@@ -251,12 +247,7 @@ public class MasterPanel extends Panel {
 	public void startGame(Game game) {
 		startGameBtn.setDisabled(true);
 		endGame.setDisabled(false);
-		this.game = game;
-		groupList = game.getGroupList();
-		store.setDataProxy(new MemoryProxy(getGameData()));
-		store.load();
-		grid.getView().refresh();
-		grid.setTitle("Spielstand in der Runde " + game.getCurrentRound());
+		refreshGrid(game);
 	}
 
 	public void endGame() {
@@ -271,14 +262,19 @@ public class MasterPanel extends Panel {
 		grid.getView().refresh();
 		grid.setTitle("Spielstand");
 	}
-
+	
 	public void simulate(Game game) {
+		simulateBtn.setDisabled(true);
+		refreshGrid(game);
+	}
+	
+	public void refreshGrid(Game game)
+	{
 		this.game = game;
 		groupList = game.getGroupList();
 		store.setDataProxy(new MemoryProxy(getGameData()));
 		store.load();
 		grid.getView().refresh();
 		grid.setTitle("Spielstand in der Runde " + game.getCurrentRound());
-		simulateBtn.setDisabled(true);
 	}
 }
