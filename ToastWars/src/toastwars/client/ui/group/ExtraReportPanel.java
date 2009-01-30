@@ -28,7 +28,7 @@ import com.rednels.ofcgwt.client.model.elements.BarChart.BarStyle;
 public class ExtraReportPanel extends Panel {
 
 	private static ExtraReportPanel	reportPanel;
-	private ArrayList<List<String>>	report;
+	private ArrayList<ArrayList<List<String>>>	report;
 	private Game					game;
 
 	private static final String		COLOR_1		= "#ff0000";
