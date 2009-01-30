@@ -26,8 +26,8 @@ public class Test_Company extends TestCase
 	private Stock stock2;
 	private Company company1;
 	private Company company2;
-	private ArrayList<Number> list1 = null;
-	private ArrayList<List<String>> list2 = null;
+	private ArrayList<Number>list1 = null;
+	private ArrayList<ArrayList<List<String>>> list2 = null;
 
 	
 
@@ -54,7 +54,7 @@ public class Test_Company extends TestCase
 		company2 = new Company(100000.00, 30000.00, 60000.00,100000.00,10000,stock2,toasterList2);
 
 		list1 = new ArrayList<Number>();
-		list2 = new ArrayList<List<String>>();
+		list2 = new ArrayList<ArrayList<List<String>>>();
 
 
 	}
@@ -338,7 +338,7 @@ public class Test_Company extends TestCase
 		assertNotSame(33000.00, company1.getCost());
 		company1.calculateCost();
 		assertEquals(33000.00, company1.getToasterList().get(0).getCost());
-		assertEquals(33006.00, company1.getCost());
+		assertEquals(53006.00, company1.getCost());
 
 		//Test für eine Company mit drei Toastern
 		assertNotSame(330000.00, company2.getToasterList().get(0).getCost());
@@ -351,9 +351,7 @@ public class Test_Company extends TestCase
 		assertEquals(33000.00, company2.getToasterList().get(0).getCost());
 		assertEquals(33000.00, company2.getToasterList().get(1).getCost());
 		assertEquals(33000.00, company2.getToasterList().get(2).getCost());
-
-		//1250€ Lagerkosten + 3 * 6 Euro für die Investitionen, 5000 für den MArketresearchreport und 99000 für die Toaster
-		assertEquals(105268.00, company2.getCost());
+		assertEquals(135268.00, company2.getCost());
 	}
 	@Test
 	public void testCalculateProfit()
