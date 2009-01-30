@@ -167,6 +167,9 @@ public class DecissionPanel extends Panel {
 			public void onCheck(Checkbox field, boolean checked) {
 				super.onCheck(field, checked);
 
+				if (capital.getValue() == null)
+					return;
+
 				double value = capital.getValue().doubleValue();
 				if (checked) {
 					capital.setValue(value - 5000);
