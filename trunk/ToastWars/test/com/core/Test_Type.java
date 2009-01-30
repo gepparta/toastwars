@@ -18,6 +18,9 @@ public class Test_Type extends TestCase {
 		type1 = Type.TYPE1;
 		type2 = Type.TYPE2;
 		type3 = Type.TYPE3;
+		type1.setMarketVolume(10000);
+		type2.setMarketVolume(10000);
+		type3.setMarketVolume(10000);
 	}
 
 	// TearDown
@@ -50,7 +53,7 @@ public class Test_Type extends TestCase {
 	@Test
 	public void testGetMarketVolume() {
 		assertNotNull(type1.getMarketVolume());
-		assertEquals(0, type1.getMarketVolume());
+		assertEquals(10000, type1.getMarketVolume());
 
 	}
 
@@ -160,9 +163,9 @@ public class Test_Type extends TestCase {
 		assertEquals(0.08, type2.getRandom());
 		assertEquals(0.1, type3.getRandom());
 
-		assertEquals(0, type1.getMarketVolume());
-		assertEquals(0, type2.getMarketVolume());
-		assertEquals(0, type3.getMarketVolume());
+		assertEquals(10000, type1.getMarketVolume());
+		assertEquals(10000, type2.getMarketVolume());
+		assertEquals(10000, type3.getMarketVolume());
 
 		assertEquals(10000.00, type1.getFixCosts());
 		assertEquals(20000.00, type2.getFixCosts());
