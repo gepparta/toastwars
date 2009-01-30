@@ -59,6 +59,10 @@ public class ExtraReportPanel extends Panel {
 		setAutoScroll(true);
 		setStyle("text-align: center;");
 
+		createTab();
+	}
+
+	private void createTab() {
 		Panel horizPanel = new Panel();
 		horizPanel.setLayout(new HorizontalLayout(15));
 		horizPanel.setStyle("text-align: center;");
