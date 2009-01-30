@@ -254,7 +254,6 @@ public class MarketResearchReport implements Comparator
 				} else if (toasterList.get(a).getType() == Type.TYPE2)
 				{
 					priceType2List.add(String.valueOf(toasterList.get(a).getPrice()));
-					priceType2List.add(String.valueOf(toasterList.get(a).getPrice()));
 					radioRankingInternListType2.put(toasterList.get(a).getRadioInvestmentKum(), groupName);
 					tvRankingInternListType2.put(toasterList.get(a).getTvInvestmentKum(), groupName);
 					newspaperRankingInternListType2.put(toasterList.get(a).getNewspaperInvestmentKum(), groupName);
@@ -263,7 +262,6 @@ public class MarketResearchReport implements Comparator
 					ecologyRankingInternListType2.put(toasterList.get(a).getEcologyInvestmentKum(), groupName);
 				} else if (toasterList.get(a).getType() == Type.TYPE3)
 				{
-					priceType3List.add(String.valueOf(toasterList.get(a).getPrice()));
 					priceType3List.add(String.valueOf(toasterList.get(a).getPrice()));
 					radioRankingInternListType3.put(toasterList.get(a).getRadioInvestmentKum(), groupName);
 					tvRankingInternListType3.put(toasterList.get(a).getTvInvestmentKum(), groupName);

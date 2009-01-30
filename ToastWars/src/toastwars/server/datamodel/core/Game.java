@@ -2,11 +2,10 @@ package toastwars.server.datamodel.core;
 
 import java.util.ArrayList;
 
-import javax.swing.GroupLayout;
-
 import toastwars.server.datamodel.user.Group;
 import toastwars.server.datamodel.user.Status;
 import toastwars.util.NumberUtil;
+
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class Game implements IsSerializable
