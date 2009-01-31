@@ -57,7 +57,7 @@ public class DAOGame
 		}
 	}
 
-	public static void archiveAllUsers(ArrayList<Group> grouplist, Connection con)
+	public static void updateAllUsers(ArrayList<Group> grouplist, Connection con)
 	{
 		try
 		{
