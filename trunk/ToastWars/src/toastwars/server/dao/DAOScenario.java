@@ -23,7 +23,6 @@ public class DAOScenario
 				String description = rst.getString(1);
 				rst.close();
 				stmt.close();
-				System.out.println(description);
 				return description;
 			}
 			return null;
