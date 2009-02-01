@@ -24,6 +24,7 @@ public class DAOStock
 			String query = "UPDATE Stock SET stockTT1 = " + stockTT1 + ", stockTT2 = " + stockTT2 + ", stockTT3 = " + stockTT3 + ", totalCosts = "
 					+ totalStockCosts + " WHERE (((round)=" + currentRound + ") AND ((companyID)=" + companyID + "));";
 			stmt.execute(query);
+			stmt.close();
 		} catch (Exception e)
 		{
 			// TODO: handle exception
@@ -45,6 +46,7 @@ public class DAOStock
 			Statement stmt = con.createStatement();
 			String query = "INSERT INTO Stock VALUES (" + companyID + "," + currentRound + "," + stockTT1 + "," + stockTT2 + "," + stockTT3 + "," + totalStockCosts + ");";
 			stmt.execute(query);
+			stmt.close();
 		} catch (Exception e)
 		{
 			// TODO: handle exception
@@ -71,6 +73,8 @@ public class DAOStock
 				stmt.close();
 				return stock;
 			}
+			rst.close();
+			stmt.close();
 			return null;
 
 		} catch (Exception e)
@@ -98,6 +102,8 @@ public class DAOStock
 				stmt.close();
 				return stock;
 			}
+			rst.close();
+			stmt.close();
 			return null;
 
 		} catch (Exception e)
