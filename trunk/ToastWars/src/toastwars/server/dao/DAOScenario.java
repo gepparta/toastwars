@@ -23,6 +23,8 @@ public class DAOScenario
 				stmt.close();
 				return description;
 			}
+			rst.close();
+			stmt.close();
 			return null;
 
 		} catch (Exception e)
