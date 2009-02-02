@@ -2,16 +2,14 @@ package toastwars.client.ui.group;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import toastwars.client.Controller;
 import toastwars.server.datamodel.core.Game;
 import toastwars.server.datamodel.core.Toaster;
 import toastwars.server.datamodel.core.Type;
 import toastwars.server.datamodel.user.Group;
 import toastwars.util.NumberUtil;
-
-import com.gwtext.client.widgets.Component;
 import com.gwtext.client.widgets.Panel;
+import com.gwtext.client.widgets.form.FieldSet;
 import com.gwtext.client.widgets.form.FormPanel;
 import com.gwtext.client.widgets.form.Label;
 import com.gwtext.client.widgets.form.NumberField;
@@ -25,32 +23,44 @@ import com.rednels.ofcgwt.client.model.elements.BarChart;
 import com.rednels.ofcgwt.client.model.elements.PieChart;
 import com.rednels.ofcgwt.client.model.elements.BarChart.BarStyle;
 
-public class StandardReportPanel extends Panel {
+public class StandardReportPanel extends Panel
+{
 
-	private static StandardReportPanel	reportPanel;
-	private final String				COLOR_1		= "#FDD017";
-	private final String				COLOR_2		= "#ff0000";
-	private final String				COLOR_3		= "#0000ff";
-	private final String				COLOR_4		= "#00ff00";
-	private final String				COLOR_5		= "#ff0099";
-	private final String				COLOR_6		= "#99ff00";
-	private final String				COLOR_7		= "#9900ff";
-	private final String				COLOR_8		= "#009900";
-	private final String				COLOR_9		= "#99ffff";
-	private final String				COLOR_10	= "#ffff99";
+	private static StandardReportPanel reportPanel;
+	private final String COLOR_1 = "#FDD017";
+	private final String COLOR_2 = "#ff0000";
+	private final String COLOR_3 = "#0000ff";
+	private final String COLOR_4 = "#00ff00";
+	private final String COLOR_5 = "#ff0099";
+	private final String COLOR_6 = "#99ff00";
+	private final String COLOR_7 = "#9900ff";
+	private final String COLOR_8 = "#009900";
+	private final String COLOR_9 = "#99ffff";
+	private final String COLOR_10 = "#ffff99";
 
-	private Group						group;
-	private Game						game;
+	private Group group;
+	private Game game;
 
-	public static StandardReportPanel getInstance() {
+	public static StandardReportPanel getInstance()
+	{
 		if (reportPanel == null)
 			reportPanel = new StandardReportPanel();
 		return reportPanel;
 	}
 
-	private StandardReportPanel() {
+	private StandardReportPanel()
+	{
 		game = Controller.getInstance().getGame();
-		group = (Group) Controller.getInstance().getUser();
+		Group myGroup = (Group) Controller.getInstance().getUser();
+
+		for (Group g : game.getGroupList())
+		{
+			if (g.getUsername().equals(myGroup.getUsername()))
+			{
+				group = g;
+				break;
+			}
+		}
 
 		setTitle("Analyse-Bericht");
 		setPaddings(15);
@@ -71,33 +81,34 @@ public class StandardReportPanel extends Panel {
 		add(bottomPanel);
 	}
 
-	private Panel createCostForm() {
-		Panel p = new Panel();
+	private Panel createCostForm()
+	{
+//		Panel p = new Panel();
+		FieldSet p = new FieldSet("Kosten der Produktion");
 		p.setPaddings(15);
-		p.setSize(230, 250);
-		p.setBorder(false);
+		p.setSize(300, 250);
+		p.setBorder(true);
 
 		FormPanel formTop = new FormPanel();
 		formTop.setBorder(false);
+		formTop.setWidth(200);
 		formTop.setLabelWidth(120);
+		formTop.add(createCostField("Variable Kosten", "varCosts", 70, (float) getVariableCost4Company(group)));
 
-		formTop.add(createCostField("Variable Kosten", "varCosts", 70,
-				(float) getVariableCost4Company(group)));
+		formTop.add(createCostField("Fixe Kosten", "fixCosts", 70, (float) getFixCost4Company(group)));
 
-		formTop.add(createCostField("Fixe Kosten", "fixCosts", 70,
-				(float) getFixCost4Company(group)));
-
-		formTop.add(createCostField("Sprungfixe Kosten", "stepCosts", 70,
-				(float) getStepCost4Company(group)));
+		formTop.add(createCostField("Sprungfixe Kosten", "stepCosts", 70, (float) getStepCost4Company(group)));
 
 		FormPanel formBottom = new FormPanel();
 		formBottom.setBorder(false);
+		formBottom.setWidth(200);
 		formBottom.setStyle("border-top: 1px solid gold;");
 		formBottom.setPaddings(10, 0, 0, 0);
-		formBottom.setLabelWidth(120);
+		formBottom.setLabelWidth(120);		
+		formBottom.setHeight(115);		
 
-		formBottom.add(createCostField("Gesamte Kosten", "sumCosts", 70,
-				(float) getStepCost4Company(group)));
+		double sumCosts = getVariableCost4Company(group) + getFixCost4Company(group) + getStepCost4Company(group);
+		formBottom.add(createCostField("Gesamte Kosten", "sumCosts", 70, (float) sumCosts));
 
 		p.add(formTop);
 		p.add(formBottom);
@@ -105,8 +116,8 @@ public class StandardReportPanel extends Panel {
 		return p;
 	}
 
-	private NumberField createCostField(String text, String name, int width,
-			float value) {
+	private NumberField createCostField(String text, String name, int width, float value)
+	{
 		NumberField field = new NumberField(text, name, width, value);
 		field.setStyle("text-align:right");
 		field.setDecimalPrecision(2);
@@ -116,7 +127,8 @@ public class StandardReportPanel extends Panel {
 		return field;
 	}
 
-	private Panel createPieCharts() {
+	private Panel createPieCharts()
+	{
 		Panel horizPanel = new Panel();
 		horizPanel.setStyle("text-align: center;");
 		horizPanel.setLayout(new HorizontalLayout(3));
@@ -138,7 +150,8 @@ public class StandardReportPanel extends Panel {
 		horizPanel.add(createMarketShareChart(toasterList.get(0)));
 
 		// add type 2 or empty
-		if (toasterList.size() > 1) {
+		if (toasterList.size() > 1)
+		{
 			if (!dPanel.isNewToaster(toasterList.get(1).getType()))
 				horizPanel.add(createMarketShareChart(toasterList.get(1)));
 			else
@@ -147,7 +160,8 @@ public class StandardReportPanel extends Panel {
 			horizPanel.add(emptyPanel);
 
 		// add type 3 or empty
-		if (toasterList.size() > 2) {
+		if (toasterList.size() > 2)
+		{
 			if (!dPanel.isNewToaster(toasterList.get(2).getType()))
 				horizPanel.add(createMarketShareChart(toasterList.get(2)));
 			else
@@ -158,14 +172,12 @@ public class StandardReportPanel extends Panel {
 		return horizPanel;
 	}
 
-	private ChartWidget createMarketShareChart(Toaster toaster) {
+	private ChartWidget createMarketShareChart(Toaster toaster)
+	{
 		ChartWidget chart = new ChartWidget();
 
-		ChartData cd = new ChartData(
-				"Marktanteile f&#252;r " + toaster.getType().getDescription(),
-				"filter:Alpha(opacity=100, finishopacity=80, startx=10, "
-						+ "finishx=484, style=1); -moz-opacity: 0.9 ; font-size: 14px; "
-						+ "font-family: Verdana; text-align: center; color: #FDD017;");
+		ChartData cd = new ChartData("Marktanteile f&#252;r " + toaster.getType().getDescription(), "filter:Alpha(opacity=100, finishopacity=80, startx=10, "
+				+ "finishx=484, style=1); -moz-opacity: 0.9 ; font-size: 14px; " + "font-family: Verdana; text-align: center; color: #FDD017;");
 		// cd.setBackgroundColour("-1");
 
 		PieChart pie = new PieChart();
@@ -174,24 +186,22 @@ public class StandardReportPanel extends Panel {
 		pie.setTooltip("#label#<br>#val# Toaster<br>#percent#");
 		pie.setAnimate(false);
 		pie.setGradientFill(true);
-		pie.setColours(COLOR_1, COLOR_2, COLOR_3, COLOR_4, COLOR_5, COLOR_6,
-				COLOR_7, COLOR_8, COLOR_9, COLOR_10);
+		pie.setColours(COLOR_1, COLOR_2, COLOR_3, COLOR_4, COLOR_5, COLOR_6, COLOR_7, COLOR_8, COLOR_9, COLOR_10);
 
 		// Slice 1: my own market share
 		int myMarketShare = toaster.getMarketShare();
 		if (myMarketShare > 0)
-			pie.addSlices(new PieChart.Slice(myMarketShare, Controller
-					.getInstance().getUser().getUsername()));
+			pie.addSlices(new PieChart.Slice(myMarketShare, Controller.getInstance().getUser().getUsername()));
 
 		// Slice 2: rest market share
 		int restMarketShare = 0;
 		ArrayList<Group> groupList = game.getGroupList();
-		for (Group group : groupList) {
+		for (Group group : groupList)
+		{
 			ArrayList<Toaster> list = group.getCompany().getToasterList();
 			if (!group.getUsername().equals(this.group.getUsername()))
 				if (toaster.getType().ordinal() < list.size())
-					restMarketShare += list.get(toaster.getType().ordinal())
-							.getMarketShare();
+					restMarketShare += list.get(toaster.getType().ordinal()).getMarketShare();
 		}
 		if (restMarketShare > 0)
 			pie.addSlices(new PieChart.Slice(restMarketShare, "Rest"));
@@ -201,12 +211,11 @@ public class StandardReportPanel extends Panel {
 		int ungesaettigterTeil = 0;
 		// wenn es noch ungesättigte Teile am Markt gibt
 		// stelle den ungesättigten Teil dar
-		if (sumMarketshare > restMarketShare + myMarketShare) {
-			ungesaettigterTeil = sumMarketshare - restMarketShare
-					- myMarketShare;
+		if (sumMarketshare > restMarketShare + myMarketShare)
+		{
+			ungesaettigterTeil = sumMarketshare - restMarketShare - myMarketShare;
 			if (ungesaettigterTeil > 0)
-				pie.addSlices(new PieChart.Slice(ungesaettigterTeil,
-						"Unges&#228;ttigter Teil"));
+				pie.addSlices(new PieChart.Slice(ungesaettigterTeil, "Unges&#228;ttigter Teil"));
 		}
 
 		cd.addElements(pie);
@@ -217,24 +226,23 @@ public class StandardReportPanel extends Panel {
 		return chart;
 	}
 
-	private ChartWidget createCapitalBarChart() {
+	private ChartWidget createCapitalBarChart()
+	{
 		Game game = Controller.getInstance().getGame();
 
 		ChartWidget chart = new ChartWidget();
-		ChartData cd = new ChartData("Kapital in &#8364; nach Runde "
-				+ (game.getCurrentRound() - 1),
-				"font-size: 14px; font-family: Verdana; text-align: center; color: #FDD017;");
+		ChartData cd = new ChartData("Kapital in &#8364; nach Runde " + (game.getCurrentRound() - 1), "font-size: 14px; font-family: Verdana; text-align: center; color: #FDD017;");
 		// cd.setBackgroundColour("-1");
 
 		XAxis xa = new XAxis();
 		List<String> labels = new ArrayList<String>();
 		List<Number> bchartValues = new ArrayList<Number>();
 
-		ArrayList<Number> capitalList = group.getCompany()
-				.getCapitalRankingInternList();
+		ArrayList<Number> capitalList = group.getCompany().getCapitalRankingInternList();
 		int setMax = 0;
 		// int setMin = 0;
-		for (int i = 0; i < capitalList.size(); i++) {
+		for (int i = 0; i < capitalList.size(); i++)
+		{
 			Number key = capitalList.get(i);
 			String value = game.getGroupList().get(i).getUsername();
 			labels.add(value);
@@ -270,24 +278,23 @@ public class StandardReportPanel extends Panel {
 		return chart;
 	}
 
-	private ChartWidget createProfitBarChart() {
+	private ChartWidget createProfitBarChart()
+	{
 		Game game = Controller.getInstance().getGame();
 
 		ChartWidget chart = new ChartWidget();
-		ChartData cd = new ChartData("Gewinn in &#8364; nach Runde "
-				+ (game.getCurrentRound() - 1),
-				"font-size: 14px; font-family: Verdana; text-align: center; color: #FDD017;");
+		ChartData cd = new ChartData("Gewinn in &#8364; nach Runde " + (game.getCurrentRound() - 1), "font-size: 14px; font-family: Verdana; text-align: center; color: #FDD017;");
 		// cd.setBackgroundColour("-1");
 
 		XAxis xa = new XAxis();
 		List<String> labels = new ArrayList<String>();
 		List<Number> bchartValues = new ArrayList<Number>();
 
-		ArrayList<Number> profitList = group.getCompany()
-				.getProfitRankingList();
+		ArrayList<Number> profitList = group.getCompany().getProfitRankingList();
 		int setMax = 0;
 		// int setMin = 0;
-		for (int i = 0; i < profitList.size(); i++) {
+		for (int i = 0; i < profitList.size(); i++)
+		{
 
 			Number key = profitList.get(i);
 			String value = game.getGroupList().get(i).getUsername();
@@ -327,37 +334,44 @@ public class StandardReportPanel extends Panel {
 		return chart;
 	}
 
-	private double getVariableCost4Company(Group group) {
+	private double getVariableCost4Company(Group group)
+	{
 		double variableCost = 0.0;
-		for (Toaster toaster : group.getCompany().getToasterList()) {
+		for (Toaster toaster : group.getCompany().getToasterList())
+		{
 			Type type = toaster.getType();
 			variableCost += (toaster.getProduction() * type.getVariableCosts());
 		}
 		return variableCost;
 	}
 
-	private double getFixCost4Company(Group group) {
+	private double getFixCost4Company(Group group)
+	{
 		double fixCost = 0.0;
-		for (Toaster toaster : group.getCompany().getToasterList()) {
+		for (Toaster toaster : group.getCompany().getToasterList())
+		{
 			Type type = toaster.getType();
 			fixCost += type.getFixCosts();
 		}
 		return fixCost;
 	}
 
-	private double getStepCost4Company(Group group) {
+	private double getStepCost4Company(Group group)
+	{
 		double stepCost = 0.0;
-		for (Toaster toaster : group.getCompany().getToasterList()) {
+		for (Toaster toaster : group.getCompany().getToasterList())
+		{
 			Type type = toaster.getType();
-			stepCost += (Math.ceil((double) toaster.getProduction()
-					/ type.getCapacity()) * type.getStepCosts());
+			stepCost += (Math.ceil((double) toaster.getProduction() / type.getCapacity()) * type.getStepCosts());
 		}
 		return stepCost;
 	}
 
-	private double getIndex4Company(Group group) {
+	private double getIndex4Company(Group group)
+	{
 		double index = 0.0;
-		for (Toaster toaster : group.getCompany().getToasterList()) {
+		for (Toaster toaster : group.getCompany().getToasterList())
+		{
 			index += toaster.getIndex();
 		}
 		return index;

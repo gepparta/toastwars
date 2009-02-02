@@ -1,35 +1,25 @@
 package toastwars.client.ui.group;
 
 import java.util.ArrayList;
-
 import toastwars.client.Controller;
 import toastwars.server.datamodel.core.Game;
 import toastwars.server.datamodel.core.Toaster;
 import toastwars.server.datamodel.core.Type;
 import toastwars.server.datamodel.user.Group;
 import toastwars.server.datamodel.user.Status;
-
-import com.google.gwt.core.client.JavaScriptObject;
 import com.gwtext.client.core.EventObject;
 import com.gwtext.client.core.Function;
 import com.gwtext.client.core.Position;
 import com.gwtext.client.widgets.Button;
-import com.gwtext.client.widgets.Component;
 import com.gwtext.client.widgets.MessageBox;
 import com.gwtext.client.widgets.Panel;
 import com.gwtext.client.widgets.TabPanel;
 import com.gwtext.client.widgets.event.ButtonListenerAdapter;
-import com.gwtext.client.widgets.event.ComponentListener;
-import com.gwtext.client.widgets.event.ComponentListenerAdapter;
 import com.gwtext.client.widgets.form.Checkbox;
-import com.gwtext.client.widgets.form.Field;
 import com.gwtext.client.widgets.form.FormPanel;
 import com.gwtext.client.widgets.form.Label;
 import com.gwtext.client.widgets.form.NumberField;
-import com.gwtext.client.widgets.form.event.CheckboxListener;
 import com.gwtext.client.widgets.form.event.CheckboxListenerAdapter;
-import com.gwtext.client.widgets.form.event.TextFieldListener;
-import com.gwtext.client.widgets.form.event.TextFieldListenerAdapter;
 import com.gwtext.client.widgets.layout.HorizontalLayout;
 import com.gwtext.client.widgets.layout.VerticalLayout;
 
@@ -123,7 +113,7 @@ public class DecissionPanel extends Panel {
 			Toaster toasterType2 = group.getCompany().getToasterList().get(1);
 			decissionFormType2 = new DecissionForm(buttons, capital,
 					toasterType2, newToasterList);
-		} else if (game.getCurrentRound() > 0) {
+		} else if (game.getCurrentRound()+1 > 0) {
 			decissionFormType2 = new DecissionForm(buttons, capital,
 					Type.TYPE2, newToasterList);
 		}
@@ -138,7 +128,7 @@ public class DecissionPanel extends Panel {
 			Toaster toasterType3 = group.getCompany().getToasterList().get(2);
 			decissionFormType3 = new DecissionForm(buttons, capital,
 					toasterType3, newToasterList);
-		} else if (game.getCurrentRound() > 0) {
+		} else if (game.getCurrentRound()+1 > 0) {
 			decissionFormType3 = new DecissionForm(buttons, capital,
 					Type.TYPE3, newToasterList);
 		}
@@ -281,7 +271,7 @@ public class DecissionPanel extends Panel {
 			}
 
 		} else {
-			group.setStatus(Status.STARTED);
+			group.setStarted();
 			MessageBox.alert("Speichern fehlgeschlagen!");
 		}
 	}
