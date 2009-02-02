@@ -230,8 +230,10 @@ public class Company implements IsSerializable
 		{
 			totalInvestmentCosts += 5000.0;
 		}
-		
+		System.out.println("Round "+Game.getInstance().getCurrentRound());
+		System.out.println("SetKapital --> Kapital: "+this.getCapital()+" + total investment Kosts: "+totalInvestmentCosts);
 		this.setCapital(this.getCapital()+totalInvestmentCosts);
+		System.out.println("Set Costs--> getCosts: "+getCost()+"+ tmpCost : "+tmpCost+" + total investment Kosts: "+totalInvestmentCosts+"+ stock.getTotalStockCosts() :"+stock.getTotalStockCosts());
 		this.setCost(getCost()+tmpCost+totalInvestmentCosts+ stock.getTotalStockCosts());
 	}
 
