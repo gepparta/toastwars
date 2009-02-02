@@ -1,17 +1,15 @@
 package toastwars.server.datamodel.core;
 
 import java.util.ArrayList;
-
 import toastwars.server.datamodel.user.Group;
 import toastwars.server.datamodel.user.Status;
 import toastwars.util.NumberUtil;
-
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class Game implements IsSerializable
 {
 	// Attribute
-	
+
 	private static Game instance;
 
 	private int userAmount;
@@ -32,24 +30,24 @@ public class Game implements IsSerializable
 	public Game()
 	{
 	}
-	
+
 	public static void destroyGame()
 	{
 		instance = null;
 	}
+
 	public static Game getInstance()
 	{
 		return instance;
 	}
-	
+
 	private Game(int userAmount)
 	{
 		this.userAmount = userAmount;
 		this.setCurrentRound(1);
 	}
-	
-	
-	//Getter
+
+	// Getter
 
 	public static Game getInstance(int userAmount)
 	{
@@ -74,24 +72,23 @@ public class Game implements IsSerializable
 	{
 		return userAmount;
 	}
+
 	public ArrayList<Number> getSortedIndexListTyp1()
 	{
 		return sortedIndexListTyp1;
 	}
 
-
-
 	public ArrayList<Number> getSortedIndexListTyp2()
 	{
 		return sortedIndexListTyp2;
 	}
-	
+
 	public ArrayList<Number> getSortedIndexListTyp3()
 	{
 		return sortedIndexListTyp3;
 	}
-	
-	//Setter
+
+	// Setter
 	public void setCurrentRound(int currentRound)
 	{
 		this.currentRound = currentRound;
@@ -106,32 +103,32 @@ public class Game implements IsSerializable
 	{
 		this.userAmount = userAmount;
 	}
+
 	public void setSortedIndexListTyp1(ArrayList<Number> sortedIndexListTyp1)
 	{
 		this.sortedIndexListTyp1 = sortedIndexListTyp1;
 	}
+
 	public void setSortedIndexListTyp2(ArrayList<Number> sortedIndexListTyp2)
 	{
 		this.sortedIndexListTyp2 = sortedIndexListTyp2;
 	}
 
-
-
 	public void setSortedIndexListTyp3(ArrayList<Number> sortedIndexListTyp3)
 	{
 		this.sortedIndexListTyp3 = sortedIndexListTyp3;
 	}
-	
+
 	// Other Methods
 
-	
-	//Hinzufügen einer Gruppe zum Spiel
+	// Hinzufügen einer Gruppe zum Spiel
 	public void addGroup(Group gr)
 	{
 		groupList.add(gr);
 	}
 
-// In dieser Methode werden die Indexsummen der einzelnen Toaster berechnet. Diese werden zur 
+	// In dieser Methode werden die Indexsummen der einzelnen Toaster berechnet.
+	// Diese werden zur
 	// der einzelnen Marktanteile benötigt.
 	public double[] calculateIndexSums()
 	{
@@ -156,9 +153,7 @@ public class Game implements IsSerializable
 		return indexSums;
 	}
 
-
-
-// Hier wird die Runde eines Spiels abgeschlossen.
+	// Hier wird die Runde eines Spiels abgeschlossen.
 	public void completeRound(Group group)
 	{
 
@@ -336,8 +331,8 @@ public class Game implements IsSerializable
 		}// for außen
 	}// calculate MarketShares
 
-	
-	// Hier wird eine Spielrunde simuliert. Hierzu werden alle Berechnungen angestoßen
+	// Hier wird eine Spielrunde simuliert. Hierzu werden alle Berechnungen
+	// angestoßen
 	// und alle erforderlichen Objektattribute der Toaster und Companys gesetzt.
 	public void simulate()
 	{
@@ -364,7 +359,7 @@ public class Game implements IsSerializable
 
 				if (groupList.get(a).getCompany().getCapital() <= 0)
 				{
-					groupList.get(a).setStatus(Status.INACTIVE);
+					groupList.get(a).setInactive();
 					this.killGroup(groupList.get(a));
 				} else
 					groupList.get(a).setStatus(Status.STARTED);
@@ -372,10 +367,11 @@ public class Game implements IsSerializable
 		}
 	}
 
-	
-	//Diese Methode setzt die Objektattribute einer Gruppe so, dass deren Attribute
-	//keine Einfluss auf die Berechnung Einfluss nehmen. Dies ist notwendig, falls eine Gruppe
-	//ausscheidet.
+	// Diese Methode setzt die Objektattribute einer Gruppe so, dass deren
+	// Attribute
+	// keine Einfluss auf die Berechnung Einfluss nehmen. Dies ist notwendig,
+	// falls eine Gruppe
+	// ausscheidet.
 	public void killGroup(Group group)
 	{
 		group.getCompany().setTurnover(0.0);
@@ -401,11 +397,17 @@ public class Game implements IsSerializable
 		}
 	}
 
-
-
 	public String toString()
 	{
 		String s = "Game Eigenschaften: \n user amount: \t \t" + this.getUserAmount() + "\n current round: \t" + this.getCurrentRound();
 		return s;
+	}
+
+	public Game clone()
+	{
+		Game game = new Game();
+		game.setCurrentRound(currentRound);
+		game.setUserAmount(userAmount);
+		return game;
 	}
 }
