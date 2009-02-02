@@ -240,7 +240,7 @@ public class MasterPanel extends Panel {
 		if (groupList == null)
 			return false;
 		for (Group group : groupList) {
-			if (group.getStatus() != Status.COMPLETED)
+			if (group.getStatus() != Status.COMPLETED && group.getStatus() != Status.INACTIVE)
 				return false;
 		}
 		return true;
