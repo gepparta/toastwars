@@ -56,8 +56,16 @@ public class ExtraReportPanel extends TabPanel {
 
 	private ExtraReportPanel() {
 		game = Controller.getInstance().getGame();
-		report = ((Group) Controller.getInstance().getUser()).getCompany()
-				.getReportListe();
+		Group myGroup = (Group) Controller.getInstance().getUser();
+
+		for (Group g : game.getGroupList())
+		{
+			if (g.getUsername().equals(myGroup.getUsername()))
+			{
+				report = g.getCompany().getReportListe();
+				break;
+			}
+		}
 
 		setTitle("Marktforschungsbericht");
 		setTabPosition(Position.BOTTOM);
@@ -100,7 +108,7 @@ public class ExtraReportPanel extends TabPanel {
 		grid.setHeight(70 + 22 * report.get(type.ordinal()).get(0).size());
 		grid.setWidth(700);
 		grid.setTitle("Platzierungen in der Runde "
-				+ (game.getCurrentRound() - 1));
+				+ (game.getCurrentRound()-1));
 
 		RecordDef recordDef = new RecordDef(new FieldDef[] {
 				new StringFieldDef("rank"), new StringFieldDef("magazine"),
@@ -143,7 +151,7 @@ public class ExtraReportPanel extends TabPanel {
 	private Widget createPriceBarChart(Type type) {
 		ChartWidget chart = new ChartWidget();
 		ChartData cd = new ChartData("Preise in der Runde "
-				+ (game.getCurrentRound() - 1),
+				+ (game.getCurrentRound()-1),
 				"font-size: 14px; font-family: Verdana; text-align: center;");
 		cd.setBackgroundColour("#ffffff");
 

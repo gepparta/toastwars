@@ -2,6 +2,7 @@ package toastwars.client.ui.group;
 
 import toastwars.client.Controller;
 import toastwars.server.datamodel.core.Company;
+import toastwars.server.datamodel.core.Game;
 import toastwars.server.datamodel.user.Group;
 
 import com.gwtext.client.core.Position;
@@ -14,8 +15,18 @@ public class ReportPanel extends Panel {
 
 	private ReportPanel() {
 
-		Company company = ((Group) Controller.getInstance().getUser())
-				.getCompany();
+		Game game = Controller.getInstance().getGame();
+		Group myGroup = (Group) Controller.getInstance().getUser();
+		Company company = null;
+
+		for (Group g : game.getGroupList())
+		{
+			if (g.getUsername().equals(myGroup.getUsername()))
+			{
+				company = g.getCompany();
+				break;
+			}
+		}
 
 		setTitle("Analyse-Bericht");
 		setPaddings(0, 15, 0, 0);
