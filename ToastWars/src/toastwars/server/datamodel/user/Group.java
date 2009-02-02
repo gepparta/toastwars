@@ -24,6 +24,16 @@ public class Group implements IUser, IsSerializable
 	{
 		this.setStatus(Status.COMPLETED);
 	}
+	
+	public void setInactive()
+	{
+		this.setStatus(Status.INACTIVE);
+	}
+	
+	public void setStarted()
+	{
+		this.setStatus(Status.STARTED);
+	}
 
 	public Company getCompany()
 	{
