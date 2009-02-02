@@ -10,6 +10,8 @@ public class Master implements IUser, IsSerializable
 	private String password;
 
 	private Game game;
+	
+	private boolean isOnline;
 
 	// Eine (versteckte) Klassenvariable vom Typ der eigenen Klasse
 	private static Master masterInstance;
@@ -89,14 +91,14 @@ public class Master implements IUser, IsSerializable
 		this.game = game;
 	}
 
-//	public void createInitialData(int userAmount)
-//	{
-//		for (int i = 0; i == userAmount; i++)
-//		{
-//			String name = "Group" + i;
-//			String pass = "Group" + i;
-//			// UserFactory.createUser("Group", name, pass);
-//		}
-//	}
+	public boolean isOnline()
+	{
+		return isOnline;
+	}
+
+	public void setOnline(boolean isOnline)
+	{
+		this.isOnline = isOnline;
+	}
 
 }
