@@ -48,43 +48,38 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements ToastW
 				Type.TYPE3.setMarketVolumeTT3(game.getUserAmount());
 				game.setCurrentRound(DAOGame.getCurrentRound(con));
 				game.setGroupList(DAOGame.getAllUsers(con));
-				ArrayList<Group> grouplist = Game.getInstance().getGroupList();
-
-				int round = Game.getInstance().getCurrentRound() - 1;
-				ArrayList<Group> groupList4Report = DAOGame.getAllUsersByRound(con, round);
 
 				// close DB connection
 				DBConnection.getInstance().closeConnectionToDB(con);
 
 				master.setGame(Game.getInstance());
 
-				MarketResearchReport report = MarketResearchReport.getInstance();
-
-				report.generateMarketResearchReport(groupList4Report);
-
-				this.capitalRankingInternList = report.getCapitalRankingInternList();
-
-				this.profitRankingList = report.getProfitRankingInternList();
-				// TODO: wenn Fehler kommt in die DB schauen --> wenn
-				// currentGame in tabelle "Game" höher als in anderen Tabellen
-				// DB-Clean durchführen
-				for (int i = 0; i < grouplist.size(); i++)
-				{
-					grouplist.get(i).getCompany().setProfitRankingList(this.profitRankingList);
-					grouplist.get(i).getCompany().setCapitalRankingInternList(this.capitalRankingInternList);
-
-					Company company = grouplist.get(i).getCompany();
-					company.setReportListe(null);
-
-					if (company.isMarketResearchReportON())
-						company.setReportListe(report.getReports());
-
-					company.setMarketResearchReportON(false);
-				}
 			} catch (Exception e)
 			{
 				e.printStackTrace();
 			}
+		}
+	}
+
+	private void addReports(ArrayList<Group> groupList4Report)
+	{
+		MarketResearchReport report = MarketResearchReport.getInstance();
+
+		report.generateMarketResearchReport(groupList4Report);
+
+		this.capitalRankingInternList = report.getCapitalRankingInternList();
+
+		this.profitRankingList = report.getProfitRankingInternList();
+		for (int i = 0; i < groupList4Report.size(); i++)
+		{
+			groupList4Report.get(i).getCompany().setProfitRankingList(this.profitRankingList);
+			groupList4Report.get(i).getCompany().setCapitalRankingInternList(this.capitalRankingInternList);
+
+			Company company = groupList4Report.get(i).getCompany();
+			company.setReportListe(null);
+
+			if (company.isMarketResearchReportON())
+				company.setReportListe(report.getReports());
 		}
 	}
 
@@ -93,9 +88,11 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements ToastW
 
 		IUser user = null;
 
-		if (name.equals(master.getUsername()) && pwd.equals(master.getPassword()))
+		if (name.equals(master.getUsername()) && pwd.equals(master.getPassword()) && !master.isOnline())
+		{
+			master.setOnline(true);
 			user = master;
-		else
+		} else
 			try
 			{
 				// connectToDB
@@ -113,15 +110,20 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements ToastW
 		return user;
 	}
 
-	public Game getCurrentGame()
+	public Game getPreviousGame()
 	{
 		// connectToDB
 		Connection con = DBConnection.getInstance().connectToDB();
 		if (DAOGame.isGameStarted(con))
 		{
+			Game game = Game.getInstance().clone();
+			game.setGroupList(DAOGame.getAllUsersByRound(con, game.getCurrentRound() - 1));
 			// close DB connection
 			DBConnection.getInstance().closeConnectionToDB(con);
-			return Game.getInstance();
+
+			addReports(game.getGroupList());
+
+			return game;
 		}
 
 		return null;
@@ -129,17 +131,22 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements ToastW
 
 	public Boolean logout(String name, String pwd)
 	{
-		try
+
+		if (name.equals(master.getUsername()) && pwd.equals(master.getPassword()))
 		{
-			// connectToDB
-			Connection con = DBConnection.getInstance().connectToDB();
-			((Group) DAOUser.findUser(name, pwd, con)).setOnline(false);
-			// close DB connection
-			DBConnection.getInstance().closeConnectionToDB(con);
-		} catch (Exception e)
-		{
-			return false;
-		}
+			master.setOnline(false);
+		} else
+			try
+			{
+				// connectToDB
+				Connection con = DBConnection.getInstance().connectToDB();
+				((Group) DAOUser.findUser(name, pwd, con)).setOnline(false);
+				// close DB connection
+				DBConnection.getInstance().closeConnectionToDB(con);
+			} catch (Exception e)
+			{
+				return false;
+			}
 		return true;
 	}
 
@@ -229,8 +236,9 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements ToastW
 				Game.getInstance().setSortedIndexListTyp1(report.getSortedIndexListTyp1());
 				Game.getInstance().setSortedIndexListTyp2(report.getSortedIndexListTyp2());
 				Game.getInstance().setSortedIndexListTyp3(report.getSortedIndexListTyp3());
-				
-//				wenn ein Toaster Typ 2 oder 3 erzeugt wurde, findet hier die Umbuchung der Kosten statt
+
+				// wenn ein Toaster Typ 2 oder 3 erzeugt wurde, findet hier die
+				// Umbuchung der Kosten statt
 				for (Group group : grouplist)
 				{
 					ArrayList<Toaster> toasterList = group.getCompany().getToasterList();
@@ -246,10 +254,13 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements ToastW
 						}
 					}
 					group.getCompany().setCost(newToasterCosts);
-					group.getCompany().setCapital(group.getCompany().getCapital()+newToasterCosts);
+					group.getCompany().setCapital(group.getCompany().getCapital() + newToasterCosts);
 				}
 
 				Master.getInstance().simulate();
+
+				// Speichere die Endwerte für die beendete Runde
+				DAOGame.updateAllUsers(grouplist, con);
 
 				// reset user input parameters
 				for (Group group : grouplist)
@@ -260,8 +271,6 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements ToastW
 						toaster.resetUserInput();
 					}
 				}
-				// Speichere die Endwerte für die beendete Runde
-				DAOGame.archiveAllUsers(grouplist, con);
 				// erhöhe die Runde auf Objektebene
 				Game.getInstance().setCurrentRound(Game.getInstance().getCurrentRound() + 1);
 				// erhöhe die Runde auf DB-Ebene
@@ -269,9 +278,6 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements ToastW
 				// Speichere die Startwerte für die gestartete Runde
 				DAOGame.saveAllUsers(grouplist, con);
 				ArrayList<Group> groupList4Report = DAOGame.getAllUsersByRound(con, Game.getInstance().getCurrentRound());
-				// close DB connection
-				DBConnection.getInstance().closeConnectionToDB(con);
-
 				// extra report
 				report.generateMarketResearchReport(groupList4Report);
 				this.capitalRankingInternList = report.getCapitalRankingInternList();
@@ -287,6 +293,12 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements ToastW
 						company.setReportListe(report.getReports());
 					company.setMarketResearchReportON(false);
 				}
+				
+				// Aktualisiere die Startwerte für die gestartete Runde
+				DAOGame.updateAllUsers(grouplist, con);
+				
+				// close DB connection
+				DBConnection.getInstance().closeConnectionToDB(con);
 				return Game.getInstance();
 
 			} catch (Exception e)
@@ -317,6 +329,9 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements ToastW
 			grouplist.get(i).getCompany().setProfitRankingList(this.profitRankingList);
 			grouplist.get(i).getCompany().setCapitalRankingInternList(this.capitalRankingInternList);
 		}
+
+		CometServiceImpl.setChanged(success);
+
 		return success;
 	}
 
