@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-
-<module>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><module>
 
 	<!-- Inherit the core Web Toolkit stuff.                  -->
 	<inherits name="com.google.gwt.user.User"/>
 	<inherits name="com.gwtext.GwtExt"/>
 	<inherits name="com.rednels.ofcgwt.OFCGWT"/>
+    <inherits name="rocket.remoting.Remoting" /> 
 	
 	<source path="client"/>
 	<source path="util"/>
@@ -15,5 +14,5 @@
 	<entry-point class="toastwars.client.ui.ToastWars"/>
   
 	<servlet class="toastwars.server.ToastWarsServiceImpl" path="/ToastWarsService"/>
-
+    <servlet class="toastwars.server.CometServiceImpl" path="/CometService"/>
 </module>
