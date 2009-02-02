@@ -203,13 +203,7 @@ public class Toaster implements IsSerializable {
 
 	public void setEcologyInvestment(double ecology) 
 	{
-//		an dieser Stelle wird wie in dem Szenario beschrieben
-//		eine Invetsition in Ökologie in Runde 2 mit 20% bezuschusst
-//		TODO: nullpointer aufm UI lösen
-//		if(Game.getInstance().getCurrentRound()==2)
-//			ecology *= 1.2;
 		this.ecologyInvestment = ecology;
-
 	}
 
 	public void setIndex(double index)
