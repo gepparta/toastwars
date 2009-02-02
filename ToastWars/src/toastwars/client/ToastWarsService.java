@@ -37,7 +37,7 @@ public interface ToastWarsService extends RemoteService {
 
 	public Game simulate();
 
-	public Game getCurrentGame();
+	public Game getPreviousGame();
 
 	public Boolean save(Group group);
 
