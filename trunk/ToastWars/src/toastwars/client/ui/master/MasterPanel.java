@@ -7,6 +7,7 @@ import toastwars.server.datamodel.core.Company;
 import toastwars.server.datamodel.core.Game;
 import toastwars.server.datamodel.core.Toaster;
 import toastwars.server.datamodel.user.Group;
+import toastwars.server.datamodel.user.Master;
 import toastwars.server.datamodel.user.Status;
 import toastwars.util.NumberUtil;
 import com.gwtext.client.core.EventObject;
@@ -51,7 +52,7 @@ public class MasterPanel extends Panel {
 
 	private MasterPanel() {
 
-		game = Controller.getInstance().getGame();
+		game = ((Master) Controller.getInstance().getUser()).getCurrentGame();
 		if (game != null) {
 			groupList = game.getGroupList();
 			round = " in der Runde " + game.getCurrentRound();
@@ -65,6 +66,7 @@ public class MasterPanel extends Panel {
 		createGrid();
 		createSimulateButton();
 		
+		CometController.startPushService();
 	}
 
 	private void createControlFieldSet() {
