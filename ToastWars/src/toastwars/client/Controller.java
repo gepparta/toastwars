@@ -24,7 +24,9 @@ public class Controller {
 	private StartGameWindow		startGameWindow;
 
 	private IUser				user;
-	private Game				game;
+	
+	// attributes for group only
+	private Game				previousGame;
 	private ArrayList<Toaster>	newToasterList;
 
 	// Benutzer-Parameter
@@ -55,9 +57,8 @@ public class Controller {
 
 				if (result != null) {
 					if (result instanceof Group)
-						getCurrentGame();
+						getPreviousGame();
 					else if (result instanceof Master) {
-						game = ((Master) result).getCurrentGame();
 						loginWindow.loginSuccess(result);
 					}
 				} else
@@ -69,7 +70,7 @@ public class Controller {
 		service.login(name, pwd, callback);
 	}
 
-	public void getCurrentGame() {
+	public void getPreviousGame() {
 		ToastWarsServiceAsync service = ToastWarsService.Util.getInstance();
 
 		AsyncCallback<Game> callback = new AsyncCallback<Game>() {
@@ -77,28 +78,23 @@ public class Controller {
 			}
 
 			public void onSuccess(Game result) {
-				game = result;
+				previousGame = result;
 
-				if (game != null) {
-					Type.TYPE1.setMarketVolumeTT1(game.getUserAmount());
-					Type.TYPE2.setMarketVolumeTT2(game.getUserAmount());
-					Type.TYPE3.setMarketVolumeTT3(game.getUserAmount());
+				if (previousGame != null) {
+					Type.TYPE1.setMarketVolumeTT1(previousGame.getUserAmount());
+					Type.TYPE2.setMarketVolumeTT2(previousGame.getUserAmount());
+					Type.TYPE3.setMarketVolumeTT3(previousGame.getUserAmount());
 					loginWindow.loginSuccess(user);
 				} else
 					loginWindow.loginFailure();
 			}
 		};
 
-		service.getCurrentGame(callback);
+		service.getPreviousGame(callback);
 	}
 
 	public void logout(ToastWars tw) {
 		toastWars = tw;
-
-		if (userType == SPIELLEITER) {
-			toastWars.reloadPage(true);
-			return;
-		}
 
 		ToastWarsServiceAsync service = ToastWarsService.Util.getInstance();
 
@@ -158,7 +154,7 @@ public class Controller {
 			}
 
 			public void onSuccess(Game result) {
-				game = result;
+				((Master) user).setGame(result);
 				MasterPanel.getInstance().simulate(result);
 			}
 		};
@@ -224,6 +220,6 @@ public class Controller {
 	}
 
 	public Game getGame() {
-		return game;
+		return previousGame;
 	}
 }
