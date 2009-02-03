@@ -65,7 +65,7 @@ public class MasterPanel extends Panel {
 		createControlFieldSet();
 		createGrid();
 		createSimulateButton();
-		
+
 		CometController.startPushService();
 	}
 
@@ -240,7 +240,8 @@ public class MasterPanel extends Panel {
 		if (groupList == null)
 			return false;
 		for (Group group : groupList) {
-			if (group.getStatus() != Status.COMPLETED && group.getStatus() != Status.INACTIVE)
+			if (group.getStatus() != Status.COMPLETED
+					&& group.getStatus() != Status.INACTIVE)
 				return false;
 		}
 		return true;
@@ -264,19 +265,21 @@ public class MasterPanel extends Panel {
 		grid.getView().refresh();
 		grid.setTitle("Spielstand");
 	}
-	
+
 	public void simulate(Game game) {
 		simulateBtn.setDisabled(true);
 		refreshGrid(game);
 	}
-	
-	public void refreshGrid(Game game)
-	{
+
+	public void refreshGrid(Game game) {
 		this.game = game;
 		groupList = game.getGroupList();
 		store.setDataProxy(new MemoryProxy(getGameData()));
 		store.load();
 		grid.getView().refresh();
 		grid.setTitle("Spielstand in der Runde " + game.getCurrentRound());
+
+		if (areAllGroupsReady())
+			simulateBtn.setDisabled(false);
 	}
 }

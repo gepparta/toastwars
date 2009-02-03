@@ -401,13 +401,18 @@ public class DecissionForm extends Panel {
 	}
 
 	public void disableSliders() {
-		if (toaster != null) {
-			fields.get(0).setReadOnly(true);
-			fields.get(1).setReadOnly(true);
-			for (SliderBar slider : sliders) {
-				slider.setVisible(false);
-			}
-		} else
-			newButton.setDisabled(true);
+		Status status = ((Group) Controller.getInstance().getUser())
+				.getStatus();
+
+		if (status == Status.COMPLETED) {
+			if (toaster != null) {
+				fields.get(0).setReadOnly(true);
+				fields.get(1).setReadOnly(true);
+				for (SliderBar slider : sliders) {
+					slider.setVisible(false);
+				}
+			} else
+				newButton.setDisabled(true);
+		}
 	}
 }
