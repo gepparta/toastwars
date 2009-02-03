@@ -253,7 +253,7 @@ public class StandardReportPanel extends Panel
 			// setMin = key.intValue();
 		}
 		xa.setLabels(labels);
-		// xa.getLabels().setColour("#FDD017");
+//		 xa.getLabels().setColour("#FDD017");
 		xa.setMax(capitalList.size() - 1);
 		xa.setTickHeight(10);
 		cd.setXAxis(xa);
