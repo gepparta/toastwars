@@ -1,22 +1,22 @@
 package toastwars.client.ui.group;
 
 import java.util.ArrayList;
+
 import toastwars.client.Controller;
 import toastwars.server.datamodel.core.Game;
 import toastwars.server.datamodel.core.Toaster;
 import toastwars.server.datamodel.core.Type;
 import toastwars.server.datamodel.user.Group;
 import toastwars.server.datamodel.user.Status;
+
 import com.gwtext.client.core.EventObject;
 import com.gwtext.client.core.Function;
 import com.gwtext.client.core.Position;
 import com.gwtext.client.widgets.Button;
-import com.gwtext.client.widgets.Container;
 import com.gwtext.client.widgets.MessageBox;
 import com.gwtext.client.widgets.Panel;
 import com.gwtext.client.widgets.TabPanel;
 import com.gwtext.client.widgets.event.ButtonListenerAdapter;
-import com.gwtext.client.widgets.event.TabPanelListener;
 import com.gwtext.client.widgets.event.TabPanelListenerAdapter;
 import com.gwtext.client.widgets.form.Checkbox;
 import com.gwtext.client.widgets.form.FormPanel;
