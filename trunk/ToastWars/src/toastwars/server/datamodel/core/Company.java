@@ -72,135 +72,25 @@ public class Company implements IsSerializable
 		return nextCompanyID;
 	}
 
-	public double getCapital()
-	{
-		return capital;
-	}
-
-	public int getCompanyID()
-	{
-		return companyID;
-	}
-
-	public double getCost()
-	{
-		return cost;
-	}
-
-	public int getMarketShare()
-	{
-		return marketShare;
-	}
-
-	public double getProfit()
-	{
-		return profit;
-	}
-
-	public Stock getStock()
-	{
-		return stock;
-	}
-
-	public ArrayList<Toaster> getToasterList()
-	{
-		return toasterList;
-	}
-
-	public double getTurnover()
-	{
-		return turnover;
-	}
-
-	public ArrayList<ArrayList<List<String>>> getReportListe()
-	{
-		return reportListe;
-	}
-
-	// @gwt.typeArgs <Number>
-	public ArrayList<Number> getProfitRankingList()
-	{
-		return profitRankingList;
-	}
-
-	public ArrayList<Number> getCapitalRankingInternList()
-	{
-		return capitalRankingInternList;
-	}
-
-	public boolean isMarketResearchReportON()
-	{
-		return marketResearchReportON;
-	}
-
-	//Set-Methoden
-
 	public static void setNextCompanyID(int nextCompanyID)
 	{
 		Company.nextCompanyID = nextCompanyID;
 	}
 
-	public void setCapital(double capital)
+	// In dieser Methode werden die Investitionen dieser Company für alle Toaster kumuliert.
+	public void accumulateToasterValues()
 	{
-		this.capital = capital;
-	}
 
-	public void setCompanyID(int companyID)
-	{
-		this.companyID = companyID;
+		for (int i = 0; i < this.getToasterList().size(); i++)
+		{
+			this.getToasterList().get(i).setDesignInvestmentKum();
+			this.getToasterList().get(i).setEcologyInvestmentKum();
+			this.getToasterList().get(i).setNewspaperInvestmentKum();
+			this.getToasterList().get(i).setQualityInvestmentKum();
+			this.getToasterList().get(i).setRadioInvestmentKum();
+			this.getToasterList().get(i).setTvInvestmentKum();
+		}
 	}
-
-	public void setCost(double cost)
-	{
-		this.cost = cost;
-	}
-
-	public void setMarketResearchReportON(boolean marketResearchReportON)
-	{
-		this.marketResearchReportON = marketResearchReportON;
-	}
-
-	public void setMarketShare(int marketShare)
-	{
-		this.marketShare = marketShare;
-	}
-
-	public void setProfit(double profit)
-	{
-		this.profit = profit;
-	}
-
-	public void setStock(Stock stock)
-	{
-		this.stock = stock;
-	}
-
-	public void setToasterList(ArrayList<Toaster> toasterList)
-	{
-		this.toasterList = toasterList;
-	}
-
-	public void setTurnover(double turnover)
-	{
-		this.turnover = turnover;
-	}
-
-	public void setReportListe(ArrayList<ArrayList<List<String>>> reportListe)
-	{
-		this.reportListe = reportListe;
-	}
-
-	public void setProfitRankingList(ArrayList<Number> profitRankingList)
-	{
-		this.profitRankingList = profitRankingList;
-	}
-
-	public void setCapitalRankingInternList(ArrayList<Number> capitalRankingInternList)
-	{
-		this.capitalRankingInternList = capitalRankingInternList;
-	}
-
-	//Berechnende Methoden
 
 	// In dieser Methode wird der Gewinn zum Kapital addiert.
 	public void calculateCapital()
@@ -284,22 +174,144 @@ public class Company implements IsSerializable
 		this.setTurnover(tmpTurnover);
 	}
 
-// In dieser Methode werden die Investitionen dieser Company für alle Toaster kumuliert.
-	public void accumulateToasterValues()
+	public void destroyCompany()
 	{
-
+		this.setTurnover(0.0);
+		this.setProfit(0.0);
+		this.setCost(0.0);
+		this.setMarketShare(0);
 		for (int i = 0; i < this.getToasterList().size(); i++)
 		{
-			this.getToasterList().get(i).setDesignInvestmentKum();
-			this.getToasterList().get(i).setEcologyInvestmentKum();
-			this.getToasterList().get(i).setNewspaperInvestmentKum();
-			this.getToasterList().get(i).setQualityInvestmentKum();
-			this.getToasterList().get(i).setRadioInvestmentKum();
-			this.getToasterList().get(i).setTvInvestmentKum();
+			this.getToasterList().get(i).destroyToaster();
 		}
 	}
 
-// Methoden für das Testen der anderen Methoden
+	public double getCapital()
+	{
+		return capital;
+	}
+
+	public ArrayList<Number> getCapitalRankingInternList()
+	{
+		return capitalRankingInternList;
+	}
+
+	public int getCompanyID()
+	{
+		return companyID;
+	}
+
+	//Set-Methoden
+
+	public double getCost()
+	{
+		return cost;
+	}
+
+	public int getMarketShare()
+	{
+		return marketShare;
+	}
+
+	public double getProfit()
+	{
+		return profit;
+	}
+
+	// @gwt.typeArgs <Number>
+	public ArrayList<Number> getProfitRankingList()
+	{
+		return profitRankingList;
+	}
+
+	public ArrayList<ArrayList<List<String>>> getReportListe()
+	{
+		return reportListe;
+	}
+
+	public Stock getStock()
+	{
+		return stock;
+	}
+
+	public ArrayList<Toaster> getToasterList()
+	{
+		return toasterList;
+	}
+
+	public double getTurnover()
+	{
+		return turnover;
+	}
+
+	public boolean isMarketResearchReportON()
+	{
+		return marketResearchReportON;
+	}
+
+	public void setCapital(double capital)
+	{
+		this.capital = capital;
+	}
+
+	public void setCapitalRankingInternList(ArrayList<Number> capitalRankingInternList)
+	{
+		this.capitalRankingInternList = capitalRankingInternList;
+	}
+
+	public void setCompanyID(int companyID)
+	{
+		this.companyID = companyID;
+	}
+
+	public void setCost(double cost)
+	{
+		this.cost = cost;
+	}
+
+	//Berechnende Methoden
+
+	public void setMarketResearchReportON(boolean marketResearchReportON)
+	{
+		this.marketResearchReportON = marketResearchReportON;
+	}
+
+	public void setMarketShare(int marketShare)
+	{
+		this.marketShare = marketShare;
+	}
+
+	public void setProfit(double profit)
+	{
+		this.profit = profit;
+	}
+
+	public void setProfitRankingList(ArrayList<Number> profitRankingList)
+	{
+		this.profitRankingList = profitRankingList;
+	}
+
+	public void setReportListe(ArrayList<ArrayList<List<String>>> reportListe)
+	{
+		this.reportListe = reportListe;
+	}
+
+	public void setStock(Stock stock)
+	{
+		this.stock = stock;
+	}
+
+public void setToasterList(ArrayList<Toaster> toasterList)
+	{
+		this.toasterList = toasterList;
+	}
+
+public void setTurnover(double turnover)
+	{
+		this.turnover = turnover;
+	}
+	
+	// Methoden für das Testen der anderen Methoden
 	public String toString()
 	{
 

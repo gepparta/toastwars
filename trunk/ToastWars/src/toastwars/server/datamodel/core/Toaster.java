@@ -70,257 +70,6 @@ public class Toaster implements IsSerializable {
 
 //Get Methoden
 
-	public double getCost()
-	{
-		return cost;
-	}
-
-	public double getDesignInvestment()
-	{
-		return designInvestment;
-	}
-
-	public double getDesignInvestmentKum()
-	{
-		return designInvestmentKum;
-	}
-
-	public double getEcologyInvestmentKum()
-	{
-		return ecologyInvestmentKum;
-	}
-
-	public double getEcologyInvestment()
-	{
-		return ecologyInvestment;
-	}
-
-	public double getIndex()
-	{
-		return index;
-	}
-
-	public double getMarketing()
-	{
-		return marketing;
-	}
-
-	public int getMarketShare()
-	{
-		return marketShare;
-	}
-
-	public double getNewspaperInvestment()
-	{
-		return newspaperInvestment;
-	}
-
-	public double getNewspaperInvestmentKum()
-	{
-		return newspaperInvestmentKum;
-	}
-
-	public double getPrice()
-	{
-		return price;
-	}
-
-	public int getProduction() {
-		return production;
-	}
-
-	public double getProfit()
-	{
-		return profit;
-	}
-
-	public double getQualityInvestment()
-	{
-		return qualityInvestment;
-	}
-
-	public double getQualityInvestmentKum()
-	{
-		return qualityInvestmentKum;
-	}
-
-	public double getRadioInvestment()
-	{
-		return radioInvestment;
-	}
-
-	public double getRadioInvestmentKum()
-	{
-		return radioInvestmentKum;
-	}
-
-	public double getResearch()
-	{
-		return research;
-	}
-
-
-	public double getTurnover()
-	{
-		return turnover;
-	}
-
-	public double getTvInvestment()
-	{
-		return tvInvestment;
-	}
-
-	public double getTvInvestmentKum()
-	{
-		return tvInvestmentKum;
-	}
-
-	public Type getType()
-	{
-		return type;
-	}
-
-	public void setCost(double cost)
-	{
-		this.cost = cost;
-	}
-
-	public void setDesignInvestment(double design) 
-	{
-
-		this.designInvestment = design;
-	}
-
-	public void setDesignInvestmentKum()
-	{
-		this.designInvestmentKum += this.designInvestment;
-	}
-
-	public void setEcologyInvestmentKum()
-	{
-		this.ecologyInvestmentKum += this.ecologyInvestment;
-	}
-
-	public void setEcologyInvestment(double ecology) 
-	{
-		this.ecologyInvestment = ecology;
-	}
-
-	public void setIndex(double index)
-	{
-		this.index = index;
-	}
-
-	public void setMarketing(double marketing)
-	{
-		this.marketing = marketing;
-	}
-
-	public void setMarketShare(int marketShare)
-	{
-		this.marketShare = marketShare;
-	}
-
-	public void setNewspaperInvestment(double newsPaperInvestment) 
-	{
-		this.newspaperInvestment = newsPaperInvestment;
-	}
-
-	public void setNewspaperInvestmentKum()
-	{
-		this.newspaperInvestmentKum += this.newspaperInvestment;
-	}
-
-	public void setPrice(double price) throws Exception
-	{
-		if (this.type == Type.TYPE1)
-		{
-			if (price <= 20 && price >= 5)
-				this.price = price;
-			else
-				throw new Exception("Ungültiger Preis");
-		}
-		if (this.type == Type.TYPE2)
-		{
-			if (price <= 60 && price >= 30)
-				this.price = price;
-			else
-				throw new Exception("Ungültiger Preis");
-		}
-		if (this.type == Type.TYPE3)
-		{
-			if (price <= 200 && price >= 130)
-				this.price = price;
-			else
-				throw new Exception("Ungültiger Preis");
-		}
-	}
-
-	public void setProduction(int production) {
-		this.production = production;
-	}
-
-	public void setProfit(double profit)
-	{
-		this.profit = profit;
-	}
-
-	public void setQualityInvestment(double quality) 
-	{
-
-		this.qualityInvestment = quality;
-
-	}
-
-	public void setQualityInvestmentKum()
-	{
-		this.qualityInvestmentKum += this.qualityInvestment ;
-	}
-
-	public void setRadioInvestment(double radioInvestment)
-	{
-
-		this.radioInvestment = radioInvestment;
-
-	}
-
-	public void setRadioInvestmentKum()
-	{
-		this.radioInvestmentKum += this.radioInvestment;
-	}
-
-	public void setResearch(double research)
-	{
-		this.research = research;
-	}
-	
-	public void setTurnover(double turnover)
-	{
-		this.turnover = turnover;
-	}
-
-	public void setTvInvestment(double tvInvestment) 
-	{
-
-		this.tvInvestment = tvInvestment;
-
-	}
-
-	public void setTvInvestmentKum()
-	{
-		this.tvInvestmentKum += this.tvInvestment;
-	}
-	public void setType(Type type)
-	{
-		this.type = type;
-	}
-	
-	//Berechnende Methoden
-	
-	
-	// In dieser Methode werden die Kosten des Toasters kalkuliert und das entsprechende Attribut gesetzt. 
-	// Dazu werden die variablen Kosten, die sprungfixen Kosten und die fixen Kosten berechnet und addiert.
-
 	public void calculateCost()
 	{
 
@@ -347,9 +96,7 @@ public class Toaster implements IsSerializable {
 		setIndex(NumberUtil.roundDouble(i));
 	}
 
-
-
-// In dieser Methode wird der neue Marketingindex abhängig vom Type ermittelt und gesetzt.
+	// In dieser Methode wird der neue Marketingindex abhängig vom Type ermittelt und gesetzt.
 // Hierzu werden zunächst die eingegebenen Investitionen der drei Faktoren tv,radio und newspaper verarbeitet und eingerechnet.
 // Daraus wird anhand von Formeln der Index berechnet und das eigene Objektattribut gesetzt.
 	public double calculateMarketing()
@@ -397,7 +144,8 @@ public class Toaster implements IsSerializable {
 		this.setMarketing(NumberUtil.roundDouble(d));
 		return NumberUtil.roundDouble(d);
 	}
-// In der folgenden Methode werden die Marktanteile der einzelen Toaster berechnet. Hierzu wird der Gesamtindex aller Toaster 
+
+	// In der folgenden Methode werden die Marktanteile der einzelen Toaster berechnet. Hierzu wird der Gesamtindex aller Toaster 
 // eines Types benötigt. Dieser wird als Parameter übergeben. Nach der Berechnung wird das entsprechende Objektattribut gesetzt.
 	public void calculateMarketShare(double IndexSum)
 	{
@@ -405,7 +153,8 @@ public class Toaster implements IsSerializable {
 		this.setMarketShare((int) Math.round(this.type.getMarketVolume() / IndexSum * this.index));
 
 	}
-// In dieser Methode wird der Profit/Gewinn errechnet und das entsprechende Objektattribut gesetzt.
+
+	// In dieser Methode wird der Profit/Gewinn errechnet und das entsprechende Objektattribut gesetzt.
 	public void calculateProfit()
 	{
 		this.setProfit(this.getTurnover() - this.getCost());
@@ -462,6 +211,7 @@ public class Toaster implements IsSerializable {
 		this.setResearch(NumberUtil.roundDouble(d));
 		return NumberUtil.roundDouble(d);
 	}
+
 	// In dieser Methode wird der Umsatz errechnet und das entsprechende Objektattribut gesetzt.
 	public void calculateTurnover()
 	{
@@ -469,17 +219,290 @@ public class Toaster implements IsSerializable {
 		this.setTurnover(this.getMarketShare() * this.getPrice());
 	}
 
-	// In dieser Methode werden alle Attribute in denen Investitionen getätigt wurden auf 0 zurückgesetzt.
-public void resetUserInput() {
-		
-		tvInvestment = 0;
-		newspaperInvestment = 0;
-		radioInvestment = 0;
-		qualityInvestment = 0;
-		designInvestment = 0;
-		ecologyInvestment = 0;
-		production = 0;
+	private void changePriceWithOutCheck(double price)
+	{
+		this.price = price;
 	}
+
+	public void destroyToaster()
+	{
+		this.changePriceWithOutCheck(0.0);
+		this.setCost(0.0);
+		this.setDesignInvestment(0);
+		this.setEcologyInvestment(0.0);
+		this.setIndex(0.0);
+		this.setMarketing(0.0);
+		this.setMarketShare(0);
+		this.setNewspaperInvestment(0.0);
+		this.setProduction(0);
+		this.setProfit(0.0);
+		this.setQualityInvestment(0.0);
+		this.setRadioInvestment(0.0);
+		this.setResearch(0.0);
+		this.setTurnover(0.0);
+		this.setTvInvestment(0.0);
+	}
+
+	public double getCost()
+	{
+		return cost;
+	}
+
+	public double getDesignInvestment()
+	{
+		return designInvestment;
+	}
+
+	public double getDesignInvestmentKum()
+	{
+		return designInvestmentKum;
+	}
+
+	public double getEcologyInvestment()
+	{
+		return ecologyInvestment;
+	}
+
+	public double getEcologyInvestmentKum()
+	{
+		return ecologyInvestmentKum;
+	}
+
+	public double getIndex()
+	{
+		return index;
+	}
+
+	public double getMarketing()
+	{
+		return marketing;
+	}
+
+	public int getMarketShare()
+	{
+		return marketShare;
+	}
+
+	public double getNewspaperInvestment()
+	{
+		return newspaperInvestment;
+	}
+
+
+	public double getNewspaperInvestmentKum()
+	{
+		return newspaperInvestmentKum;
+	}
+
+	public double getPrice()
+	{
+		return price;
+	}
+
+	public int getProduction() {
+		return production;
+	}
+
+	public double getProfit()
+	{
+		return profit;
+	}
+
+	public double getQualityInvestment()
+	{
+		return qualityInvestment;
+	}
+
+	public double getQualityInvestmentKum()
+	{
+		return qualityInvestmentKum;
+	}
+
+	public double getRadioInvestment()
+	{
+		return radioInvestment;
+	}
+
+	public double getRadioInvestmentKum()
+	{
+		return radioInvestmentKum;
+	}
+
+	public double getResearch()
+	{
+		return research;
+	}
+
+	public double getTurnover()
+	{
+		return turnover;
+	}
+
+	public double getTvInvestment()
+	{
+		return tvInvestment;
+	}
+
+	public double getTvInvestmentKum()
+	{
+		return tvInvestmentKum;
+	}
+
+	public Type getType()
+	{
+		return type;
+	}
+
+	// In dieser Methode werden alle Attribute in denen Investitionen getätigt wurden auf 0 zurückgesetzt.
+	public void resetUserInput() {
+			
+			tvInvestment = 0;
+			newspaperInvestment = 0;
+			radioInvestment = 0;
+			qualityInvestment = 0;
+			designInvestment = 0;
+			ecologyInvestment = 0;
+			production = 0;
+		}
+
+	public void setCost(double cost)
+	{
+		this.cost = cost;
+	}
+	public void setDesignInvestment(double design) 
+	{
+
+		this.designInvestment = design;
+	}
+	
+	public void setDesignInvestmentKum()
+	{
+		this.designInvestmentKum += this.designInvestment;
+	}
+
+	public void setEcologyInvestment(double ecology) 
+	{
+		this.ecologyInvestment = ecology;
+	}
+
+	public void setEcologyInvestmentKum()
+	{
+		this.ecologyInvestmentKum += this.ecologyInvestment;
+	}
+
+	public void setIndex(double index)
+	{
+		this.index = index;
+	}
+
+	public void setMarketing(double marketing)
+	{
+		this.marketing = marketing;
+	}
+
+	public void setMarketShare(int marketShare)
+	{
+		this.marketShare = marketShare;
+	}
+
+	public void setNewspaperInvestment(double newsPaperInvestment) 
+	{
+		this.newspaperInvestment = newsPaperInvestment;
+	}
+
+	public void setNewspaperInvestmentKum()
+	{
+		this.newspaperInvestmentKum += this.newspaperInvestment;
+	}
+	
+	public void setPrice(double price) throws Exception
+	{
+		if (this.type == Type.TYPE1)
+		{
+			if (price <= 20 && price >= 5)
+				this.price = price;
+			else
+				throw new Exception("Ungültiger Preis");
+		}
+		if (this.type == Type.TYPE2)
+		{
+			if (price <= 60 && price >= 30)
+				this.price = price;
+			else
+				throw new Exception("Ungültiger Preis");
+		}
+		if (this.type == Type.TYPE3)
+		{
+			if (price <= 200 && price >= 130)
+				this.price = price;
+			else
+				throw new Exception("Ungültiger Preis");
+		}
+	}
+
+	public void setProduction(int production) {
+		this.production = production;
+	}
+
+	public void setProfit(double profit)
+	{
+		this.profit = profit;
+	}
+	public void setQualityInvestment(double quality) 
+	{
+
+		this.qualityInvestment = quality;
+
+	}
+	
+	//Berechnende Methoden
+	
+	
+	// In dieser Methode werden die Kosten des Toasters kalkuliert und das entsprechende Attribut gesetzt. 
+	// Dazu werden die variablen Kosten, die sprungfixen Kosten und die fixen Kosten berechnet und addiert.
+
+	public void setQualityInvestmentKum()
+	{
+		this.qualityInvestmentKum += this.qualityInvestment ;
+	}
+
+	public void setRadioInvestment(double radioInvestment)
+	{
+
+		this.radioInvestment = radioInvestment;
+
+	}
+
+
+
+public void setRadioInvestmentKum()
+	{
+		this.radioInvestmentKum += this.radioInvestment;
+	}
+public void setResearch(double research)
+	{
+		this.research = research;
+	}
+public void setTurnover(double turnover)
+	{
+		this.turnover = turnover;
+	}
+
+	public void setTvInvestment(double tvInvestment) 
+	{
+
+		this.tvInvestment = tvInvestment;
+
+	}
+	public void setTvInvestmentKum()
+	{
+		this.tvInvestmentKum += this.tvInvestment;
+	}
+
+	public void setType(Type type)
+{
+	this.type = type;
+}
 
 
 //Methoden nur für die Tests
