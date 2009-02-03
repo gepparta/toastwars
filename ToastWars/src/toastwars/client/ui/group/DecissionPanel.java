@@ -11,10 +11,13 @@ import com.gwtext.client.core.EventObject;
 import com.gwtext.client.core.Function;
 import com.gwtext.client.core.Position;
 import com.gwtext.client.widgets.Button;
+import com.gwtext.client.widgets.Container;
 import com.gwtext.client.widgets.MessageBox;
 import com.gwtext.client.widgets.Panel;
 import com.gwtext.client.widgets.TabPanel;
 import com.gwtext.client.widgets.event.ButtonListenerAdapter;
+import com.gwtext.client.widgets.event.TabPanelListener;
+import com.gwtext.client.widgets.event.TabPanelListenerAdapter;
 import com.gwtext.client.widgets.form.Checkbox;
 import com.gwtext.client.widgets.form.FormPanel;
 import com.gwtext.client.widgets.form.Label;
@@ -53,6 +56,13 @@ public class DecissionPanel extends Panel {
 		setSize(985, 400);
 		setButtonAlign(Position.CENTER);
 		setLayout(new VerticalLayout(5));
+		addListener(new TabPanelListenerAdapter() {
+			@Override
+			public void onActivate(Panel panel) {
+				super.onActivate(panel);
+				disableSlidersAndButtons();
+			}
+		});
 
 		if (group.getStatus() == Status.INACTIVE) {
 			createBurntPanel();
@@ -67,8 +77,6 @@ public class DecissionPanel extends Panel {
 		add(middlePanel);
 		addButton(btnSave);
 		addButton(btnEnd);
-
-		disableSlidersAndButtons();
 	}
 
 	private void createBurntPanel() {
@@ -113,7 +121,7 @@ public class DecissionPanel extends Panel {
 			Toaster toasterType2 = group.getCompany().getToasterList().get(1);
 			decissionFormType2 = new DecissionForm(buttons, capital,
 					toasterType2, newToasterList);
-		} else if (game.getCurrentRound()+1 > 0) {
+		} else if (game.getCurrentRound() + 1 > 0) {
 			decissionFormType2 = new DecissionForm(buttons, capital,
 					Type.TYPE2, newToasterList);
 		}
@@ -128,7 +136,7 @@ public class DecissionPanel extends Panel {
 			Toaster toasterType3 = group.getCompany().getToasterList().get(2);
 			decissionFormType3 = new DecissionForm(buttons, capital,
 					toasterType3, newToasterList);
-		} else if (game.getCurrentRound()+1 > 0) {
+		} else if (game.getCurrentRound() + 1 > 0) {
 			decissionFormType3 = new DecissionForm(buttons, capital,
 					Type.TYPE3, newToasterList);
 		}
@@ -281,7 +289,7 @@ public class DecissionPanel extends Panel {
 				|| group.getStatus() == Status.INACTIVE) {
 			btnSave.setDisabled(true);
 			btnEnd.setDisabled(true);
-			report.setReadOnly(true);
+			report.setDisabled(true);
 			decissionFormType1.disableSliders();
 			decissionFormType2.disableSliders();
 			decissionFormType3.disableSliders();

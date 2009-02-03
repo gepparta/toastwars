@@ -21,16 +21,14 @@ import com.gwtext.client.widgets.tree.TreeNode;
 import com.gwtext.client.widgets.tree.TreePanel;
 import com.gwtext.client.widgets.tree.event.TreeNodeListenerAdapter;
 
-public class ToastWars implements EntryPoint
-{
+public class ToastWars implements EntryPoint {
 
-	private ToastWars toastWars;
-	private Controller controller;
-	private TabPanel mainPanel;
-	private LoginWindow loginWindow;
+	private ToastWars	toastWars;
+	private Controller	controller;
+	private TabPanel	mainPanel;
+	private LoginWindow	loginWindow;
 
-	public void onModuleLoad()
-	{
+	public void onModuleLoad() {
 
 		toastWars = this;
 		controller = Controller.getInstance();
@@ -40,8 +38,7 @@ public class ToastWars implements EntryPoint
 		RootPanel.get().add(loginWindow);
 	}
 
-	public void createUI()
-	{
+	public void createUI() {
 		Panel root = new Panel();
 		root.setBorder(false);
 		root.setLayout(new VerticalLayout(0));
@@ -60,8 +57,7 @@ public class ToastWars implements EntryPoint
 		Panel horizontalPanel = new Panel();
 		horizontalPanel.setLayout(new HorizontalLayout(2));
 
-		if (controller.getUserType() == Controller.GRUPPE)
-		{
+		if (controller.getUserType() == Controller.GRUPPE) {
 			TreePanel navigationPanel = createNavigationPanel();
 			horizontalPanel.add(navigationPanel);
 		}
@@ -84,35 +80,35 @@ public class ToastWars implements EntryPoint
 		RootPanel.get("main").add(root);
 	}
 
-	private Panel createFooterPanel()
-	{
+	private Panel createFooterPanel() {
 
 		Panel footerPanel = new Panel();
 		footerPanel.setLayout(new HorizontalLayout(10));
 		footerPanel.setSize(1195, 25);
 		footerPanel.setPaddings(3, 5, 0, 0);
 
-		Label text = new Label("Angemeldet als: " + controller.getUser().getUsername());
+		Label text = new Label("Angemeldet als: "
+				+ controller.getUser().getUsername());
 		text.setStyle("font:bold 11px tahoma,arial,verdana,sans-serif;");
 
 		footerPanel.add(text);
-		footerPanel.add(new Button("Abmelden", new ButtonListenerAdapter()
-		{
-			public void onClick(Button button, EventObject e)
-			{
+		footerPanel.add(new Button("Abmelden", new ButtonListenerAdapter() {
+			public void onClick(Button button, EventObject e) {
 				// // added by alex
-				 if (Controller.getInstance().getUserType() == Controller.SPIELLEITER)
+				if (Controller.getInstance().getUserType() == Controller.SPIELLEITER)
 					CometController.endPushService();
 				Controller.getInstance().logout(toastWars);
 
 			}
 		}));
 
-		if (controller.getUserType() == Controller.GRUPPE)
-		{
-			Label round = new Label("Runde: " + (Controller.getInstance().getGame().getCurrentRound()));
+		if (controller.getUserType() == Controller.GRUPPE) {
+			Label round = new Label("Runde: "
+					+ (Controller.getInstance().getGame().getCurrentRound()));
 			round.setWidth(930);
-			round.setStyle("font: bold 11px tahoma, arial, verdana, sans-serif;" + "text-align: right;");
+			round
+					.setStyle("font: bold 11px tahoma, arial, verdana, sans-serif;"
+							+ "text-align: right;");
 			footerPanel.add(round);
 		}
 
@@ -120,38 +116,35 @@ public class ToastWars implements EntryPoint
 	}
 
 	public native void reloadPage(boolean success)/*-{
-						       if(success == true)
-						       		$wnd.location.reload();
-						       else
-						       		@com.gwtext.client.widgets.MessageBox::alert(Ljava/lang/String;)("Abmelden fehlgeschlagen!");
-						   }-*/;
+							       if(success == true)
+							       		$wnd.location.reload();
+							       else
+							       		@com.gwtext.client.widgets.MessageBox::alert(Ljava/lang/String;)("Abmelden fehlgeschlagen!");
+							   }-*/;
 
-	private void createMainPanel()
-	{
+	private void createMainPanel() {
 		mainPanel = new TabPanel();
 		mainPanel.setSize(995, 450);
 		mainPanel.setBorder(true);
 		mainPanel.setPaddings(15, 0, 0, 0);
 
-		if (controller.getUserType() == Controller.GRUPPE)
-		{
+		if (controller.getUserType() == Controller.GRUPPE) {
 			// Willkommen Panel
 			Panel welcome = new Panel("Willkommen");
 			welcome.setStyle("text-align:center");
-			Label text = new Label("Willkommen bei ToastWars " + controller.getUser().getUsername());
+			Label text = new Label("Willkommen bei ToastWars "
+					+ controller.getUser().getUsername());
 			text.setStyle("font:bold 20px tahoma,arial,verdana,sans-serif");
 			welcome.add(text);
 			mainPanel.add(welcome);
-		} else
-		{
+		} else {
 			mainPanel.add(MasterPanel.getInstance());
 			mainPanel.setWidth(1195);
 		}
 		mainPanel.setActiveTab(0);
 	}
 
-	private TreePanel createNavigationPanel()
-	{
+	private TreePanel createNavigationPanel() {
 		final TreePanel treePanelNavigation = new TreePanel("Men&uuml;");
 		treePanelNavigation.setWidth(197);
 		treePanelNavigation.setHeight(450);
@@ -164,30 +157,24 @@ public class ToastWars implements EntryPoint
 		TreeNode decissions = new TreeNode("Entscheidungen");
 		TreeNode report = new TreeNode("Analyse-Bericht");
 
-		info.addListener(new TreeNodeListenerAdapter()
-		{
-			public void onClick(Node node, EventObject e)
-			{
+		info.addListener(new TreeNodeListenerAdapter() {
+			public void onClick(Node node, EventObject e) {
 				super.onClick(node, e);
 				createInitialContentGroup();
 				activateTab(1);
 			}
 		});
 
-		decissions.addListener(new TreeNodeListenerAdapter()
-		{
-			public void onClick(Node node, EventObject e)
-			{
+		decissions.addListener(new TreeNodeListenerAdapter() {
+			public void onClick(Node node, EventObject e) {
 				super.onClick(node, e);
 				createInitialContentGroup();
 				activateTab(2);
 			}
 		});
 
-		report.addListener(new TreeNodeListenerAdapter()
-		{
-			public void onClick(Node node, EventObject e)
-			{
+		report.addListener(new TreeNodeListenerAdapter() {
+			public void onClick(Node node, EventObject e) {
 				super.onClick(node, e);
 				createInitialContentGroup();
 				activateTab(3);
@@ -205,23 +192,18 @@ public class ToastWars implements EntryPoint
 		return treePanelNavigation;
 	}
 
-	private void createInitialContentGroup()
-	{
-		if (mainPanel.getItems().length < 2)
-		{
+	private void createInitialContentGroup() {
+		if (mainPanel.getItems().length < 2) {
 			mainPanel.add(InfoPanel.getInstance());
 			mainPanel.add(DecissionPanel.getInstance());
 			mainPanel.add(ReportPanel.getInstance());
 		}
 	}
 
-	private void activateTab(int activeTab)
-	{
+	private void activateTab(int activeTab) {
 		int tabAmount = mainPanel.getItems().length;
-		for (int i = 0; i < tabAmount; i++)
-		{
-			if (i == activeTab)
-			{
+		for (int i = 0; i < tabAmount; i++) {
+			if (i == activeTab) {
 				mainPanel.unhideTabStripItem(activeTab);
 				mainPanel.activate(activeTab);
 			} else

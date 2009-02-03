@@ -20,6 +20,7 @@ import com.gwtext.client.widgets.HTMLPanel;
 import com.gwtext.client.widgets.MessageBox;
 import com.gwtext.client.widgets.Panel;
 import com.gwtext.client.widgets.event.ButtonListenerAdapter;
+import com.gwtext.client.widgets.event.TabPanelListenerAdapter;
 import com.gwtext.client.widgets.form.Field;
 import com.gwtext.client.widgets.form.FieldSet;
 import com.gwtext.client.widgets.form.FormPanel;
@@ -37,12 +38,20 @@ public class DecissionForm extends Panel {
 	private Toaster					toaster;
 	private Type					type;
 	private Panel					newPanel;
+	private Button					newButton;
 	private ArrayList<Toaster>		newToasterList;
 
 	public DecissionForm(Button[] buttons, NumberField capital, Object o,
 			ArrayList<Toaster> newToasterList) {
 
 		setBorder(false);
+		addListener(new TabPanelListenerAdapter() {
+			@Override
+			public void onActivate(Panel panel) {
+				super.onActivate(panel);
+				disableSliders();
+			}
+		});
 
 		this.newToasterList = newToasterList;
 		company = ((Group) Controller.getInstance().getUser()).getCompany();
@@ -78,7 +87,8 @@ public class DecissionForm extends Panel {
 		label.setWidth(250);
 
 		newPanel.add(label);
-		newPanel.addButton(new Button(type.getDescription() + " entwickeln",
+
+		newButton = new Button(type.getDescription() + " entwickeln",
 				new ButtonListenerAdapter() {
 					public void onClick(Button button, EventObject e) {
 						super.onClick(button, e);
@@ -103,7 +113,9 @@ public class DecissionForm extends Panel {
 						capital.fireEvent("change");
 						createContent();
 					}
-				}));
+				});
+
+		newPanel.addButton(newButton);
 
 		add(newPanel);
 	}
@@ -116,6 +128,7 @@ public class DecissionForm extends Panel {
 
 		// add marketing and research field sets
 		Panel horPanel = new Panel();
+		horPanel.setStyle("text-align: center;");
 		horPanel.setLayout(new HorizontalLayout(15));
 		horPanel.setPaddings(0);
 
@@ -128,11 +141,6 @@ public class DecissionForm extends Panel {
 		add(createTopPanel());
 		add(horPanel);
 		add(createStockField());
-
-		Status status = ((Group) Controller.getInstance().getUser())
-				.getStatus();
-		if (status == Status.COMPLETED || status == Status.INACTIVE)
-			disableSliders();
 
 		doLayout();
 	}
@@ -309,7 +317,11 @@ public class DecissionForm extends Panel {
 
 			public void onValid(Field field) {
 				super.onValid(field);
-				if (areAllFieldsValid()) {
+
+				Status status = ((Group) Controller.getInstance().getUser())
+						.getStatus();
+
+				if (areAllFieldsValid() && status != Status.COMPLETED) {
 					for (Button button : buttons)
 						button.enable();
 				}
@@ -395,6 +407,7 @@ public class DecissionForm extends Panel {
 			for (SliderBar slider : sliders) {
 				slider.setVisible(false);
 			}
-		}
+		} else
+			newButton.setDisabled(true);
 	}
 }
