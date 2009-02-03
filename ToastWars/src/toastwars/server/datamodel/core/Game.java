@@ -170,7 +170,6 @@ public class Game implements IsSerializable
 	/*
 	 * Diese Methode berechnet die tatsächlichen Marktanteile unter
 	 * Berücksichtigung und Aktualisierung der Lagerkapazitäten
-	 * 
 	 */
 	public void correctMarketShares()
 	{
@@ -178,6 +177,7 @@ public class Game implements IsSerializable
 		boolean again = true;
 		Toaster toaster;
 		Company company;
+		int idx = 0;
 
 		while (again)
 		{
@@ -191,6 +191,9 @@ public class Game implements IsSerializable
 				for (int j = 0; j < company.getToasterList().size(); j++)
 				{
 					toaster = company.getToasterList().get(j);
+
+					if (idx == 0)
+						toaster.setTmpProduction(toaster.getProduction());
 
 					// Wenn weniger produziert wurde als abgesetzt werden kann,
 					// muss zunächst geprüft werden, ob die entsprechende Firma
@@ -304,6 +307,7 @@ public class Game implements IsSerializable
 					}// if Unterproduktion
 				}// for innen
 			}// for außen
+			idx++;
 		}// while
 
 		// Wenn mehr produziert wurde als abgesetzt werden kann,
@@ -325,8 +329,9 @@ public class Game implements IsSerializable
 					int differenz = toaster.getProduction() - toaster.getMarketShare();
 					company.getStock().StockUp(toaster.getType(), differenz);
 					toaster.setProduction(toaster.getMarketShare());
-
 				}// if Überproduktion
+
+				toaster.setProduction(toaster.getTmpProduction());
 			}// for innen
 		}// for außen
 	}// calculate MarketShares
@@ -366,7 +371,6 @@ public class Game implements IsSerializable
 			}
 		}
 	}
-
 
 	public String toString()
 	{
