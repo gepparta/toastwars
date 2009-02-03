@@ -360,42 +360,13 @@ public class Game implements IsSerializable
 				if (groupList.get(a).getCompany().getCapital() <= 0)
 				{
 					groupList.get(a).setInactive();
-					this.killGroup(groupList.get(a));
+					groupList.get(a).killGroup();
 				} else
-					groupList.get(a).setStatus(Status.STARTED);
+					groupList.get(a).setStarted();
 			}
 		}
 	}
 
-	// Diese Methode setzt die Objektattribute einer Gruppe so, dass deren
-	// Attribute
-	// keine Einfluss auf die Berechnung Einfluss nehmen. Dies ist notwendig,
-	// falls eine Gruppe
-	// ausscheidet.
-	public void killGroup(Group group)
-	{
-		group.getCompany().setTurnover(0.0);
-		group.getCompany().setProfit(0.0);
-		group.getCompany().setCost(0.0);
-		group.getCompany().setMarketShare(0);
-		for (int i = 0; i < group.getCompany().getToasterList().size(); i++)
-		{
-			group.getCompany().getToasterList().get(i).setCost(0.0);
-			group.getCompany().getToasterList().get(i).setDesignInvestment(0);
-			group.getCompany().getToasterList().get(i).setEcologyInvestment(0.0);
-			group.getCompany().getToasterList().get(i).setIndex(0.0);
-			group.getCompany().getToasterList().get(i).setMarketing(0.0);
-			group.getCompany().getToasterList().get(i).setMarketShare(0);
-			group.getCompany().getToasterList().get(i).setNewspaperInvestment(0.0);
-			group.getCompany().getToasterList().get(i).setProduction(0);
-			group.getCompany().getToasterList().get(i).setProfit(0.0);
-			group.getCompany().getToasterList().get(i).setQualityInvestment(0.0);
-			group.getCompany().getToasterList().get(i).setRadioInvestment(0.0);
-			group.getCompany().getToasterList().get(i).setResearch(0.0);
-			group.getCompany().getToasterList().get(i).setTurnover(0.0);
-			group.getCompany().getToasterList().get(i).setTvInvestment(0.0);
-		}
-	}
 
 	public String toString()
 	{

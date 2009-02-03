@@ -95,4 +95,14 @@ public class Group implements IUser, IsSerializable
 	{
 		this.username = username;
 	}
+	
+	// Diese Methode setzt die Objektattribute einer Gruppe so, dass deren
+	// Attribute
+	// keine Einfluss auf die Berechnung Einfluss nehmen. Dies ist notwendig,
+	// falls eine Gruppe
+	// ausscheidet.
+	public void killGroup()
+	{
+		this.getCompany().destroyCompany();
+	}
 }
