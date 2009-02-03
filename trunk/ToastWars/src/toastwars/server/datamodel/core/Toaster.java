@@ -12,6 +12,7 @@ public class Toaster implements IsSerializable {
 	private double	profit;
 	private int		marketShare;
 	private int		production;
+	private int	 	tmpProduction;
 	private Type	type;
 	// Faktoren für marketing**************************************
 	private double	marketing;
@@ -525,5 +526,19 @@ public void setTurnover(double turnover)
 				+ this.getDesignInvestment() + "\n efficiency: \t"
 				+ this.getEcologyInvestment();
 		return s;
+	}
+
+
+
+	public int getTmpProduction()
+	{
+		return tmpProduction;
+	}
+
+
+
+	public void setTmpProduction(int tmpProduction)
+	{
+		this.tmpProduction = tmpProduction;
 	}
 	}//Toaster
