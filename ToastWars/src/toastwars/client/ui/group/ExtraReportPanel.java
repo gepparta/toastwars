@@ -161,9 +161,10 @@ public class ExtraReportPanel extends TabPanel {
 		List<String> labels = new ArrayList<String>();
 		List<Number> bchartValues = new ArrayList<Number>();
 		int setMax = 0;
-		for (int i = 0; i < priceList.size(); i++) {
-			String label = "Gruppe " + (i + 1);
+		for (int i = 0; i < priceList.size(); i+=2) {
+//			changed by alex
 			Number key = Double.parseDouble(priceList.get(i));
+			String label = priceList.get(i+1);
 
 			labels.add(label);
 			bchartValues.add(key);
@@ -173,7 +174,7 @@ public class ExtraReportPanel extends TabPanel {
 		}
 		xa.setLabels(labels);
 		if (priceList.size() > 1)
-			xa.setMax(priceList.size() - 1);
+			xa.setMax(priceList.size() / 2 -1);
 		else
 			xa.setMax(priceList.size());
 		cd.setXAxis(xa);
