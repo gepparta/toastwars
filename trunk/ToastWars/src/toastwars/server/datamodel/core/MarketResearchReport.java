@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import toastwars.server.datamodel.user.Group;
-
+/*
+ * @ author Alexander Geppart
+ */
 public class MarketResearchReport implements Comparator
 
 {

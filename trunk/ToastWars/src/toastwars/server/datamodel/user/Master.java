@@ -2,7 +2,9 @@ package toastwars.server.datamodel.user;
 
 import toastwars.server.datamodel.core.Game;
 import com.google.gwt.user.client.rpc.IsSerializable;
-
+/*
+ * @ author Alexander Geppart
+ */
 public class Master implements IUser, IsSerializable
 {
 	private String username;

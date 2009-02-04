@@ -5,7 +5,9 @@ import toastwars.server.datamodel.user.Group;
 import toastwars.server.datamodel.user.Status;
 import toastwars.util.NumberUtil;
 import com.google.gwt.user.client.rpc.IsSerializable;
-
+/*
+ * @ author Michael Klein, Alexander Geppart, Matthias Bülow
+ */
 public class Game implements IsSerializable
 {
 	// Attribute
