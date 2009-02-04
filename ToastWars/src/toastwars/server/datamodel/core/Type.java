@@ -3,7 +3,9 @@ package toastwars.server.datamodel.core;
 import toastwars.util.NumberUtil;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
-
+/*
+ * @ author Michael Klein, Alexander Geppart
+ */
 public enum Type implements IsSerializable {
 
 	// description, random, fixCost, stepCosts,

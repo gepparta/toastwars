@@ -2,7 +2,9 @@ package toastwars.server.datamodel.user;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 import toastwars.server.datamodel.core.Company;
-
+/*
+ * @ author Alexander Geppart
+ */
 public class Group implements IUser, IsSerializable
 {
 	private String password;

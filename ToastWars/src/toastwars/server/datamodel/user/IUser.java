@@ -1,6 +1,9 @@
 package toastwars.server.datamodel.user;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
+/*
+ * @ author Alexander Geppart
+ */
 
 public interface IUser extends IsSerializable {
 	public String getUsername();

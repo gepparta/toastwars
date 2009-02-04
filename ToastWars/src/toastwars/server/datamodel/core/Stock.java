@@ -1,7 +1,9 @@
 package toastwars.server.datamodel.core;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
-
+/*
+ * @ author Michael Klein
+ */
 public class Stock implements IsSerializable {
 
 	// Definition der Attribute

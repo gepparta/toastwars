@@ -1,5 +1,7 @@
 package toastwars.server.datamodel.user;
-
+/*
+ * @ author Alexander Geppart
+ */
 public class UserFactory
 {
 	private static boolean masterCreated = false;
