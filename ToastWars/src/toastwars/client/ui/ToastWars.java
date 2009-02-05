@@ -6,7 +6,10 @@ import toastwars.client.ui.group.DecissionPanel;
 import toastwars.client.ui.group.InfoPanel;
 import toastwars.client.ui.group.ReportPanel;
 import toastwars.client.ui.master.MasterPanel;
+
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.WindowCloseListener;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.gwtext.client.core.EventObject;
 import com.gwtext.client.data.Node;
@@ -39,6 +42,21 @@ public class ToastWars implements EntryPoint {
 	}
 
 	public void createUI() {
+		Window.addWindowCloseListener(new WindowCloseListener() {
+
+			public void onWindowClosed() {
+				// added by alex
+				if (Controller.getInstance().getUserType() == Controller.SPIELLEITER)
+					CometController.endPushService();
+				Controller.getInstance().logout(toastWars);
+			}
+
+			public String onWindowClosing() {
+				return "Wollen Sie sich wirklich abmelden?";
+			}
+
+		});
+
 		Panel root = new Panel();
 		root.setBorder(false);
 		root.setLayout(new VerticalLayout(0));
@@ -94,11 +112,7 @@ public class ToastWars implements EntryPoint {
 		footerPanel.add(text);
 		footerPanel.add(new Button("Abmelden", new ButtonListenerAdapter() {
 			public void onClick(Button button, EventObject e) {
-				// // added by alex
-				if (Controller.getInstance().getUserType() == Controller.SPIELLEITER)
-					CometController.endPushService();
-				Controller.getInstance().logout(toastWars);
-
+				reloadPage();
 			}
 		}));
 
@@ -115,12 +129,7 @@ public class ToastWars implements EntryPoint {
 		return footerPanel;
 	}
 
-	public native void reloadPage(boolean success)/*-{
-							       if(success == true)
-							       		$wnd.location.reload();
-							       else
-							       		@com.gwtext.client.widgets.MessageBox::alert(Ljava/lang/String;)("Abmelden fehlgeschlagen!");
-							   }-*/;
+	private native void reloadPage()/*-{$wnd.location.reload();}-*/;
 
 	private void createMainPanel() {
 		mainPanel = new TabPanel();
