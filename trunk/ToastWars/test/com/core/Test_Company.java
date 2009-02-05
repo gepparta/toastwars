@@ -14,7 +14,9 @@ import toastwars.server.datamodel.core.Company;
 import toastwars.server.datamodel.core.Stock;
 import toastwars.server.datamodel.core.Toaster;
 import toastwars.server.datamodel.core.Type;
-
+/*
+ * @ author Michael Klein
+ */
 public class Test_Company extends TestCase
 {
 	private Toaster toaster1;
@@ -334,24 +336,24 @@ public class Test_Company extends TestCase
 	public void testCalculateCost()
 	{
 		//Test für eine Company mit einem Toaster
-		assertNotSame(33000.00, company1.getToasterList().get(0).getCost());
-		assertNotSame(33000.00, company1.getCost());
+		assertNotSame(15000.00, company1.getToasterList().get(0).getCost());
+		assertNotSame(15000.00, company1.getCost());
 		company1.calculateCost();
-		assertEquals(33000.00, company1.getToasterList().get(0).getCost());
-		assertEquals(53006.00, company1.getCost());
+		assertEquals(15000.00, company1.getToasterList().get(0).getCost());
+		assertEquals(35006.00, company1.getCost());
 
 		//Test für eine Company mit drei Toastern
-		assertNotSame(330000.00, company2.getToasterList().get(0).getCost());
-		assertNotSame(330000.00, company2.getToasterList().get(1).getCost());
-		assertNotSame(330000.00, company2.getToasterList().get(2).getCost());
-		assertNotSame(99000.00, company2.getCost());
+		assertNotSame(150000.00, company2.getToasterList().get(0).getCost());
+		assertNotSame(150000.00, company2.getToasterList().get(1).getCost());
+		assertNotSame(150000.00, company2.getToasterList().get(2).getCost());
+		assertNotSame(45000.00, company2.getCost());
 		company2.setMarketResearchReportON(true);
 		company2.getStock().setStockTT1(1000);
 		company2.calculateCost();
-		assertEquals(33000.00, company2.getToasterList().get(0).getCost());
-		assertEquals(33000.00, company2.getToasterList().get(1).getCost());
-		assertEquals(33000.00, company2.getToasterList().get(2).getCost());
-		assertEquals(135268.00, company2.getCost());
+		assertEquals(15000.00, company2.getToasterList().get(0).getCost());
+		assertEquals(15000.00, company2.getToasterList().get(1).getCost());
+		assertEquals(15000.00, company2.getToasterList().get(2).getCost());
+		assertEquals(81268.00, company2.getCost());
 	}
 	@Test
 	public void testCalculateProfit()

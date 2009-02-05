@@ -6,7 +6,9 @@ import org.junit.Before;
 import org.junit.Test;
 import toastwars.server.datamodel.core.Toaster;
 import toastwars.server.datamodel.core.Type;
-
+/*
+ * @ author Michael Klein
+ */
 public class Test_Toaster extends TestCase
 {
 
@@ -198,6 +200,13 @@ public class Test_Toaster extends TestCase
 	{
 		assertNotNull(t1.getProduction());
 		assertEquals(1000, t1.getProduction());
+	}
+	
+	@Test
+	public void testGetTmpProduction()
+	{
+		assertNotNull(t1.getTmpProduction());
+		assertEquals(0, t1.getTmpProduction());
 	}
 
 
@@ -403,91 +412,60 @@ public class Test_Toaster extends TestCase
 		assertEquals(10, t1.getProduction());
 	}
 	
+	@Test
+	public void testSetTmpProduction()
+	{
+		assertNotSame(10, t1.getTmpProduction());
+		t1.setTmpProduction(10);
+		assertEquals(10, t1.getTmpProduction());
+	}
+	
 
 
 	// //Calculation///////////////////////////
 	@Test
 	public void testCalculateMarketShares()
 	{
-		//Typ 1
+
 		Type.TYPE1.setMarketVolume(10000);
 		assertNotSame(5000, t1.getMarketShare());
 		t1.calculateMarketShare(18.00);
 		assertEquals(5000, t1.getMarketShare());
 		
-		//Typ 2
-		Type.TYPE2.setMarketVolume(10000);
-		assertNotSame(5000, t2.getMarketShare());
-		t2.calculateMarketShare(18.00);
-		assertEquals(5000, t2.getMarketShare());
-		
-		//Typ 3
-		Type.TYPE3.setMarketVolume(10000);
-		assertNotSame(5000, t3.getMarketShare());
-		t3.calculateMarketShare(18.00);
-		assertEquals(5000, t3.getMarketShare());
 	}
 
 	@Test
 	public void testCalculateTurnover()
 	{
-		//Typ 1
+
 		t1.setTurnover(1000);
 		assertNotSame(100000.00, t1.getTurnover());
 		t1.calculateTurnover();
 		assertEquals(100000.00, t1.getTurnover());
-		//Typ 2
-		t2.setTurnover(1000);
-		assertNotSame(100000.00, t2.getTurnover());
-		t2.calculateTurnover();
-		assertEquals(100000.00, t2.getTurnover());
-		//Typ 3
-		t3.setTurnover(1000);
-		assertNotSame(100000.00, t3.getTurnover());
-		t3.calculateTurnover();
-		assertEquals(100000.00, t3.getTurnover());
+
 	}
 
 	@Test
 	public void testCalculateCost()
 	{
-		//Typ 1
+
 		assertNotSame(13000.00, t1.getCost());
 
 		t1.setMarketShare(1000);
 		t1.calculateCost();
 		assertEquals(13000.00, t1.getCost());
-		
-		//Typ 2
-		assertNotSame(35000.00, t2.getCost());
-		t2.setMarketShare(1000);
-		t2.calculateCost();
-		assertEquals(35000.00, t2.getCost());
-		
-		//Typ 3
-		assertNotSame(73000.00, t3.getCost());
-		t3.setMarketShare(1000);
-		t3.calculateCost();
-		assertEquals(81000.00, t3.getCost());
+
 	}
 
 	@Test
 	public void testCalculateProfit()
 	{
-		//Typ 1
+
 		assertNotSame(50000.0, t1.getProfit());
 		t1.calculateProfit();
 		assertEquals(50000.0, t1.getProfit());
 		
-		//Typ 2
-		assertNotSame(50000.0, t2.getProfit());
-		t2.calculateProfit();
-		assertEquals(50000.0, t2.getProfit());
-		
-		//Typ 3
-		assertNotSame(50000.0, t3.getProfit());
-		t3.calculateProfit();
-		assertEquals(50000.0, t3.getProfit());
+
 	}
 
 	@Test
@@ -543,7 +521,7 @@ public class Test_Toaster extends TestCase
 		
 		
 	}
-	
+	@Test
 	public void testResetUserInput()
 	{
 	
@@ -570,4 +548,8 @@ public class Test_Toaster extends TestCase
 
 		
 	}
+
+
+	
+	
 }

@@ -5,7 +5,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import toastwars.server.datamodel.core.Type;
-
+/*
+ * @ author Michael Klein
+ */
 public class Test_Type extends TestCase {
 	// Definition der Testobjekte
 	private Type type1;
@@ -33,7 +35,7 @@ public class Test_Type extends TestCase {
 		System.gc();
 	}
 
-	// Start der Test
+	// Start der Tests
 
 	// Test der Get-Methoden
 	@Test
@@ -143,7 +145,7 @@ public class Test_Type extends TestCase {
 	
 
 
-	// Test der Klassenwerte
+	// Test der initialen Klassenwerte
 	@Test
 	public void testValues() {
 

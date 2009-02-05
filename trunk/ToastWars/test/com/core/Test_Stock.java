@@ -7,7 +7,9 @@ import org.junit.Before;
 import org.junit.Test;
 import toastwars.server.datamodel.core.Stock;
 import toastwars.server.datamodel.core.Type;
-
+/*
+ * @ author Michael Klein
+ */
 public class Test_Stock extends TestCase {
 
 //Definition der Testobjekte
