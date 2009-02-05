@@ -2,7 +2,9 @@ package com.core;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
-
+/*
+ * @ author Michael Klein
+ */
 public class AllCoreTests {
 
 	public static Test suite() {
