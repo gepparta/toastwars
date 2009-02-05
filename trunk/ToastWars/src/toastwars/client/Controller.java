@@ -24,7 +24,7 @@ public class Controller {
 	private StartGameWindow		startGameWindow;
 
 	private IUser				user;
-	
+
 	// attributes for group only
 	private Game				previousGame;
 	private ArrayList<Toaster>	newToasterList;
@@ -103,7 +103,6 @@ public class Controller {
 			}
 
 			public void onSuccess(Boolean result) {
-				toastWars.reloadPage(result.booleanValue());
 			}
 		};
 

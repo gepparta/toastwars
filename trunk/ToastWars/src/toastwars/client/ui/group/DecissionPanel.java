@@ -9,6 +9,8 @@ import toastwars.server.datamodel.core.Type;
 import toastwars.server.datamodel.user.Group;
 import toastwars.server.datamodel.user.Status;
 
+import com.allen_sauer.gwt.voices.client.Sound;
+import com.allen_sauer.gwt.voices.client.SoundController;
 import com.gwtext.client.core.EventObject;
 import com.gwtext.client.core.Function;
 import com.gwtext.client.core.Position;
@@ -40,6 +42,7 @@ public class DecissionPanel extends Panel {
 	private Game					game;
 
 	private Group					group;
+	private Sound					sound;
 
 	public static DecissionPanel getInstance() {
 		if (decissionPanel == null)
@@ -217,6 +220,10 @@ public class DecissionPanel extends Panel {
 	}
 
 	private void createButtons() {
+		SoundController soundController = new SoundController();
+		sound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG,
+				"sounds/macht.mp3");
+
 		btnSave = new Button("Speichern", new ButtonListenerAdapter() {
 			public void onClick(Button button, EventObject e) {
 				super.onClick(button, e);
@@ -243,6 +250,8 @@ public class DecissionPanel extends Panel {
 				new ButtonListenerAdapter() {
 					public void onClick(Button button, EventObject e) {
 						super.onClick(button, e);
+
+						sound.play();
 
 						setNewGroupData();
 						group.setStatus(Status.COMPLETED);
