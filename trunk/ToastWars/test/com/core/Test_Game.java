@@ -67,10 +67,10 @@ public class Test_Game extends TestCase {
 
 
 		
-		toaster1  = new Toaster(10.0, 9.00, 0.00,0.00,0.00,0,Type.TYPE1,3.00,1.00,1.00,1.00,0.00,0.00,0.00,3.00,1.00,1.00,1.00,0.00,0.00,0.00, 0);
-		toaster2  = new Toaster(10.0, 9.00, 0.00,0.00,0.00,0,Type.TYPE1,3.00,1.00,1.00,1.00,0.00,0.00,0.00,3.00,1.00,1.00,1.00,0.00,0.00,0.00, 0);
-		toaster3  = new Toaster(10.0, 9.00, 0.00,0.00,0.00,0,Type.TYPE1,3.00,1.00,1.00,1.00,0.00,0.00,0.00,3.00,1.00,1.00,1.00,0.00,0.00,0.00, 0);
-		toaster4  = new Toaster(10.0, 9.00, 0.00,0.00,0.00,0,Type.TYPE1,3.00,1.00,1.00,1.00,0.00,0.00,0.00,3.00,1.00,1.00,1.00,0.00,0.00,0.00, 0);
+		toaster1  = new Toaster(10.0, 9.00, 0.00,0.00,0.00,0,Type.TYPE1,3.00,0.00,0.00,0.00,0.00,0.00,0.00,3.00,0.00,0.00,0.00,0.00,0.00,0.00, 0);
+		toaster2  = new Toaster(10.0, 9.00, 0.00,0.00,0.00,0,Type.TYPE1,3.00,0.00,0.00,0.00,0.00,0.00,0.00,3.00,0.00,0.00,0.00,0.00,0.00,0.00, 0);
+		toaster3  = new Toaster(10.0, 9.00, 0.00,0.00,0.00,0,Type.TYPE1,3.00,0.00,0.00,0.00,0.00,0.00,0.00,3.00,0.00,0.00,0.00,0.00,0.00,0.00, 0);
+		toaster4  = new Toaster(10.0, 9.00, 0.00,0.00,0.00,0,Type.TYPE1,3.00,0.00,0.00,0.00,0.00,0.00,0.00,3.00,0.00,0.00,0.00,0.00,0.00,0.00, 0);
 
 
 		meineToaster1.add(toaster1);
@@ -106,10 +106,10 @@ public class Test_Game extends TestCase {
 		groupList2.add(group2);
 		groupList2.add(group3);
 		
-		com1 = new Company(500, 100, 400, 800, 20, meinLager1, meineToaster1);
-		com2 = new Company(500, 100, 400, 800, 20, meinLager2, meineToaster2);
-		com3 = new Company(500, 100, 400, 800, 20, meinLager3, meineToaster3);
-		com4 = new Company(500, 100, 400, 800, 20, meinLager4, meineToaster4);
+		com1 = new Company(0, 0, 0, 100000.00, 0, meinLager1, meineToaster1);
+		com2 = new Company(0, 0, 0, 100000.00, 0, meinLager2, meineToaster2);
+		com3 = new Company(0, 0, 0, 100000.00, 0, meinLager3, meineToaster3);
+		com4 = new Company(0, 0, 0, 100000.00, 0, meinLager4, meineToaster4);
 
 		Game.getInstance(3);
 		Game.getInstance().addGroup(group1);
@@ -378,22 +378,23 @@ public class Test_Game extends TestCase {
 	{
 		
 		//Setzen der Rundendaten
-		Type.TYPE1.setMarketVolume(13440);
-		Type.TYPE1.setFixCosts(10000.00);
-		Type.TYPE1.setVariableCosts(2.00);
 		Game.getInstance().addGroup(group4);
-		sortedIndexListTyp1.clear();
-		sortedIndexListTyp1.add(4);
-		sortedIndexListTyp1.add(3);
+		Game.getInstance().getGroupList().get(3).setCompany(com4);
+		
 		sortedIndexListTyp1.add(2);
 		sortedIndexListTyp1.add(1);
-		
+		sortedIndexListTyp1.add(3);
+		sortedIndexListTyp1.add(4);
+
+		Type.TYPE1.setMarketVolumeTT1(4);
+		Type.TYPE1.setFixCosts(10000.00);
+		Type.TYPE1.setVariableCosts(2.00);
+
 		
 
-		Game.getInstance().getGroupList().get(3).setCompany(com4);
 		//Eingaben der ersten Gruppe
 		try{toaster1.setPrice(5.00);} catch (Exception e){System.err.println(e);}
-		toaster1.setProduction(5000);
+		toaster1.setProduction(7000);
 		Game.getInstance().getGroupList().get(0).setStatus(Status.COMPLETED);
 		
 		//Eingaben der zweiten Gruppe
@@ -431,32 +432,32 @@ public class Test_Game extends TestCase {
 		}
 		Game.getInstance().simulate();
 		
-		//Auswertung der Simulation
+		//Auswertung der Simulation (Die Investitionen sind noch nicht vom Kapital abgezogen)
 		
-		assertEquals(8044, com1.getMarketShare());
+		assertEquals(7000, com1.getMarketShare());
 		assertEquals(0.00, com1.getStock().getTotalStockCosts());
-		assertEquals(25000.00, com1.getTurnover());
-		assertEquals(22106.00, com1.getCost());
-		assertEquals(3700.00, com1.getCapital());
+		assertEquals(35000.00, com1.getTurnover());
+		assertEquals(26000.00, com1.getCost());
+		assertEquals(109000.00, com1.getCapital());
 		
-		assertEquals(2843, com2.getMarketShare());
+		assertEquals(3000, com2.getMarketShare());
 		assertEquals(0.00, com2.getStock().getTotalStockCosts());
 		assertEquals(30000.00, com2.getTurnover());
-		assertEquals(72100.00, com2.getCost());
-		assertEquals(10500.00, com3.getCapital());
+		assertEquals(72000.00, com2.getCost());
+		assertEquals(113000.00, com2.getCapital());
 		
 		
-		assertEquals(1548, com3.getMarketShare());
+		assertEquals(1600, com3.getMarketShare());
 		assertEquals(0.00, com3.getStock().getTotalStockCosts());
 		assertEquals(24000.00, com3.getTurnover());
-		assertEquals(99305.00, com3.getCost());
-		assertEquals(10500.00, com3.getCapital());
+		assertEquals(99200.00, com3.getCost());
+		assertEquals(109800.00, com3.getCapital());
 		
-		assertEquals(1005, com4.getMarketShare());
-		assertEquals(0, com4.getStock().getStockTT1());
-		assertEquals(40000.00, com4.getTurnover());
-		assertEquals(95105.00, com4.getCost());
-		assertEquals(25700.00, com4.getCapital());
+		assertEquals(1840, com4.getMarketShare());
+		assertEquals(160, com4.getStock().getStockTT1());
+		assertEquals(36800.00, com4.getTurnover());
+		assertEquals(95200.00, com4.getCost());
+		assertEquals(121600.00, com4.getCapital());
 		
 		
 	}

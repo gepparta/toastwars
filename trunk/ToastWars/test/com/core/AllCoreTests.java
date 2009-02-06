@@ -10,6 +10,7 @@ public class AllCoreTests {
 	public static Test suite() {
 		TestSuite suite = new TestSuite("Test for com.core");
 		//$JUnit-BEGIN$
+		suite.addTestSuite(Showcase.class);
 		suite.addTestSuite(Test_Company.class);
 		suite.addTestSuite(Test_Game.class);
 		suite.addTestSuite(Test_MarketResearchReport.class);
