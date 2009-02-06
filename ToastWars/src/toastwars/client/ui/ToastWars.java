@@ -52,7 +52,8 @@ public class ToastWars implements EntryPoint {
 			}
 
 			public String onWindowClosing() {
-				return "Wollen Sie sich wirklich abmelden?";
+//				return "Wollen Sie sich wirklich abmelden?";
+				return null;
 			}
 
 		});
