@@ -10,16 +10,15 @@ public class InfoPanel extends Panel {
 	private static InfoPanel	infoPanel;
 	private String				intro		= "Aus dem Newsticker: <br><br> "
 													+ "Alter Vorstand &#132;zum Mond geschossen&#147; - F&uuml;hrungswechsel bei der ToastAG <br><br> "
-													+ "Als letzte Konsequenz der Schmiergeldaff&auml;re, in die neben der Handelskammer auch Teile des Vorstandes der ToastAG verwickelt waren, wurde dieser nun vom Aufsichtsrat abgew&auml;hlt. F&uuml;r die Nachfolge wurde eine Task Force gegr&uuml;ndet, die aus noch unbekannten Wirtschaftswissenschaftlern geh&ouml;rt.<br><br>"
+													+ "Als letzte Konsequenz der Schmiergeldaff&auml;re, in die neben der Handelskammer auch Teile des Vorstandes der ToastAG verwickelt waren, wurde dieser nun vom Aufsichtsrat abgew&auml;hlt. F&uuml;r die Nachfolge wurde eine Task Force gegr&uuml;ndet, die aus noch unbekannten Wirtschaftswissenschaftlern besteht.<br><br>"
 													+ "Ob diese Entscheidung Einfluss auf die wirtschaftliche Lage des Unternehmens hat, bleibt abzuwarten. In den unendlichen Weiten des Toastermarktes konnte sich in der Vergangenheit kein Unternehmen deutlich von den anderen differenzieren. Jedoch ist zu erwarten, dass die Konkurrenten versuchen werden, ihre Marktanteile mit Macht zu vermehren.<br><br>"
-													+ "Die ToastAG konnte in der letzten Periode einen Gewinn von 100.000 &euro; verzeichnen.";
+													+ "Die ToastAG konnte in der letzten Periode ein Kapital von 100.000 &euro; ausweisen.";
 	private String				game		= "&#132;Toast Wars&#147; ist ein Planspiel, welches von Teilen des Kurses WWI06F der Berufsakademie Mannheim erstellt wurde. Es handelt sich dabei um eine rundenbasierte Wirtschaftssimulation, bei der mehrere Gruppen an gemeinsamen M&auml;rkten gegeneinander spielen. Die Spieler sollen lernen wirtschaftspolitische Entscheidungen zu treffen. <br>"
 													+ "Es ist eine Obergrenze von zehn Gruppen pro Spiel und eine maximale Rundenanzahl von 15 Runden vorgesehen.";
-	private String				production	= "Die Produktion der ToastAG findet nicht auf eigenen Maschinen statt. Stattdessen werden die Maschinen f&uuml;r jede Periode angemietet, um Kosten zu sparen. Es ist jedoch m&ouml;glich, die Anzahl der zu produzierenden Toastern anzugeben. Werden mehr Toaster produziert als abgesetzt, werden die restlichen auf Lager gelegt. <br>"
-													+ "Es ist m&ouml;glich, die Produktion f&uuml;r einen Toastertyp komplett einzustellen. Dazu muss die gew&uuml;nschte Produktionsmenge auf null gesetzt werden. Dadurch fallen keine weiteren Fixkosten f&uuml;r diese Produktion an. Achtung: Wurde die Produktion eines Toasters einmal eingestellt, kann sie nicht wieder aufgenommen werden! <br><br>"
+	private String				production	= "Die Produktion der ToastAG findet nicht auf eigenen Maschinen statt. Stattdessen werden die Maschinen f&uuml;r jede Periode angemietet, um Kosten zu sparen. Es ist jedoch m&ouml;glich, die Anzahl der zu produzierenden Toaster anzugeben. Werden mehr Toaster produziert als abgesetzt, werden die restlichen auf Lager gelegt. <br>"
 													+ "<br>Produktpolitik und Produktbeschreibung<br><br>"
 													+ "Die ToastAG vertreibt den Millennium Toaster, ein g&uuml;nstiges Ger&auml;t f&uuml;r den Discountmarkt. Er zeichnet sich durch seine geringen Kosten in Herstellung und Lagerung aus. <br>"
-													+ "Zur Weiterentwicklung und Werbung des Toasters m&uuml;ssen mindestens 10000 &euro; investiert werden.";
+													+ "Zur Weiterentwicklung und Werbung des Toasters m&uuml;ssen mindestens 5000 &euro; investiert werden.";
 	private String				type		= "Im Laufe des Spieles ist es m&ouml;glich, in die Entwicklung neuer Toastertypen zu investieren. Diese neuen Toaster beziehen sich auf den Standart- bzw. Luxusmarkt. Damit stehen diese neuen Produkte nicht in Konkurrenz mit dem Millennium Toaster. <br><br>"
 													+ "TIE-Toaster<br>"
 													+ "Dieser Toaster ist in Herstellung, Lagerung, Forschung und Werbung teurer als der Millenniums Toaster. Jedoch sind auch die m&ouml;glichen Gewinne h&ouml;her, so dass sich Risiko und Chancen die Wage halten.<br>"
@@ -43,12 +42,9 @@ public class InfoPanel extends Panel {
 													+ "Gutes Aussehen ist eben doch wichtig! Laut Marktforschern werden stilvolle, gut designte Produkte mehr gekauft als rein funktionelle, unsch&ouml;ne K&auml;sten. Sie sollten diesen Einfluss auf das  Kaufverhalten ihrer Kunden nicht untersch&auml;tzen!<br><br>"
 													+ "&Ouml;kologie<br>"
 													+ "In Zeiten steigender Energiepreise achten immer mehr Kunden auf stromspaarende Ger&auml;te. Somit sollten sie auch diesen Forschungsbereich nicht au&szlig;er acht lassen, um weitere Kunden werben zu k&ouml;nnen.";
-	private String				stock		= "Im Lager befinden sich produzierte Toaster, die zum Ende einer Periode nicht verkauft werden konnten. Auf Grund der begrenzten Lagerkapazit&auml;t k&ouml;nnen jedoch nur 5000 Toaster eingelagert werden.<br>"
+	private String				stock		= "Im Lager befinden sich produzierte Toaster, die zum Ende einer Periode nicht verkauft werden konnten. Jedoch k&ouml;nnen nur eine bestimmte Menge pro Toastertyp eingelagert werden.<br>"
 													+ "Jeder gelagerte Toaster verursacht Kosten pro Periode. Die H&ouml;he dieser Kosten ist vom Toastertyp abh&auml;ngig.<br>"
-													+ "Liegen Toaster eines bestimmten Typs im Lager und wird f&uuml;r diesen Toaster geforscht, fliest ein Teil des investierten Forschungssumme in die Aufr&uuml;stung der eingelagerten Toaster.<br><br>"
-													+ "Lager leeren<br>"
-													+ "Es ist m&ouml;glich, alle eingelagerten Toaster eines Typs auf einen Schlag zu verschrotten. Dadurch werden die belegten Lagerkapazit&auml;ten wieder frei und k&ouml;nnen anderweitig genutzt werden.<br>"
-													+ "Das verschrotten der Toaster ist jedoch mit Kosten verbunden. Diese sind vom Toastertyp abh&auml;ngig.<br>";
+													+ "Liegen Toaster eines bestimmten Typs im Lager und wird f&uuml;r diesen Toaster geforscht, fliest ein Teil des investierten Forschungssumme in die Aufr&uuml;stung der eingelagerten Toaster.<br><br>";
 	private String				scenario	= "Im Laufe des Spiels werden Sie auf einige Szenarios treffen, welche die Marktsituation verbessern oder verschlechtern werden. Ein Gegensteuern ist wichtig, doch sollten sie pr&uuml;fen, ob sie tats&auml;chlich jeden Trend verfolgen wollen.";
 
 	private InfoPanel() {
