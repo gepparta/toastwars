@@ -12,7 +12,7 @@ public class AllCoreTests {
 		//$JUnit-BEGIN$
 		suite.addTestSuite(Test_Company.class);
 		suite.addTestSuite(Test_Game.class);
-//		suite.addTestSuite(Test_MarketResearchReport.class);
+		suite.addTestSuite(Test_MarketResearchReport.class);
 		suite.addTestSuite(Test_Stock.class);
 		suite.addTestSuite(Test_Toaster.class);
 		suite.addTestSuite(Test_Type.class);
