@@ -69,16 +69,16 @@ public class Showcase extends TestCase
 
 		impl = new ToastWarsServiceImpl();
 		impl.init();
-		
+
 		meineToaster1 = new ArrayList<Toaster>();
 		meineToaster2 = new ArrayList<Toaster>();
 		meineToaster3 = new ArrayList<Toaster>();
 		meineToaster4 = new ArrayList<Toaster>();
 
-		toaster1 = new Toaster(10.0, 9.00, 0.00, 0.00, 0.00, 0, Type.TYPE1, 3.00, 1.00, 1.00, 1.00, 0.00, 0.00, 0.00, 3.00, 1.00, 1.00, 1.00, 0.00, 0.00, 0.00, 0);
-		toaster2 = new Toaster(10.0, 9.00, 0.00, 0.00, 0.00, 0, Type.TYPE1, 3.00, 1.00, 1.00, 1.00, 0.00, 0.00, 0.00, 3.00, 1.00, 1.00, 1.00, 0.00, 0.00, 0.00, 0);
-		toaster3 = new Toaster(10.0, 9.00, 0.00, 0.00, 0.00, 0, Type.TYPE1, 3.00, 1.00, 1.00, 1.00, 0.00, 0.00, 0.00, 3.00, 1.00, 1.00, 1.00, 0.00, 0.00, 0.00, 0);
-		toaster4 = new Toaster(10.0, 9.00, 0.00, 0.00, 0.00, 0, Type.TYPE1, 3.00, 1.00, 1.00, 1.00, 0.00, 0.00, 0.00, 3.00, 1.00, 1.00, 1.00, 0.00, 0.00, 0.00, 0);
+		toaster1 = new Toaster(10.0, 9.00, 0.00, 0.00, 0.00, 0, Type.TYPE1, 3.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 3.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0);
+		toaster2 = new Toaster(10.0, 9.00, 0.00, 0.00, 0.00, 0, Type.TYPE1, 3.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 3.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0);
+		toaster3 = new Toaster(10.0, 9.00, 0.00, 0.00, 0.00, 0, Type.TYPE1, 3.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 3.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0);
+		toaster4 = new Toaster(10.0, 9.00, 0.00, 0.00, 0.00, 0, Type.TYPE1, 3.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 3.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0);
 
 		meineToaster1.add(toaster1);
 		meineToaster2.add(toaster2);
@@ -98,8 +98,6 @@ public class Showcase extends TestCase
 		sortedIndexListTyp2 = sortedIndexListTyp1;
 		sortedIndexListTyp3 = sortedIndexListTyp1;
 
-
-
 		groupList1 = new ArrayList<Group>();
 		groupList1.add(group1);
 
@@ -108,10 +106,10 @@ public class Showcase extends TestCase
 		groupList2.add(group2);
 		groupList2.add(group3);
 
-		com1 = new Company(500, 100, 400, 800, 20, meinLager1, meineToaster1);
-		com2 = new Company(500, 100, 400, 800, 20, meinLager2, meineToaster2);
-		com3 = new Company(500, 100, 400, 800, 20, meinLager3, meineToaster3);
-		com4 = new Company(500, 100, 400, 800, 20, meinLager4, meineToaster4);
+		com1 = new Company(0, 0, 0, 100000.00, 0, meinLager1, meineToaster1);
+		com2 = new Company(0, 0, 0, 100000.00, 0, meinLager2, meineToaster2);
+		com3 = new Company(0, 0, 0, 100000.00, 0, meinLager3, meineToaster3);
+		com4 = new Company(0, 0, 0, 100000.00, 0, meinLager4, meineToaster4);
 
 		impl.startGame(4);
 
@@ -191,7 +189,8 @@ public class Showcase extends TestCase
 		{
 			System.err.println(e);
 		}
-		Game.getInstance().getGroupList().get(0).getCompany().getToasterList().get(0).setProduction(5000);
+		Game.getInstance().getGroupList().get(0).getCompany().getToasterList().get(0).setProduction(7000);
+
 		Game.getInstance().getGroupList().get(0).setStatus(Status.COMPLETED);
 
 		// Eingaben der zweiten Gruppe
@@ -202,14 +201,16 @@ public class Showcase extends TestCase
 		{
 			System.err.println(e);
 		}
-		Game.getInstance().getGroupList().get(1).getCompany().getToasterList().get(0).setProduction(3000);
-		Game.getInstance().getGroupList().get(1).getCompany().getToasterList().get(0).setNewspaperInvestment(5000.00);
-		Game.getInstance().getGroupList().get(1).getCompany().getToasterList().get(0).setRadioInvestment(10000.00);
-		Game.getInstance().getGroupList().get(1).getCompany().getToasterList().get(0).setTvInvestment(20000.00);
-		Game.getInstance().getGroupList().get(1).getCompany().getToasterList().get(0).setQualityInvestment(5000.00);
-		Game.getInstance().getGroupList().get(1).getCompany().getToasterList().get(0).setDesignInvestment(5000.00);
-		Game.getInstance().getGroupList().get(1).getCompany().getToasterList().get(0).setEcologyInvestment(5000.00);
-		Game.getInstance().getGroupList().get(1).getCompany().setMarketResearchReportON(true);
+		Company com = Game.getInstance().getGroupList().get(1).getCompany();
+		com.getToasterList().get(0).setProduction(3000);
+		com.getToasterList().get(0).setNewspaperInvestment(5000.00);
+		com.getToasterList().get(0).setRadioInvestment(10000.00);
+		com.getToasterList().get(0).setTvInvestment(20000.00);
+		com.getToasterList().get(0).setQualityInvestment(5000.00);
+		com.getToasterList().get(0).setDesignInvestment(5000.00);
+		com.getToasterList().get(0).setEcologyInvestment(5000.00);
+		com.setMarketResearchReportON(true);
+		com.setCapital(com.getCapital()-55000.00);
 		Game.getInstance().getGroupList().get(1).setStatus(Status.COMPLETED);
 
 		// Eingaben der dritten Gruppe
@@ -220,9 +221,11 @@ public class Showcase extends TestCase
 		{
 			System.err.println(e);
 		}
-		Game.getInstance().getGroupList().get(2).getCompany().getToasterList().get(0).setProduction(1600);
-		Game.getInstance().getGroupList().get(2).getCompany().getToasterList().get(0).setQualityInvestment(80000.00);
-		Game.getInstance().getGroupList().get(2).getCompany().setMarketResearchReportON(true);
+		 com = Game.getInstance().getGroupList().get(2).getCompany();
+		 com.getToasterList().get(0).setProduction(1600);
+		 com.getToasterList().get(0).setQualityInvestment(80000.00);
+		 com.setMarketResearchReportON(true);
+		 com.setCapital(com.getCapital()-85000.00);
 		Game.getInstance().getGroupList().get(2).setStatus(Status.COMPLETED);
 
 		// Eingaben der vierten Gruppe
@@ -233,8 +236,11 @@ public class Showcase extends TestCase
 		{
 			System.err.println(e);
 		}
-		Game.getInstance().getGroupList().get(3).getCompany().getToasterList().get(0).setProduction(2000);
-		Game.getInstance().getGroupList().get(3).getCompany().getToasterList().get(0).setTvInvestment(80000.00);
+		 com = Game.getInstance().getGroupList().get(3).getCompany();
+
+		 com.getToasterList().get(0).setProduction(2000);
+		 com.getToasterList().get(0).setTvInvestment(80000.00);
+		 com.setCapital(com.getCapital()-80000.00);
 		Game.getInstance().getGroupList().get(3).setStatus(Status.COMPLETED);
 
 		System.out.println(Game.getInstance().getGroupList().get(0).getCompany().getMarketShare());
@@ -242,7 +248,6 @@ public class Showcase extends TestCase
 		impl.simulate();
 		// Auswertung der Simulation
 		System.out.println(Game.getInstance().getGroupList().get(0).getCompany().getMarketShare());
-
 
 		assertEquals(7000, Game.getInstance().getGroupList().get(0).getCompany().getMarketShare());
 		assertEquals(0.00, Game.getInstance().getGroupList().get(0).getCompany().getStock().getTotalStockCosts());
