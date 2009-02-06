@@ -20,7 +20,7 @@ import toastwars.server.datamodel.user.UserFactory;
 /*
  * @ author Michael Klein
  */
-public class Test_Game extends TestCase {
+public class Showcase extends TestCase {
 
 	private Toaster toaster1;
 	private Toaster toaster2;
@@ -65,6 +65,11 @@ public class Test_Game extends TestCase {
 		meineToaster3 = new ArrayList<Toaster>();
 		meineToaster4 = new ArrayList<Toaster>();
 
+//		toaster1  = new Toaster(10.0, 9.00, 100000.00,50000.00,50000.00,10000,Type.TYPE1,3.00,1.00,1.00,1.00,0.00,0.00,0.00,3.00,1.00,1.00,1.00,0.00,0.00,0.00, 1000);
+//		toaster2  = new Toaster(10.0, 9.00, 100000.00,50000.00,50000.00,10000,Type.TYPE1,3.00,1.00,1.00,1.00,0.00,0.00,0.00,3.00,1.00,1.00,1.00,0.00,0.00,0.00, 1000);
+//		toaster3  = new Toaster(10.0, 9.00, 100000.00,50000.00,50000.00,10000,Type.TYPE1,3.00,1.00,1.00,1.00,0.00,0.00,0.00,3.00,1.00,1.00,1.00,0.00,0.00,0.00, 1000);
+//		toaster3  = new Toaster(10.0, 9.00, 100000.00,50000.00,50000.00,10000,Type.TYPE1,3.00,1.00,1.00,1.00,0.00,0.00,0.00,3.00,1.00,1.00,1.00,0.00,0.00,0.00, 1000);
+//		toaster4  = new Toaster(10.0, 9.00, 100000.00,50000.00,50000.00,10000,Type.TYPE1,3.00,1.00,1.00,1.00,0.00,0.00,0.00,3.00,1.00,1.00,1.00,0.00,0.00,0.00, 1000);
 
 		
 		toaster1  = new Toaster(10.0, 9.00, 0.00,0.00,0.00,0,Type.TYPE1,3.00,1.00,1.00,1.00,0.00,0.00,0.00,3.00,1.00,1.00,1.00,0.00,0.00,0.00, 0);
@@ -170,211 +175,13 @@ public class Test_Game extends TestCase {
 
 
 
+	
+	
 
-	
-	
-	@Test
-	public void testGetCurrentRound()
-	{
-		assertNotNull(Game.getInstance().getCurrentRound());
-		assertEquals(1, Game.getInstance().getCurrentRound());
-	}
+
 
 	@Test
-	public void testSetCurrentRound()
-	{
-
-		assertEquals(1, Game.getInstance().getCurrentRound());
-		Game.getInstance().setCurrentRound(2);
-		assertEquals(2, Game.getInstance().getCurrentRound());	
-		Game.getInstance().setCurrentRound(1);
-	}
-	
-	@Test
-	public void testGetUserAmount()
-	{
-		assertNotNull(Game.getInstance().getUserAmount());
-		assertEquals(3, Game.getInstance().getUserAmount());
-	}
-
-	@Test
-	public void testSetUserAmount()
-	{
-		assertNotSame(5,Game.getInstance().getUserAmount());
-		Game.getInstance().setUserAmount(5);
-		assertEquals(5,Game.getInstance().getUserAmount());
-	}
-	
-
-	@Test
-	public void testSetCompanyList()
-	{
-		assertNotSame(groupList1, Game.getInstance().getGroupList());
-		Game.getInstance().setGroupList(groupList1);
-		assertEquals(groupList1, Game.getInstance().getGroupList());
-	}
-	
-	@Test
-	public void testGetCompanyList()
-	{
-		Game.getInstance().setGroupList(groupList2);
-		assertNotNull(Game.getInstance().getGroupList());
-		assertEquals(groupList2, Game.getInstance().getGroupList());
-	}
-	
-	
-	// Get&Set Test
-	@Test
-	public void testGetSetSortedIndexListTyp1()
-	{  
-		Game.getInstance().setSortedIndexListTyp1(list1);
-		assertNotNull(Game.getInstance().getSortedIndexListTyp1());
-		assertEquals(list1, Game.getInstance().getSortedIndexListTyp1());
-	}
-	
-	@Test
-	public void testGetSetSortedIndexListTyp2()
-	{  
-		Game.getInstance().setSortedIndexListTyp2(list1);
-		assertNotNull(Game.getInstance().getSortedIndexListTyp2());
-		assertEquals(list1, Game.getInstance().getSortedIndexListTyp2());
-	}
-	
-	@Test
-	public void testGetSetSortedIndexListTyp3()
-	{  
-		Game.getInstance().setSortedIndexListTyp3(list1);
-		assertNotNull(Game.getInstance().getSortedIndexListTyp3());
-		assertEquals(list1, Game.getInstance().getSortedIndexListTyp3());
-	}
-	
-	
-	//Berechnende Methoden
-	
-	
-	@Test
-	public void testCorrectMarketshares() {
-		
-	//Test für den ersten Toastertyp	
-		//Indizes passend zu der vorher erzeugten ArrayList setzen
-		toaster1.setIndex(2);
-		toaster2.setIndex(3);
-		toaster3.setIndex(5);
-
-		//Setzen der Marktanteile und der Produktion der einzelnen Toaster
-		toaster1.setMarketShare(1000);
-		toaster2.setMarketShare(4000);
-		toaster3.setMarketShare(10000);
-		toaster1.setProduction(17000);
-		toaster2.setProduction(18000);
-		toaster3.setProduction(1111112);
-
-		//Ausführen der zu testenden Methode
-		Game.getInstance().correctMarketShares();
-
-	
-		//Überprüfung der erwartenden Werte
-		assertEquals(1000, toaster1.getMarketShare());
-		assertEquals(4000, toaster2.getMarketShare());
-		assertEquals(10000, toaster3.getMarketShare());		
-		assertEquals(2500, com1.getStock().getStockTT1());
-		assertEquals(2500, com2.getStock().getStockTT1());
-		assertEquals(2500, com3.getStock().getStockTT1());
-		
-	//Test für den zweiten Toastertyp
-		toaster1.setType(Type.TYPE2);
-		toaster2.setType(Type.TYPE2);
-		toaster3.setType(Type.TYPE2);
-		//Setzen der Marktanteile und der Produktion der einzelnen Toaster
-		toaster1.setMarketShare(1000);
-		toaster2.setMarketShare(4000);
-		toaster3.setMarketShare(10000);
-		toaster1.setProduction(2000);
-		toaster2.setProduction(8000);
-		toaster3.setProduction(2);
-
-		//Ausführen der zu testenden Methode
-		Game.getInstance().correctMarketShares();
-
-		//Überprüfung der erwartenden Werte
-		assertEquals(2000, toaster1.getMarketShare());
-		assertEquals(8000, toaster2.getMarketShare());
-		assertEquals(2, toaster3.getMarketShare());
-		assertEquals(0, com1.getStock().getStockTT2());
-		assertEquals(0, com2.getStock().getStockTT2());
-		assertEquals(0, com3.getStock().getStockTT2());
-		
-		
-		
-		//Test für den dritten Toastertyp
-		toaster1.setType(Type.TYPE3);
-		toaster2.setType(Type.TYPE3);
-		toaster3.setType(Type.TYPE3);
-		//Setzen der Marktanteile und der Produktion der einzelnen Toaster
-		toaster1.setMarketShare(0);
-		toaster2.setMarketShare(4000);
-		toaster3.setMarketShare(0);
-		toaster1.setProduction(0);
-		toaster2.setProduction(3000);
-		toaster3.setProduction(0);
-
-		//Ausführen der zu testenden Methode
-		Game.getInstance().correctMarketShares();
-
-		//Überprüfung der erwartenden Werte
-		assertEquals(0, toaster1.getMarketShare());
-		assertEquals(3000, toaster2.getMarketShare());
-		assertEquals(0, toaster3.getMarketShare());
-		assertEquals(0, com1.getStock().getStockTT3());
-		assertEquals(0, com2.getStock().getStockTT3());
-		assertEquals(0, com3.getStock().getStockTT3());
-		
-	}
-	
-	@Test
-	public void testCalculateIndexSums()
-	{
-		
-
-		double[] indexSums = Game.getInstance().calculateIndexSums();
-		assertEquals(27.00, indexSums[0]);
-		assertEquals(0.00, indexSums[1]);
-		assertEquals(0.0, indexSums[2]);
-	}
-
-	
-	@Test
-	public void testCompleteRound()
-	{
-		double design = group1.getCompany().getToasterList().get(0).getDesignInvestmentKum();
-		group1.getCompany().getToasterList().get(0).setDesignInvestment(1.00);
-		Game.getInstance().completeRound(group1);
-		assertEquals((design+1),group1.getCompany().getToasterList().get(0).getDesignInvestmentKum());
-
-		
-	}
-	
-	
-	@Test
-	public void testAddGroup()
-	{
-		assertEquals(3, Game.getInstance().getGroupList().size());
-		Game.getInstance().addGroup(group4);
-		assertEquals(4, Game.getInstance().getGroupList().size());
-		
-	}
-	
-	@Test
-	public void testDestroyGame()
-	{
-		assertNotNull(Game.getInstance());
-		Game.destroyGame();
-		assertNull(Game.getInstance());
-		
-	}
-
-	@Test
-	public void testSimulate()
+	public void testShowcase()
 	{
 		
 		//Setzen der Rundendaten
@@ -424,39 +231,34 @@ public class Test_Game extends TestCase {
 		
 		//Simulation
 		
-		for (int a = 0; a < Game.getInstance().getGroupList().size(); a++)
-		{
-			if (Game.getInstance().getGroupList().get(a).getStatus() != Status.INACTIVE)
-				Game.getInstance().getGroupList().get(a).getCompany().calculateIndex();
-		}
-		Game.getInstance().simulate();
+
 		
 		//Auswertung der Simulation
 		
-		assertEquals(8044, com1.getMarketShare());
+		assertEquals(7000, com1.getMarketShare());
 		assertEquals(0.00, com1.getStock().getTotalStockCosts());
-		assertEquals(25000.00, com1.getTurnover());
-		assertEquals(22106.00, com1.getCost());
-		assertEquals(3700.00, com1.getCapital());
+		assertEquals(35000.00, com1.getTurnover());
+		assertEquals(26000.00, com1.getCost());
+		assertEquals(109000.00, com1.getCapital());
 		
-		assertEquals(2843, com2.getMarketShare());
+		assertEquals(3000, com2.getMarketShare());
 		assertEquals(0.00, com2.getStock().getTotalStockCosts());
 		assertEquals(30000.00, com2.getTurnover());
-		assertEquals(72100.00, com2.getCost());
-		assertEquals(10500.00, com3.getCapital());
+		assertEquals(72000.00, com2.getCost());
+		assertEquals(58000.00, com3.getCapital());
 		
 		
-		assertEquals(1548, com3.getMarketShare());
+		assertEquals(1600, com3.getMarketShare());
 		assertEquals(0.00, com3.getStock().getTotalStockCosts());
 		assertEquals(24000.00, com3.getTurnover());
-		assertEquals(99305.00, com3.getCost());
-		assertEquals(10500.00, com3.getCapital());
+		assertEquals(99200.00, com3.getCost());
+		assertEquals(24800.00, com3.getCapital());
 		
-		assertEquals(1005, com4.getMarketShare());
-		assertEquals(0, com4.getStock().getStockTT1());
-		assertEquals(40000.00, com4.getTurnover());
-		assertEquals(95105.00, com4.getCost());
-		assertEquals(25700.00, com4.getCapital());
+		assertEquals(1840, com4.getMarketShare());
+		assertEquals(160, com4.getStock().getStockTT1());
+		assertEquals(36800.00, com4.getTurnover());
+		assertEquals(95200.00, com4.getCost());
+		assertEquals(41600.00, com4.getCapital());
 		
 		
 	}
@@ -470,4 +272,5 @@ public class Test_Game extends TestCase {
 		
 		
 		
+
 
