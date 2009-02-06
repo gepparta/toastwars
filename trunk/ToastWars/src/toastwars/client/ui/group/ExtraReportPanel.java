@@ -58,10 +58,8 @@ public class ExtraReportPanel extends TabPanel {
 		game = Controller.getInstance().getGame();
 		Group myGroup = (Group) Controller.getInstance().getUser();
 
-		for (Group g : game.getGroupList())
-		{
-			if (g.getUsername().equals(myGroup.getUsername()))
-			{
+		for (Group g : game.getGroupList()) {
+			if (g.getUsername().equals(myGroup.getUsername())) {
 				report = g.getCompany().getReportListe();
 				break;
 			}
@@ -69,6 +67,7 @@ public class ExtraReportPanel extends TabPanel {
 
 		setTitle("Marktforschungsbericht");
 		setTabPosition(Position.BOTTOM);
+		addListener(new TabChangeListener());
 
 		add(createTab(Type.TYPE1));
 		add(createTab(Type.TYPE2));
@@ -108,7 +107,7 @@ public class ExtraReportPanel extends TabPanel {
 		grid.setHeight(70 + 22 * report.get(type.ordinal()).get(0).size());
 		grid.setWidth(700);
 		grid.setTitle("Platzierungen in der Runde "
-				+ (game.getCurrentRound()-1));
+				+ (game.getCurrentRound() - 1));
 
 		RecordDef recordDef = new RecordDef(new FieldDef[] {
 				new StringFieldDef("rank"), new StringFieldDef("magazine"),
@@ -151,7 +150,7 @@ public class ExtraReportPanel extends TabPanel {
 	private Widget createPriceBarChart(Type type) {
 		ChartWidget chart = new ChartWidget();
 		ChartData cd = new ChartData("Preise in der Runde "
-				+ (game.getCurrentRound()-1),
+				+ (game.getCurrentRound() - 1),
 				"font-size: 14px; font-family: Verdana; text-align: center;");
 		cd.setBackgroundColour("#ffffff");
 
@@ -161,10 +160,10 @@ public class ExtraReportPanel extends TabPanel {
 		List<String> labels = new ArrayList<String>();
 		List<Number> bchartValues = new ArrayList<Number>();
 		int setMax = 0;
-		for (int i = 0; i < priceList.size(); i+=2) {
-//			changed by alex
+		for (int i = 0; i < priceList.size(); i += 2) {
+			// changed by alex
 			Number key = Double.parseDouble(priceList.get(i));
-			String label = priceList.get(i+1);
+			String label = priceList.get(i + 1);
 
 			labels.add(label);
 			bchartValues.add(key);
@@ -173,15 +172,16 @@ public class ExtraReportPanel extends TabPanel {
 				setMax = key.intValue();
 		}
 		xa.setLabels(labels);
-		if (priceList.size() > 1)
-			xa.setMax(priceList.size() / 2 -1);
+		if (priceList.size() > 2)
+			xa.setMax(priceList.size() / 2 - 1);
 		else
-			xa.setMax(priceList.size());
+			xa.setMax(priceList.size() - 1);
 		cd.setXAxis(xa);
 
 		YAxis ya = new YAxis();
-		ya.setSteps(4);
-		ya.setMax(10 + setMax);
+		ya.setSteps((type.getMaxPrice() - type.getMinPrice()) / 5);
+		ya.setMax(type.getMaxPrice());
+		ya.setMin(type.getMinPrice());
 		cd.setYAxis(ya);
 
 		BarChart bchart = new BarChart(BarStyle.GLASS);

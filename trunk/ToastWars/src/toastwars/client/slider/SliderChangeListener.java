@@ -35,4 +35,5 @@ public class SliderChangeListener implements ChangeListener {
 		}
 		previousValue = slider.getCurrentValue();
 	}
+
 }

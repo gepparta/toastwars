@@ -19,10 +19,8 @@ public class ReportPanel extends Panel {
 		Group myGroup = (Group) Controller.getInstance().getUser();
 		Company company = null;
 
-		for (Group g : game.getGroupList())
-		{
-			if (g.getUsername().equals(myGroup.getUsername()))
-			{
+		for (Group g : game.getGroupList()) {
+			if (g.getUsername().equals(myGroup.getUsername())) {
 				company = g.getCompany();
 				break;
 			}
@@ -34,6 +32,7 @@ public class ReportPanel extends Panel {
 		TabPanel tabPanel = new TabPanel();
 		tabPanel.setSize(965, 390);
 		tabPanel.setTabPosition(Position.BOTTOM);
+		tabPanel.addListener(new TabChangeListener());
 
 		tabPanel.add(StandardReportPanel.getInstance());
 
