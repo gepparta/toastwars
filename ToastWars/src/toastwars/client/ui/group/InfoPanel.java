@@ -4,6 +4,7 @@ import com.gwtext.client.core.Position;
 import com.gwtext.client.widgets.HTMLPanel;
 import com.gwtext.client.widgets.Panel;
 import com.gwtext.client.widgets.TabPanel;
+import com.gwtext.client.widgets.event.TabPanelListenerAdapter;
 
 public class InfoPanel extends Panel {
 
@@ -51,12 +52,13 @@ public class InfoPanel extends Panel {
 		setTitle("Anleitung");
 		setPaddings(0, 15, 0, 0);
 
-		TabPanel tabPanel = new TabPanel();
+		final TabPanel tabPanel = new TabPanel();
 		tabPanel.setMargins(0);
 		tabPanel.setSize(960, 390);
 		tabPanel.setStyle("border-color: gold; color: gold; "
 				+ "text-align: center;");
 		tabPanel.setTabPosition(Position.BOTTOM);
+		tabPanel.addListener(new TabChangeListener());
 
 		HTMLPanel introPanel = new HTMLPanel(intro, 15);
 		introPanel.setTitle("Einf&uuml;hrung");
@@ -80,10 +82,11 @@ public class InfoPanel extends Panel {
 	}
 
 	private TabPanel createDepartmentPanel() {
-		TabPanel departmentPanel = new TabPanel();
+		final TabPanel departmentPanel = new TabPanel();
 		departmentPanel.setTitle("Unternehmensbereiche");
 		departmentPanel.setTabPosition(Position.BOTTOM);
 		departmentPanel.setStyle("background: black;");
+		departmentPanel.addListener(new TabChangeListener());
 
 		HTMLPanel productionPanel = new HTMLPanel(production, 15);
 		productionPanel.setTitle("Produktion");

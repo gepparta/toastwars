@@ -10,6 +10,9 @@ import toastwars.server.datamodel.user.Group;
 import toastwars.server.datamodel.user.Master;
 import toastwars.server.datamodel.user.Status;
 import toastwars.util.NumberUtil;
+
+import com.allen_sauer.gwt.voices.client.Sound;
+import com.allen_sauer.gwt.voices.client.SoundController;
 import com.gwtext.client.core.EventObject;
 import com.gwtext.client.core.Position;
 import com.gwtext.client.core.SortDir;
@@ -43,6 +46,7 @@ public class MasterPanel extends Panel {
 	private Game				game;
 	private ArrayList<Group>	groupList;
 	private String				round	= "";
+	private Sound				sound;
 
 	public static MasterPanel getInstance() {
 		if (masterPanel == null)
@@ -51,6 +55,9 @@ public class MasterPanel extends Panel {
 	}
 
 	private MasterPanel() {
+		SoundController soundController = new SoundController();
+		sound = soundController.createSound(Sound.MIME_TYPE_AUDIO_X_WAV,
+				"sounds/yeahoo.wav");
 
 		game = ((Master) Controller.getInstance().getUser()).getCurrentGame();
 		if (game != null) {
@@ -208,7 +215,7 @@ public class MasterPanel extends Panel {
 					data[11] = "nein";
 				data[12] = groupList.get(j).getStatus().getDescription();
 
-				data[13] = "" + (i + 1) + " "
+				data[13] = "" + (toaster.getType().ordinal() + 1) + " "
 						+ toaster.getType().getDescription();
 				dataList.add(data);
 			}
@@ -226,6 +233,7 @@ public class MasterPanel extends Panel {
 		simulateBtn = new Button("Simulation starten",
 				new ButtonListenerAdapter() {
 					public void onClick(Button button, EventObject e) {
+						sound.play();
 						Controller.getInstance().simulate();
 					}
 				});

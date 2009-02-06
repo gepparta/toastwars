@@ -54,6 +54,17 @@ public class DecissionPanel extends Panel {
 		game = Controller.getInstance().getGame();
 		group = (Group) Controller.getInstance().getUser();
 
+		// load sounds
+		String soundURL = "sounds/macht.mp3";
+		String soundType = Sound.MIME_TYPE_AUDIO_MPEG;
+		if (group.getStatus() == Status.INACTIVE) {
+			soundURL = "sounds/hohoho.wav";
+			soundType = Sound.MIME_TYPE_AUDIO_X_WAV;
+		}
+
+		SoundController soundController = new SoundController();
+		sound = soundController.createSound(soundType, soundURL);
+
 		setTitle("Entscheidungen");
 		setPaddings(0, 15, 0, 0);
 		setSize(985, 400);
@@ -101,6 +112,8 @@ public class DecissionPanel extends Panel {
 		burntPanel.add(label);
 
 		add(burntPanel);
+
+		sound.play();
 	}
 
 	private TabPanel createDecissionForms() {
@@ -109,6 +122,7 @@ public class DecissionPanel extends Panel {
 		tabPanel.setTabPosition(Position.BOTTOM);
 		tabPanel.setPaddings(15);
 		tabPanel.setSize(965, 310);
+		tabPanel.addListener(new TabChangeListener());
 
 		Button[] buttons = new Button[] { btnSave, btnEnd };
 
@@ -186,7 +200,7 @@ public class DecissionPanel extends Panel {
 		reportForm.add(report);
 
 		// add capital field
-		capital = new NumberField("Kapital", "capital", 80);
+		capital = new NumberField("Kapital in &euro;", "capital", 80);
 		capital.setValue(group.getCompany().getCapital());
 		capital.setAllowNegative(false);
 		capital.setReadOnly(true);
@@ -209,7 +223,7 @@ public class DecissionPanel extends Panel {
 
 		FormPanel capitalForm = new FormPanel();
 		capitalForm.setBorder(false);
-		capitalForm.setLabelWidth(50);
+		capitalForm.setLabelWidth(70);
 
 		capitalForm.add(capital);
 
@@ -220,10 +234,6 @@ public class DecissionPanel extends Panel {
 	}
 
 	private void createButtons() {
-		SoundController soundController = new SoundController();
-		sound = soundController.createSound(Sound.MIME_TYPE_AUDIO_MPEG,
-				"sounds/macht.mp3");
-
 		btnSave = new Button("Speichern", new ButtonListenerAdapter() {
 			public void onClick(Button button, EventObject e) {
 				super.onClick(button, e);
@@ -294,8 +304,7 @@ public class DecissionPanel extends Panel {
 	}
 
 	private void disableSlidersAndButtons() {
-		if (group.getStatus() == Status.COMPLETED
-				|| group.getStatus() == Status.INACTIVE) {
+		if (group.getStatus() == Status.COMPLETED) {
 			btnSave.setDisabled(true);
 			btnEnd.setDisabled(true);
 			report.setDisabled(true);
