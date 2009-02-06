@@ -336,6 +336,19 @@ public class Game implements IsSerializable
 				toaster.setProduction(toaster.getTmpProduction());
 			}// for innen
 		}// for auﬂen
+		//MarketShare Attribut der Company anpassen
+		
+		for (int i = 0; i < groupList.size(); i++)
+		{
+			company = groupList.get(i).getCompany();
+			company.setMarketShare(0);
+		for (int j = 0; j < company.getToasterList().size(); j++)
+		{
+
+			company.setMarketShare(company.getToasterList().get(j).getMarketShare() + company.getMarketShare());
+		}
+		}
+		
 	}// calculate MarketShares
 
 	// Hier wird eine Spielrunde simuliert. Hierzu werden alle Berechnungen
