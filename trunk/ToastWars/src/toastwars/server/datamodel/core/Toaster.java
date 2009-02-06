@@ -546,7 +546,8 @@ public void setTurnover(double turnover)
 				+ "\n research: \t" + this.getResearch() + "\n quality: \t"
 				+ this.getQualityInvestment() + "\n design: \t"
 				+ this.getDesignInvestment() + "\n efficiency: \t"
-				+ this.getEcologyInvestment();
+				+ this.getEcologyInvestment() + "\n production: \t"
+				+ this.getProduction();
 		return s;
 	}
 

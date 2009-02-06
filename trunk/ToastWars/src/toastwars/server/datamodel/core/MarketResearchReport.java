@@ -323,105 +323,7 @@ public class MarketResearchReport implements Comparator
 
 	}
 
-	public ArrayList<Number> getCapitalRankingInternList()
-	{
-		return capitalList;
-	}
 
-	public List<String> getDesignRankingListType1()
-	{
-		return designRankingListType1;
-	}
-
-	public List<String> getDesignRankingListType2()
-	{
-		return designRankingListType2;
-	}
-
-	public List<String> getDesignRankingListType3()
-	{
-		return designRankingListType3;
-	}
-
-	public List<String> getEcologyRankingListType1()
-	{
-		return ecologyRankingListType1;
-	}
-
-	public List<String> getEcologyRankingListType2()
-	{
-		return ecologyRankingListType2;
-	}
-
-	public List<String> getEcologyRankingListType3()
-	{
-		return ecologyRankingListType3;
-	}
-
-	public List<String> getNewspaperRankingListType1()
-	{
-		return newspaperRankingListType1;
-	}
-
-	public List<String> getNewspaperRankingListType2()
-	{
-		return newspaperRankingListType2;
-	}
-
-	public List<String> getNewspaperRankingListType3()
-	{
-		return newspaperRankingListType3;
-	}
-
-	public ArrayList<String> getPriceType1List()
-	{
-		return priceType1List;
-	}
-
-	public ArrayList<String> getPriceType2List()
-	{
-		return priceType2List;
-	}
-
-	public ArrayList<String> getPriceType3List()
-	{
-		return priceType3List;
-	}
-
-	public ArrayList<Number> getProfitRankingInternList()
-	{
-		return profitList;
-	}
-
-	public List<String> getQualityRankingListType1()
-	{
-		return qualityRankingListType1;
-	}
-
-	public List<String> getQualityRankingListType2()
-	{
-		return qualityRankingListType2;
-	}
-
-	public List<String> getQualityRankingListType3()
-	{
-		return qualityRankingListType3;
-	}
-
-	public List<String> getRadioRankingListType1()
-	{
-		return radioRankingListType1;
-	}
-
-	public List<String> getRadioRankingListType2()
-	{
-		return radioRankingListType2;
-	}
-
-	public List<String> getRadioRankingListType3()
-	{
-		return radioRankingListType3;
-	}
 
 	// @gwt.typeArgs
 	// java.util.ArrayList<java.util.ArrayList<java.util.ArrayList<java.util.List<java.lang.String>>>>
@@ -439,13 +341,13 @@ public class MarketResearchReport implements Comparator
 	public ArrayList<List<String>> getReports4Type1()
 	{
 		ArrayList<List<String>> liste = new ArrayList<List<String>>();
-		liste.add(getNewspaperRankingListType1());
-		liste.add(getRadioRankingListType1());
-		liste.add(getTvRankingListType1());
-		liste.add(getQualityRankingListType1());
-		liste.add(getDesignRankingListType1());
-		liste.add(getEcologyRankingListType1());
-		liste.add(getPriceType1List());
+		liste.add(this.newspaperRankingListType1);
+		liste.add(this.radioRankingListType1);
+		liste.add(this.tvRankingListType1);
+		liste.add(this.qualityRankingListType1);
+		liste.add(this.designRankingListType1);
+		liste.add(this.ecologyRankingListType1);
+		liste.add(this.priceType1List);
 		return liste;
 	}
 
@@ -454,13 +356,13 @@ public class MarketResearchReport implements Comparator
 	public ArrayList<List<String>> getReports4Type2()
 	{
 		ArrayList<List<String>> liste = new ArrayList<List<String>>();
-		liste.add(getNewspaperRankingListType2());
-		liste.add(getRadioRankingListType2());
-		liste.add(getTvRankingListType2());
-		liste.add(getQualityRankingListType2());
-		liste.add(getDesignRankingListType2());
-		liste.add(getEcologyRankingListType2());
-		liste.add(getPriceType2List());
+		liste.add(this.newspaperRankingListType2);
+		liste.add(this.radioRankingListType2);
+		liste.add(this.tvRankingListType2);
+		liste.add(this.qualityRankingListType2);
+		liste.add(this.designRankingListType2);
+		liste.add(this.ecologyRankingListType2);
+		liste.add(this.priceType2List);
 		return liste;
 	}
 
@@ -469,13 +371,13 @@ public class MarketResearchReport implements Comparator
 	public ArrayList<List<String>> getReports4Type3()
 	{
 		ArrayList<List<String>> liste = new ArrayList<List<String>>();
-		liste.add(getNewspaperRankingListType3());
-		liste.add(getRadioRankingListType3());
-		liste.add(getTvRankingListType3());
-		liste.add(getQualityRankingListType3());
-		liste.add(getDesignRankingListType3());
-		liste.add(getEcologyRankingListType3());
-		liste.add(getPriceType3List());
+		liste.add(this.newspaperRankingListType3);
+		liste.add(this.radioRankingListType3);
+		liste.add(this.tvRankingListType3);
+		liste.add(this.qualityRankingListType3);
+		liste.add(this.designRankingListType3);
+		liste.add(this.ecologyRankingListType3);
+		liste.add(this.priceType3List);
 		return liste;
 	}
 
@@ -538,134 +440,12 @@ public class MarketResearchReport implements Comparator
 		numberValues = sortedIndexList.values();
 		return new ArrayList<Number>(numberValues);
 	}
-
-	public List<String> getTvRankingListType1()
+	public ArrayList<Number> getCapitalRankingInternList()
 	{
-		return tvRankingListType1;
+		return capitalList;
 	}
-
-	public List<String> getTvRankingListType2()
+	public ArrayList<Number> getProfitRankingInternList()
 	{
-		return tvRankingListType2;
-	}
-
-	public List<String> getTvRankingListType3()
-	{
-		return tvRankingListType3;
-	}
-
-	public void setCapitalRankingInternList(ArrayList<Number> capitalRankingInternList)
-	{
-		this.capitalList = capitalRankingInternList;
-	}
-
-	public void setDesignRankingListType1(List<String> designRankingListType1)
-	{
-		this.designRankingListType1 = designRankingListType1;
-	}
-
-	public void setDesignRankingListType2(List<String> designRankingListType2)
-	{
-		this.designRankingListType2 = designRankingListType2;
-	}
-
-	public void setDesignRankingListType3(List<String> designRankingListType3)
-	{
-		this.designRankingListType3 = designRankingListType3;
-	}
-
-	public void setEcologyRankingListType1(List<String> ecologyRankingListType1)
-	{
-		this.ecologyRankingListType1 = ecologyRankingListType1;
-	}
-
-	public void setEcologyRankingListType2(List<String> ecologyRankingListType2)
-	{
-		this.ecologyRankingListType2 = ecologyRankingListType2;
-	}
-
-	public void setEcologyRankingListType3(List<String> ecologyRankingListType3)
-	{
-		this.ecologyRankingListType3 = ecologyRankingListType3;
-	}
-
-	public void setNewspaperRankingListType1(List<String> newspaperRankingListType1)
-	{
-		this.newspaperRankingListType1 = newspaperRankingListType1;
-	}
-
-	public void setNewspaperRankingListType2(List<String> newspaperRankingListType2)
-	{
-		this.newspaperRankingListType2 = newspaperRankingListType2;
-	}
-
-	public void setNewspaperRankingListType3(List<String> newspaperRankingListType3)
-	{
-		this.newspaperRankingListType3 = newspaperRankingListType3;
-	}
-
-	public void setPriceType1List(ArrayList<String> priceType1List)
-	{
-		this.priceType1List = priceType1List;
-	}
-
-	public void setPriceType2List(ArrayList<String> priceType2List)
-	{
-		this.priceType2List = priceType2List;
-	}
-
-	public void setPriceType3List(ArrayList<String> priceType3List)
-	{
-		this.priceType3List = priceType3List;
-	}
-
-	public void setProfitRankingInternList(ArrayList<Number> profitRankingInternList)
-	{
-		this.profitList = profitRankingInternList;
-	}
-
-	public void setQualityRankingListType1(List<String> qualityRankingListType1)
-	{
-		this.qualityRankingListType1 = qualityRankingListType1;
-	}
-
-	public void setQualityRankingListType2(List<String> qualityRankingListType2)
-	{
-		this.qualityRankingListType2 = qualityRankingListType2;
-	}
-
-	public void setQualityRankingListType3(List<String> qualityRankingListType3)
-	{
-		this.qualityRankingListType3 = qualityRankingListType3;
-	}
-
-	public void setRadioRankingListType1(List<String> radioRankingListType1)
-	{
-		this.radioRankingListType1 = radioRankingListType1;
-	}
-
-	public void setRadioRankingListType2(List<String> radioRankingListType2)
-	{
-		this.radioRankingListType2 = radioRankingListType2;
-	}
-
-	public void setRadioRankingListType3(List<String> radioRankingListType3)
-	{
-		this.radioRankingListType3 = radioRankingListType3;
-	}
-
-	public void setTvRankingListType1(List<String> tvRankingListType1)
-	{
-		this.tvRankingListType1 = tvRankingListType1;
-	}
-
-	public void setTvRankingListType2(List<String> tvRankingListType2)
-	{
-		this.tvRankingListType2 = tvRankingListType2;
-	}
-
-	public void setTvRankingListType3(List<String> tvRankingListType3)
-	{
-		this.tvRankingListType3 = tvRankingListType3;
+		return profitList;
 	}
 }
