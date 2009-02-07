@@ -472,26 +472,37 @@ public class Test_Toaster extends TestCase
 	public void testCalculateResearch()
 	{
 		//Typ 1
+		assertNotSame(3.00, t1.getResearch());
 		assertEquals(3.00, t1.calculateResearch());
+		assertEquals(3.00, t1.getResearch());
 		
 		//Typ 2
+		assertNotSame(3.00, t2.getResearch());
 		assertEquals(3.00, t2.calculateResearch());
+		assertEquals(3.00, t2.getResearch());
 		
 		//Typ 3
+		assertNotSame(3.00, t3.getResearch());
 		assertEquals(3.00, t3.calculateResearch());
+		assertEquals(3.00, t3.getResearch());
 
 	}
 
 	@Test
 	public void testCalculateMarketing()
 	{	//Typ 1
+		assertNotSame(3.0, t1.getMarketing());
 		assertEquals(3.0, t1.calculateMarketing());
-		
+		assertEquals(3.0, t1.getMarketing());
 		//Typ 2
+		assertNotSame(3.0, t2.getMarketing());
 		assertEquals(3.0, t2.calculateMarketing());
+		assertEquals(3.0, t2.getMarketing());
 		
 		//Typ 3
+		assertNotSame(3.0, t3.getMarketing());
 		assertEquals(3.0, t3.calculateMarketing());
+		assertEquals(3.0, t3.getMarketing());
 	}
 
 	@Test
