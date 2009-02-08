@@ -60,22 +60,6 @@ public class DAOUser
 			return false;
 	}
 
-	public void saveUser(String name, String password, Integer CompanyID, Connection con)
-	{
-		try
-		{
-			Statement stmt = con.createStatement();
-			String sql = "INSERT INTO User (UserName, Password, CompanyID, Status)VALUES ('" + name + "','" + password + "','" + CompanyID + "', 'started');";
-			stmt.execute(sql);
-			stmt.close();
-			fillUserList(con);
-		} catch (SQLException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
 
 	public static ArrayList<Group> getAllUsers(Connection con)
 	{
