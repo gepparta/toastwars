@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import toastwars.server.datamodel.core.Game;
+import toastwars.server.datamodel.core.Toaster;
+
 public class DAOScenario
 {
 
@@ -31,6 +34,50 @@ public class DAOScenario
 		{
 			e.printStackTrace();
 			return null;
+		}
+	}
+	public void updateScenario()
+	{
+		try
+		{
+			Connection con = DBConnection.connectToDB();
+			Statement stmt = con.createStatement();
+			String query = "UPDATE Scenario SET Scenario.Description = '' WHERE (Scenario.Round=);";
+			stmt.execute(query);
+			query = "UPDATE Scenario SET Scenario.Description = '' WHERE (Scenario.Round=);";
+			stmt.execute(query);
+			query = "UPDATE Scenario SET Scenario.Description = '' WHERE (Scenario.Round=);";
+			stmt.execute(query);
+			query = "UPDATE Scenario SET Scenario.Description = '' WHERE (Scenario.Round=);";
+			stmt.execute(query);
+			query = "UPDATE Scenario SET Scenario.Description = '' WHERE (Scenario.Round=);";
+			stmt.execute(query);
+			query = "UPDATE Scenario SET Scenario.Description = '' WHERE (Scenario.Round=);";
+			stmt.execute(query);
+			query = "UPDATE Scenario SET Scenario.Description = '' WHERE (Scenario.Round=);";
+			stmt.execute(query);
+			query = "UPDATE Scenario SET Scenario.Description = '' WHERE (Scenario.Round=);";
+			stmt.execute(query);
+			query = "UPDATE Scenario SET Scenario.Description = '' WHERE (Scenario.Round=);";
+			stmt.execute(query);
+			query = "UPDATE Scenario SET Scenario.Description = '' WHERE (Scenario.Round=);";
+			stmt.execute(query);
+			query = "UPDATE Scenario SET Scenario.Description = '' WHERE (Scenario.Round=);";
+			stmt.execute(query);
+			query = "UPDATE Scenario SET Scenario.Description = '' WHERE (Scenario.Round=);";
+			stmt.execute(query);
+			query = "UPDATE Scenario SET Scenario.Description = '' WHERE (Scenario.Round=);";
+			stmt.execute(query);
+			query = "UPDATE Scenario SET Scenario.Description = '' WHERE (Scenario.Round=);";
+			stmt.execute(query);
+			query = "UPDATE Scenario SET Scenario.Description = '' WHERE (Scenario.Round=);";
+			stmt.execute(query);
+			
+			stmt.close();
+			DBConnection.closeConnectionToDB(con);
+		} catch (Exception e)
+		{
+			e.printStackTrace();
 		}
 	}
 }
