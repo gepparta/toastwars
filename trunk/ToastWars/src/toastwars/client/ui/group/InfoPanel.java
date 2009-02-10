@@ -1,10 +1,13 @@
 package toastwars.client.ui.group;
 
+/*
+ * Author: Waldemar Geppart
+ * */
+
 import com.gwtext.client.core.Position;
 import com.gwtext.client.widgets.HTMLPanel;
 import com.gwtext.client.widgets.Panel;
 import com.gwtext.client.widgets.TabPanel;
-import com.gwtext.client.widgets.event.TabPanelListenerAdapter;
 
 public class InfoPanel extends Panel {
 

@@ -1,5 +1,9 @@
 package toastwars.client.ui.group;
 
+/*
+ * Author: Waldemar Geppart
+ * */
+
 import com.allen_sauer.gwt.voices.client.Sound;
 import com.allen_sauer.gwt.voices.client.SoundController;
 import com.gwtext.client.widgets.Panel;

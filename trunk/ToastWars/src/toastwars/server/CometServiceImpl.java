@@ -1,5 +1,9 @@
 package toastwars.server;
 
+/*
+ * Author: Waldemar Geppart, Alexander Geppart
+ * */
+
 import rocket.remoting.server.comet.CometConnection;
 import rocket.remoting.server.comet.CometServerServlet;
 import toastwars.server.datamodel.core.Game;

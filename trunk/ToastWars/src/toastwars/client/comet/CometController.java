@@ -1,5 +1,9 @@
 package toastwars.client.comet;
 
+/*
+ * Author: Waldemar Geppart, Alexander Geppart
+ * */
+
 import rocket.remoting.client.CometCallback;
 import rocket.remoting.client.GwtSerializationCometClient;
 import toastwars.client.ui.master.MasterPanel;

@@ -1,5 +1,9 @@
 package toastwars.client;
 
+/*
+ * Author: Waldemar Geppart
+ * */
+
 import java.util.ArrayList;
 
 import toastwars.client.ui.LoginWindow;
@@ -20,7 +24,6 @@ public class Controller {
 
 	private static Controller	controller;
 	private LoginWindow			loginWindow;
-	private ToastWars			toastWars;
 	private StartGameWindow		startGameWindow;
 
 	private IUser				user;
@@ -94,8 +97,6 @@ public class Controller {
 	}
 
 	public void logout(ToastWars tw) {
-		toastWars = tw;
-
 		ToastWarsServiceAsync service = ToastWarsService.Util.getInstance();
 
 		AsyncCallback<Boolean> callback = new AsyncCallback<Boolean>() {

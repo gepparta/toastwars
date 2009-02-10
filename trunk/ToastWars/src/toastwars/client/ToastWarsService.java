@@ -1,5 +1,9 @@
 package toastwars.client;
 
+/*
+ * Author: Waldemar Geppart
+ * */
+
 import java.util.ArrayList;
 
 import toastwars.server.datamodel.core.Game;

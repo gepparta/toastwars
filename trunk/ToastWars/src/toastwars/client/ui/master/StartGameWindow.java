@@ -1,5 +1,9 @@
 package toastwars.client.ui.master;
 
+/*
+ * Author: Waldemar Geppart
+ * */
+
 import toastwars.client.Controller;
 import toastwars.server.datamodel.core.Game;
 

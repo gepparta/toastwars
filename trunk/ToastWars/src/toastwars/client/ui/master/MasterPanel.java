@@ -1,5 +1,9 @@
 package toastwars.client.ui.master;
 
+/*
+ * Author: Waldemar Geppart
+ * */
+
 import java.util.ArrayList;
 import toastwars.client.Controller;
 import toastwars.client.comet.CometController;
