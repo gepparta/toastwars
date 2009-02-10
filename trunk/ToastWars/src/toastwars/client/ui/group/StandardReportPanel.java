@@ -1,7 +1,7 @@
 package toastwars.client.ui.group;
 
 /*
- * Author: Waldemar Geppart
+ * Author: Waldemar Geppart, Alexander Geppart
  * */
 
 import java.util.ArrayList;
@@ -63,7 +63,7 @@ public class StandardReportPanel extends Panel {
 
 		setTitle("Analyse-Bericht");
 		setPaddings(15);
-		setLayout(new VerticalLayout(3));
+		setLayout(new VerticalLayout(20));
 		setAutoScroll(true);
 		setStyle("text-align: center;");
 
@@ -81,11 +81,10 @@ public class StandardReportPanel extends Panel {
 	}
 
 	private Panel createCostForm() {
-		// Panel p = new Panel();
-		FieldSet p = new FieldSet("Kosten der Produktion in &euro;");
-		p.setPaddings(15);
-		p.setSize(300, 250);
-		p.setBorder(true);
+		FieldSet costFS = new FieldSet("Kosten der Produktion in &euro;");
+		costFS.setPaddings(15);
+		costFS.setSize(300, 250);
+		costFS.setBorder(true);
 
 		FormPanel formTop = new FormPanel();
 		formTop.setBorder(false);
@@ -113,10 +112,10 @@ public class StandardReportPanel extends Panel {
 		formBottom.add(createCostField("Gesamte Kosten", "sumCosts", 70,
 				(float) sumCosts));
 
-		p.add(formTop);
-		p.add(formBottom);
+		costFS.add(formTop);
+		costFS.add(formBottom);
 
-		return p;
+		return costFS;
 	}
 
 	private NumberField createCostField(String text, String name, int width,
@@ -180,7 +179,7 @@ public class StandardReportPanel extends Panel {
 				"filter:Alpha(opacity=100, finishopacity=80, startx=10, "
 						+ "finishx=484, style=1); -moz-opacity: 0.9 ; font-size: 14px; "
 						+ "font-family: Verdana; text-align: center; color: #FDD017;");
-		// cd.setBackgroundColour("-1");
+		cd.setBackgroundColour("-1");
 
 		PieChart pie = new PieChart();
 		pie.setAlpha(1f);
@@ -238,7 +237,7 @@ public class StandardReportPanel extends Panel {
 		ChartData cd = new ChartData("Kapital in &#8364; nach Runde "
 				+ (game.getCurrentRound() - 1),
 				"font-size: 14px; font-family: Verdana; text-align: center; color: #FDD017;");
-		// cd.setBackgroundColour("-1");
+		cd.setBackgroundColour("-1");
 
 		XAxis xa = new XAxis();
 		List<String> labels = new ArrayList<String>();
@@ -259,7 +258,9 @@ public class StandardReportPanel extends Panel {
 			// setMin = key.intValue();
 		}
 		xa.setLabels(labels);
-		// xa.getLabels().setColour("#FDD017");
+		xa.getLabels().setColour("#FDD017");
+		xa.setGridColour("-1");
+		xa.setColour("#0000FF");
 		xa.setMax(capitalList.size() - 1);
 		xa.setTickHeight(10);
 		cd.setXAxis(xa);
@@ -269,8 +270,10 @@ public class StandardReportPanel extends Panel {
 		ya.setMin(0);
 		int steps = (ya.getMax().intValue() + Math.abs(ya.getMin().intValue())) / 5;
 		ya.setSteps(steps);
-		// ya.getLabels().setColour("#FDD017");
+		ya.setGridColour("-1");
+		ya.setColour("#0000FF");
 		cd.setYAxis(ya);
+		cd.setYAxisLabelStyle(12, "#FDD017");
 
 		BarChart bchart = new BarChart(BarStyle.GLASS);
 		bchart.setColour("#FDD017");
@@ -291,7 +294,7 @@ public class StandardReportPanel extends Panel {
 		ChartData cd = new ChartData("Gewinn in &#8364; nach Runde "
 				+ (game.getCurrentRound() - 1),
 				"font-size: 14px; font-family: Verdana; text-align: center; color: #FDD017;");
-		// cd.setBackgroundColour("-1");
+		cd.setBackgroundColour("-1");
 
 		XAxis xa = new XAxis();
 		List<String> labels = new ArrayList<String>();
@@ -313,7 +316,9 @@ public class StandardReportPanel extends Panel {
 			// setMin = key.intValue();
 		}
 		xa.setLabels(labels);
-		// xa.getLabels().setColour("#FDD017");
+		xa.getLabels().setColour("#FDD017");
+		xa.setGridColour("-1");
+		xa.setColour("#0000FF");
 		xa.setMax(profitList.size() - 1);
 		cd.setXAxis(xa);
 
@@ -327,7 +332,10 @@ public class StandardReportPanel extends Panel {
 		// Math.abs(ya.getMin().intValue())) / 5;
 		// ya.setSteps(steps);
 		ya.setSteps(ya.getMax());
+		ya.setGridColour("-1");
+		ya.setColour("#0000FF");
 		cd.setYAxis(ya);
+		cd.setYAxisLabelStyle(12, "#FDD017");
 
 		BarChart bchart = new BarChart(BarStyle.GLASS);
 		bchart.setColour("#FDD017");
@@ -367,13 +375,5 @@ public class StandardReportPanel extends Panel {
 					/ type.getCapacity()) * type.getStepCosts());
 		}
 		return stepCost;
-	}
-
-	private double getIndex4Company(Group group) {
-		double index = 0.0;
-		for (Toaster toaster : group.getCompany().getToasterList()) {
-			index += toaster.getIndex();
-		}
-		return index;
 	}
 }
