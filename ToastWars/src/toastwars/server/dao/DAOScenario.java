@@ -4,23 +4,17 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-import toastwars.server.datamodel.core.Game;
-import toastwars.server.datamodel.core.Toaster;
+public class DAOScenario {
 
-public class DAOScenario
-{
-
-	public static String getScenarioByRound(int round, Connection con)
-	{
-		try
-		{
+	public static String getScenarioByRound(int round, Connection con) {
+		try {
 			// Abfrage definieren
-			String query = "SELECT Scenario.Description FROM Scenario WHERE  Round = " + round + ";";
+			String query = "SELECT Scenario.Description FROM Scenario WHERE  Round = "
+					+ round + ";";
 			Statement stmt = con.createStatement();
 			ResultSet rst = stmt.executeQuery(query);
 			// Zeileninhalt ermitteln
-			while (rst.next())
-			{
+			while (rst.next()) {
 				String description = rst.getString(1);
 				rst.close();
 				stmt.close();
@@ -30,17 +24,15 @@ public class DAOScenario
 			stmt.close();
 			return null;
 
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
-	public void updateScenario()
-	{
-		try
-		{
-			Connection con = DBConnection.connectToDB();
+
+	public void updateScenario() {
+		try {
+			Connection con = DBConnection.getInstance().connectToDB();
 			Statement stmt = con.createStatement();
 			String query = "UPDATE Scenario SET Scenario.Description = '' WHERE (Scenario.Round=);";
 			stmt.execute(query);
@@ -72,11 +64,10 @@ public class DAOScenario
 			stmt.execute(query);
 			query = "UPDATE Scenario SET Scenario.Description = '' WHERE (Scenario.Round=);";
 			stmt.execute(query);
-			
+
 			stmt.close();
-			DBConnection.closeConnectionToDB(con);
-		} catch (Exception e)
-		{
+			DBConnection.getInstance().closeConnectionToDB(con);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
