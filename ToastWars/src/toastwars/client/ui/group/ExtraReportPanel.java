@@ -1,5 +1,9 @@
 package toastwars.client.ui.group;
 
+/*
+ * Author: Waldemar Geppart
+ * */
+
 import java.util.ArrayList;
 import java.util.List;
 import toastwars.client.Controller;

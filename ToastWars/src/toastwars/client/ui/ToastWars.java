@@ -1,5 +1,9 @@
 package toastwars.client.ui;
 
+/*
+ * Author: Waldemar Geppart
+ * */
+
 import toastwars.client.Controller;
 import toastwars.client.comet.CometController;
 import toastwars.client.ui.group.DecissionPanel;

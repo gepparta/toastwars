@@ -1,5 +1,9 @@
 package toastwars.client.slider;
 
+/*
+ * Author: Waldemar Geppart
+ * */
+
 import com.google.gwt.user.client.ui.ChangeListener;
 import com.google.gwt.user.client.ui.Widget;
 import com.gwtext.client.widgets.form.NumberField;

@@ -1,5 +1,9 @@
 package toastwars.client.ui;
 
+/*
+ * Author: Waldemar Geppart
+ * */
+
 import toastwars.client.Controller;
 import toastwars.server.datamodel.user.Group;
 import toastwars.server.datamodel.user.IUser;

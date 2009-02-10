@@ -1,8 +1,11 @@
 package toastwars.util;
 
+/*
+ * Author: Waldemar Geppart
+ * */
+
 public class NumberUtil {
 
-	// by Waldi
 	public static double roundDouble(double d) {
 		int i = Math.round((float) (d * 100));
 		return i / 100.00;
@@ -12,13 +15,11 @@ public class NumberUtil {
 		return Math.ceil(d);
 	}
 
-	// by Waldi
 	public static int roundIntUp(double d, int stellen) {
 		int i = (int) Math.ceil(d / stellen);
 		return i * stellen;
 	}
 
-	// by Waldi
 	public static int roundIntDown(double d, int stellen) {
 		int i = (int) Math.floor(d / stellen);
 		return i * stellen;
@@ -43,7 +44,7 @@ public class NumberUtil {
 			s.insert(j, '.');
 		}
 
-		// cut after 2
+		// cut after 2. decimal
 		i = s.lastIndexOf(",");
 		if ((s.length() - i) > 3)
 			s = s.delete(i + 3, s.length());

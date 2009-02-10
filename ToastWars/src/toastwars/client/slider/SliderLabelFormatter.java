@@ -1,5 +1,9 @@
 package toastwars.client.slider;
 
+/*
+ * Author: Waldemar Geppart
+ * */
+
 import toastwars.client.slider.SliderBar.LabelFormatter;
 
 public class SliderLabelFormatter implements LabelFormatter {
