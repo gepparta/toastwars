@@ -220,7 +220,7 @@ public class Game implements IsSerializable
 
 						if (stock >= missing)
 						{
-							company.getStock().ReduceStock(toaster.getType(), missing);
+							company.getStock().reduceStock(toaster.getType(), missing);
 							toaster.setProduction(toaster.getMarketShare());
 						}
 
@@ -241,7 +241,7 @@ public class Game implements IsSerializable
 
 							int unavailable = missing - stock;
 
-							company.getStock().ReduceStock(toaster.getType(), stock);
+							company.getStock().reduceStock(toaster.getType(), stock);
 							toaster.setMarketShare(toaster.getProduction() + stock);
 							toaster.setProduction(toaster.getMarketShare());
 
@@ -330,7 +330,7 @@ public class Game implements IsSerializable
 				if (toaster.getProduction() > toaster.getMarketShare())
 				{
 					int differenz = toaster.getProduction() - toaster.getMarketShare();
-					company.getStock().StockUp(toaster.getType(), differenz);
+					company.getStock().stockUp(toaster.getType(), differenz);
 					toaster.setProduction(toaster.getMarketShare());
 				}// if Überproduktion
 

@@ -150,7 +150,7 @@ public class Stock implements IsSerializable {
 	// die Methode gibt 0 zurück.
 	// Falls dies nicht komplett möglich ist, wird das Lager auf 0 reduziert und
 	// die Anzahl der fehlenden Toaster zurückgeliefert.
-	public int ReduceStock(Type typ, int amount) {
+	public int reduceStock(Type typ, int amount) {
 
 		int rest = 0;
 		if (typ == Type.TYPE1) {
@@ -190,7 +190,7 @@ public class Stock implements IsSerializable {
 	// übergebene Menge (amount) eingelagert
 	// oder falls nicht alles eingelagert werden kann, wird bis zum Maximun
 	// eingelagert und der Rest einfach verworfen.
-	public void StockUp(Type typ, int amount) {
+	public void stockUp(Type typ, int amount) {
 
 		if (typ == Type.TYPE1) {
 			if (stockTT1 + amount <= maxStockTT1) {
