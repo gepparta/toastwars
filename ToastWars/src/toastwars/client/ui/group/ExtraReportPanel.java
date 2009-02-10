@@ -153,10 +153,10 @@ public class ExtraReportPanel extends TabPanel {
 
 	private Widget createPriceBarChart(Type type) {
 		ChartWidget chart = new ChartWidget();
-		ChartData cd = new ChartData("Preise in der Runde "
+		ChartData cd = new ChartData("Preise in &#8364; in der Runde "
 				+ (game.getCurrentRound() - 1),
-				"font-size: 14px; font-family: Verdana; text-align: center;");
-		cd.setBackgroundColour("#ffffff");
+				"font-size: 14px; font-family: Verdana; text-align: center; color: #FDD017;");
+		cd.setBackgroundColour("-1");
 
 		List<String> priceList = report.get(type.ordinal()).get(6);
 
@@ -176,6 +176,9 @@ public class ExtraReportPanel extends TabPanel {
 				setMax = key.intValue();
 		}
 		xa.setLabels(labels);
+		xa.getLabels().setColour("#FDD017");
+		xa.setGridColour("-1");
+		xa.setColour("#0000FF");
 		if (priceList.size() > 2)
 			xa.setMax(priceList.size() / 2 - 1);
 		else
@@ -186,10 +189,13 @@ public class ExtraReportPanel extends TabPanel {
 		ya.setSteps((type.getMaxPrice() - type.getMinPrice()) / 5);
 		ya.setMax(type.getMaxPrice());
 		ya.setMin(type.getMinPrice());
+		ya.setGridColour("-1");
+		ya.setColour("#0000FF");
 		cd.setYAxis(ya);
+		cd.setYAxisLabelStyle(12, "#FDD017");
 
 		BarChart bchart = new BarChart(BarStyle.GLASS);
-		bchart.setColour("#00aa00");
+		bchart.setColour("#FDD017");
 		bchart.setTooltip("#val# &#8364;");
 		bchart.addValues(bchartValues);
 		cd.addElements(bchart);
@@ -208,7 +214,7 @@ public class ExtraReportPanel extends TabPanel {
 				"filter:Alpha(opacity=100, finishopacity=80, startx=10, "
 						+ "finishx=484, style=1); -moz-opacity: 0.9 ; font-size: 14px; "
 						+ "font-family: Verdana; text-align: center;");
-		cd.setBackgroundColour("#ffffff");
+		cd.setBackgroundColour("-1");
 
 		PieChart pie = new PieChart();
 		pie.setAlpha(1f);
