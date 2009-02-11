@@ -107,23 +107,23 @@ public class Company implements IsSerializable
 	public void calculateCost()
 	{
 		double tmpCost = 0;
-		double totalInvestmentCosts = 0.0;
+//		double totalInvestmentCosts = 0.0;
 
 		this.stock.calculateTotalStockCosts();
 		for (Toaster toaster : toasterList)
 		{
 			toaster.calculateCost();
 			tmpCost += toaster.getCost();
-			totalInvestmentCosts += toaster.getDesignInvestment()+toaster.getEcologyInvestment()+toaster.getNewspaperInvestment()+toaster.getQualityInvestment()+toaster.getRadioInvestment()+toaster.getTvInvestment();
+//			totalInvestmentCosts += toaster.getDesignInvestment()+toaster.getEcologyInvestment()+toaster.getNewspaperInvestment()+toaster.getQualityInvestment()+toaster.getRadioInvestment()+toaster.getTvInvestment();
 		}
 //		wenn ein Markforschungsbericht angefordert wurde, müssen hier die 
 //		Kosten dafür richtig gebucht werden
-		if (this.isMarketResearchReportON())
-		{
-			totalInvestmentCosts += 5000.0;
-		}
-		this.setCapital(this.getCapital()+totalInvestmentCosts);
-		this.setCost(getCost()+tmpCost+totalInvestmentCosts+ stock.getTotalStockCosts());
+//		if (this.isMarketResearchReportON())
+//		{
+//			totalInvestmentCosts += 5000.0;
+//		}
+//		this.setCapital(this.getCapital()+totalInvestmentCosts);
+		this.setCost(getCost() + tmpCost + stock.getTotalStockCosts());
 	}
 
 	// In dieser Methode wird die Indexberechnung aller Toaster dieser Company ausgeführt.
@@ -175,10 +175,10 @@ public class Company implements IsSerializable
 
 	public void destroyCompany()
 	{
-		this.setTurnover(0.0);
-		this.setProfit(0.0);
-		this.setCost(0.0);
-		this.setMarketShare(0);
+//		this.setTurnover(0.0);
+//		this.setProfit(0.0);
+//		this.setCost(0.0);
+//		this.setMarketShare(0);
 		for (int i = 0; i < this.getToasterList().size(); i++)
 		{
 			this.getToasterList().get(i).destroyToaster();

@@ -496,13 +496,13 @@ public void setTurnover(double turnover)
 	//auf den Spielverlauf mehr nehmen kann.
 	public void destroyToaster()
 	{
-		this.changePriceWithOutCheck(0.0);
-		this.setCost(0.0);
+//		this.changePriceWithOutCheck(0.0);
+//		this.setCost(0.0);
 		this.setDesignInvestment(0);
 		this.setEcologyInvestment(0.0);
 		this.setIndex(0.0);
 		this.setMarketing(0.0);
-		this.setMarketShare(0);
+//		this.setMarketShare(0);
 		this.setNewspaperInvestment(0.0);
 		this.setProduction(0);
 		this.setProfit(0.0);
