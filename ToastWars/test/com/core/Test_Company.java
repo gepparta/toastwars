@@ -340,7 +340,7 @@ public class Test_Company extends TestCase
 		assertNotSame(15000.00, company1.getCost());
 		company1.calculateCost();
 		assertEquals(15000.00, company1.getToasterList().get(0).getCost());
-		assertEquals(35006.00, company1.getCost());
+		assertEquals(35000.00, company1.getCost());
 
 		//Test für eine Company mit drei Toastern
 		assertNotSame(150000.00, company2.getToasterList().get(0).getCost());
@@ -353,7 +353,7 @@ public class Test_Company extends TestCase
 		assertEquals(15000.00, company2.getToasterList().get(0).getCost());
 		assertEquals(15000.00, company2.getToasterList().get(1).getCost());
 		assertEquals(15000.00, company2.getToasterList().get(2).getCost());
-		assertEquals(81268.00, company2.getCost());
+		assertEquals(76250.00, company2.getCost());
 	}
 	@Test
 	public void testCalculateProfit()
