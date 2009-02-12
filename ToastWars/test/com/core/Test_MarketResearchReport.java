@@ -140,5 +140,8 @@ public class Test_MarketResearchReport extends TestCase
 
 		assertFalse(Game.getInstance().getGroupList().get(0).getCompany().isMarketResearchReportON());
 		assertNotNull(Game.getInstance().getGroupList().get(0).getCompany().getReportListe());
+		assertNull(Game.getInstance().getGroupList().get(1).getCompany().getReportListe());
+		assertNull(Game.getInstance().getGroupList().get(2).getCompany().getReportListe());
+
 	}
 }
