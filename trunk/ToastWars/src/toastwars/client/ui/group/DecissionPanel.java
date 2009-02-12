@@ -128,7 +128,9 @@ public class DecissionPanel extends Panel {
 		tabPanel.setSize(965, 310);
 		tabPanel.addListener(new TabChangeListener());
 
-		Button[] buttons = new Button[] { btnSave, btnEnd };
+		ArrayList<Button> buttons = new ArrayList<Button>();
+		buttons.add(btnSave);
+		buttons.add(btnEnd);
 
 		// form for type 1
 		Toaster toasterType1 = group.getCompany().getToasterList().get(0);
