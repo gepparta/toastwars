@@ -443,20 +443,20 @@ public class Test_Game extends TestCase {
 		assertEquals(3000, com2.getMarketShare());
 		assertEquals(0.00, com2.getStock().getTotalStockCosts());
 		assertEquals(30000.00, com2.getTurnover());
-		assertEquals(72000.00, com2.getCost());
+		assertEquals(17000.00, com2.getCost());
 		assertEquals(113000.00, com2.getCapital());
 		
 		
 		assertEquals(1600, com3.getMarketShare());
 		assertEquals(0.00, com3.getStock().getTotalStockCosts());
 		assertEquals(24000.00, com3.getTurnover());
-		assertEquals(99200.00, com3.getCost());
+		assertEquals(14200.00, com3.getCost());
 		assertEquals(109800.00, com3.getCapital());
 		
 		assertEquals(1840, com4.getMarketShare());
 		assertEquals(160, com4.getStock().getStockTT1());
 		assertEquals(36800.00, com4.getTurnover());
-		assertEquals(95200.00, com4.getCost());
+		assertEquals(15200.00, com4.getCost());
 		assertEquals(121600.00, com4.getCapital());
 		
 		

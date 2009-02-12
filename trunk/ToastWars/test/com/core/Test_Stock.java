@@ -190,18 +190,18 @@ private Stock stock1;
 		stock1.setMaxStockTT2(200);
 		stock1.setMaxStockTT3(200);
 		
-		stock1.StockUp(Type.TYPE1, 200);
-		stock1.StockUp(Type.TYPE2, 200);
-		stock1.StockUp(Type.TYPE3, 200);
+		stock1.stockUp(Type.TYPE1, 200);
+		stock1.stockUp(Type.TYPE2, 200);
+		stock1.stockUp(Type.TYPE3, 200);
 
 		assertEquals(200, stock1.getStockTT1());
 		assertEquals(200, stock1.getStockTT2());
 		assertEquals(200, stock1.getStockTT3());
 
 
-		stock1.StockUp(Type.TYPE1, 200);
-		stock1.StockUp(Type.TYPE2, 200);
-		stock1.StockUp(Type.TYPE3, 200);
+		stock1.stockUp(Type.TYPE1, 200);
+		stock1.stockUp(Type.TYPE2, 200);
+		stock1.stockUp(Type.TYPE3, 200);
 
 		assertEquals(200, stock1.getStockTT1());
 		assertEquals(200, stock1.getStockTT2());
@@ -217,9 +217,9 @@ private Stock stock1;
 		stock1.setStockTT2(200);
 		stock1.setStockTT3(200);
 		
-		stock1.ReduceStock(Type.TYPE1,100);
-		stock1.ReduceStock(Type.TYPE2,100);
-		stock1.ReduceStock(Type.TYPE3,100);
+		stock1.reduceStock(Type.TYPE1,100);
+		stock1.reduceStock(Type.TYPE2,100);
+		stock1.reduceStock(Type.TYPE3,100);
 		
 
 
@@ -228,9 +228,9 @@ private Stock stock1;
 		assertEquals(100, stock1.getStockTT3());
 
 
-		assertEquals(100, stock1.ReduceStock(Type.TYPE1,200));
-		assertEquals(100, stock1.ReduceStock(Type.TYPE2,200));
-		assertEquals(100, stock1.ReduceStock(Type.TYPE3,200));
+		assertEquals(100, stock1.reduceStock(Type.TYPE1,200));
+		assertEquals(100, stock1.reduceStock(Type.TYPE2,200));
+		assertEquals(100, stock1.reduceStock(Type.TYPE3,200));
 
 
 		assertEquals(0, stock1.getStockTT1());
