@@ -144,7 +144,7 @@ public class DecissionPanel extends Panel {
 			Toaster toasterType2 = group.getCompany().getToasterList().get(1);
 			decissionFormType2 = new DecissionForm(buttons, capital,
 					toasterType2, newToasterList);
-		} else if (game.getCurrentRound() + 1 > 0) {
+		} else if (game.getCurrentRound() >= 5) {
 			decissionFormType2 = new DecissionForm(buttons, capital,
 					Type.TYPE2, newToasterList);
 		}
@@ -159,7 +159,7 @@ public class DecissionPanel extends Panel {
 			Toaster toasterType3 = group.getCompany().getToasterList().get(2);
 			decissionFormType3 = new DecissionForm(buttons, capital,
 					toasterType3, newToasterList);
-		} else if (game.getCurrentRound() + 1 > 0) {
+		} else if (game.getCurrentRound() >= 10) {
 			decissionFormType3 = new DecissionForm(buttons, capital,
 					Type.TYPE3, newToasterList);
 		}
@@ -247,8 +247,11 @@ public class DecissionPanel extends Panel {
 				setNewGroupData();
 				group.setStatus(Status.EDITED);
 				decissionFormType1.updateToasterData();
-				decissionFormType2.updateToasterData();
-				decissionFormType3.updateToasterData();
+
+				if (decissionFormType2 != null)
+					decissionFormType2.updateToasterData();
+				if (decissionFormType3 != null)
+					decissionFormType3.updateToasterData();
 
 				try {
 					if (newToasterList.size() == 0)
@@ -272,8 +275,10 @@ public class DecissionPanel extends Panel {
 						setNewGroupData();
 						group.setStatus(Status.COMPLETED);
 						decissionFormType1.updateToasterData();
-						decissionFormType2.updateToasterData();
-						decissionFormType3.updateToasterData();
+						if (decissionFormType2 != null)
+							decissionFormType2.updateToasterData();
+						if (decissionFormType3 != null)
+							decissionFormType3.updateToasterData();
 
 						try {
 							if (newToasterList.size() == 0)
