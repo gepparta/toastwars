@@ -51,9 +51,9 @@ public class LoginWindow extends Window {
 		loginPanel.setStyle("background: url(images/starfield_JPG.jpg);");
 
 		userName = new TextField("Benutzer");
-		userName.setValue("Gruppe 1");
+		userName.setValue("");
 		userPass = new TextField("Kennwort");
-		userPass.setValue("pass1");
+		userPass.setValue("");
 		userPass.setPassword(true);
 
 		loginPanel.add(userName);
@@ -70,25 +70,25 @@ public class LoginWindow extends Window {
 		});
 		loginPanel.addButton(loginBtn);
 
-		loginPanel.addButton(new Button("Master", new ButtonListenerAdapter() {
-			public void onClick(Button button, EventObject e) {
-				userName.setValue("Master");
-				userPass.setValue("master");
-			}
-		}));
-
-		loginPanel.addButton(new Button("Gruppe", new ButtonListenerAdapter() {
-			private int	i	= 2;
-
-			public void onClick(Button button, EventObject e) {
-				userName.setValue("Gruppe " + i);
-				userPass.setValue("pass" + i);
-				i++;
-
-				if (i == 5)
-					i = 1;
-			}
-		}));
+//		loginPanel.addButton(new Button("Master", new ButtonListenerAdapter() {
+//			public void onClick(Button button, EventObject e) {
+//				userName.setValue("Master");
+//				userPass.setValue("master");
+//			}
+//		}));
+//
+//		loginPanel.addButton(new Button("Gruppe", new ButtonListenerAdapter() {
+//			private int	i	= 2;
+//
+//			public void onClick(Button button, EventObject e) {
+//				userName.setValue("Gruppe " + i);
+//				userPass.setValue("pass" + i);
+//				i++;
+//
+//				if (i == 5)
+//					i = 1;
+//			}
+//		}));
 
 		return loginPanel;
 	}
