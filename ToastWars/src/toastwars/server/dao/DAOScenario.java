@@ -29,46 +29,4 @@ public class DAOScenario {
 			return null;
 		}
 	}
-
-	public void updateScenario() {
-		try {
-			Connection con = DBConnection.getInstance().connectToDB();
-			Statement stmt = con.createStatement();
-			String query = "UPDATE Scenario SET Scenario.Description = '' WHERE (Scenario.Round=);";
-			stmt.execute(query);
-			query = "UPDATE Scenario SET Scenario.Description = '' WHERE (Scenario.Round=);";
-			stmt.execute(query);
-			query = "UPDATE Scenario SET Scenario.Description = '' WHERE (Scenario.Round=);";
-			stmt.execute(query);
-			query = "UPDATE Scenario SET Scenario.Description = '' WHERE (Scenario.Round=);";
-			stmt.execute(query);
-			query = "UPDATE Scenario SET Scenario.Description = '' WHERE (Scenario.Round=);";
-			stmt.execute(query);
-			query = "UPDATE Scenario SET Scenario.Description = '' WHERE (Scenario.Round=);";
-			stmt.execute(query);
-			query = "UPDATE Scenario SET Scenario.Description = '' WHERE (Scenario.Round=);";
-			stmt.execute(query);
-			query = "UPDATE Scenario SET Scenario.Description = '' WHERE (Scenario.Round=);";
-			stmt.execute(query);
-			query = "UPDATE Scenario SET Scenario.Description = '' WHERE (Scenario.Round=);";
-			stmt.execute(query);
-			query = "UPDATE Scenario SET Scenario.Description = '' WHERE (Scenario.Round=);";
-			stmt.execute(query);
-			query = "UPDATE Scenario SET Scenario.Description = '' WHERE (Scenario.Round=);";
-			stmt.execute(query);
-			query = "UPDATE Scenario SET Scenario.Description = '' WHERE (Scenario.Round=);";
-			stmt.execute(query);
-			query = "UPDATE Scenario SET Scenario.Description = '' WHERE (Scenario.Round=);";
-			stmt.execute(query);
-			query = "UPDATE Scenario SET Scenario.Description = '' WHERE (Scenario.Round=);";
-			stmt.execute(query);
-			query = "UPDATE Scenario SET Scenario.Description = '' WHERE (Scenario.Round=);";
-			stmt.execute(query);
-
-			stmt.close();
-			DBConnection.getInstance().closeConnectionToDB(con);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 }
