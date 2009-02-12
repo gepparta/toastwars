@@ -320,8 +320,10 @@ public class DecissionPanel extends Panel {
 			btnEnd.setDisabled(true);
 			report.setDisabled(true);
 			decissionFormType1.disableSliders();
-			decissionFormType2.disableSliders();
-			decissionFormType3.disableSliders();
+			if (decissionFormType2 != null)
+				decissionFormType2.updateToasterData();
+			if (decissionFormType3 != null)
+				decissionFormType3.updateToasterData();
 		}
 	}
 
