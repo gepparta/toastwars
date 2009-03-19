@@ -39,7 +39,7 @@ public class ToastWarsServiceImpl extends RemoteServiceServlet implements ToastW
 	public void init() throws ServletException
 	{
 		super.init();
-		master = (Master) UserFactory.createUser("Master", "Master", "master");
+		master = (Master) UserFactory.createUser("Master", "Master", "yoda");
 		// connectToDB
 		Connection con = DBConnection.getInstance().connectToDB();
 		if (DAOGame.isGameStarted(con))
