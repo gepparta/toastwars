@@ -1,4 +1,5 @@
 package toastwars.server.dao;
+
 /*
  * Author: Tobias Merx
  * */
@@ -23,11 +24,10 @@ public class DBConnection {
 		return instance;
 	}
 
-	public static Connection connectToDB() {
+	public Connection connectToDB() {
 		try {
 			Connection con = DriverManager
-					.getConnection(
-						"jdbc:mysql://localhost/ToastWars?user=root&password=toastwars");
+					.getConnection("jdbc:mysql://localhost/ToastWars?user=root&password=toastwars");
 			return con;
 		} catch (Exception e) {
 			System.out.println(e.getLocalizedMessage());
@@ -35,7 +35,7 @@ public class DBConnection {
 		return null;
 	}
 
-	public static void closeConnectionToDB(Connection con) {
+	public void closeConnectionToDB(Connection con) {
 		try {
 			if (!(con.isClosed()))
 				con.close();
